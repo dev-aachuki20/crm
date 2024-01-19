@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\DashboardController;
@@ -24,6 +25,8 @@ Route::get('/', function () {
 Auth::routes(['register'=>false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/view-profile', [UserController::class, 'profile'])->name('profile');
+Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('profileUpdate');
 
 Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
