@@ -48,7 +48,7 @@ class UserController extends Controller
                 $user = Auth::user();
                 if (Hash::check($request->old_password, $user->password)) {
                     if($request->old_password == $request->confirm_password){
-                        return back()->with('fail', 'New password must be different from old password..!!')->withInput($request->all());
+                        return back()->with('fail', trans('messages.password_must_change_from_old'))->withInput($request->all());
                     }else{
                         /* Here, Update Your Password */
                         $userData = User::where('id', $user->id)->update([
@@ -58,17 +58,17 @@ class UserController extends Controller
                         $update = $this->UserService->updateUserInfo($request);
 
                         if($update){
-                            return redirect()->route('profile')->with('success', 'Successfully, User updated with password!');
+                            return redirect()->route('profile')->with('success', trans('messages.user_profile_update_with_password'));
                         }
                     }
                 }else{
-                    return back()->with('fail', 'Current Password does not match!')->withInput($request->all());
+                    return back()->with('fail', trans('messages.user_password_doesnot_match'))->withInput($request->all());
                 }
             }else{
                 $update = $this->UserService->updateUserInfo($request);
 
                 if($update){
-                    return redirect(route('profile'))->with('success', 'Successfully, User Updated!');
+                    return redirect(route('profile'))->with('success', trans('messages.user_profile_updated'));
                 }
             }
             
