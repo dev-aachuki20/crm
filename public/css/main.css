@@ -1,0 +1,494 @@
+/*Charset*/
+
+body{
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'Rubik', sans-serif;
+	margin: 0;
+	font-weight: 400;
+	color: #000;
+    transition: all 0.4s ease-in-out;
+}
+a{
+	font-family: 'Rubik', sans-serif;
+	text-decoration: none;
+    transition: all 0.4s ease-in-out;
+	color: #000;
+}
+a:hover{
+	color: #097FF5;
+}
+p{
+	font-family: 'Rubik', sans-serif;
+	margin: 0 0 12px;
+}
+h1, h2, h3, h4, h5, h6{
+	font-weight: 700;
+	margin: 0 0 12px;
+	font-family: 'Rubik', sans-serif;
+}
+h1{
+	font-size:52px;
+	line-height: 62px;
+}
+h2{
+	font-size:45px;
+	line-height: 55px;
+}
+h3{
+	font-size: 35px;
+	line-height: 45px;
+}
+h4{
+	font-size: 30px;
+	line-height: 40px;
+}
+h5{
+	font-size: 25px;
+	line-height: 35px;
+}
+h6{
+	font-size: 22px;
+	line-height: 22px;
+}
+ul{
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+input{
+    outline: 0 !important;
+}
+.form-group {
+    margin-bottom: 22px;
+    position: relative;
+}
+.form-control {
+    height: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
+    border: 2px solid #E2E2E2;
+}
+
+/*---------- LOGIN PAGE CSS START -----------*/
+.account-card {
+    max-width: 556px;
+    background: #E5E5E5;
+    padding: 60px;
+}
+.account-card h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #0d6efd;
+    text-transform: capitalize;
+}
+.account-card .form-control {
+    height: 50px;
+    border-radius: 0;
+    border: 0;
+    padding-left: 25px;
+    font-size: 16px;
+    border-left: 5px solid #097FF5;
+    box-shadow: none !important;
+}
+.btn-primary {
+    width: 100%;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+.forget-pass {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    text-transform: capitalize;
+    color: #1673FF;
+}
+.gridblock-divide {
+	height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.gridblock-divide .column-1{
+	background: hsl(210deg 93% 50% / 50%);
+}
+.gridblock-divide .column-1 .content-inner {
+    text-align: center;
+    max-width: 450px;
+}
+.logoimg{
+	margin-bottom: 30px;
+    padding-bottom: 40px;
+    position: relative;
+}
+.logoimg:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    width: 49px;
+    height: 8px;
+    background: #fff;
+    margin: 0 auto;
+}
+.gridblock-divide .column-1 .content-inner p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 26px;
+    margin: 0;
+}
+.form-icon-password {
+    position: absolute;
+    right: 20px;
+    top: 13px;
+}
+.form-icon-password img {
+    max-width: 20px;
+    width: 100%;
+}
+.form-icon-password:before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 24px;
+    background: #000;
+    transform: rotate(-41deg);
+    right: 0;
+    left: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+}
+.form-icon-password.eye-open:before {
+    display: none;
+}
+/*---------- LOGIN PAGE CSS END -----------*/
+
+/*---------- HOME PAGE CSS START -----------*/
+header {
+    padding: 25px 0;
+    border-bottom: 1px solid #efefef;
+}
+header .container-fluid {
+    max-width: 1850px;
+    margin: 0 auto;
+}
+.header-main li a img {
+    width: 30px;
+}
+.header-main-left .logo img {
+    max-width: 200px;
+}
+.userimg {
+    width: 58px;
+    height: 58px;
+    background: #fff;
+    border-radius: 100%;
+    border: 0;
+    padding: 0;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+.header-main .dropdown-menu {
+    border: 0;
+    box-shadow: 0px 5px 40px rgb(0 0 0 / 10%);
+    border-radius: 12px;
+}
+.header-main .dropdown-menu li {
+    margin-right: 0 !important;
+}
+.headerbtn {
+    background: transparent;
+    padding: 0;
+    border: 0;
+}
+.userimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.header-main li:not(:last-child) {
+    margin-right: 25px;
+}
+.search-identify .logo img {
+    max-width: 570px;
+}
+.search-identify .logo{
+    margin-bottom: 50px;
+}
+.inputWrapper input.form-control {
+    height: 60px;
+    border-left: 0;
+    font-size: 18px;
+    box-shadow: 0px 6px 64px rgba(199, 206, 218, 0.25) !important;
+    padding-right: 60px;
+    border: 1px solid #E2E2E2;
+    border-radius: 0;
+}
+.inputWrapper button.search img {
+    width: 100%;
+    max-width: 35px;
+}
+.inputWrapper .search {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    top: 13px;
+
+}
+section.mainwraaper-sec {
+    padding: 100px 0;
+    min-height: calc(100vh - 218px);
+}
+
+footer {
+    background: #fff;
+    padding: 40px 0;
+    border-top: 1px solid #C6C6C6;
+}
+footer .container{
+    max-width: 1400px;
+}
+.footer-links li a {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.footer-links ul {
+    display: flex;
+    justify-content: space-between;
+}
+/*---------- HOME PAGE CSS END -----------*/
+
+/*---------- PROFILE PAGE CSS START -----------*/
+
+.container {
+    max-width: 1750px;
+}
+.btn-edit {
+    background: #24AED3;
+    box-shadow: 0px 5px 15px rgb(36 174 211 / 40%);
+}
+.btn-save {
+    background: #3CDD9B;
+    box-shadow: 0px 5px 15px rgb(60 221 155 / 75%);
+}
+.btn-cancle {
+    background: #EF0000;
+    box-shadow: 0px 5px 15px rgb(239 0 0 / 36%);
+}
+.btnsmall {
+    color: #fff !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 10px 27px;
+    transition: all 0.4s ease-in-out;
+}
+.btnsmall:hover{
+    opacity: 0.8;
+}
+.buttongroup-block {
+    gap: 20px;
+}
+.wrapperblock label {
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.upload-photo {
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
+    border: 2px solid #E2E2E2;
+    text-align: center;
+    margin-top: 33px;
+}
+.containers .imageWrapper {
+    background: #F5F7F9;
+    width: 116px;
+    height: 116px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 100%;
+}
+.containers .imageWrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.file-upload {
+    padding: 18px 10px;
+    max-width: 237px;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background: #0d6efd;
+    border-radius: 12px;
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 18px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    border: 0 !important;
+    width: 100%;
+}
+.file-upload:hover {
+    background: #3f53fe;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    color: #fff;
+    border: 1px dashed #3f53fe;
+}
+.file-upload input.file-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 100%;
+}
+.listbox {
+    max-height: 170px;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
+    border: 2px solid #E2E2E2;
+
+}
+.checboxcont input {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 7px;
+    position: relative;
+}
+.checboxcont {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 500;
+}
+.checboxcont input:checked:before {
+    position: absolute;
+    content: '';
+    border: 2px solid #000;
+    width: 8px;
+    height: 12px;
+    border-top: 0;
+    transform: rotate(45deg);
+    border-left: 0;
+    left: 6px;
+    top: 2px;
+}
+.checboxcont:not(:last-child) {
+    margin-bottom: 15px;
+}
+.listbox::-webkit-scrollbar {
+    width: 6px;
+    
+}
+ 
+.listbox::-webkit-scrollbar-thumb {
+  background-color: #8E8E8E;
+  border-radius: 30px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+/*---------- PROFILE PAGE CSS END -----------*/
+
+/*---------- CHANNEL PAGE CSS START -----------*/
+.list-creating-channel {
+    border: 2px solid #E2E2E2;
+    border-radius: 40px;
+    padding: 40px;
+}
+.list-creating-channel table thead th {
+    font-size: 22px;
+    text-align: center;
+    padding: 20px 15px;
+}
+.list-creating-channel table tbody td {
+    padding: 15px 15px;
+    font-size: 18px;
+    text-align: center;
+}
+.list-creating-channel .table thead th, .list-creating-channel .table tbody tr td {
+    border-bottom: 1px solid #E2E2E2 !important;
+}
+.list-creating-channel table tbody td:first-child,
+.list-creating-channel table thead th:first-child  {
+    width: 30%;
+    
+}
+/*---------- CHANNEL PAGE CSS END -----------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

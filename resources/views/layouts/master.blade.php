@@ -1,9 +1,9 @@
-@include('../layouts.includes.headerlinks')
+@include('layouts.includes.headerlinks')
 
 <body>
     <main class="main-screen">
         <!-- HEADER START -->
-        @include('../layouts.includes.header')
+        @include('layouts.includes.header')
         <!-- HEADER END -->
 
         <!-- MAIN BLOCK START -->
@@ -31,11 +31,11 @@
 
 
         <!-- FOOTER START -->
-        @include('../layouts.includes.footer')
+        @include('layouts.includes.footer')
         <!-- FOOTER END -->
     </main>
 
-    @include('../layouts.includes.footerlinks')
+    @include('layouts.includes.footerlinks')
 </body>
 
 </html>
