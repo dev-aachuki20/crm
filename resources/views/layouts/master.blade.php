@@ -24,7 +24,7 @@
         <!-- HEADER END -->
 
         <!-- MAIN BLOCK START -->
-        <section class="mainwraaper-sec d-flex justify-content-end align-items-center">
+        <section class="mainwraaper-sec d-flex justify-content-end align-items-center py-4">
             @yield('content')
         </section>
         <!-- MAIN BLOCK END -->
