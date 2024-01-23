@@ -1,4 +1,21 @@
-@include('layouts.includes.headerlinks')
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRM - Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    @stack('styles')
+</head>
 
 <body>
     <main class="main-screen">
@@ -8,33 +25,16 @@
 
         <!-- MAIN BLOCK START -->
         <section class="mainwraaper-sec d-flex justify-content-end align-items-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8">
-                        <div class="search-identify">
-                            <div class="logo text-center"><img src="{{ asset('images/gestiona.svg') }}"
-                                    class="img-fluid" /></div>
-                            <form>
-                                <div class="inputWrapper position-relative">
-                                    <input id="search" type="search" name="" class="form-control"
-                                        placeholder="Search by identification" />
-                                    <button type="button" class="search"><img src="{{ asset('images/search.svg') }}"
-                                            class="img-fluid" /></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @yield('content')
         </section>
         <!-- MAIN BLOCK END -->
-
 
         <!-- FOOTER START -->
         @include('layouts.includes.footer')
         <!-- FOOTER END -->
     </main>
 
+    <!-- SCRIPTS -->
     @include('layouts.includes.footerlinks')
 </body>
 

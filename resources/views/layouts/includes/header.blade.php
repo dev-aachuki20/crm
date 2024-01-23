@@ -3,37 +3,31 @@
         <div class="header-main">
             <div class="row align-items-center">
                 <div class="col-12 col-lg-3">
-                    @if (request()->route()->getName() === 'profile')
-                        <div class="header-main-left">
-                            <a href="" class="logo"><img src="images/gestiona.svg" class="img-fluid" /></a>
-                        </div>
+                    @if (request()->route()->getName() !== 'home')
+                    <div class="header-main-left">
+                        <a href="{{route('home',['lang'=> app()->getLocale()])}}" class="logo"><img src="{{asset('images/gestiona.svg')}}" class="img-fluid" /></a>
+                    </div>
                     @endif
                 </div>
                 <div class="col-12 col-lg-6">
-                    @if (request()->route()->getName() === 'profile')
-                        <form>
-                            <div class="inputWrapper position-relative">
-                                <input id="search" type="search" name="" class="form-control"
-                                    placeholder="Search the ID" />
-                                <button type="button" class="search"><img src="images/search.svg"
-                                        class="img-fluid" /></button>
-                            </div>
-                        </form>
+                    @if (request()->route()->getName() !== 'home')
+                    <form>
+                        <div class="inputWrapper position-relative">
+                            <input id="search" type="search" name="" class="form-control" placeholder="{{__('cruds.search_id')}}" />
+                            <button type="button" class="search"><img src="{{asset('images/search.svg')}}" class="img-fluid" /></button>
+                        </div>
+                    </form>
                     @endif
                 </div>
                 <div class="col-12 col-lg-3">
                     <ul class="d-flex justify-content-end align-items-center">
-                        <li><button type="button" class="headerbtn"><img
-                                    src="{{ asset('images/setting.svg') }}"></button></li>
-                        <li><button type="button" class="headerbtn"><img
-                                    src="{{ asset('images/notification.svg') }}"></button></li>
+                        <li><button type="button" class="headerbtn"><img src="{{ asset('images/setting.svg') }}"></button></li>
+                        <li><button type="button" class="headerbtn"><img src="{{ asset('images/notification.svg') }}"></button></li>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle userimg" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img
-                                    src="{{ asset('images/man.png') }}"></button>
+                            <button class="btn btn-secondary dropdown-toggle userimg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{ asset('images/man.png') }}"></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
-                                <li><a href="{{ route('logout') }}" class="dropdown-item" href="#">Logout</a>
+                                <li><a class="dropdown-item" href="{{ route('profile', ['lang' => app()->getLocale()]) }}">{{__('global.profile')}}</a></li>
+                                <li><a href="{{ route('logout', ['lang' => app()->getLocale()]) }}" class="dropdown-item" href="#">{{__('global.logout')}}</a>
                                 </li>
                             </ul>
                         </div>
