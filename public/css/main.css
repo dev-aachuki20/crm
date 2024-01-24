@@ -1,130 +1,104 @@
 /*Charset*/
 
-body {
-    font-size: 16px;
-    line-height: 24px;
-    font-family: 'Rubik', sans-serif;
-    margin: 0;
-    font-weight: 400;
-    color: #000;
+body{
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'Rubik', sans-serif;
+	margin: 0;
+	font-weight: 400;
+	color: #000;
     transition: all 0.4s ease-in-out;
     overflow-x: hidden;
 }
-
-a {
-    font-family: 'Rubik', sans-serif;
-    text-decoration: none;
+a{
+	font-family: 'Rubik', sans-serif;
+	text-decoration: none;
     transition: all 0.4s ease-in-out;
-    color: #000;
+	color: #000;
 }
-
-a:hover {
-    color: #097FF5;
+a:hover{
+	color: #097FF5;
 }
-
-p {
-    font-family: 'Rubik', sans-serif;
-    margin: 0 0 12px;
+p{
+	font-family: 'Rubik', sans-serif;
+	margin: 0 0 12px;
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 700;
-    margin: 0 0 12px;
-    font-family: 'Rubik', sans-serif;
+h1, h2, h3, h4, h5, h6{
+	font-weight: 700;
+	margin: 0 0 12px;
+	font-family: 'Rubik', sans-serif;
 }
-
-h1 {
-    font-size: 52px;
-    line-height: 62px;
+h1{
+	font-size:52px;
+	line-height: 62px;
 }
-
-h2 {
-    font-size: 45px;
-    line-height: 55px;
+h2{
+	font-size:45px;
+	line-height: 55px;
 }
-
-h3 {
-    font-size: 35px;
-    line-height: 45px;
+h3{
+	font-size: 35px;
+	line-height: 45px;
 }
-
-h4 {
-    font-size: 30px;
-    line-height: 40px;
+h4{
+	font-size: 30px;
+	line-height: 40px;
 }
-
-h5 {
-    font-size: 25px;
-    line-height: 35px;
+h5{
+	font-size: 25px;
+	line-height: 35px;
 }
-
-h6 {
-    font-size: 22px;
-    line-height: 22px;
+h6{
+	font-size: 22px;
+	line-height: 22px;
 }
-
-ul {
+ul{
     padding-left: 0;
     list-style: none;
     margin: 0;
 }
-
-img {
+img{
     max-width: 100%;
     height: auto;
 }
-
-input {
+input{
     outline: 0 !important;
 }
-
-button:focus {
+button:focus{
     box-shadow: none !important;
 }
-
 .form-group {
     margin-bottom: 22px;
     position: relative;
 }
-
 .form-control {
     height: 50px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
     border: 2px solid #E2E2E2;
 }
-
-select.form-control {
-    background-position: 95% center !important;
-    padding-right: 40px;
+select.form-control{
+        background-position: 95% center !important;
+            padding-right: 40px;
     background-size: 15px !important;
     background-repeat: no-repeat !important;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" fill="%23726f6f" opacity="1" data-original="%23000000"></path></g></svg>');
 }
-
 .form-control option {
     text-transform: capitalize;
 }
-
 /*---------- LOGIN PAGE CSS START -----------*/
 .account-card {
     max-width: 556px;
     background: #E5E5E5;
     padding: 60px;
 }
-
 .account-card h3 {
     text-align: center;
     margin-bottom: 25px;
     color: #0d6efd;
     text-transform: capitalize;
 }
-
 .account-card .form-control {
     height: 50px;
     border-radius: 0;
@@ -134,14 +108,12 @@ select.form-control {
     border-left: 5px solid #097FF5;
     box-shadow: none !important;
 }
-
 .btn-primary {
     width: 100%;
     border-radius: 40px;
     padding: 10px 20px;
     font-size: 18px;
 }
-
 .forget-pass {
     margin-top: 10px;
     display: block;
@@ -149,28 +121,27 @@ select.form-control {
     text-transform: capitalize;
     color: #1673FF;
 }
-
 .gridblock-divide {
-    height: 100vh;
+	height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-
-.gridblock-divide .column-1 {
-    background: hsl(210deg 93% 50% / 50%);
+.gridblock-divide .column-2 {
+    padding: 50px 0;
 }
-
+.gridblock-divide .column-1{
+	background: hsl(210deg 93% 50% / 50%);
+}
 .gridblock-divide .column-1 .content-inner {
     text-align: center;
+    padding: 0 15px;
     max-width: 450px;
 }
-
-.logoimg {
-    margin-bottom: 30px;
+.logoimg{
+	margin-bottom: 30px;
     padding-bottom: 40px;
     position: relative;
 }
-
 .logoimg:before {
     position: absolute;
     content: '';
@@ -183,25 +154,21 @@ select.form-control {
     background: #fff;
     margin: 0 auto;
 }
-
 .gridblock-divide .column-1 .content-inner p {
     color: #fff;
     font-size: 18px;
     line-height: 26px;
     margin: 0;
 }
-
 .form-icon-password {
     position: absolute;
     right: 20px;
     top: 13px;
 }
-
 .form-icon-password img {
     max-width: 20px;
     width: 100%;
 }
-
 .form-icon-password:before {
     position: absolute;
     content: '';
@@ -215,11 +182,9 @@ select.form-control {
     top: 0;
     bottom: 0;
 }
-
 .form-icon-password.eye-open:before {
     display: none;
 }
-
 /*---------- LOGIN PAGE CSS END -----------*/
 
 /*---------- HOME PAGE CSS START -----------*/
@@ -227,65 +192,66 @@ header {
     padding: 25px 0;
     border-bottom: 1px solid #efefef;
 }
-
 header .container-fluid {
     max-width: 1850px;
     margin: 0 auto;
 }
-
+.bootstrap-select{
+    margin-bottom: 0 !important;
+}
+.bootstrap-select .dropdown-toggle.btn-default:focus, .bootstrap-select>select.mobile-device:focus+.dropdown-toggle.btn-default{
+    outline: 0 !important;
+}
+.bootstrap-select>.dropdown-toggle {
+    align-items: center;
+    display: flex;
+    border: 1px solid #e2e2e2;
+}
 .header-main li a img {
     width: 30px;
 }
-
 .header-main-left .logo img {
     max-width: 200px;
 }
-
 .userimg {
     width: 58px;
     height: 58px;
     background: #fff;
-    border-radius: 100%;
+    border-radius: 50%;
+    overflow: hidden;
     border: 0;
     padding: 0;
     box-shadow: none !important;
     background: transparent !important;
+    overflow: hidden;
 }
-
 .header-main .dropdown-menu {
     border: 0;
     box-shadow: 0px 5px 40px rgb(0 0 0 / 10%);
     border-radius: 12px;
 }
-
 .header-main .dropdown-menu li {
     margin-right: 0 !important;
 }
-
 .headerbtn {
     background: transparent;
     padding: 0;
     border: 0;
 }
-
-.userimg img {
+.userimg img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .header-main li:not(:last-child) {
     margin-right: 25px;
 }
-
 .search-identify .logo img {
     max-width: 570px;
 }
-
-.search-identify .logo {
+.search-identify .logo{
     margin-bottom: 50px;
 }
-
 .inputWrapper input.form-control {
     height: 60px;
     border-left: 0;
@@ -295,12 +261,10 @@ header .container-fluid {
     border: 1px solid #E2E2E2;
     border-radius: 0;
 }
-
 .inputWrapper button.search img {
     width: 100%;
     max-width: 35px;
 }
-
 .inputWrapper .search {
     border: 0;
     background: transparent;
@@ -310,7 +274,6 @@ header .container-fluid {
     top: 13px;
 
 }
-
 section.mainwraaper-sec {
     padding: 100px 0;
     min-height: calc(100vh - 218px);
@@ -321,50 +284,41 @@ footer {
     padding: 40px 0;
     border-top: 1px solid #C6C6C6;
 }
-
-footer .container {
+footer .container{
     max-width: 1400px;
 }
-
 .footer-links li a {
     font-size: 20px;
     font-weight: 600;
     text-transform: capitalize;
 }
-
 .footer-links ul {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
-
 /*---------- HOME PAGE CSS END -----------*/
 
 /*---------- PROFILE PAGE CSS START -----------*/
-
 .container {
     max-width: 1750px;
 }
-
 .btn-blue {
     background: #24AED3;
     box-shadow: 0px 5px 15px rgb(36 174 211 / 40%);
 }
-
 .btn-green {
     background: #3CDD9B;
     box-shadow: 0px 5px 15px rgb(60 221 155 / 75%);
 }
-
 .btn-red {
     background: #EF0000;
     box-shadow: 0px 5px 15px rgb(239 0 0 / 36%);
 }
-
 .btn-orange {
     background: #FFAB61;
     box-shadow: 0px 5px 15px rgb(253 172 98 / 57%);
 }
-
 .btnsmall {
     color: #fff !important;
     font-weight: 500;
@@ -373,22 +327,18 @@ footer .container {
     padding: 10px 27px;
     transition: all 0.4s ease-in-out;
 }
-
-.btnsmall:hover {
+.btnsmall:hover{
     opacity: 0.8;
 }
-
 .buttongroup-block {
     gap: 20px;
 }
-
 .wrapperblock label {
     font-weight: 600;
     font-size: 18px;
     text-transform: capitalize;
     margin-bottom: 10px;
 }
-
 .upload-photo {
     padding: 40px;
     border-radius: 25px;
@@ -397,7 +347,6 @@ footer .container {
     text-align: center;
     margin-top: 33px;
 }
-
 .containers .imageWrapper {
     background: #F5F7F9;
     width: 116px;
@@ -409,13 +358,11 @@ footer .container {
     margin: 0 auto;
     border-radius: 100%;
 }
-
 .containers .imageWrapper img {
     object-fit: cover;
     width: 100%;
     height: 100%;
 }
-
 .file-upload {
     padding: 18px 10px;
     max-width: 237px;
@@ -433,7 +380,6 @@ footer .container {
     border: 0 !important;
     width: 100%;
 }
-
 .file-upload:hover {
     background: #3f53fe;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
@@ -442,7 +388,6 @@ footer .container {
     color: #fff;
     border: 1px dashed #3f53fe;
 }
-
 .file-upload input.file-input {
     position: absolute;
     top: 0;
@@ -455,17 +400,16 @@ footer .container {
     filter: alpha(opacity=0);
     height: 100%;
 }
-
 .listbox {
-    max-height: 170px;
+    max-height: 365px;
     overflow-y: auto;
+}
+.listbox-wrapper {
     border-radius: 20px;
     padding: 12px;
     box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
     border: 2px solid #E2E2E2;
-
 }
-
 .checboxcont input {
     width: 100%;
     height: 100%;
@@ -479,8 +423,7 @@ footer .container {
     box-shadow: none !important;
     background: transparent !important;
 }
-
-.checboxcont input:before {
+.checboxcont input:before{
     position: absolute;
     content: '';
     left: 0;
@@ -491,7 +434,6 @@ footer .container {
     box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
     border: 2px solid #E2E2E2;
 }
-
 .checboxcont {
     display: flex;
     align-items: center;
@@ -500,7 +442,6 @@ footer .container {
     position: relative;
     padding-left: 35px;
 }
-
 .checboxcont input:checked:after {
     position: absolute;
     content: '';
@@ -513,22 +454,18 @@ footer .container {
     left: 8px;
     top: 3px;
 }
-
 .checboxcont:not(:last-child) {
     margin-bottom: 15px;
 }
-
 .listbox::-webkit-scrollbar,
 .datablock::-webkit-scrollbar {
     width: 6px;
 }
-
 .listbox::-webkit-scrollbar-thumb,
 .datablock::-webkit-scrollbar-thumb {
-    background-color: #8E8E8E;
-    border-radius: 30px;
+  background-color: #8E8E8E;
+  border-radius: 30px;
 }
-
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     background: transparent;
@@ -542,7 +479,6 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     top: 0;
     width: auto;
 }
-
 /*---------- PROFILE PAGE CSS END -----------*/
 
 /*---------- CHANNEL PAGE CSS START -----------*/
@@ -552,22 +488,17 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     padding: 40px;
     box-shadow: 0px 6px 64px rgba(199, 206, 218, 0.25) !important;
 }
-
 .list-creating-channel table thead th {
     font-size: 22px;
     padding: 20px 15px;
 }
-
 .list-creating-channel table tbody td {
     padding: 15px 15px;
     font-size: 18px;
 }
-
-.list-creating-channel .table thead th,
-.list-creating-channel .table tbody tr td {
+.list-creating-channel .table thead th, .list-creating-channel .table tbody tr td {
     border-bottom: 1px solid #E2E2E2 !important;
 }
-
 /*.list-creating-channel table tbody td:first-child,
 .list-creating-channel table thead th:first-child  {
     width: 20%;
@@ -575,55 +506,45 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .list-creating-channel tbody tr:last-child td {
     border: 0 !important;
 }
-
 .edit-delete button {
     background: transparent;
     border: 0;
     padding: 0;
-
+    
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
 }
-
 .edit-delete button svg {
     max-width: 20px;
     height: 20px;
 }
-
 .edit-delete button:not(:last-child) {
     margin-right: 12px;
 }
-
 .new-channel-popup .modal-title {
     text-transform: capitalize;
 }
-
 .new-channel-popup label {
     margin-bottom: 8px;
     text-transform: capitalize;
 }
-
 .new-channel-popup textarea {
     height: 140px;
     resize: none;
 }
-
 button.btn-close {
     box-shadow: none !important;
 }
-
 .modal-content {
     border-radius: 25px;
     border: 2px solid #e2e2e2;
     padding: 15px;
 }
-
 .list-creating-channel h4 {
     text-transform: capitalize;
 }
-
 /*---------- CHANNEL PAGE CSS END -----------*/
 
 /*---------- INERACTION PAGE CSS START -----------*/
@@ -631,25 +552,20 @@ button.btn-close {
     max-width: 15px;
     height: 15px;
 }
-
 .paginationbar .page-link {
     color: #5C5C63;
 }
-
 .paginationbar .page-item.active .page-link {
     background-color: #24aed3;
     border-color: #24aed3;
 }
-
 .paginationbar .page-link {
     color: #5C5C63;
     border-radius: 5px;
 }
-
 .paginationbar .page-item {
     margin: 0 4px;
 }
-
 /*---------- INERACTION PAGE CSS END -----------*/
 
 /*---------- USERS PAGE CSS START -----------*/
@@ -661,19 +577,17 @@ input[type=file] {
     background: #fff;
     border: 2px solid #e2e2e2;
 }
-
 input[type=file]::file-selector-button {
-    margin-right: 20px;
-    border: none;
-    background: #24AED3 !important;
-    padding: 10px 20px;
-    border-radius: 0 10px 10px 0;
-    height: 50px;
-    color: #fff;
-    cursor: pointer;
-    transition: background .2s ease-in-out;
+  margin-right: 20px;
+  border: none;
+  background: #24AED3 !important;
+  padding: 10px 20px;
+  border-radius: 0 10px 10px 0;
+  height: 50px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
 }
-
 /*---------- USERS PAGE CSS END -----------*/
 
 /*---------- LEADS PAGE CSS START -----------*/
@@ -682,10 +596,9 @@ input[type=file]::file-selector-button {
 }
 
 .modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
-    background-color: #8E8E8E;
-    border-radius: 30px;
+  background-color: #8E8E8E;
+  border-radius: 30px;
 }
-
 /*---------- LEADS PAGE CSS END -----------*/
 
 /*---------- PROFILE DATA PAGE CSS START -----------*/
@@ -697,122 +610,126 @@ input[type=file]::file-selector-button {
     border-right-width: 1px;
     border-bottom-width: 1px;
 }
-
-.datablock {
+.datablock{
     max-height: 358px;
     overflow-y: auto;
 }
-
 .registered-data h4 {
     padding: 30px;
     border-bottom: 1px solid #e2e2e2;
     margin-bottom: 0;
 }
-
 .datablock {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
-
 .datablockitem {
     padding: 18px 30px;
     border-bottom: 1px solid #e2e2e2;
     border-right: 1px solid #e2e2e2;
 }
-
 .dataitem {
     font-size: 20px;
     font-weight: 500;
     color: #A5A5A5;
 }
-
 .observation-data {
     margin-top: 45px;
 }
-
 .datablock-observationinner {
     padding-left: 40px;
     margin-top: 30px;
 }
-
 .datablock-observation ul {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
 .datablock-observation ul li {
     font-weight: 500;
 }
-
-.datablock-observation ul li span {
+.datablock-observation ul li span{
     font-weight: 300;
 }
-
 .sidebyside {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
 .sidebyside .right img {
     display: block;
     max-width: 35px;
     margin: 10px auto;
 }
-
 .sidebyside .left {
     max-width: 330px;
     flex: 330px;
 }
-
 .sidebyside .right {
     text-align: center;
 }
-
 .daily-task {
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(199, 206, 218, 0.25) !important;
     border: 2px solid #E2E2E2;
     padding: 30px;
 }
-
 .daily-taskbox {
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
 }
-
-.daily-taskbox:last-child {
+.daily-taskbox:last-child{
     margin-bottom: 0;
 }
-
 .task-buttongroup {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
 }
-
 .daily-taskbox:first-child {
     background: rgb(186 12 12 / 20%);
 }
-
-.daily-taskbox:nth-child(2) {
+.daily-taskbox:nth-child(2){
     background: rgb(255 255 77 / 38%);
 }
-
-.daily-taskbox:nth-child(3) {
+.daily-taskbox:nth-child(3){
     background: rgb(116 216 108 / 38%);
 }
-
-.daily-taskbox:nth-child(4) {
-    background: rgb(221 221 221 / 38%);
+.daily-taskbox:nth-child(4){
+    background:rgb(221 221 221 / 38%);
 }
-
 .task-buttongroup button {
     padding: 10px 15px;
     font-size: 14px;
 }
-
 /*---------- PROFILE DATA PAGE CSS END -----------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

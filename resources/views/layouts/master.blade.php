@@ -19,22 +19,15 @@
 
 <body>
     <main class="main-screen">
-        <!-- HEADER START -->
         @include('layouts.includes.header')
-        <!-- HEADER END -->
 
-        <!-- MAIN BLOCK START -->
         <section class="mainwraaper-sec d-flex justify-content-end align-items-center py-4">
             @yield('content')
         </section>
-        <!-- MAIN BLOCK END -->
 
-        <!-- FOOTER START -->
         @include('layouts.includes.footer')
-        <!-- FOOTER END -->
     </main>
 
-    <!-- SCRIPTS -->
     @include('layouts.includes.footerlinks')
 </body>
 

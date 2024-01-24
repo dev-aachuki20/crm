@@ -1,6 +1,4 @@
 @extends('layouts.master')
-
-<!-- MAIN BLOCK START -->
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -206,7 +204,6 @@
         </nav>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade new-channel-popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -7,46 +7,44 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Uploads;
+use App\Http\Requests\UpdateUserRequest;
+
+use function PHPUnit\Framework\isNull;
 
 class ProfileController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        $userDetail = User::where('id', Auth::user()->id)->first();
+        $userDetail = Auth::user();
         $roles = Role::all();
         return view('auth.profile.profile', compact('userDetail', 'roles'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(UpdateUserRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'birthdate' => 'required|date_format:Y-m-d',
-            'username' => 'required|string|max:255',
-            'password' => 'nullable|string|min:6|confirmed',
-        ]);
+        $user = Auth::User();
+        $inputs = $request->all();
+        if (isNull($request->password)) {
+            $inputs = $request->except('password');
+        }
+        $user->update($inputs);
+        $user->roles()->sync($request->input('roles', []));
 
-        $user = Auth::user();
+        if ($request->image) {
+            if ($user->profileImage) {
+                $uploadImageId = $user->profileImage->id;
+                uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'update', $uploadImageId);
+            } else {
+                uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'save', null);
+            }
+        }
 
-        $user->update($validatedData);
-
-        return redirect()->route('profile')->with('success', 'Profile updated successfully');
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 }
