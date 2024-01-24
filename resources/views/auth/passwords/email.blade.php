@@ -24,10 +24,10 @@
                 <div class="row">
                     <div class="col-12 col-lg-12">
                         <div class="form-group">
-                            <input type="email" placeholder="Email ID" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
+                            <input type="email" placeholder="Email ID" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus />
                             @error('email')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                {{ $message }}
                             </span>
                             @enderror
 

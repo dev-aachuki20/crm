@@ -41,7 +41,7 @@
                     <input type="text" name="first_name" value="{{ $userDetail->first_name }}" class="form-control @error('first_name') is-invalid @enderror" />
                     @error('first_name')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -50,7 +50,7 @@
                     <input type="text" name="last_name" value="{{ $userDetail->last_name }}" class="form-control @error('last_name') is-invalid @enderror" />
                     @error('last_name')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -59,7 +59,7 @@
                     <input id="email" type="email" name="email" value="{{ $userDetail->email }}" class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -68,7 +68,7 @@
                     <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" />
                     @error('birthdate')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -79,7 +79,7 @@
                     <input type="text" name="username" value="{{ $userDetail->username }}" class="form-control @error('username') is-invalid @enderror" autocomplete="current-password" />
                     @error('username')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -96,7 +96,7 @@
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -105,7 +105,7 @@
                     <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>

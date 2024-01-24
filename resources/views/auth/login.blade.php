@@ -20,23 +20,23 @@
                 <div class="row">
                     <div class="col-12 col-lg-12">
                         <div class="form-group">
-                            <input id="email" type="email" name="email" placeholder="Email ID" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus />
+                            <input id="email" type="email" name="email" placeholder="Email ID" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="email" autofocus />
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                {{ $message }}
                             </span>
                             @enderror
                         </div>
                     </div>
                     <div class="col-12 col-lg-12">
-                        <div class="form-group">
-                            <input id="password" type="password" name="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" required autocomplete="current-password" />
+                        <div class="form-group @error('password') invalidGroup @enderror">
+                            <input id="password" type="password" name="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" autocomplete="current-password" />
                             <span toggle="#password-field" class="form-icon-password toggle-password"><img src="images/view.svg" class="img-fluid" /></span>
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                {{ $message }}
                             </span>
                             @enderror
                         </div>

@@ -56,14 +56,24 @@ class LoginController extends Controller
         return redirect()->route('home', ['lang' => $userLanguage]); */
 
 
+        // $languageCode = Language::where('id', $user->language_id)->value('code');
+        // $lang = !empty($languageCode) ? $user->{$languageCode} : 'en';
+
+        // // Redirect to the home page in the user's preferred language
+        // return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login'));
+
+
+
+
+
         $language = Language::where('id', $user->language_id)->value('code');
-        if(!empty($language) && $user){
+        if (!empty($language) && $user) {
             $lang = $language;
-        }else{
+        } else {
             $lang = 'en';
         }
 
-        return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login').' '.$user->name.'.');
+        return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login'));
     }
 
 

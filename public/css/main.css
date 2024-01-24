@@ -709,7 +709,9 @@ input[type=file]::file-selector-button {
 
 
 
-
+.form-group.invalidGroup .form-icon-password{
+    right: 34px;
+}
 
 
 

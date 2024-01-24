@@ -21,10 +21,10 @@
                 <div class="row">
                     <div class="col-12 col-lg-12">
                         <div class="form-group">
-                            <input type="password" name="password" placeholder="generate" class="form-control @error('password') is-invalid @enderror" required />
+                            <input type="password" name="password" placeholder="generate" class="form-control @error('password') is-invalid @enderror" />
                             @error('password')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                {{ $message }}
                             </span>
                             @enderror
                         </div>
