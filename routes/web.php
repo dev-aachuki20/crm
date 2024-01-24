@@ -35,9 +35,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+// Route::get('/login', function () {
+//     return view('auth.login');
+// });
 
 Auth::routes(['register' => false]);
 
@@ -47,11 +47,11 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
-    Route::get('/{lang?}/home', [HomeController::class, 'index'])->name('home');
+    Route::get('{lang?}/home', [HomeController::class, 'index'])->name('home');
     Route::get('/{lang?}/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/{lang?}/profile', [ProfileController::class, 'index'])->name('profile');
 
-    Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/{lang?}/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
     Route::get('/{lang?}/channels', [ChannelController::class, 'index'])->name('channels');
 
@@ -60,10 +60,11 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/{lang?}/users', [UserController::class, 'index'])->name('users');
     Route::get('/{lang?}/leads', [LeadController::class, 'index'])->name('leads');
 
+    Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
 
 
-    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+    // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
 
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    });
+    //     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // });
 });

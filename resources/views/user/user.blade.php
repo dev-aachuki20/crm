@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<!-- MAIN BLOCK START -->
 <div class="container">
     <div class="headingbar">
         <div class="row">

@@ -24,7 +24,7 @@
                         <li><button type="button" class="headerbtn"><img src="{{ asset('images/setting.svg') }}"></button></li>
                         <li><button type="button" class="headerbtn"><img src="{{ asset('images/notification.svg') }}"></button></li>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle userimg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{ asset('images/man.png') }}"></button>
+                            <button class="btn btn-secondary dropdown-toggle userimg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{Auth::user() ? Auth::user()->profile_image_url : asset('images/man.png')}}"></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" href="{{ route('profile', ['lang' => app()->getLocale()]) }}">{{__('global.profile')}}</a></li>
                                 <li><a href="{{ route('logout', ['lang' => app()->getLocale()]) }}" class="dropdown-item" href="#">{{__('global.logout')}}</a>

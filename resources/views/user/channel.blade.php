@@ -1,6 +1,4 @@
 @extends('layouts.master')
-
-<!-- MAIN BLOCK START -->
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -96,4 +94,3 @@
     </div>
 </div>
 @endsection
-<!-- MAIN BLOCK END -->

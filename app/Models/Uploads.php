@@ -33,7 +33,7 @@ class Uploads extends Model
         parent::boot();
 
         self::deleted(function ($model) {
-            Storage::disk('public')->delete($model->file_path); 
+            Storage::disk('public')->delete($model->file_path);
             // return parent::delete();
         });
     }
@@ -41,8 +41,8 @@ class Uploads extends Model
     public function getFileUrlAttribute()
     {
         $media = "";
-        if(Storage::disk('public')->exists($this->file_path)){
-            $media = asset('storage/'.$this->file_path);
+        if (Storage::disk('public')->exists($this->file_path)) {
+            $media = asset('storage/' . $this->file_path);
         }
         return $media;
     }

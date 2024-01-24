@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UsersTableSeeder extends Seeder
                 'username'       => 'admin123',
                 'email'          => 'dev@gmail.com',
                 'birthDate'      => '2000-07-19',
-                'password'       => bcrypt('12345678'),
+                'password'       =>  Hash::make('12345678'),
                 'remember_token' => null,
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at'     => date('Y-m-d H:i:s'),
@@ -34,7 +35,7 @@ class UsersTableSeeder extends Seeder
                 'username'       => 'supervisor123',
                 'email'          => 'supervisor123@gmail.com',
                 'birthDate'      => '2000-07-19',
-                'password'       => bcrypt('12345678'),
+                'password'       =>  Hash::make('12345678'),
                 'remember_token' => null,
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at'     => date('Y-m-d H:i:s'),
@@ -49,7 +50,7 @@ class UsersTableSeeder extends Seeder
                 'username'       => 'administrador123',
                 'email'          => 'administrador@gmail.com',
                 'birthDate'      => '2000-07-19',
-                'password'       => bcrypt('12345678'),
+                'password'       =>  Hash::make('12345678'),
                 'remember_token' => null,
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at'     => date('Y-m-d H:i:s'),
@@ -64,7 +65,7 @@ class UsersTableSeeder extends Seeder
                 'username'       => 'vendor123',
                 'email'          => 'vendor@gmail.com',
                 'birthDate'      => '2000-07-19',
-                'password'       => bcrypt('12345678'),
+                'password'       =>  Hash::make('12345678'),
                 'remember_token' => null,
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at'     => date('Y-m-d H:i:s'),

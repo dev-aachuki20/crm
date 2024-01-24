@@ -60,7 +60,6 @@ class User extends Authenticatable
         return $this->morphMany(Uploads::class, 'uploadsable');
     }
 
-  
     public function getIsSuperAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
@@ -83,12 +82,12 @@ class User extends Authenticatable
 
     public function profileImage()
     {
-        return $this->morphOne(Uploads::class, 'uploadsable')->where('type','profile');
+        return $this->morphOne(Uploads::class, 'uploadsable')->where('type', 'profile');
     }
 
     public function getProfileImageUrlAttribute()
     {
-        if($this->profileImage){
+        if ($this->profileImage) {
             return $this->profileImage->file_url;
         }
         return "";
@@ -109,4 +108,10 @@ class User extends Authenticatable
             $message->to($data[0]);
         });
     }
+    public function isAssignedRole($roleId)
+    {
+        return $this->roles->contains('id', $roleId);
+    }
+
+    
 }
