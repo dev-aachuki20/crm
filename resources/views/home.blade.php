@@ -1,32 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="search-identify">
+                    <div class="logo text-center"><img src="{{ asset('images/gestiona.svg') }}" class="img-fluid" /></div>
+                    <form>
+                        <div class="inputWrapper position-relative">
+                            <input id="search" type="search" name="" class="form-control" placeholder="{{__('cruds.search_by_identification')}}" />
+                            <button type="button" class="search"><img src="{{ asset('images/search.svg') }}" class="img-fluid" /></button>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                    <div style="float: right;">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-                
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
