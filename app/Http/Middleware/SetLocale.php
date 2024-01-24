@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Language;
 
 class SetLocale
 {
@@ -18,8 +19,11 @@ class SetLocale
     {
         $user = Auth::user();
 
-        if ($user && $user->language) {
-            app()->setLocale($user->language);
+        if ($user) {
+            $languageCode = Language::where('id', $user->language_id)->value('code');
+            $userLanguage = $languageCode ?? 'en';
+            \Log::info($userLanguage);
+            app()->setLocale($userLanguage);
         }
 
         return $next($request);

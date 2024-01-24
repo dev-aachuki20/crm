@@ -30,6 +30,11 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+    /* protected function redirectTo()
+    {
+        return redirect()->url('/en/home');
+    } */
+
     /**
      * Create a new controller instance.
      *
@@ -42,13 +47,23 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $language = Language::where('id', $user->language_id)->value('code');
+        /* $language = Language::where('id', $user->language_id)->value('code');
 
         // Get the authenticated user's preferred language
         $userLanguage = $user->$language ?? 'en';
 
         // Redirect to the home page in the user's preferred language
-        return redirect()->route('home', ['lang' => $userLanguage]);
+        return redirect()->route('home', ['lang' => $userLanguage]); */
+
+
+        $language = Language::where('id', $user->language_id)->value('code');
+        if(!empty($language) && $user){
+            $lang = $language;
+        }else{
+            $lang = 'en';
+        }
+
+        return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login').' '.$user->name.'.');
     }
 
 

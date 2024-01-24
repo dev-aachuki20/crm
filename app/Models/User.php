@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\PasswordReset;
 
 class User extends Authenticatable
 {
@@ -91,5 +92,21 @@ class User extends Authenticatable
             return $this->profileImage->file_url;
         }
         return "";
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $data = [
+            $this->email
+        ];
+        $url = \URL::to('/password/reset/'.$token.'?email='.$this->email);
+       
+        \Mail::send('emails.reset-password', [
+            'fullname'      => $this->name,
+            'reset_url'     => $url,
+        ], function($message) use($data){
+            $message->subject('Reset Password Request');
+            $message->to($data[0]);
+        });
     }
 }

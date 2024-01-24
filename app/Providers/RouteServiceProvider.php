@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Language;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    
     public const HOME = '/home';
+
+    protected $defaultHomePath = '/en/home';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -25,7 +30,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            // return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return Limit::none();
         });
 
         $this->routes(function () {
@@ -35,6 +41,20 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        /* Language Dynamic check and Pass for HOME */
+        $user = Auth::user();
+        if ($user && $user->language_id) {
+            $languageCode = Language::where('id', $user->language_id)->value('code');
+            $userLanguage = $languageCode ?? 'en';
+            $homePath = "/{$userLanguage}/home";
+        } else {
+            $homePath = $this->defaultHomePath;
+        }
+
+        $this->app->bind('path.home', function () use ($homePath) {
+            return $homePath;
         });
     }
 }
