@@ -23,14 +23,14 @@
 
 <body>
     <main class="main-screen">
-        <div id="toaster-container"></div>
+        {{-- <div id="toaster-container"></div>
         @if(session('success'))
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     showToaster("{{ session('success') }}", 'success');
                 });
             </script>
-        @endif
+        @endif --}}
         <!-- HEADER START -->
         @include('layouts.includes.header')
 
@@ -46,7 +46,7 @@
 
 </html>
 
-<script>
+{{-- <script>
     function showToaster(message, type) {
         var toasterContainer = document.getElementById('toaster-container');
         var toaster = document.createElement('div');
@@ -64,4 +64,4 @@
             });
         }, 3000);
     }
-</script>
+</script> --}}

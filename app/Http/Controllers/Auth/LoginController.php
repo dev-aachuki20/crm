@@ -58,7 +58,9 @@ class LoginController extends Controller
         $language = \Session::get('userLanguage');
         $lang = $language ? $language : 'en';
 
-        return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login'));
+        // return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login'));
+        toastr()->success(trans('messages.you_are_successfully_login'));
+        return redirect()->route('home', ['lang' => $lang]);
     }
 
 
