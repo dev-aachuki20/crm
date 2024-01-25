@@ -26,7 +26,7 @@
                 <div class="upload-photo">
                     <div class="containers">
                         <div class="imageWrapper">
-                            <img class="image" src="{{$userDetail ? $userDetail->profile_image_url : asset('images/man.png')}}" class="img-fluid" />
+                            <img class="image" src="{{$userDetail->profile_image_url ? $userDetail->profile_image_url : asset('images/man.png')}}" class="img-fluid" />
                         </div>
                     </div>
                     <h5 class="mt-3">{{ $userDetail->name }}</h5>

@@ -103,6 +103,7 @@ class User extends Authenticatable
         \Mail::send('emails.reset-password', [
             'fullname'      => $this->name,
             'reset_url'     => $url,
+            'email'         => $this->email,
         ], function($message) use($data){
             $message->subject('Reset Password Request');
             $message->to($data[0]);

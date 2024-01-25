@@ -1,67 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.1);
-        }
-        .card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px 0 hsla(10, 0%, 0%, 0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #007bff;
-            font-size: 24px;
-        }
-        p {
-            line-height: 1.6;
-            font-size: 16px;
-        }
-        .button {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <h2>Forgot Your Password?</h2>
+@extends('emails.admin')
+@section('email-content')
+    <tr>
+        <td>
+            <p class="mail-title" style="font-size:14px;">
+                <b>Hello</b> {{ ucwords($fullname) }},
+            </p>
+            <div class="mail-desc">
+                <p style="font-size:14px;">
+                    We have received a request to reset your password for {{ config('app.name') }}. To proceed with the password reset, please click the button below:
+                </p>
+                <div style="text-align: center;">
+                    <a href="{{$reset_url}}" style="display: inline-block; background-color: #007bff; color: #fff; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-size: 16px;">Reset Password</a>
+                </div>                      
+                <p style="font-size:14px;">
+                    Upon successful password reset, you will receive this email as a confirmation.
+                </p>
+                <div class="mail-desc">
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="font-size: 14px;">
+                            Email: <a href="mailto:{{$email}}" target="_blank" style="text-decoration: none; color: #007bff;">{{$email}}</a>
+                        </li>
+                    </ul>                        
+                </div>
             </div>
-            <p>Hello {{ $fullname }},</p>
-            <p>We received a request to reset your password. Click the button below to reset it:</p>
-            <a href="{{$reset_url}}" class="button" style="color:#fff">Reset Password</a>
-            <p>If you did not request a password reset, no further action is required.</p>
-            <p>Thank you!</p>
-        </div>
-    </div>
-</body>
-</html>
+        </td>
+    
+        <tr>
+            <td>
+                <p style="font-size:14px;">
+                    If you have any questions or need further assistance, please don't hesitate to contact our support team.
+                </p>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p style="font-size:14px;">Best regards,</p>
+                <p style="font-size:14px;">{{ config('app.name') }}</p>
+            </td>
+        </tr>
+    </tr>
+@endsection

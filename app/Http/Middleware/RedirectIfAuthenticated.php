@@ -17,7 +17,7 @@ class RedirectIfAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    /* public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
 
@@ -28,15 +28,15 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
-    } */
+    }
 
-    public function handle($request, Closure $next, $guard = null)
+    /* public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
             $user = Auth::user();
 
             if ($user) {
-                $languageCode = Language::where('id', $user->language_id)->value('code');
+                $languageCode = \Session::get('userLanguage');
                 $userLanguage = $languageCode ?? 'en';
                 $homePath = "/{$userLanguage}/home";
             } else {
@@ -46,5 +46,5 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
-    }
+    } */
 }

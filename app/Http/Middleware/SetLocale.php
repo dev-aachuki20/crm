@@ -20,9 +20,8 @@ class SetLocale
         $user = Auth::user();
 
         if ($user) {
-            $languageCode = Language::where('id', $user->language_id)->value('code');
+            $languageCode = \Session::get('userLanguage');
             $userLanguage = $languageCode ?? 'en';
-            \Log::info($userLanguage);
             app()->setLocale($userLanguage);
         }
 

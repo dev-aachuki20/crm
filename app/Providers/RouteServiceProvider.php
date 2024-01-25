@@ -20,9 +20,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     
-    public const HOME = '/home';
-
-    protected $defaultHomePath = '/en/home';
+    // public const HOME = '/home';
+    public const HOME = 'en/home';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -30,8 +29,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         RateLimiter::for('api', function (Request $request) {
-            // return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-            return Limit::none();
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
         $this->routes(function () {
@@ -44,17 +42,28 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         /* Language Dynamic check and Pass for HOME */
-        $user = Auth::user();
+        /* $user = Auth::user();
         if ($user && $user->language_id) {
             $languageCode = Language::where('id', $user->language_id)->value('code');
             $userLanguage = $languageCode ?? 'en';
             $homePath = "/{$userLanguage}/home";
         } else {
             $homePath = $this->defaultHomePath;
+        } */
+
+        /* $user = Auth::user();
+        if ($user) {
+            $languageCode = \Session::get('userLanguage');
+            $userLanguage = $languageCode ?? 'en';
+            $homePath = "/{$userLanguage}/home";
+        } else {
+            $homePath = $this->defaultHomePath;
         }
+
+        
 
         $this->app->bind('path.home', function () use ($homePath) {
             return $homePath;
-        });
+        }); */
     }
 }
