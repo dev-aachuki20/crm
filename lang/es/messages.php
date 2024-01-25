@@ -16,6 +16,7 @@ return [
     'user_password_doesnot_match' => 'La contraseña actual no coincide!',
     'sorry_unable_to_update'    => 'Lo sentimos, ¡no se puede actualizar!',
     'you_are_successfully_login'    => 'Has iniciado sesión con éxito! Bienvenido,',
+    'you_are_successfully_logout' => 'Cerré sesión correctamente!',
 
     'email_messages' => [],
 ];

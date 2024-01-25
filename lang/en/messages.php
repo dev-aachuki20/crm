@@ -16,6 +16,7 @@ return [
     'user_password_doesnot_match' => 'Current Password does not match!',
     'sorry_unable_to_update'    => 'Sorry, Unable to update!',
     'you_are_successfully_login'    => 'Logged in successfully!',
+    'you_are_successfully_logout'    => 'Logged out successfully!',
 
     'email_messages' => [],
 ];

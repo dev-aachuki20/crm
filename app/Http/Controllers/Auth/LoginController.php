@@ -67,6 +67,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        toastr()->success(trans('messages.you_are_successfully_logout'));
         Auth::logout();
         return redirect('/login');
     }
