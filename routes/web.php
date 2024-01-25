@@ -35,65 +35,31 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route::get('/login', function () {
-//     return view('auth.login');
-// });
-
 Auth::routes(['register' => false]);
-
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/view-profile', [UserController::class, 'profile'])->name('profile');
-// Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('profileUpdate');
-
-/* Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
-
-    Route::get('{lang?}/home', [HomeController::class, 'index'])->name('home');
-    // Route::get('/{lang?}/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/{lang?}/profile', [ProfileController::class, 'index'])->name('profile');
-
-    Route::post('/{lang?}/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-
-    Route::get('/{lang?}/channels', [ChannelController::class, 'index'])->name('channels');
-
-    Route::get('/{lang?}/campaigns', [CampaignController::class, 'index'])->name('campaigns');
-    Route::get('/{lang?}/interactions', [InteractionController::class, 'index'])->name('interactions');
-    Route::get('/{lang?}/users', [UserController::class, 'index'])->name('users');
-    Route::get('/{lang?}/leads', [LeadController::class, 'index'])->name('leads');
-    Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
-
-    Route::resource('users', UserController::class);
-    Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
-    Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
-
-    // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
-
-    //     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // });
-}); */
-
-
 
 Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], function () {
     Route::prefix('{lang?}')->group(function () {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    
+
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-    
+
         Route::get('/channels', [ChannelController::class, 'index'])->name('channels');
-    
+
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-
-        
-    
     });
     Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     Route::resource('users', UserController::class);
-    
+
     Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
     Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
+
+    // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+
+    //     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // });
 
 });

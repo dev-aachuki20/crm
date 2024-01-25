@@ -13,7 +13,6 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'id'             => 1,
-                'language_id'    => 1,
                 'first_name'     => 'Super',
                 'last_name'      => 'Admin',
                 'name'           => 'Super Admin',
@@ -28,7 +27,6 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id'             => 2,
-                'language_id'    => 1,
                 'first_name'     => 'Supervisor',
                 'last_name'      => null,
                 'name'           => 'Supervisor',
@@ -43,7 +41,6 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id'             => 3,
-                'language_id'    => 1,
                 'first_name'     => 'Administrador',
                 'last_name'      => null,
                 'name'           => 'Administrador',
@@ -58,7 +55,6 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id'             => 4,
-                'language_id'    => 1,
                 'first_name'     => 'Vendor',
                 'last_name'      => null,
                 'name'           => 'Vendor',
