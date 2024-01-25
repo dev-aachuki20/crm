@@ -36,6 +36,7 @@ return [
             'sponser_id'               => 'ID del patrocinador',
             'sponser_name'             => 'Nombre del patrocinador',
             'joining_date'             => 'Fecha de ingreso',
+            'registration_date'        => 'Fecha de Registro',
         ],
 
         'profile'         => [
@@ -126,6 +127,7 @@ return [
     'cancel' => 'Cancelar',
     'add'    => 'Agregar',
     'list_created_channel'    => 'Lista de canales creados',
+    'new' => 'Nueva',
 
 
 ];

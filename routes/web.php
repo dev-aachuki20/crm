@@ -41,10 +41,6 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/view-profile', [UserController::class, 'profile'])->name('profile');
-// Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('profileUpdate');
-
 Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
     Route::get('{lang?}/home', [HomeController::class, 'index'])->name('home');
@@ -59,9 +55,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/{lang?}/interactions', [InteractionController::class, 'index'])->name('interactions');
     Route::get('/{lang?}/users', [UserController::class, 'index'])->name('users');
     Route::get('/{lang?}/leads', [LeadController::class, 'index'])->name('leads');
+    Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
-    Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
-
+    Route::resource('users', UserController::class);
 
     // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
 

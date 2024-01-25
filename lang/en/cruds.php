@@ -34,6 +34,7 @@ return [
             'deleted_at'               => 'Deleted at',
             'sponser_id'               => 'Sponser ID',
             'joining_date'             => 'Joining Date',
+            'registration_date'        => 'Registration Date',
         ],
 
         'profile'         => [
@@ -123,6 +124,6 @@ return [
     'cancel' => 'Cancel',
     'add'    => 'Add',
     'list_created_channel'    => 'List Of Created Channel',
-
+    'new' => 'New',
 
 ];

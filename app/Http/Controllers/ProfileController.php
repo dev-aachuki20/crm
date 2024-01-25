@@ -23,7 +23,7 @@ class ProfileController extends Controller
     {
         $userDetail = Auth::user();
         $roles = Role::all();
-        return view('auth.profile.profile', compact('userDetail', 'roles'));
+        return view('auth.profile.index', compact('userDetail', 'roles'));
     }
 
     public function updateProfile(UpdateUserRequest $request)
