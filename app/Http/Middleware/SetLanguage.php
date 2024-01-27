@@ -21,9 +21,11 @@ class SetLanguage
             if ($languageCode) {
                 $route = \Route::current()->getName() ?? 'home';
                 $currentPath = $request->path();
+                // \Log::info('Current Path'.' '.$currentPath);
                 $excludedPaths = [
                     'update-language',
-                    'logout'
+                    'logout',
+                    'campaign-store'
                 ];
         
                 if (!in_array($currentPath, $excludedPaths)) {

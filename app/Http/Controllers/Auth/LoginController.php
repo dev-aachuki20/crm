@@ -57,9 +57,9 @@ class LoginController extends Controller
 
         $language = \Session::get('userLanguage');
         $lang = $language ? $language : 'en';
-
+        app()->setLocale($lang);
         // return redirect()->route('home', ['lang' => $lang])->with('success', trans('messages.you_are_successfully_login'));
-        toastr()->success(trans('messages.you_are_successfully_login'));
+        toastr()->success(trans('messages.you_are_successfully_login'),trans('messages.success'));
         return redirect()->route('home', ['lang' => $lang]);
     }
 
@@ -67,7 +67,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        toastr()->success(trans('messages.you_are_successfully_logout'));
+        toastr()->success(trans('messages.you_are_successfully_logout'), trans('messages.success'));
         Auth::logout();
         return redirect('/login');
     }

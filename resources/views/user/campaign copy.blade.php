@@ -1,14 +1,11 @@
 @extends('layouts.master')
-@push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-@endpush
 @section('content')
 <div class="container">
     <div class="headingbar">
         <div class="row">
             <div class="col-12 col-lg-6">
                 <div class="headingleft">
-                    <h2>{{__('cruds.campaign.title')}}</h2>
+                    <h2>Campaign</h2>
                 </div>
             </div>
             <div class="col-12 col-lg-6">
@@ -19,11 +16,8 @@
         </div>
     </div>
     <div class="list-creating-channel mt-3">
-        <h4>{{__('cruds.campaign.title')}} {{__('global.list')}}</h4>
-        {!! $dataTable->table(['class' => 'table mb-0']) !!}
-
-        {{-- <h4>created Campaign list</h4> --}}
-        {{-- <table class="table mb-0">
+        <h4>created Campaign list</h4>
+        <table class="table mb-0">
             <thead>
                 <tr>
                     <th scope="col">Campaign</th>
@@ -153,7 +147,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table> --}}
+        </table>
     </div>
 </div>
 <!-- Modal -->
@@ -165,19 +159,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="saveCampaign" action="" method="">
-                    @csrf
+                <form class="new-channel">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Campaign name:</label>
-                                <input type="text" class="form-control" name="campaign_name" id="campaign_name"/>
+                                <input type="text" class="form-control" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Assigned channel:</label>
-                                <select class="form-control" name="assigned_channel" id="assigned_channel">
+                                <select class="form-control">
                                     <option>Black Friday</option>
                                     <option>Navidad</option>
                                     <option>SIN IVA</option>
@@ -189,44 +182,35 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Create by:</label>
-                                <input type="text" class="form-control" value="Yesi Tacury" name="created_by" id="created_by"/>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group qualificationGroup">
-                                <label>Qualification:</label>
-                                <!-- <input type="text" id="newTag" class="form-control" /> -->
-                                <div class="input-group">
-                                    <input type="text" id="newTag" class="form-control"/>
-                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ Add"/>
-                                </div>
-                                <!-- <textarea class="form-control mt-3"></textarea> -->
+                                <input type="text" class="form-control" value="Yesi Tacury" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <div class="tags">
-                                    <ul id="tagList">
-
-                                    </ul>
-                                </div> 
+                                <label>Qualification:</label>
+                                <select class="form-control">
+                                    <option>Do not anwser the phone many time.</option>
+                                    <option>Do not anwser the phone many time.</option>
+                                    <option>Do not anwser the phone many time.</option>
+                                    <option>Do not anwser the phone many time.</option>
+                                </select>
+                                <textarea class="form-control mt-3"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
                                 <label>Description:</label>
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall">Cancel</button>
+                                <button type="button" class="btn btn-red btnsmall">Cancle</button>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform text-end">
-                                {{-- <button type="button" class="btn btn-green btnsmall">Save</button> --}}
-                                <input type="submit" value="save" class="btn btn-green btnsmall" id="">
+                                <button type="button" class="btn btn-green btnsmall">Save</button>
                             </div>
                         </div>
                     </div>
@@ -237,80 +221,3 @@
 </div>
 
 @endsection
-@push('scripts')
-<!-- Select Tags Js -->
-<script>
-    // ADD JQUERY
-    $(document).ready(function(){
-        /* var tagList = ['Optimus Prime', 'Bumblebee', 'Megatron', 'Ironhide']; */
-        var tagList = [];
-        
-        
-        // cacheing the DOM elements
-        var $tagList = $("#tagList");
-        var $newTag = $("#newTag");
-
-        // initial render
-        tagList_render();
-        // always put logic sections and render sections in seperate functions/class
-        // trust me it will help a lot on big projects!
-        function tagList_render () {
-            $tagList.empty();
-            tagList.map (function (_tag) {
-                var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
-                $tagList.append(temp);
-            });
-        };
-        jQuery("#addOption").click(function(){
-            var newTag = $("#newTag").val();
-            if( newTag.replace(/\s/g, '') !== '' ){
-            tagList.push(newTag);
-            $newTag.val('');
-            tagList_render();
-            }
-        });
-        // button events
-        // Remove Tag
-        $tagList.on("click", "li>span.rmTag", function(){
-            var index = $(this).parent().index();
-            tagList.splice(index, 1);
-            tagList_render();
-        });
-    });
-</script>
-{!! $dataTable->scripts() !!}
-<script>
-    $('#saveCampaign').submit(function(e) {
-    e.preventDefault();
-        var formData = $(this).serialize();
-        var appLanguage = "{{ app()->getLocale() }}";
-
-        /* jQuery("#addOption").click(function(){
-            var newTag = $("#newTag").val();
-        }); */
-
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('getCampaignStore') }}',
-            data: formData,
-
-            success: function (response) {
-                console.log(response);
-                if (response.status === true) {
-                    toastr.success(response.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 200);
-                } else {
-                    toastr.error(response.error);
-                }
-            },
-
-            error: function (xhr, status, error) {
-                var errorMessage = xhr.responseJSON.error;
-                toastr.error(errorMessage);
-            }
-        });
-    });
-</script>
-@endpush

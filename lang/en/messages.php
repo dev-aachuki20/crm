@@ -19,4 +19,13 @@ return [
     'you_are_successfully_logout'    => 'Logged out successfully!',
 
     'email_messages' => [],
+
+    /* Translate of the toastr */
+    'success' => 'Success',
+    'warning'   => 'Warning',
+    'error'   => 'Error',
+    'info'=> 'Info',
+
+    /* Compaign */
+    'compaign_successfully_created'=> 'Compaign Successfully Created!',
 ];

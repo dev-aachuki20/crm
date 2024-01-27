@@ -46,7 +46,7 @@ class ProfileController extends Controller
         }
 
         // return redirect()->back()->with('success', trans('messages.user_profile_updated'));
-        toastr()->success(trans('messages.user_profile_updated'));
+        toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
         return redirect()->back();
     }
 }

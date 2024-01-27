@@ -97,7 +97,13 @@ return [
         'title' => 'campaigns',
         'title_singular' => 'campaign',
         'fields' => [
-            'description'    => 'Description',
+            'description'       => 'Description',
+            'campaign'          => 'Campaign',
+            'assigned_channel'  => 'Assigned Channel',
+            'created_at'        => 'Created at',
+            'updated_at'        => 'Updated at',
+            'deleted_at'        => 'Deleted at',
+            'qualification'     => 'Qualification',
         ],
     ],
 

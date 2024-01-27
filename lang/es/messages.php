@@ -18,5 +18,14 @@ return [
     'you_are_successfully_login'    => 'Has iniciado sesión con éxito! Bienvenido,',
     'you_are_successfully_logout' => 'Cerré sesión correctamente!',
 
+    /* Translate of the toastr */
+    'success' => 'Éxito',
+    'warning'   => 'Advertencia',
+    'error'   => 'Error',
+    'info'=> 'Información',
+    
     'email_messages' => [],
+
+    /* For Compaign */
+    'compaign_successfully_created'=> 'Compaign creada exitosamente!',
 ];

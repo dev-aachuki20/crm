@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/toaster-design.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
     <!-- Font Family -->
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">

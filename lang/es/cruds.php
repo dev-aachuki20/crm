@@ -100,7 +100,13 @@ return [
         'title' => 'Campañas',
         'title_singular' => 'Campaña',
         'fields' => [
-            'description'    => 'Descripción',
+            'description'       => 'Descripción',
+            'campaign'          => 'Campaña',
+            'assigned_channel'  => 'Canal asignado',
+            'created_at'        => 'Creado en',
+            'updated_at'        => 'Actualizado en',
+            'deleted_at'        => 'Eliminado en',
+            'qualification'     => 'Calificación',
         ],
     ],
 
