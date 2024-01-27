@@ -17,26 +17,27 @@ class SetLanguage
     {
         if (\Auth::user()) {
             $languageCode = \Session::get('userLanguage');
-        
+
             if ($languageCode) {
                 $route = \Route::current()->getName() ?? 'home';
                 $currentPath = $request->path();
-                // \Log::info('Current Path'.' '.$currentPath);
+                // dump($currentPath);
                 $excludedPaths = [
                     'update-language',
                     'logout',
-                    'campaign-store'
+                    'channels/store',
+                    'campaign-store',
                 ];
-        
+
                 if (!in_array($currentPath, $excludedPaths)) {
                     $updatedPath = "{$languageCode}/{$route}";
-        
+
                     if ($currentPath !== $updatedPath) {
                         return redirect("/{$updatedPath}");
                     }
                 }
             }
-        }        
+        }
 
         return $next($request);
     }

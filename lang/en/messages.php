@@ -18,14 +18,23 @@ return [
     'you_are_successfully_login'    => 'Logged in successfully!',
     'you_are_successfully_logout'    => 'Logged out successfully!',
 
+    'success' => 'Success',
+    'warning'   => 'Warning',
+    'error'   => 'Error',
+    'info' => 'Information',
+
+    'channel' => [
+        'channel_created' => 'Channel created successfully',
+    ],
+
     'email_messages' => [],
 
     /* Translate of the toastr */
     'success' => 'Success',
     'warning'   => 'Warning',
     'error'   => 'Error',
-    'info'=> 'Info',
+    'info' => 'Info',
 
     /* Compaign */
-    'compaign_successfully_created'=> 'Compaign Successfully Created!',
+    'compaign_successfully_created' => 'Compaign Successfully Created!',
 ];

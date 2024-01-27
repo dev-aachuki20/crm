@@ -22,10 +22,15 @@ return [
     'success' => 'Éxito',
     'warning'   => 'Advertencia',
     'error'   => 'Error',
-    'info'=> 'Información',
-    
+    'info' => 'Información',
+
+    'channel' => [
+        'channel_created' => 'Canal creado exitosamente',
+    ],
+
+
     'email_messages' => [],
 
     /* For Compaign */
-    'compaign_successfully_created'=> 'Compaign creada exitosamente!',
+    'compaign_successfully_created' => 'Compaign creada exitosamente!',
 ];

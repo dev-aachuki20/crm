@@ -45,22 +45,34 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
         Route::get('/channels', [ChannelController::class, 'index'])->name('channels');
+        // Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
+        // Route::get('/channels/edit/{channel_id}', [ChannelController::class, 'edit'])->name('channels_edit');
+
 
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-        
     });
+
+    // channels route
+    Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
+    Route::get('/channels/edit/{channel_id}', [ChannelController::class, 'edit'])->name('channels_edit');
+    Route::delete('/channels/delete/{id}', [ChannelController::class, 'destroy'])->name('channels_delete');
+
+
     Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     Route::resource('users', UserController::class);
-    
+
     /* For Campaign */
     Route::delete('/campaign/delete/{id}', [CampaignController::class, 'delete'])->name('getCampaignDelete');
     Route::post('/campaign-store', [CampaignController::class, 'store'])->name('getCampaignStore');
-    
+
     Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
     Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
+
+
+
 
     // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
 
