@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'userManagement' => [
-        'title'          => 'Gestión de usuarios',
-        'title_singular' => 'Gestión de usuarios',
-    ],
     'user'           => [
         'title'          => 'Usuarios',
         'title_singular' => 'Usuario',
@@ -75,24 +71,12 @@ return [
         ],
     ],
 
-    'setting' => [
-        'title' => 'Configuraciones',
-        'title_singular' => 'Configuración',
-        'fields' => [
-            'key'   => 'Clave',
-            'value' => 'Valor',
-            'display_name' => 'Nombre de visualización',
-            'group' => 'Grupo',
-            'type'  => 'Tipo',
-            'created_by'     => 'Creado por',
-        ],
-    ],
-
     'channel' => [
         'title' => 'Canales',
         'title_singular' => 'Canal',
         'fields' => [
             'description'    => 'Descripción',
+            'name' => 'Nombre del Canal',
         ],
     ],
 
@@ -134,6 +118,17 @@ return [
     'add'    => 'Agregar',
     'list_created_channel'    => 'Lista de canales creados',
     'new' => 'Nueva',
-
-
+    'enter_new_channel' => 'Ingresa al nuevo canal',
+    'are_you_sure' => 'Estas segura',
+    'delete_this_record' => '¡Quieres eliminar este registro!',
+    'yes_delete' => '¡Sí, bórralo!',
+    'new_user' => 'Nueva usuaria',
+    'upload' => 'Subir',
+    'send_password_to_mail' => 'Enviar contraseña al correo electrónico',
+    'show' => 'Espectáculo',
+    'entries' => 'entradas',
+    'search' => 'Buscar',
+    'previous' => 'Previa',
+    'next' => 'Próxima',
+    'data_not_found' => 'Datos no encontrados',
 ];

@@ -26,6 +26,14 @@ return [
 
     'channel' => [
         'channel_created' => 'Canal creado exitosamente',
+        'channel_deleted' => 'Canal eliminado exitosamente',
+        'channel_updated' => 'Canal actualizado exitosamente',
+    ],
+
+    'user' => [
+        'user_created' => 'Usuario creada con éxito',
+        'user_deleted' => 'Usuario eliminada exitosamente',
+        'user_updated' => 'Usuario actualizada con éxito',
     ],
 
 

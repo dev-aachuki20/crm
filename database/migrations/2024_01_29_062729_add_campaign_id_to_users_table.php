@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('language')->nullable()->after('email');
+            $table->json('campaign_id')->nullable()->after('id');
         });
     }
 
@@ -22,7 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('language');
+            $table->dropForeign(['campaign_id']);
+            $table->dropColumn('campaign_id');
         });
     }
 };

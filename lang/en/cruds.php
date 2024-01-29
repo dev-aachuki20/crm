@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'userManagement' => [
-        'title'          => 'User Management',
-        'title_singular' => 'User Management',
-    ],
     'user'           => [
         'title'          => 'Users',
         'title_singular' => 'User',
@@ -72,24 +68,12 @@ return [
         ],
     ],
 
-    'setting' => [
-        'title' => 'Settings',
-        'title_singular' => 'Setting',
-        'fields' => [
-            'key'   => 'Key',
-            'value' => 'Value',
-            'display_name' => 'Display Name',
-            'group' => 'Group',
-            'type'  => 'Type',
-            'created_by'     => 'Created by',
-        ],
-    ],
-
     'channel' => [
         'title' => 'Channels',
         'title_singular' => 'Channel',
         'fields' => [
             'description'    => 'Description',
+            'name' => 'Channel Name',
         ],
     ],
 
@@ -131,5 +115,17 @@ return [
     'add'    => 'Add',
     'list_created_channel'    => 'List Of Created Channel',
     'new' => 'New',
-
+    'enter_new_channel' => 'Enter the new channel',
+    'are_you_sure' => 'Are you sure?',
+    'delete_this_record' => 'You want to delete this record!',
+    'yes_delete' => 'Yes, delete it!',
+    'new_user' => 'New User',
+    'upload' => 'Upload',
+    'send_password_to_mail' => 'Send password to email',
+    'show' => 'Show',
+    'entries' => 'entries',
+    'search' => 'Search',
+    'previous' => 'Previous',
+    'next' => 'Next',
+    'data_not_found' => 'Data not found',
 ];

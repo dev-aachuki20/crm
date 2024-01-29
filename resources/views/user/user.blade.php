@@ -1,8 +1,4 @@
 @extends('layouts.master')
-
-@push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-@endpush
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -14,7 +10,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal">+ {{__('global.add')}} {{__('cruds.new')}} {{__('cruds.user.title_singular')}}</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#userstoreModal">+ {{__('global.add')}} {{__('cruds.new')}} {{__('cruds.user.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -22,226 +18,118 @@
     <div class="list-creating-channel mt-3">
         <h4>{{__('cruds.user.title')}} {{__('global.list')}}</h4>
         {!! $dataTable->table(['class' => 'table mb-0']) !!}
-
-        <!-- pagination -->
-        <!-- <nav class="paginationbar mt-5" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#5c5c63" opacity="1" data-original="#000000"></path>
-                                </g>
-                            </svg>
-                        </span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#5c5c63" opacity="1" data-original="#000000" class=""></path>
-                                </g>
-                            </svg>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </nav> -->
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade new-channel-popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade new-channel-popup" id="userstoreModal" tabindex="-1" aria-labelledby="userstoreModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+                <h5 class="modal-title" id="userstoreModalLabel">{{__('cruds.new_user')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel">
+                <form class="new-channel" id="user-form" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" id="user-id" name="user_id" value="">
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>First Name:</label>
-                                        <input type="text" class="form-control" />
+                                        <label>{{__('cruds.user.fields.first_name')}}:</label>
+                                        <input type="text" class="form-control" name="first_name" />
+                                        @if($errors->has('first_name'))
+                                        <span style="color: red;">{{ $errors->first('first_name') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Last Name:</label>
-                                        <input type="text" class="form-control" />
+                                        <label>{{__('cruds.user.fields.last_name')}}:</label>
+                                        <input type="text" class="form-control" name="last_name" />
+                                        @if($errors->has('last_name'))
+                                        <span style="color: red;">{{ $errors->first('last_name') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Username:</label>
-                                        <input type="text" class="form-control" />
+                                        <label>{{__('cruds.user.fields.user_name')}}:</label>
+                                        <input type="text" class="form-control" name="username" />
+                                        @if($errors->has('username'))
+                                        <span style="color: red;">{{ $errors->first('username') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Rol:</label>
-                                        <select class="form-control">
-                                            <option>super admin</option>
-                                            <option>admininstador</option>
-                                            <option>vendedor</option>
-                                            <option>supervisor</option>
+                                        <label>{{__('cruds.user.fields.role')}}:</label>
+                                        <select class="form-control" name="role" id="user-role">
+                                            @foreach($roleData as $role)
+                                            <option value="{{ $role->id }}">{{ $role->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Email:</label>
-                                        <input type="email" class="form-control" />
+                                        <label>{{__('cruds.user.fields.email')}}:</label>
+                                        <input type="email" class="form-control" name="email" />
+                                        @if($errors->has('email'))
+                                        <span style="color: red;">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Password:</label>
-                                        <input type="password" class="form-control" />
+                                        <label>{{__('cruds.user.fields.password')}}:</label>
+                                        <input type="password" class="form-control" name="password" />
+                                        @if($errors->has('password'))
+                                        <span style="color: red;">{{ $errors->first('password') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Birthdate:</label>
-                                        <input type="date" class="form-control" />
+                                        <label>{{__('cruds.user.fields.birthdate')}}:</label>
+                                        <input type="date" class="form-control" name="birthdate" />
+                                        @if($errors->has('birthdate'))
+                                        <span style="color: red;">{{ $errors->first('birthdate') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>Upload:</label>
-                                        <input type="file" class="form-control" />
+                                        <label>{{__('cruds.upload')}}:</label>
+                                        <input type="file" name="image" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group checboxcont">
-                                        <input type="checkbox" name="" class="form-control"> Send password to email
+                                        <input type="checkbox" name="" class="form-control"> {{__('cruds.send_password_to_mail')}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
-                                <label>Campaign:</label>
+                                <label>{{__('cruds.campaign.title_singular')}}:</label>
                                 <div class="listbox">
+                                    @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Black Friday</span>
+                                        <input type="checkbox" name="campaign[]" class="form-control">
+                                        <span>{{ucwords($campaign->campaign_name)}}</span>
                                     </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Navidad</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>SIN IVA</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Regreso a Clases</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Black Friday</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Navidad</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>SIN IVA</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Regreso a Clases</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Black Friday</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Navidad</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>SIN IVA</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="campaign" class="form-control">
-                                        <span>Regreso a Clases</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Channel:</label>
-                                <div class="listbox">
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Call Center</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Web</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Whatsapp</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Freelance</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Call Center</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Web</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Whatsapp</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Freelance</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Call Center</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Web</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Whatsapp</span>
-                                    </div>
-                                    <div class="checboxcont">
-                                        <input type="checkbox" name="channel" class="form-control">
-                                        <span>Freelance</span>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-12 col-lg-12">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-green btnsmall">Save</button>
+                                <button type="button" class="btn btn-green btnsmall" onclick="submitForm()">{{__('global.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -253,6 +141,106 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 {!! $dataTable->scripts() !!}
+<script>
+    function submitForm() {
+        var formData = $('#user-form').serialize();
+        var userId = $('#user-id').val();
+
+        var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
+        var method = (userId) ? 'PUT' : 'POST';
+
+        console.log(url, method);
+        $.ajax({
+            type: method,
+            url: url,
+            contentType: false,
+            processData: false,
+            data: formData,
+            // dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#user-form')[0].reset();
+                    $('#user-id').val('');
+                    $('.buttonform button').text("{{__('global.save')}}");
+
+                    // $('#userstoreModal').modal('hide');
+                    window.location.reload();
+                }
+            },
+            error: function(error) {
+                console.error('Error submitting form:', error);
+                var errors = $.parseJSON(error.responseText);
+                $.each(errors.errors, function(key, value) {
+                    $('#user-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                    $('#user-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                });
+            }
+        });
+    }
+
+    function editForm(user_id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('users_edit') }}",
+            data: {
+                user_id: user_id,
+            },
+            success: function(response) {
+                // console.log(response);
+                if (response.status === 'success') {
+                    var userData = response.data;
+                    console.log(userData);
+
+                    // Populate the form fields with the retrieved data
+                    $('#user-id').val(userData.id);
+                    $('#user-form input[name="first_name"]').val(userData.first_name);
+                    $('#user-form input[name="last_name"]').val(userData.last_name);
+                    $('#user-form input[name="username"]').val(userData.username);
+                    $('#user-form input[name="email"]').val(userData.email);
+                    $('#user-form input[name="password"]').val(userData.password);
+                    $('#user-form input[name="birthdate"]').val(userData.birthdate);
+
+                    // Change the button text create to "Update"
+                    $('.buttonform button').text("{{__('global.update')}}");
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching user data:', error);
+            }
+        });
+    }
+
+    function deleteRecord(id) {
+        Swal.fire({
+            title: "{{ __('cruds.are_you_sure') }}",
+            text: "{{ __('cruds.delete_this_record') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "{{ __('global.cancel') }}",
+            confirmButtonText: "{{ __('cruds.yes_delete') }}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ route('users_delete') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: id,
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            location.reload();
+                        }
+                    },
+                });
+            }
+        });
+    }
+</script>
 @endpush

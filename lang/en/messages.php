@@ -25,6 +25,14 @@ return [
 
     'channel' => [
         'channel_created' => 'Channel created successfully',
+        'channel_deleted' => 'Channel deleted successfully',
+        'channel_updated' => 'Channel updated successfully',
+    ],
+
+    'user' => [
+        'user_created' => 'User created successfully',
+        'user_deleted' => 'User deleted successfully',
+        'user_updated' => 'User updated successfully',
     ],
 
     'email_messages' => [],

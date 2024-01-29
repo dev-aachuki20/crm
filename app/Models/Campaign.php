@@ -19,12 +19,16 @@ class Campaign extends Model
         "created_by"
     ];
 
-   /*  public function channels(){
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /*  public function channels(){
         return $this->belongsToMany(Channel::class,"channels","assigned_channel","id");
     }
 
     public function users(){
         return $this->belongsToMany(User::class,"users","created_by","id");
     } */
-
 }

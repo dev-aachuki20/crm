@@ -98,13 +98,13 @@ class User extends Authenticatable
         $data = [
             $this->email
         ];
-        $url = \URL::to('/password/reset/'.$token.'?email='.$this->email);
-       
+        $url = \URL::to('/password/reset/' . $token . '?email=' . $this->email);
+
         \Mail::send('emails.reset-password', [
             'fullname'      => $this->name,
             'reset_url'     => $url,
             'email'         => $this->email,
-        ], function($message) use($data){
+        ], function ($message) use ($data) {
             $message->subject('Reset Password Request');
             $message->to($data[0]);
         });
@@ -114,5 +114,8 @@ class User extends Authenticatable
         return $this->roles->contains('id', $roleId);
     }
 
-    
+    public function campaigns()
+{
+    return $this->belongsToMany(Campaign::class);
+}
 }

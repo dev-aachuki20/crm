@@ -1,7 +1,4 @@
 @extends('layouts.master')
-@push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-@endpush
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -28,16 +25,18 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="channelstoreModalLabel">Enter the new channel</h5>
+                <h5 class="modal-title" id="channelstoreModalLabel">{{__('cruds.enter_new_channel')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <form class="new-channel" id="channel-form">
                     @csrf
+                    <input type="hidden" id="channel-id" name="channel_id" value="">
+
                     <div class="row">
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <label>Channel name:</label>
+                                <label>{{__('cruds.channel.fields.name')}}:</label>
                                 <input type="text" name="channel_name" class="form-control" />
                                 @if($errors->has('channel_name'))
                                 <span style="color: red;">{{ $errors->first('channel_name') }}</span>
@@ -46,7 +45,7 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <label>Description:</label>
+                                <label>{{__('cruds.channel.fields.description')}}:</label>
                                 <textarea class="form-control" name="description"></textarea>
                                 @if($errors->has('description'))
                                 <span style="color: red;">{{ $errors->first('description') }}</span>
@@ -55,45 +54,7 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="buttonform text-end">
-                                <button type="button" class="btn btn-blue btnsmall" onclick="submitForm()">Create</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal for update record -->
-<div class="modal fade new-channel-popup" id="channelupdateModal" tabindex="-1" aria-labelledby="channelupdateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="channelupdateModalLabel">Update Channel</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form class="new-channel" id="channel-edit-form">
-                    @csrf
-                    <input type="hidden" id="channel-id" name="channel_id" value="">
-                    <div class="row">
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <label>Channel name:</label>
-                                <input type="text" name="channel_name" id="channel-name" class="form-control" value="" />
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <label>Description:</label>
-                                <textarea class="form-control" name="description" id="channel-description"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="buttonform text-end">
-                                <button type="button" class="btn btn-blue btnsmall" onclick="updateForm()">Update</button>
+                                <button type="button" class="btn btn-blue btnsmall" onclick="submitForm()">{{__('global.create')}}</button>
                             </div>
                         </div>
                     </div>
@@ -107,81 +68,110 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 {!! $dataTable->scripts() !!}
-
 <script>
     function submitForm() {
         var formData = $('#channel-form').serialize();
+        var channelId = $('#channel-id').val();
+
+        // console.log(channelId);
+
+        var url = (channelId) ? "{{ route('channels_update') }}" : "{{ route('channels_store') }}";
+        var method = (channelId) ? 'PUT' : 'POST';
+
+        // console.log(formData);
         $.ajax({
-            type: 'POST',
-            url: "{{route('channels_store')}}",
+            type: method,
+            url: url,
             data: formData,
+            // dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
                     $('#channel-form')[0].reset();
-                    $('#channelstoreModal').modal('hide');
-                    location.reload();
+                    $('#channel-id').val('');
+                    $('.buttonform button').text("{{ __('global.create') }}");
+
+                    window.location.reload();
+                }
+            },
+
+            error: function(xhr, textStatus, errorThrown) {
+                console.error('Error submitting form:', textStatus);
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    $.each(errors, function(key, value) {
+                        $('#channel-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        $('#channel-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                    });
+                } else {
+                    console.error('Unexpected error:', errorThrown);
+                }
+            }
+
+            // error: function(error) {
+            //     console.error('Error submitting form:', error);
+            //     var errors = $.parseJSON(error.responseText);
+            //     $.each(errors.errors, function(key, value) {
+            //         $('#channel-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+            //         $('#channel-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+            //     });
+            // }
+        });
+    }
+
+    function editForm(channel_id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('channels_edit') }}",
+            data: {
+                channel_id: channel_id,
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    var channelData = response.data;
+
+                    // Populate the form fields with the retrieved data
+                    $('#channel-id').val(channelData.id);
+                    $('#channel-form input[name="channel_name"]').val(channelData.channel_name);
+                    $('#channel-form textarea[name="description"]').val(channelData.description);
+
+                    // Change the button text create to "Update"
+                    $('.buttonform button').text("{{ __('global.update') }}");
                 }
             },
             error: function(error) {
-                console.error('Error submitting form:', error);
-                var errors = $.parseJSON(error.responseText);
-                $.each(errors.errors, function(key, value) {
-                    $('#channel-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                    $('#channel-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                });
+                console.error('Error fetching channel data:', error);
             }
         });
     }
 
-    function editForm(url) {
-        console.log(url);
-        $('#channel-id').val(url);
-
-        // $.ajax({
-        //     type: 'GET',
-        //     url: url,
-        //     success: function(response) {
-        //         if (response.status === 'success') {
-        //             var channelData = response.data;
-
-        //             // Populate the form fields with the retrieved data
-        //             $('#channel-name').val(channelData.channel_name);
-        //             $('#channel-description').val(channelData.description);
-
-        //             // Show the modal
-        //             $('#channelupdateModal').modal('show');
-        //         }
-        //     },
-        //     error: function(error) {
-        //         console.error('Error fetching channel data:', error);
-        //         // Handle errors if needed
-        //     }
-        // });
-    }
-
-    // function updateForm(channel_id) {
-    //     alert('update');
-    // }
-
     function deleteRecord(id) {
-        $.ajax({
-            type: 'DELETE',
-            url: "{{ route('channels_delete', ':id') }}".replace(':id', id),
-            data: {
-                _token: "{{ csrf_token() }}",
-                id: id
-            },
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('#channel-form')[0].reset();
-                    $('#channelstoreModal').modal('hide');
-                    location.reload();
-                }
-            },
+        Swal.fire({
+            title: "{{ __('cruds.are_you_sure') }}",
+            text: "{{ __('cruds.delete_this_record') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "{{ __('global.cancel') }}",
+            confirmButtonText: "{{ __('cruds.yes_delete') }}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ route('channels_delete') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: id,
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            location.reload();
+                        }
+                    },
+                });
+            }
         });
     }
 </script>
-
 @endpush

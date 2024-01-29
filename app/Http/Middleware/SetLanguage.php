@@ -27,6 +27,13 @@ class SetLanguage
                     'logout',
                     'channels/store',
                     'campaign-store',
+                    'channels/delete',
+                    'channels/edit',
+                    'channels/update',
+                    'users/store',
+                    'users/delete',
+                    'users/edit',
+                    'users/update',
                 ];
 
                 if (!in_array($currentPath, $excludedPaths)) {

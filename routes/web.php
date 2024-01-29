@@ -1,10 +1,7 @@
 <?php
 
-// use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\ChannelController;
@@ -31,7 +28,6 @@ Route::get('/clear-cache', function () {
 });
 
 Route::get('/', function () {
-    // return view('auth.login');
     return redirect()->route('login');
 });
 
@@ -41,24 +37,27 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::prefix('{lang?}')->group(function () {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
         Route::get('/channels', [ChannelController::class, 'index'])->name('channels');
-        // Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
-        // Route::get('/channels/edit/{channel_id}', [ChannelController::class, 'edit'])->name('channels_edit');
-
-
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
-        Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         Route::get('/users', [UserController::class, 'index'])->name('users');
+
+        Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
     });
 
     // channels route
     Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
-    Route::get('/channels/edit/{channel_id}', [ChannelController::class, 'edit'])->name('channels_edit');
-    Route::delete('/channels/delete/{id}', [ChannelController::class, 'destroy'])->name('channels_delete');
+    Route::delete('/channels/delete', [ChannelController::class, 'destroy'])->name('channels_delete');
+    Route::get('/channels/edit', [ChannelController::class, 'edit'])->name('channels_edit');
+    Route::put('/channels/update', [ChannelController::class, 'update'])->name('channels_update');
+
+    // user routes
+    Route::post('/users/store', [UserController::class, 'store'])->name('users_store');
+    Route::delete('/users/delete', [UserController::class, 'destroy'])->name('users_delete');
+    Route::get('/users/edit', [UserController::class, 'edit'])->name('users_edit');
+    Route::put('/users/update', [UserController::class, 'update'])->name('users_update');
 
 
     Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
