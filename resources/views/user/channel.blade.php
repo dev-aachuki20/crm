@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Channel')
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -127,6 +128,7 @@
                 channel_id: channel_id,
             },
             success: function(response) {
+                console.log(response);
                 if (response.status === 'success') {
                     var channelData = response.data;
 

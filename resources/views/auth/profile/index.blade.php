@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Profile')
 @section('content')
 <div class="container">
     <div class="headingbar">

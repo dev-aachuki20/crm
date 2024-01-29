@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Campaign')
 @push('styles')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 @endpush
