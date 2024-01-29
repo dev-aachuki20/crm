@@ -44,5 +44,8 @@ return [
     'info' => 'Info',
 
     /* Compaign */
-    'compaign_successfully_created' => 'Compaign Successfully Created!',
+    'compaign_successfully_created' => 'Campaign Successfully Created!',
+    'campaign_successfully_delete' => 'Campaign Successfully Deleted!',
+    'unable_to_delete' => 'Unable to delete!',
+    'campaign_successfully_update' => 'Campaign Successfully Updated',
 ];

@@ -34,6 +34,9 @@ class SetLanguage
                     'users/delete',
                     'users/edit',
                     'users/update',
+                    'campaign-update',
+                    'campaign-edit',
+                    'campaign/delete',
                 ];
 
                 if (!in_array($currentPath, $excludedPaths)) {

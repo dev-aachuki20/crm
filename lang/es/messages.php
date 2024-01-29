@@ -40,5 +40,10 @@ return [
     'email_messages' => [],
 
     /* For Compaign */
-    'compaign_successfully_created' => 'Compaign creada exitosamente!',
+    'compaign_successfully_created' => 'Campaña creada exitosamente!',
+
+    'campaign_successfully_delete' => 'Campaña eliminada exitosamente!',
+    'unable_to_delete' => 'No se puede eliminar!',
+    'campaign_successfully_update' => 'Campaña actualizada con éxito!',
+
 ];

@@ -23,9 +23,9 @@
                     <ul class="d-flex justify-content-end align-items-center">
                         <li>
                             <div class="select_area">
-                                <select class="niceCountryInputSelector from_code form-control" id="from_code" name="from_country" {{-- onchange="myFunction()" --}}>
-                                    <option value="en" data-src="{{asset('images/flags/us.png')}}">EN</option>
-                                    <option value="es" data-src="{{asset('images/flags/AS.png')}}" >ES</option>
+                                <select class="niceCountryInputSelector from_code form-control" id="from_code" name="from_country" value=""{{-- onchange="myFunction()" --}}>
+                                    <option value="en" data-src="{{asset('images/flags/us.png')}}" @if(\Session::get('userLanguage') === 'en') selected @endif>EN</option>
+                                    <option value="es" data-src="{{asset('images/flags/AS.png')}}" @if(\Session::get('userLanguage') === 'es') selected @endif>ES</option>
                                 </select>
                             </div>
                         </li>

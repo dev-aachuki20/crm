@@ -64,8 +64,11 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::resource('users', UserController::class);
 
     /* For Campaign */
-    Route::delete('/campaign/delete/{id}', [CampaignController::class, 'delete'])->name('getCampaignDelete');
+    // Route::delete('/campaign/delete/{id}', [CampaignController::class, 'delete']);
+    Route::get('/campaign/delete', [CampaignController::class, 'delete']);
     Route::post('/campaign-store', [CampaignController::class, 'store'])->name('getCampaignStore');
+    Route::get('/campaign-edit', [CampaignController::class, 'edit'])->name('getCampaignEdit');
+    Route::post('/campaign-update', [CampaignController::class, 'update'])->name('getCampaignUpdate');
 
     Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
     Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');

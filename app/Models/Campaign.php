@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campaign extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $primarykey = "id";
     protected $table = "campaigns";
@@ -24,11 +25,19 @@ class Campaign extends Model
         return $this->belongsToMany(User::class);
     }
 
-    /*  public function channels(){
+    /*  
+    public function channels(){
         return $this->belongsToMany(Channel::class,"channels","assigned_channel","id");
     }
 
     public function users(){
         return $this->belongsToMany(User::class,"users","created_by","id");
     } */
+    
+
+    public function tagLists()
+    {
+        return $this->hasOne(TagList::class,"campaign_id","id");
+    }
+
 }
