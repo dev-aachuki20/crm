@@ -52,15 +52,15 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.user_name')}}:</label>
-                                        <input type="text" class="form-control" name="username" id="username"/>
+                                        <input type="text" class="form-control" name="username" id="username" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.role')}}:</label>
-                                        <select class="form-control"  name="role" id="role">
+                                        <select class="form-control" name="role" id="role">
                                             @foreach($roleData as $role)
-                                                <option value="{{ $role->id }}">{{ $role->title }}</option>
+                                            <option value="{{ $role->id }}">{{ $role->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -68,19 +68,19 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.email')}}:</label>
-                                        <input type="email" class="form-control" name="email" id="email"/>
+                                        <input type="email" class="form-control" name="email" id="email" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.password')}}:</label>
-                                        <input type="password" class="form-control" name="password" id="password"/>                                    
+                                        <input type="password" class="form-control" name="password" id="password" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                                        <input type="date" class="form-control" name="birthdate" id="birthdate"/>
+                                        <input type="date" class="form-control" name="birthdate" id="birthdate" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group checboxcont">
-                                        <input type="checkbox" name="" class="form-control"> {{__('cruds.send_password_to_mail')}}
+                                        <input type="checkbox" name="send_password_on_email" id="send_password_on_email" class="form-control"> {{__('cruds.send_password_to_mail')}}
                                     </div>
                                 </div>
                             </div>
@@ -109,9 +109,6 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                {{-- @if($errors->has('campaign_id'))
-                                <span style="color: red;">{{ $errors->first('campaign_id') }}</span>
-                                @endif --}}
                             </div>
                         </div>
 
@@ -149,7 +146,14 @@
         // Append other form data to FormData object
         formDataWithFile.append('campaign_id', selectedCampaigns.join(','));
 
-        console.log(formData);
+        // Get the value of the sendPasswordToEmail checkbox
+        var sendPasswordToEmail = $('#send_password_on_email').prop('checked') ? 1 : 0;
+
+        // Append the sendPasswordToEmail checkbox value to FormData object
+        formDataWithFile.append('send_password_on_email', sendPasswordToEmail);
+
+
+        // console.log(formData);
         $.ajax({
             type: 'POST',
             url: url,
@@ -235,6 +239,9 @@
                     if(response.profile){
                         $('#previewImage').attr('src', response.profile);
                     }
+
+                    // Set the checkbox state based on the value received
+                    $('#send_password_on_email').prop('checked', response.data.send_password_on_email);
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{__('global.update')}}");

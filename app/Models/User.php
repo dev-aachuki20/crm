@@ -28,6 +28,7 @@ class User extends Authenticatable
         'password',
         'birthdate',
         'campaign_id',
+        'send_password_on_email',
     ];
 
     /**
@@ -120,7 +121,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Campaign::class);
     }
 
-    public function getProfileImage(){
+    public function getProfileImage()
+    {
         return $this->hasOne(Uploads::class, 'uploadsable_id', 'id');
     }
 }
