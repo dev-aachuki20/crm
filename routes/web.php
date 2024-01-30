@@ -57,7 +57,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::post('/users/store', [UserController::class, 'store'])->name('users_store');
     Route::delete('/users/delete', [UserController::class, 'destroy'])->name('users_delete');
     Route::get('/users/edit', [UserController::class, 'edit'])->name('users_edit');
-    Route::put('/users/update', [UserController::class, 'update'])->name('users_update');
+    // Route::put('/users/update', [UserController::class, 'update'])->name('users_update');
+    Route::post('/users/update', [UserController::class, 'update'])->name('users_update');
 
 
     Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');

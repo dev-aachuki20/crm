@@ -115,7 +115,7 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
-                <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="" {{-- data-bs-dismiss="modal" aria-label="Close" --}} onclick="closeTheEditPopup()"></button>
             </div>
             <div class="modal-body p-4">
                 <form class="new-channel" id="updateCampaign" action="" method="">
@@ -178,7 +178,7 @@
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="button" class="btn btn-red btnsmall" id="" onclick="closeTheEditPopup()">Cancel</button>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
@@ -202,6 +202,20 @@
 {!! $dataTable->scripts() !!}
 <script>
     var tagList = [];
+    var $tagList = $("#tagList");
+    var $newTag = $("#newTag");
+
+    tagList_render();
+
+    function tagList_render () {
+        $tagList.empty();
+        tagList.map (function (_tag) {
+            var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
+            $tagList.append(temp);
+        });
+    }
+
+    tagList_render();
     // ADD JQUERY
     $(document).ready(function(){
         /* var tagList = ['Optimus Prime', 'Bumblebee', 'Megatron', 'Ironhide']; */
@@ -209,20 +223,20 @@
         
         
         // cacheing the DOM elements
-        var $tagList = $("#tagList");
-        var $newTag = $("#newTag");
+        /* var $tagList = $("#tagList");
+        var $newTag = $("#newTag"); */
 
         // initial render
-        tagList_render();
+        // tagList_render();
         // always put logic sections and render sections in seperate functions/class
         // trust me it will help a lot on big projects!
-        function tagList_render () {
+        /* function tagList_render () {
             $tagList.empty();
             tagList.map (function (_tag) {
                 var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
                 $tagList.append(temp);
             });
-        };
+        }; */
         jQuery("#addOption").click(function(){
             var newTag = $("#newTag").val();
             if( newTag.replace(/\s/g, '') !== '' ){
@@ -296,15 +310,24 @@
                     $('#campaign_name_update').val(response.data.campaign_name);
                     $('#assigned_channel_update').val(response.data.assigned_channel);
                     
-                    tagList = [];
                     if (response.data && response.data.tag_lists && response.data.tag_lists.tag_name) {
-                        tagList = response.data.tag_lists.tag_name;
+                        // tagList = response.data.tag_lists.tag_name;
+                        var parsedTags = JSON.parse(response.data.tag_lists.tag_name);
+                        tagList.push(...parsedTags);
+                        tagList_render();
                     } else {
                         tagList = [];
+                        tagList_render();
                     }
 
                     $('#created_by_update').val(response.data.created_by);
                     $('#description_update').val(response.data.description);
+                    
+                    $tagList.empty();
+                    tagList.map (function (_tag) {
+                        var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
+                        $tagList.append(temp);
+                    });
                     console.log(tagList);
 
                 } else {
@@ -317,16 +340,6 @@
         });
 
     }
-
-    /* function tagList_render(tagList) {
-        var $tagList = $("#tagList");
-        $tagList.empty();
-
-        tagList.forEach(function (_tag) {
-            var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
-            $tagList.append(temp);
-        });
-    } */
 
     function updateCampaign(){
         $('.error').remove();
@@ -391,7 +404,21 @@
 
     $('#cancelButton').click(function() {
         $('#saveCampaign')[0].reset();
+        // var tagList = [];
+        $tagList.empty();
+        /* setTimeout(function () {
+            location.reload();
+        }, 10); */
     });
+
+    function closeTheEditPopup(){
+        var tagList = [];
+        $tagList.empty();
+        $('#updateCampaignModal').modal('hide');
+        /* setTimeout(function () {
+            location.reload();
+        }, 10); */
+    }
 
 </script>
 @endpush

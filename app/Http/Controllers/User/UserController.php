@@ -25,7 +25,9 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
+        \Log::info($request);
         try {
+            \Log::info($request);
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
@@ -74,6 +76,7 @@ class UserController extends Controller
 
     public function update(UserRequest $request)
     {
+        \Log::info($request);
         try {
             $validatedData = $request->validated();
             $userId = $request->input('user_id');
