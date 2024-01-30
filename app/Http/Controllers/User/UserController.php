@@ -25,19 +25,18 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        dd($request->all());
         try {
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
-            // if ($request->image) {
-            //     if ($user->profileImage) {
-            //         $uploadImageId = $user->profileImage->id;
-            //         uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'update', $uploadImageId);
-            //     } else {
-            //         uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'save', null);
-            //     }
-            // }
+            if ($request->image) {
+                if ($user->profileImage) {
+                    $uploadImageId = $user->profileImage->id;
+                    uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'update', $uploadImageId);
+                } else {
+                    uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'save', null);
+                }
+            }
             $user->roles()->attach($validatedData['role']);
 
             return response()->json([
@@ -52,8 +51,8 @@ class UserController extends Controller
                 'status' => 'error',
                 'errors' => $errors
             ], 422);
-        }catch (\Exception $e) {
-            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 
@@ -62,35 +61,41 @@ class UserController extends Controller
         try {
             $userId = $request->input('user_id');
             $user = User::find($userId);
+            $roleId = $user->roles->first()->id ?? null;
             return response()->json([
                 'status' => 'success',
-                'data' => $user
+                'data' => $user,
+                'role_id' => $roleId,
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage());
         }
     }
 
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
-        dd('update');
         try {
-            $validatedData = $request->validate([
-                'channel_name' => 'required|max:255',
-                'description' => 'required',
-            ]);
+            $validatedData = $request->validated();
+            $userId = $request->input('user_id');
+            $user = User::find($userId);
 
-            $channelId = $request->input('channel_id');
-            $channel = Channel::find($channelId);
+            $user->update($validatedData);
 
-            $channel->update($validatedData);
-
+            if (isset($validatedData['role'])) {
+                $user->roles()->sync([$validatedData['role']]);
+            }
             return response()->json([
                 'message' => toastr()->success(trans('messages.channel.channel_updated')),
                 'status' => 'success'
             ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            return response()->json([
+                'status' => 'error',
+                'errors' => $errors
+            ], 422);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 

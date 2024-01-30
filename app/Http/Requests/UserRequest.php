@@ -6,6 +6,7 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -18,16 +19,17 @@ class UserRequest extends FormRequest
 
     public function rules()
     {
+        $userId = $this->input('user_id');
         return [
             'first_name'    => 'required|string|max:255',
             'last_name'     => 'required|string|max:255',
-            'email'         => 'required|email|max:255',
+            'email'         => ['required', 'email', 'max:255'],
             'birthdate'     => 'required|date_format:Y-m-d',
             'username'      => 'required|string|max:255',
-            'password'      => 'required|string|min:8',
+            'password'      => ['nullable', 'string', 'min:8', Rule::unique('users')->ignore($userId)],
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'campaign_id'   => 'required|array',
+            'campaign_id'   => 'nullable|array',
         ];
     }
 }
