@@ -29,7 +29,7 @@ class UserController extends Controller
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
-            if ($request->image) {
+            if ($request->hasFile('image')) {
                 if ($user->profileImage) {
                     $uploadImageId = $user->profileImage->id;
                     uploadImage($user, $request->image, 'profile/image/', "profile", 'original', 'update', $uploadImageId);

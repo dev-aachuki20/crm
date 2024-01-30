@@ -28,10 +28,10 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="userstoreModalLabel">{{__('cruds.new_user')}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="userButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="user-form">
+                <form class="new-channel" id="user-form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="user-id" name="user_id" value="">
                     <div class="row">
@@ -120,7 +120,7 @@
                                 <div class="listbox">
                                     @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
-                                        <input type="checkbox" name="campaign_id[]" class="form-control">
+                                        <input value="{{$campaign->id}}" type="checkbox" name="campaign_id[]" class="form-control">
                                         <span>{{ucwords($campaign->campaign_name)}}</span>
                                     </div>
                                     @endforeach
@@ -154,16 +154,32 @@
         var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
         var method = (userId) ? 'PUT' : 'POST';
 
+        // Get the selected campaign values
+        var selectedCampaigns = $('input[name="campaign_id[]"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        // Append the selected campaign_id to the form data
+        formData += '&campaign_id=' + selectedCampaigns.join(',');
+
+        // Create a FormData object to handle file upload
+        var formDataWithFile = new FormData($('#user-form')[0]);
+
+        // Append other form data to FormData object
+        formDataWithFile.append('campaign_id', selectedCampaigns.join(','));
+
+        console.log(formData);
         $.ajax({
             type: method,
             url: url,
-            data: formData,
+            data: formDataWithFile,
+            // data: formData,
             dataType: 'json',
+            processData: false,
+            contentType: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            // contentType: false,
-            // processData: false,
             success: function(response) {
                 if (response.status === 'success') {
                     $('#user-form')[0].reset();
@@ -264,5 +280,10 @@
             }
         });
     }
+
+
+    $('#userButton').click(function() {
+        $('#user-form')[0].reset();
+    });
 </script>
 @endpush

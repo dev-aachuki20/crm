@@ -75,12 +75,9 @@
         var formData = $('#channel-form').serialize();
         var channelId = $('#channel-id').val();
 
-        // console.log(channelId);
-
         var url = (channelId) ? "{{ route('channels_update') }}" : "{{ route('channels_store') }}";
         var method = (channelId) ? 'PUT' : 'POST';
 
-        // console.log(formData);
         $.ajax({
             type: method,
             url: url,
@@ -95,7 +92,6 @@
                     window.location.reload();
                 }
             },
-
             error: function(xhr, textStatus, errorThrown) {
                 console.error('Error submitting form:', textStatus);
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
@@ -108,15 +104,6 @@
                     console.error('Unexpected error:', errorThrown);
                 }
             }
-
-            // error: function(error) {
-            //     console.error('Error submitting form:', error);
-            //     var errors = $.parseJSON(error.responseText);
-            //     $.each(errors.errors, function(key, value) {
-            //         $('#channel-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-            //         $('#channel-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-            //     });
-            // }
         });
     }
 

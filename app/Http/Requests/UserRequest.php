@@ -19,17 +19,18 @@ class UserRequest extends FormRequest
 
     public function rules()
     {
-        $userId = $this->input('user_id');
+        // $userId = $this->input('user_id');
         return [
             'first_name'    => 'required|string|max:255',
             'last_name'     => 'required|string|max:255',
-            'email'         => ['required', 'email', 'max:255'],
+            'email'         => 'required|email|unique:users|max:255',
             'birthdate'     => 'required|date_format:Y-m-d',
-            'username'      => 'required|string|max:255',
-            'password'      => ['nullable', 'string', 'min:8', Rule::unique('users')->ignore($userId)],
+            'username'      => 'required|string|unique:users|max:255',
+            'password'      => 'required|string|min:8',
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'campaign_id'   => 'nullable|array',
+            // 'campaign_id.*' => 'integer',
         ];
     }
 }
