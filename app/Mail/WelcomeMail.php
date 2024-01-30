@@ -13,15 +13,13 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $fullname;
-    public $email;
     public $password;
     /**
      * Create a new message instance.
      */
-    public function __construct($fullname, $email, $password)
+    public function __construct($fullname, $password)
     {
         $this->fullname = $fullname;
-        $this->email = $email;
         $this->password = $password;
     }
 
@@ -40,9 +38,9 @@ class WelcomeMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.user-register',
-        );
+        return (new Content(view: 'emails.user-register'))
+            ->with('fullname', $this->fullname)
+            ->with('password', $this->password);
     }
 
     /**

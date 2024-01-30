@@ -51,9 +51,8 @@ class UserController extends Controller
             // Send mail
             if ($request->send_password_on_email == 1) {
                 $fullname = $request->first_name . ' ' . $request->last_name;
-                $email = $request->email;
                 $password = $request->password;
-                Mail::to($user->email)->send(new WelcomeMail($fullname, $email, $password));
+                Mail::to($user->email)->send(new WelcomeMail($fullname, $password));
             }
 
             $user->roles()->attach($validatedData['role']);
@@ -78,7 +77,7 @@ class UserController extends Controller
                 'status' => 'success',
                 'data' => $user,
                 'role_id' => $roleId,
-                'profile' => asset('storage/profile_images/'. $image),
+                'profile' => asset('storage/profile_images/' . $image),
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage());
@@ -113,25 +112,11 @@ class UserController extends Controller
             }
 
             // Send mail
-            if ($request->send_password_on_email == 1) {
+            if ($request->send_password_on_email == 1 && !empty($request->password)) {
                 $fullname = $request->first_name . ' ' . $request->last_name;
-                $email = $request->email;
                 $password = $request->password;
-                Mail::to($user->email)->send(new WelcomeMail($fullname, $email, $password));
+                Mail::to($user->email)->send(new WelcomeMail($fullname, $password));
             }
-
-            // $data = [
-            //     $request->email
-            // ];
-            // if ($request->send_password_on_email == 1 && !empty($request->password)) {
-            //     Mail::send('emails.user-register', [
-            //         'fullname'      => $request->first_name . ' ' . $request->last_name,
-            //         'email'         => $request->email,
-            //     ], function ($message) use ($data) {
-            //         $message->subject('Welcome mail with password when user register');
-            //         $message->to($data[0]);
-            //     });
-            // }
 
             if (isset($validatedData['role'])) {
                 $user->roles()->sync([$validatedData['role']]);

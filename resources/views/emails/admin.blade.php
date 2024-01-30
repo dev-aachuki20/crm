@@ -11,9 +11,9 @@
 	<div class="mail-template" style="max-width: 100%; margin: 0 auto;">
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<thead>
-				<tr style="height:0px; width:100%; background-size:cover;background-repeat:no-repeat;">
+				{{-- <tr style="height:0px; width:100%; background-size:cover;background-repeat:no-repeat;">
 					<th style="text-align: center; font-size:20px; color:#007bff">Forgot Your Password?</th>
-				</tr>
+				</tr> --}}
 			</thead>
 			<tbody>
 				<tr>
