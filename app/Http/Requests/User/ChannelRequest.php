@@ -21,8 +21,10 @@ class ChannelRequest extends FormRequest
      */
     public function rules(): array
     {
+        $channelId = $this->input('channel_id');
+
         return [
-            'channel_name' => 'required|max:255',
+            'channel_name' => 'required|unique:channels,channel_name,' . $channelId . '|max:255',
             'description' => 'required',
         ];
     }

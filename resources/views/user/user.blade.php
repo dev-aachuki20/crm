@@ -11,7 +11,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#userstoreModal">+ {{__('global.add')}} {{__('cruds.new')}} {{__('cruds.user.title_singular')}}</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#userstoreModal" id="user">+ {{__('global.add')}} {{__('cruds.new')}} {{__('cruds.user.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -41,27 +41,18 @@
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.first_name')}}:</label>
                                         <input type="text" class="form-control" name="first_name" id="first_name" />
-                                        {{-- @if($errors->has('first_name'))
-                                        <span style="color: red;">{{ $errors->first('first_name') }}</span>
-                                        @endif --}}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.last_name')}}:</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name"/>
-                                        {{-- @if($errors->has('last_name'))
-                                        <span style="color: red;">{{ $errors->first('last_name') }}</span>
-                                        @endif --}}
+                                        <input type="text" class="form-control" name="last_name" id="last_name" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.user_name')}}:</label>
                                         <input type="text" class="form-control" name="username" id="username"/>
-                                        {{-- @if($errors->has('username'))
-                                        <span style="color: red;">{{ $errors->first('username') }}</span>
-                                        @endif --}}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -78,27 +69,18 @@
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.email')}}:</label>
                                         <input type="email" class="form-control" name="email" id="email"/>
-                                        {{-- @if($errors->has('email'))
-                                        <span style="color: red;">{{ $errors->first('email') }}</span>
-                                        @endif --}}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.password')}}:</label>
-                                        <input type="password" class="form-control" name="password" id="password"/>
-                                        {{-- @if($errors->has('password'))
-                                        <span style="color: red;">{{ $errors->first('password') }}</span>
-                                        @endif --}}
+                                        <input type="password" class="form-control" name="password" id="password"/>                                    
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.birthdate')}}:</label>
                                         <input type="date" class="form-control" name="birthdate" id="birthdate"/>
-                                        {{-- @if($errors->has('birthdate'))
-                                        <span style="color: red;">{{ $errors->first('birthdate') }}</span>
-                                        @endif --}}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -219,6 +201,8 @@
     }
 
     function editForm(user_id) {
+        // Clear previous error messages
+        $('#user-form .error').remove();
         $.ajax({
             type: 'GET',
             url: "{{ route('users_edit') }}",
@@ -229,19 +213,16 @@
                 if (response.status === 'success') {
                     console.log(response.data);
                     $('#userstoreModal').modal('show');
-                   /*  var userData = response.data;
-                    var role_id = response.role_id; */
-                    // console.log(role_id);
 
-                    // Populate the form fields with the retrieved data
-                    
-                    /* $('#user-form input[name="first_name"]').val(userData.first_name);
-                    $('#user-form input[name="last_name"]').val(userData.last_name);
-                    $('#user-form input[name="username"]').val(userData.username);
-                    $('#user-form input[name="email"]').val(userData.email);
-                    $('#user-form input[name="password"]').val(userData.password);
-                    $('#user-form input[name="birthdate"]').val(userData.birthdate);
-                    $('#user-form select[name="role"]').val(role_id); */
+
+                    // $('#user-id').val(userData.id);
+                    // $('#user-form input[name="first_name"]').val(userData.first_name);
+                    // $('#user-form input[name="last_name"]').val(userData.last_name);
+                    // $('#user-form input[name="username"]').val(userData.username);
+                    // $('#user-form input[name="email"]').val(userData.email);
+                    // $('#user-form input[name="password"]').val(userData.password);
+                    // $('#user-form input[name="birthdate"]').val(userData.birthdate);
+                    // $('#user-form select[name="role"]').val(role_id); 
 
                     $('#user-id').val(response.data.id);
                     $('#first_name').val(response.data.first_name);
@@ -253,6 +234,7 @@
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{__('global.update')}}");
+                    $('#userstoreModalLabel').text("{{__('global.update')}} {{__('cruds.user.title_singular')}}")
                 }
             },
             error: function(error) {
@@ -293,6 +275,9 @@
 
     $('#userButton').click(function() {
         $('#user-form')[0].reset();
+    });
+    $('#user').click(function() {
+        $('#user-form .error').remove();
     });
 </script>
 @endpush

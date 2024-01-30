@@ -11,7 +11,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#channelstoreModal">+ {{__('cruds.add')}} {{__('cruds.channel.title_singular')}}</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#channelstoreModal" id="channel">+ {{__('cruds.add')}} {{__('cruds.channel.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -108,6 +108,8 @@
     }
 
     function editForm(channel_id) {
+        // Clear previous error messages
+        $('#channel-form .error').remove();
         $.ajax({
             type: 'GET',
             url: "{{ route('channels_edit') }}",
@@ -126,6 +128,7 @@
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{ __('global.update') }}");
+                    $('#channelstoreModalLabel').text("{{__('global.update')}} {{__('cruds.channel.title_singular')}}")
                 }
             },
             error: function(error) {
@@ -165,6 +168,9 @@
 
     $('#cancelButton').click(function() {
         $('#channel-form')[0].reset();
+    });
+    $('#channel').click(function() {
+        $('#channel-form .error').remove();
     });
 </script>
 @endpush

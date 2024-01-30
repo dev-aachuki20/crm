@@ -19,14 +19,14 @@ class UserRequest extends FormRequest
 
     public function rules()
     {
-        // $userId = $this->input('user_id');
+        $userId = $this->input('user_id');
         return [
             'first_name'    => 'required|string|max:255',
             'last_name'     => 'required|string|max:255',
-            'email'         => 'required|email|unique:users|max:255',
+            'email'         => 'required|unique:users,email,' . $userId . '|max:255',
             'birthdate'     => 'required|date_format:Y-m-d',
-            'username'      => 'required|string|unique:users|max:255',
-            'password'      => 'required|string|min:8',
+            'username'      => 'required|string|unique:users,username,' . $userId . '|max:255',
+            'password'      => 'required|string,' . $userId . '|min:8',
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'campaign_id'   => 'nullable|array',
