@@ -69,24 +69,44 @@ class CampaignDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('campaigns-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->parameters([
-                        'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json']
-                    ])
-                    ->selectStyleSingle()
-                    ->lengthMenu([10, 25, 50, 100])
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('campaigns-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->parameters([
+                // "sScrollX" => true,
+                "scrollCollapse" => true,
+                'autoWidth' => true,
+                'language' => [
+                    "sZeroRecords" => __('cruds.data_not_found'),
+                    "sLengthMenu" => __('cruds.show') . " _MENU_ " . __('cruds.entries'),
+                    "sInfo" => config('app.locale') == 'en' ?
+                        __('message.showing') . " _START_ " . __('message.to') . " _END_ " . __('message.of') . " _TOTAL_ " . __('message.records') :
+                        __('message.showing') . "_TOTAL_" . __('message.to') . __('message.of') . "_START_-_END_" . __('message.records'),
+                    "sInfoEmpty" => __('message.showing') . " 0 " . __('message.to') . " 0 " . __('message.of') . " 0 " . __('message.records'),
+                    "search" => __('cruds.search'),
+                    "paginate" => [
+                        "first" => __('message.first'),
+                        "last" => __('message.last'),
+                        "next" => __('cruds.next'),
+                        "previous" => __('cruds.previous'),
+                    ],
+                    "autoFill" => [
+                        "cancel" => __('message.cancel'),
+                    ],
+                ],
+            ])
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload'),
+            ]
+        );
     }
 
     /**

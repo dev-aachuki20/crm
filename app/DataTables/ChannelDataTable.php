@@ -65,15 +65,13 @@ class ChannelDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->parameters([
-                "sScrollX" => true,
+                // "sScrollX" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
-                "scrollCollapse" => true,
                 'language' => [
                     "sZeroRecords" => __('cruds.data_not_found'),
                     "sLengthMenu" => __('cruds.show') . " _MENU_ " . __('cruds.entries'),
-                    // "sInfo" => __('message.showing') . " _START_ " . __('message.to') . " _END_ " . __('message.of') . " _TOTAL_ " . __('message.records'),
-                    "sInfo" =>  config('app.locale') == 'en' ?
+                    "sInfo" => config('app.locale') == 'en' ?
                         __('message.showing') . " _START_ " . __('message.to') . " _END_ " . __('message.of') . " _TOTAL_ " . __('message.records') :
                         __('message.showing') . "_TOTAL_" . __('message.to') . __('message.of') . "_START_-_END_" . __('message.records'),
                     "sInfoEmpty" => __('message.showing') . " 0 " . __('message.to') . " 0 " . __('message.of') . " 0 " . __('message.records'),
@@ -81,13 +79,12 @@ class ChannelDataTable extends DataTable
                     "paginate" => [
                         "first" => __('message.first'),
                         "last" => __('message.last'),
-                        "next" =>  __('cruds.next'),
-                        "previous" =>  __('cruds.previous'),
+                        "next" => __('cruds.next'),
+                        "previous" => __('cruds.previous'),
                     ],
                     "autoFill" => [
                         "cancel" => __('message.cancel'),
                     ],
-
                 ],
             ])
             ->selectStyleSingle()
@@ -97,8 +94,10 @@ class ChannelDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
-            ]);
+                Button::make('reload'),
+            ]
+        );
+
     }
 
     /**

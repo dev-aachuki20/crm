@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use App\Http\Requests\User\ChannelRequest;
 
 class ChannelController extends Controller
 {
@@ -15,25 +17,11 @@ class ChannelController extends Controller
         return $dataTable->render('user.channel');
     }
 
-    public function store(Request $request)
+    public function store(ChannelRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'channel_name' => 'required|max:255',
-                'description' => 'required',
-            ]);
-            // $validator = Validator::make($request->all(), [
-            //     'channel_name' => 'required|max:255',
-            //     'description' => 'required',
-            // ]);
-
-            // if (validator()->fails()) {
-            //     return response()->json([
-            //         'message' => toastr()->error(trans('messages.validation_failed')),
-            //         'status' => 'error',
-            //         'data' => null
-            //     ], 422);
-            // } else {
+            $validatedData = $request->validated();
+           
             $channel = Channel::create($validatedData);
             return response()->json([
                 'message' => toastr()->success(trans('messages.channel.channel_created')),
@@ -41,8 +29,12 @@ class ChannelController extends Controller
                 'data' => $channel
             ]);
             // }
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
         }
     }
 
@@ -60,13 +52,10 @@ class ChannelController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(ChannelRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'channel_name' => 'required|max:255',
-                'description' => 'required',
-            ]);
+            $validatedData = $request->validated();
 
             $channelId = $request->input('channel_id');
             $channel = Channel::find($channelId);
@@ -77,8 +66,12 @@ class ChannelController extends Controller
                 'message' => toastr()->success(trans('messages.channel.channel_updated')),
                 'status' => 'success'
             ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
         }
     }
 

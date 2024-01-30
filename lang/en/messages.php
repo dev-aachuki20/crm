@@ -37,12 +37,6 @@ return [
 
     'email_messages' => [],
 
-    /* Translate of the toastr */
-    'success' => 'Success',
-    'warning'   => 'Warning',
-    'error'   => 'Error',
-    'info' => 'Info',
-
     /* Compaign */
     'compaign_successfully_created' => 'Campaign Successfully Created!',
     'campaign_successfully_delete' => 'Campaign Successfully Deleted!',

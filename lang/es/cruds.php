@@ -86,11 +86,15 @@ return [
         'fields' => [
             'description'       => 'Descripción',
             'campaign'          => 'Campaña',
+            'campaign_name'     => 'Campaña Nombre',
             'assigned_channel'  => 'Canal asignado',
+            'created_by'        => 'Creado por',
             'created_at'        => 'Creado en',
             'updated_at'        => 'Actualizado en',
             'deleted_at'        => 'Eliminado en',
             'qualification'     => 'Calificación',
+            'new_campaign'      => 'Ingresa a la nueva Campaña',
+            'update_campaign'   => 'Ingrese a la campaña de edición',
         ],
     ],
 

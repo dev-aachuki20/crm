@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use App\Models\Language;
 use App\Models\Role;
 use App\Models\User;
@@ -23,7 +24,8 @@ class ProfileController extends Controller
     {
         $userDetail = Auth::user();
         $roles = Role::all();
-        return view('auth.profile.index', compact('userDetail', 'roles'));
+        $allCampaign = Campaign::where('status', '1')->orderBy('id', 'desc')->get();
+        return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign'));
     }
 
     public function updateProfile(UpdateUserRequest $request)

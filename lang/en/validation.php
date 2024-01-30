@@ -169,6 +169,28 @@ return [
         ],
     ],
 
+    'channel' => [
+        'title' => 'Channels',
+        'title_singular' => 'Channel',
+        'required' => 'The :attribute field is required.',
+        'fields' => [
+            'description'    => 'Description',
+            'name' => 'Channel Name',
+        ],
+    ],
+
+    'campaign' => [
+        'title' => 'campaigns',
+        'title_singular' => 'campaign',
+        'required' => 'The :attribute field is required.',
+        'fields' => [
+            'description'       => 'Description',
+            'campaign'          => 'Campaign',
+            'assigned_channel'  => 'Assigned Channel',
+            'qualification'     => 'Qualification',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

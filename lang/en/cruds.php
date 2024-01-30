@@ -83,11 +83,15 @@ return [
         'fields' => [
             'description'       => 'Description',
             'campaign'          => 'Campaign',
+            'campaign_name'     => 'Campaign Name',
             'assigned_channel'  => 'Assigned Channel',
+            'created_by'        => 'Created By',
             'created_at'        => 'Created at',
             'updated_at'        => 'Updated at',
             'deleted_at'        => 'Deleted at',
             'qualification'     => 'Qualification',
+            'new_campaign'      => 'Enter the new Campaign',
+            'update_campaign'   => 'Enter the Edit Campaign',
         ],
     ],
 

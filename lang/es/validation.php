@@ -169,6 +169,28 @@ return [
         ],
     ],
 
+    'channel' => [
+        'title' => 'Canales',
+        'title_singular' => 'Canal',
+        'required' => 'El campo :attribute es obligatorio.',
+        'fields' => [
+            'description'    => 'Descripción',
+            'name' => 'Nombre del Canal',
+        ],
+    ],
+
+    'campaign' => [
+        'title' => 'Campañas',
+        'title_singular' => 'Campaña',
+        'required' => 'El campo :attribute es obligatorio.',
+        'fields' => [
+            'description'       => 'Descripción',
+            'campaign'          => 'Campaña',
+            'assigned_channel'  => 'Canal asignado',
+            'qualification'     => 'Calificación',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

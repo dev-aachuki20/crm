@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CampaignRequest;
 use App\Models\Campaign;
 use App\Models\TagList;
 use Illuminate\Http\Request;
 use App\DataTables\CampaignDataTable;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Models\Channel;
 
@@ -32,15 +32,17 @@ class CampaignController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(CampaignRequest $request)
     {
         try {
-            $validatedData = $request->validate([
+            /* $validatedData = $request->validate([
                 'campaign_name'    => 'required|string|max:255',
                 'assigned_channel' => 'required',
                 'created_by'       => 'required',
                 'description'      => 'required',
-            ]);
+            ]); */
+
+            $validatedData = $request->validated();
 
             $store = new Campaign();
             $store->campaign_name     = $validatedData['campaign_name'];
@@ -94,16 +96,17 @@ class CampaignController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(CampaignRequest $request)
     {
         try {
             $input = $request->all();
-            $validatedData = $request->validate([
+            /* $validatedData = $request->validate([
                 'campaign_name'    => 'required|string|max:255',
                 'assigned_channel' => 'required',
                 'created_by'       => 'required',
                 'description'      => 'required',
-            ]);
+            ]); */
+            $validatedData = $request->validated();
 
             $data = [
                 'campaign_name'    => $input['campaign_name'],

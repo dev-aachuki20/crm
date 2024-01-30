@@ -14,7 +14,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Campaign</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">Enter the new Campaign</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
                 <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
-                                <label>Campaign name:</label>
+                                <label>{{__("cruds.campaign.fields.campaign_name")}}:</label>
                                 <input type="text" class="form-control" name="campaign_name" id="campaign_name"/>
                                 {{-- @if($errors->has('campaign_name'))
                                     <span style="color: red;">{{ $errors->first('campaign_name') }}</span>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
-                                <label>Assigned channel:</label>
+                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
                                 <select class="form-control" name="assigned_channel" id="assigned_channel">
                                     <option value="">Select the channel</option>
                                     @forelse ($allChannel as $item)
@@ -61,18 +61,18 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
-                                <label>Create by:</label>
+                                <label>{{__("cruds.campaign.fields.created_by")}}:</label>
                                 <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly/>
                                 <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by"/>
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group qualificationGroup">
-                                <label>Qualification:</label>
+                                <label>{{__("cruds.campaign.fields.qualification")}}:</label>
                                 <!-- <input type="text" id="newTag" class="form-control" /> -->
                                 <div class="input-group">
                                     <input type="text" id="newTag" class="form-control"/>
-                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ Add"/>
+                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}"/>
                                 </div>
                                 <!-- <textarea class="form-control mt-3"></textarea> -->
                             </div>
@@ -88,18 +88,18 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <label>Description:</label>
+                                <label>{{__("cruds.campaign.fields.description")}}:</label>
                                 <textarea class="form-control" name="description"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall" onclick="cancelForm()" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="button" class="btn btn-red btnsmall" onclick="cancelForm()" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform text-end">
-                                <button type="button" class="btn btn-green btnsmall" onclick="submitForm()">Save</button>
+                                <button type="button" class="btn btn-green btnsmall" onclick="submitForm()">{{__('cruds.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">Enter the new Campaign</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
                 <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -133,7 +133,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.assign_channel")}}:</label>
+                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
                                 <select class="form-control" name="assigned_channel" id="assigned_channel_update">
                                     @forelse ($allChannel as $item)
                                         <option value="{{$item->id}}">{{$item->channel_name}}</option>
@@ -156,7 +156,7 @@
                                 <!-- <input type="text" id="newTag" class="form-control" /> -->
                                 <div class="input-group">
                                     <input type="text" id="newTag" class="form-control"/>
-                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ Add"/>
+                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}"/>
                                 </div>
                                 <!-- <textarea class="form-control mt-3"></textarea> -->
                             </div>

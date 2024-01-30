@@ -116,54 +116,17 @@
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
                     <div class="listbox-wrapper">
                         <div class="listbox">
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Black Friday</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Navidad</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>SIN IVA</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Regreso a Clases</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Black Friday</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Navidad</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>SIN IVA</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Regreso a Clases</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Black Friday</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Navidad</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>SIN IVA</span>
-                            </div>
-                            <div class="checboxcont">
-                                <input type="checkbox" name="campaign" class="form-control">
-                                <span>Regreso a Clases</span>
-                            </div>
+                            @forelse($allCampaign as $campaign)
+                                <div class="checboxcont">
+                                    <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}">
+                                    <span>{{$campaign->campaign_name}}</span>
+                                </div>    
+                            @empty
+                                <div class="checboxcont">
+                                    {{-- <input type="checkbox" name="campaign" class="form-control"> --}}
+                                    <span>Data Not Found!</span>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

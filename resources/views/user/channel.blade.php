@@ -27,7 +27,7 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="channelstoreModalLabel">{{__('cruds.enter_new_channel')}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <form class="new-channel" id="channel-form">
@@ -175,5 +175,9 @@
             }
         });
     }
+
+    $('#cancelButton').click(function() {
+        $('#channel-form')[0].reset();
+    });
 </script>
 @endpush
