@@ -116,7 +116,11 @@ class User extends Authenticatable
     }
 
     public function campaigns()
-{
-    return $this->belongsToMany(Campaign::class);
-}
+    {
+        return $this->belongsToMany(Campaign::class);
+    }
+
+    public function getProfileImage(){
+        return $this->hasOne(Uploads::class, 'uploadsable_id', 'id');
+    }
 }

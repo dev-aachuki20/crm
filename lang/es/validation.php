@@ -191,6 +191,22 @@ return [
         ],
     ],
 
+    'user'           => [
+        'title'          => 'Users',
+        'title_singular' => 'User',
+        'required' => 'El campo :attribute es obligatorio.',
+        'min' => [
+            'string' => 'El :attribute no puede tener menos de :min caracteres.',
+        ],
+        'max' => [
+            'string' => 'El :attribute no puede tener más de :max caracteres.',
+        ],
+        'fields'         => [
+            'user_name'                 => 'Username',
+            'email'                     => 'Email',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

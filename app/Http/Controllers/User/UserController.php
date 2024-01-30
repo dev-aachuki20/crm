@@ -25,9 +25,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        \Log::info($request);
         try {
-            \Log::info($request);
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
@@ -64,10 +62,12 @@ class UserController extends Controller
             $userId = $request->input('user_id');
             $user = User::find($userId);
             $roleId = $user->roles->first()->id ?? null;
+            $image = $user->getProfileImage->file_path ?? '';
             return response()->json([
                 'status' => 'success',
                 'data' => $user,
                 'role_id' => $roleId,
+                'profile' => asset('storage/profile_images/'. $image),
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage());
@@ -76,7 +76,6 @@ class UserController extends Controller
 
     public function update(UserRequest $request)
     {
-        \Log::info($request);
         try {
             $validatedData = $request->validated();
             $userId = $request->input('user_id');

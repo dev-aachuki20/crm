@@ -191,6 +191,22 @@ return [
         ],
     ],
 
+    'user'           => [
+        'title'          => 'Users',
+        'title_singular' => 'User',
+        'required' => 'The :attribute field is required.',
+        'min' => [
+            'string' => 'The :attribute may not be less than :min characters.',
+        ],
+        'max' => [
+            'string' => 'The :attribute may not be greater than :max characters.',
+        ],
+        'fields'         => [
+            'user_name'                 => 'Username',
+            'email'                     => 'Email',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

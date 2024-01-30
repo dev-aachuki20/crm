@@ -86,7 +86,10 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.upload')}}:</label>
-                                        <input type="file" name="image" class="form-control" id="image"/>
+                                        <input type="file" name="image" class="form-control" id="image" onchange="readURL(this);"/>                                        
+                                        <div class="image-preview" style="">
+                                            <img id="previewImage" src="{{asset('images/man.png')}}" alt="Image Preview">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">
@@ -102,7 +105,6 @@
                                 <div class="listbox">
                                     @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
-                                        <input value="{{$campaign->id}}" type="checkbox" name="campaign_id[]" class="form-control">
                                         <span>{{ucwords($campaign->campaign_name)}}</span>
                                     </div>
                                     @endforeach
@@ -136,15 +138,12 @@
         var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
         // var method = (userId) ? 'PUT' : 'POST';
 
-        // Get the selected campaign values
         var selectedCampaigns = $('input[name="campaign_id[]"]:checked').map(function() {
             return $(this).val();
         }).get();
 
-        // Append the selected campaign_id to the form data
         formData += '&campaign_id=' + selectedCampaigns.join(',');
 
-        // Create a FormData object to handle file upload
         var formDataWithFile = new FormData($('#user-form')[0]);
 
         // Append other form data to FormData object
@@ -211,9 +210,7 @@
             },
             success: function(response) {
                 if (response.status === 'success') {
-                    console.log(response.data);
                     $('#userstoreModal').modal('show');
-
 
                     // $('#user-id').val(userData.id);
                     // $('#user-form input[name="first_name"]').val(userData.first_name);
@@ -230,7 +227,14 @@
                     $('#username').val(response.data.username);
                     $('#email').val(response.data.email);
                     $('#birthdate').val(response.data.birthdate);
-                    $('#role').val(response.data.role_id);
+                    $('#role').val(response.role_id);
+                    if ((response.data.username) || (response.data.email)) { 
+                        $('#username').attr('disabled', true);
+                        $('#email').attr('disabled', true);
+                    }
+                    if(response.profile){
+                        $('#previewImage').attr('src', response.profile);
+                    }
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{__('global.update')}}");
@@ -276,8 +280,22 @@
     $('#userButton').click(function() {
         $('#user-form')[0].reset();
     });
+
     $('#user').click(function() {
         $('#user-form .error').remove();
     });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewImage')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 @endpush

@@ -20,17 +20,39 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $userId = $this->input('user_id');
-        return [
+        
+        $rules = [
             'first_name'    => 'required|string|max:255',
             'last_name'     => 'required|string|max:255',
             'email'         => 'required|unique:users,email,' . $userId . '|max:255',
             'birthdate'     => 'required|date_format:Y-m-d',
             'username'      => 'required|string|unique:users,username,' . $userId . '|max:255',
-            'password'      => 'required|string,' . $userId . '|min:8',
+            // 'password'      => 'required|string|min:8',
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'campaign_id'   => 'nullable|array',
-            // 'campaign_id.*' => 'integer',
+            // 'campaign_id'   => 'nullable|array',
+            'campaign_id'   => 'nullable',
+        ];
+
+        if (isset($userId)) {
+            unset($rules['password']);
+        } else {
+            $rules['password'] = 'required|string|min:8|max:12';
+        }
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'first_name.required' => __('validation.user.required'),
+            'last_name.required' => __('validation.user.required'),
+            'email.required' => __('validation.user.required'),
+            'birthdate.required' => __('validation.user.required'),
+            'username.required' => __('validation.user.required'),
+            'password.required' => __('validation.user.required'),
+
         ];
     }
 }
