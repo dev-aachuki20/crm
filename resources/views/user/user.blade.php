@@ -31,7 +31,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="user-form" enctype="multipart/form-data">
+                <form class="new-channel" id="user-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="user-id" name="user_id" value="">
                     <div class="row">
@@ -125,6 +125,9 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                @if($errors->has('campaign_id'))
+                                <span style="color: red;">{{ $errors->first('campaign_id') }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -151,17 +154,17 @@
         var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
         var method = (userId) ? 'PUT' : 'POST';
 
-        console.log(url, method);
+        // console.log(url, method);
         $.ajax({
             type: method,
             url: url,
-            contentType: false,
-            processData: false,
             data: formData,
-            // dataType: 'json',
+            dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
+            contentType: false,
+            processData: false,
             success: function(response) {
                 if (response.status === 'success') {
                     $('#user-form')[0].reset();
@@ -174,11 +177,20 @@
             },
             error: function(error) {
                 console.error('Error submitting form:', error);
-                var errors = $.parseJSON(error.responseText);
-                $.each(errors.errors, function(key, value) {
-                    $('#user-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                    $('#user-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                });
+                $('#user-form .error').remove();
+                if (error.responseJSON && error.responseJSON.errors) {
+                    try {
+                        var errors = $.parseJSON(error.responseText);
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            $('#user-form input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                            $('#user-form checkbox[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        });
+                    } catch (e) {
+                        console.error('Error parsing JSON response:', e);
+                    }
+                } else {
+                    console.error('Empty or undefined responseText.');
+                }
             }
         });
     }
@@ -204,6 +216,7 @@
                     $('#user-form input[name="email"]').val(userData.email);
                     $('#user-form input[name="password"]').val(userData.password);
                     $('#user-form input[name="birthdate"]').val(userData.birthdate);
+                    $('#user-form select[name="role"]').val(userData.role);
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{__('global.update')}}");
