@@ -43,11 +43,11 @@ class ChannelDataTable extends DataTable
             </div>';
             })
 
-            ->addColumn('channel_name', function ($data) {
+            ->editColumn('channel_name', function ($data) {
                 return ucfirst($data->channel_name);
             })
 
-            ->addColumn('description', function ($data) {
+            ->editColumn('description', function ($data) {
                 return ucfirst($data->description);
             })
 
@@ -77,6 +77,7 @@ class ChannelDataTable extends DataTable
                 // "sScrollX" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
+                'searching' => true,
                 'language' => [
                     "sZeroRecords" => __('cruds.data_not_found'),
                     "sLengthMenu" => __('cruds.show') . " _MENU_ " . __('cruds.entries'),
