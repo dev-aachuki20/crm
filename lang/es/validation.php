@@ -152,56 +152,11 @@ return [
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
-    // 'channel' => [
-    //     'required' => 'The :attribute Se requiere campo.',
-    //     'unique' => 'The :attribute ya se ha tomado.',
-    //     'max' => 'The :attribute no puede ser mayor que :max caracteres.',
-    // ],
-
-
-    // 'user'           => [
-    //     'title'          => 'Users',
-    //     'title_singular' => 'User',
-    //     'required' => 'El campo :attribute es obligatorio.',
-    //     'min' => [
-    //         'string' => 'El :attribute no puede tener menos de :min caracteres.',
-    //     ],
-    //     'max' => [
-    //         'string' => 'El :attribute no puede tener más de :max caracteres.',
-    //     ],
-    //     'fields'         => [
-    //         'user_name'                 => 'Username',
-    //         'email'                     => 'Email',
-    //     ],
-    // ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
 
     'attributes' => [],
 

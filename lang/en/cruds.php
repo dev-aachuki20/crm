@@ -31,6 +31,8 @@ return [
             'sponser_id'               => 'Sponser ID',
             'joining_date'             => 'Joining Date',
             'registration_date'        => 'Registration Date',
+            'campaign_id'              => 'Campaign',
+            'image'                    => 'Image'
         ],
 
         'profile'         => [

@@ -7,12 +7,6 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // $(document).ready(function() {
-    //     // $(function() {
-    //     $('.selectpicker').selectpicker();
-    //     // });
-    // });
-
     $(document).ready(function() {
         $('.selectpicker').selectpicker();
     });
@@ -41,19 +35,4 @@
         return $state;
     }
 </script>
-
-<!-- <script>
-    $(document).ready(function() {
-        // Add tooltips to pagination arrows
-        // $('.paginate_button.previous').attr('title', 'Previous');
-        // $('.paginate_button.next').attr('title', 'Next');
-
-        // Hide the "Previous" text and show the left arrow symbol
-        $('#user-table_previous').find('a').html('<i class="fas fa-chevron-left"></i>');
-
-        // Hide the "Next" text and show the right arrow symbol
-        $('#user-table_next').find('a').html('<i class="fas fa-chevron-right"></i>');
-
-    });
-</script> -->
 @stack('scripts')

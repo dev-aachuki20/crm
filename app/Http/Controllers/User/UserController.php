@@ -35,18 +35,6 @@ class UserController extends Controller
                 $validatedData['send_password_on_email'] = 0;
             }
 
-
-            /* For Campaign Id */
-            /* $campaignIds = $request->input('campaign_id');
-            if ($campaignIds) {
-                $campaignIds = explode(',', $campaignIds);
-                $campaignIds = array_filter($campaignIds);
-            } else {
-                $campaignIds = [];
-            }
-
-            $validatedData['campaign_id'] = json_encode($campaignIds); */
-
             // upload profile
             $user = User::create($validatedData);
             if ($request->hasFile('image')) {

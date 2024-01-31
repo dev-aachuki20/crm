@@ -33,6 +33,8 @@ return [
             'sponser_name'             => 'Nombre del patrocinador',
             'joining_date'             => 'Fecha de ingreso',
             'registration_date'        => 'Fecha de Registro',
+            'campaign_id'              => 'campaña',
+            'image'                    => 'Imagen'
         ],
 
         'profile'         => [

@@ -26,41 +26,7 @@
     <!-- datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     @stack('styles')
-
-    <!-- <style>
-        /* Hide default text and adjust styles */
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 0;
-            margin-left: 0.5em;
-            overflow: hidden;
-        }
-
-        /* Chevron-left */
-        .dataTables_wrapper .dataTables_paginate .paginate_button.previous::before {
-            content: '\f053';
-        }
-
-        /* Chevron-right */
-        .dataTables_wrapper .dataTables_paginate .paginate_button.next::before {
-            content: '\f054';
-        }
-
-        /* Hide the text visually while keeping it accessible for screen readers */
-        .dataTables_wrapper .dataTables_paginate .paginate_button.previous span,
-        .dataTables_wrapper .dataTables_paginate .paginate_button.next span {
-            display: none;
-        }
-
-        /* Add additional styling if needed */
-        .dataTables_wrapper .dataTables_paginate .paginate_button i {
-            font-size: 1.2em;
-            color: #007bff;
-        }
-    </style> -->
 </head>
 
 <body>
