@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\DataTables\UserDataTable;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Mail\WelcomeMail;
 use App\Models\Campaign;
@@ -81,12 +82,12 @@ class UserController extends Controller
             $userId = $request->input('user_id');
             $user = User::find($userId);
             $roleId = $user->roles->first()->id ?? null;
-            $image = $user->getProfileImage->file_path ?? '';
+
             return response()->json([
                 'status' => 'success',
                 'data' => $user,
                 'role_id' => $roleId,
-                'profile' => asset('storage/profile_images/' . $image) ?? null,
+                'profile' => $user->ProfileImageUrl ?? null,
                 'campaign_id' => explode(',', $user->campaign_id) ?? null,
             ]);
         } catch (\Exception $e) {
