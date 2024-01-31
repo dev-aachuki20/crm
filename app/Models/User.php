@@ -23,8 +23,8 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'name',
-        'username',
-        'email',
+        // 'username',
+        // 'email',
         'password',
         'birthdate',
         'campaign_id',
@@ -120,5 +120,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Campaign::class);
     }
-
 }

@@ -77,21 +77,16 @@
             <div class="col-12 col-lg-3">
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.user_name')}}:</label>
-                    <input type="text" name="username" value="{{ $userDetail->username }}" class="form-control @error('username') is-invalid @enderror" autocomplete="current-password" />
-                    @error('username')
-                    <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                    @enderror
+                    <input type="text" id="username" name="username" value="{{ $userDetail->username }}" class="form-control" disabled/>
                 </div>
+
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.role')}}:</label>
-                    <select name="role" class="form-control">
-                        @foreach ($roles as $role)
-                        <option value="{{ $role->id }}" {{ $userDetail->isAssignedRole($role->id) ? 'selected' : '' }}>{{ $role->title }}</option>
-                        @endforeach
-                    </select>
+                    @if($roles)
+                    <input id="roleofuser" type="text" value="{{ $roles->title }}" class="form-control" />
+                    @endif
                 </div>
+
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.password')}}:</label>
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" />
@@ -114,83 +109,29 @@
             <div class="col-12 col-lg-3">
                 <div class="form-group">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
-                    <input type="hidden" name="campaign" class="form-control" value=""> 
+                    <input type="hidden" name="campaign" class="form-control" value="">
                     <div class="listbox-wrapper">
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
-                                <div class="checboxcont">
-                                    <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" 
-                                    @if(in_array($campaign->id, explode(',', $userDetail->campaign_id)))
-                                        checked 
-                                    @endif>
-                                    <span>{{$campaign->campaign_name}}</span>
-                                </div>    
+                            <div class="checboxcont">
+                                <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" @if(in_array($campaign->id, explode(',', $userDetail->campaign_id)))
+                                checked
+                                @endif>
+                                <span>{{$campaign->campaign_name}}</span>
+                            </div>
                             @empty
-                                <div class="checboxcont">
-                                    <span>Data Not Found!</span>
-                                </div>
+                            <div class="checboxcont">
+                                <span>Data Not Found!</span>
+                            </div>
                             @endforelse
                         </div>
                     </div>
                     @error('campaign')
-                        <span class="invalid-feedback" role="alert">
-                            {{ $message }}
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        {{ $message }}
+                    </span>
                     @enderror
                 </div>
-                <!-- <div class="form-group">
-									<label>Channel:</label>
-									<div class="listbox">
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Call Center</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Web</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Whatsapp</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Freelance</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Call Center</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Web</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Whatsapp</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Freelance</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Call Center</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Web</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Whatsapp</span>
-										</div>
-										<div class="checboxcont">
-											<input type="checkbox" name="channel" class="form-control">
-											<span>Freelance</span>
-										</div>
-									</div>
-								</div> -->
             </div>
         </div>
     </form>
@@ -223,8 +164,11 @@
         $("#editButton").on("click", function() {
             $("#updateProfileForm :input").prop("disabled", false);
             $("#email").prop("disabled", true);
+             $("#username").prop("disabled", true);
+            $("#roleofuser").prop("disabled", true);
             $("#saveButton").prop("disabled", false);
             $("#cancelButton").prop("disabled", false);
+
 
         });
     });
