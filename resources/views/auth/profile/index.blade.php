@@ -118,12 +118,14 @@
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
                                 <div class="checboxcont">
-                                    <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}">
+                                    <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" 
+                                    @if(in_array($campaign->id, explode(',', $userDetail->campaign_id)))
+                                        checked 
+                                    @endif>
                                     <span>{{$campaign->campaign_name}}</span>
                                 </div>    
                             @empty
                                 <div class="checboxcont">
-                                    {{-- <input type="checkbox" name="campaign" class="form-control"> --}}
                                     <span>Data Not Found!</span>
                                 </div>
                             @endforelse

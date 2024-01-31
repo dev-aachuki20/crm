@@ -26,7 +26,6 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        \Log::info($request);
         try {
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
@@ -36,6 +35,18 @@ class UserController extends Controller
             } else {
                 $validatedData['send_password_on_email'] = 0;
             }
+
+
+            /* For Campaign Id */
+            /* $campaignIds = $request->input('campaign_id');
+            if ($campaignIds) {
+                $campaignIds = explode(',', $campaignIds);
+                $campaignIds = array_filter($campaignIds);
+            } else {
+                $campaignIds = [];
+            }
+
+            $validatedData['campaign_id'] = json_encode($campaignIds); */
 
             // upload profile
             $user = User::create($validatedData);
@@ -77,7 +88,8 @@ class UserController extends Controller
                 'status' => 'success',
                 'data' => $user,
                 'role_id' => $roleId,
-                'profile' => asset('storage/profile_images/' . $image),
+                'profile' => asset('storage/profile_images/' . $image) ?? null,
+                'campaign_id' => explode(',', $user->campaign_id) ?? null,
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage());

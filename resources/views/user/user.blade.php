@@ -105,6 +105,7 @@
                                 <div class="listbox">
                                     @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
+                                        <input type="checkbox" name="campaign_id[]" class="form-control" id="campaign_id-{{$campaign->id}}" value="{{$campaign->id}}">
                                         <span>{{ucwords($campaign->campaign_name)}}</span>
                                     </div>
                                     @endforeach
@@ -240,7 +241,18 @@
                         $('#previewImage').attr('src', response.profile);
                     }
 
-                    // Set the checkbox state based on the value received
+                    /* For get the campaign Id */
+                    if(response.campaign_id){
+                        try {
+                            response.campaign_id.forEach(function(campaignId) {
+                                /* console.log('campaignId', parseInt(campaignId)) */
+                                $('#campaign_id-' + parseInt(campaignId)).prop('checked', true);
+                            });
+                        } catch (error) {
+                            console.log('Error parsing campaignId:', error);
+                        }
+                    }
+
                     $('#send_password_on_email').prop('checked', response.data.send_password_on_email);
 
                     // Change the button text create to "Update"

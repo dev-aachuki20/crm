@@ -35,6 +35,8 @@ class ProfileController extends Controller
         if (isNull($request->password)) {
             $inputs = $request->except('password');
         }
+        
+        $inputs['campaign_id'] = implode(",",$inputs['campaign']);
         $user->update($inputs);
         $user->roles()->sync($request->input('roles', []));
 
