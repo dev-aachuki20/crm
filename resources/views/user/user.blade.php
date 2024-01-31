@@ -110,6 +110,7 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                <input type="hidden" name="campaign_id" class="form-control">
                             </div>
                         </div>
 
