@@ -22,7 +22,7 @@ class CampaignDataTable extends DataTable
      */
 
     protected $allChannel;
-    
+
     public function __construct(Channel $allChannel)
     {
         $this->allChannel = $allChannel;
@@ -33,7 +33,7 @@ class CampaignDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($data) {
                 return '<div class="edit-delete">
-                    <button type="button" id="user" class="edit" campaign_id=' . $data->id . ' onclick="openUpdateCampaignModal(' .$data->id. ')">
+                    <button type="button" id="user" class="edit" campaign_id=' . $data->id . ' onclick="openUpdateCampaignModal(' . $data->id . ')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
                         <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -53,14 +53,14 @@ class CampaignDataTable extends DataTable
                 </div>';
             })
 
-            ->addColumn('campaign_name', function ($data) {
+            ->editColumn('campaign_name', function ($data) {
                 return ucfirst($data->campaign_name);
             })
 
-            ->addColumn('description', function ($data) {
+            ->editColumn('description', function ($data) {
                 return ucfirst($data->description);
             })
-        ->rawColumns(['action']);
+            ->rawColumns(['action']);
     }
 
     /**
@@ -106,15 +106,16 @@ class CampaignDataTable extends DataTable
                 ],
             ])
             ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
-            ]
-        );
+            ->buttons(
+                [
+                    Button::make('excel'),
+                    Button::make('csv'),
+                    Button::make('pdf'),
+                    Button::make('print'),
+                    Button::make('reset'),
+                    Button::make('reload'),
+                ]
+            );
     }
 
     /**

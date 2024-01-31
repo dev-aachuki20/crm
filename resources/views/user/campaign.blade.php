@@ -40,7 +40,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.campaign_name")}}:</label>
-                                <input type="text" class="form-control" name="campaign_name" id="campaign_name"/>
+                                <input type="text" class="form-control" name="campaign_name" id="campaign_name" />
                                 {{-- @if($errors->has('campaign_name'))
                                     <span style="color: red;">{{ $errors->first('campaign_name') }}</span>
                                 @endif --}}
@@ -52,9 +52,9 @@
                                 <select class="form-control" name="assigned_channel" id="assigned_channel">
                                     <option value="">Select the channel</option>
                                     @forelse ($allChannel as $item)
-                                        <option value="{{$item->id}}">{{$item->channel_name}}</option>
+                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
                                     @empty
-                                        <option value="">Data Not Available</option>
+                                    <option value="">Data Not Available</option>
                                     @endforelse
                                 </select>
                             </div>
@@ -62,8 +62,8 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.created_by")}}:</label>
-                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly/>
-                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by"/>
+                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly />
+                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -71,8 +71,8 @@
                                 <label>{{__("cruds.campaign.fields.qualification")}}:</label>
                                 <!-- <input type="text" id="newTag" class="form-control" /> -->
                                 <div class="input-group">
-                                    <input type="text" id="newTag" class="form-control"/>
-                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}"/>
+                                    <input type="text" id="newTag" class="form-control" />
+                                    <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
                                 </div>
                                 <!-- <textarea class="form-control mt-3"></textarea> -->
                             </div>
@@ -83,7 +83,7 @@
                                     <ul id="tagList">
 
                                     </ul>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -120,12 +120,12 @@
             <div class="modal-body p-4">
                 <form class="new-channel" id="updateCampaign" action="" method="">
                     @csrf
-                    <input type="hidden" name="campaign_id" id="campaign_id" value=""/>
+                    <input type="hidden" name="campaign_id" id="campaign_id" value="" />
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.campaign")}}:</label>
-                                <input type="text" class="form-control" name="campaign_name" id="campaign_name_update"/>
+                                <input type="text" class="form-control" name="campaign_name" id="campaign_name_update" />
                                 {{-- @if($errors->has('campaign_name'))
                                     <span style="color: red;">{{ $errors->first('campaign_name') }}</span>
                                 @endif --}}
@@ -136,9 +136,9 @@
                                 <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
                                 <select class="form-control" name="assigned_channel" id="assigned_channel_update">
                                     @forelse ($allChannel as $item)
-                                        <option value="{{$item->id}}">{{$item->channel_name}}</option>
+                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
                                     @empty
-                                        <option value="">Data Not Available</option>
+                                    <option value="">Data Not Available</option>
                                     @endforelse
                                 </select>
                             </div>
@@ -146,8 +146,8 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.created_by")}}:</label>
-                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly/>
-                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by_update"/>
+                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly />
+                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by_update" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -155,8 +155,8 @@
                                 <label>{{__("cruds.campaign.fields.qualification")}}:</label>
                                 <!-- <input type="text" id="newTag" class="form-control" /> -->
                                 <div class="input-group">
-                                    <input type="text" id="newTag" class="form-control"/>
-                                    <input type="button"  class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}"/>
+                                    <input type="text" id="newTag" class="form-control" />
+                                    <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
                                 </div>
                                 <!-- <textarea class="form-control mt-3"></textarea> -->
                             </div>
@@ -167,7 +167,7 @@
                                     <ul id="tagList">
 
                                     </ul>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -197,7 +197,7 @@
 @push('scripts')
 <!-- Select Tags Js -->
 <script>
-    
+
 </script>
 {!! $dataTable->scripts() !!}
 <script>
@@ -207,21 +207,21 @@
 
     tagList_render();
 
-    function tagList_render () {
+    function tagList_render() {
         $tagList.empty();
-        tagList.map (function (_tag) {
-            var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
+        tagList.map(function(_tag) {
+            var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
             $tagList.append(temp);
         });
     }
 
     tagList_render();
     // ADD JQUERY
-    $(document).ready(function(){
+    $(document).ready(function() {
         /* var tagList = ['Optimus Prime', 'Bumblebee', 'Megatron', 'Ironhide']; */
         // var tagList = [];
-        
-        
+
+
         // cacheing the DOM elements
         /* var $tagList = $("#tagList");
         var $newTag = $("#newTag"); */
@@ -237,17 +237,17 @@
                 $tagList.append(temp);
             });
         }; */
-        jQuery("#addOption").click(function(){
+        jQuery("#addOption").click(function() {
             var newTag = $("#newTag").val();
-            if( newTag.replace(/\s/g, '') !== '' ){
-            tagList.push(newTag);
-            $newTag.val('');
-            tagList_render();
+            if (newTag.replace(/\s/g, '') !== '') {
+                tagList.push(newTag);
+                $newTag.val('');
+                tagList_render();
             }
         });
         // button events
         // Remove Tag
-        $tagList.on("click", "li>span.rmTag", function(){
+        $tagList.on("click", "li>span.rmTag", function() {
             var index = $(this).parent().index();
             tagList.splice(index, 1);
             tagList_render();
@@ -280,7 +280,7 @@
                 console.error('Error submitting form:', response);
                 if (response.status === 422) {
                     var errors = response.responseJSON.errors;
-                    $.each(errors, function (key, value) {
+                    $.each(errors, function(key, value) {
                         $('[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                     });
                 } else {
@@ -290,7 +290,8 @@
         });
     }
 
-    function openUpdateCampaignModal(campaign_id){
+    function openUpdateCampaignModal(campaign_id) {
+        $('#updateCampaign .error').remove();
 
         var url = "{{ url('/campaign-edit') }}";
         $.ajax({
@@ -302,14 +303,14 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function (response) {
+            success: function(response) {
                 if (response.status === true) {
                     $('#updateCampaignModal').modal('show');
 
                     $('#campaign_id').val(campaign_id);
                     $('#campaign_name_update').val(response.data.campaign_name);
                     $('#assigned_channel_update').val(response.data.assigned_channel);
-                    
+
                     if (response.data && response.data.tag_lists && response.data.tag_lists.tag_name) {
                         // tagList = response.data.tag_lists.tag_name;
                         var parsedTags = JSON.parse(response.data.tag_lists.tag_name);
@@ -322,10 +323,10 @@
 
                     $('#created_by_update').val(response.data.created_by);
                     $('#description_update').val(response.data.description);
-                    
+
                     $tagList.empty();
-                    tagList.map (function (_tag) {
-                        var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
+                    tagList.map(function(_tag) {
+                        var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
                         $tagList.append(temp);
                     });
                     console.log(tagList);
@@ -334,14 +335,14 @@
                     toastr.error(response.error);
                 }
             },
-            error: function (error) {
+            error: function(error) {
                 console.error(error);
             }
         });
 
     }
 
-    function updateCampaign(){
+    function updateCampaign() {
         $('.error').remove();
         var formData = $('#updateCampaign').serialize();
 
@@ -365,7 +366,7 @@
                 console.error('Error updating form:', response);
                 if (response.status === 422) {
                     var errors = response.responseJSON.errors;
-                    $.each(errors, function (key, value) {
+                    $.each(errors, function(key, value) {
                         $('[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                     });
                 } else {
@@ -386,17 +387,17 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function (response) {
+            success: function(response) {
                 if (response.status === true) {
                     toastr.success(response.message);
-                    setTimeout(function () {
+                    setTimeout(function() {
                         location.reload();
                     }, 200);
                 } else {
                     toastr.error(response.error);
                 }
             },
-            error: function (error) {
+            error: function(error) {
                 console.error(error);
             }
         });
@@ -411,7 +412,7 @@
         }, 10); */
     });
 
-    function closeTheEditPopup(){
+    function closeTheEditPopup() {
         var tagList = [];
         $tagList.empty();
         $('#updateCampaignModal').modal('hide');
@@ -423,6 +424,5 @@
     $('#campaign').click(function() {
         $('#saveCampaign .error').remove();
     });
-
 </script>
 @endpush
