@@ -152,16 +152,6 @@ return [
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
 
     'custom' => [
         'attribute-name' => [
@@ -169,54 +159,30 @@ return [
         ],
     ],
 
-    'channel' => [
-        'title' => 'Channels',
-        'title_singular' => 'Channel',
-        'required' => 'The :attribute field is required.',
-        'fields' => [
-            'description'    => 'Description',
-            'name' => 'Channel Name',
-        ],
-    ],
 
-    'campaign' => [
-        'title' => 'campaigns',
-        'title_singular' => 'campaign',
-        'required' => 'The :attribute field is required.',
-        'fields' => [
-            'description'       => 'Description',
-            'campaign'          => 'Campaign',
-            'assigned_channel'  => 'Assigned Channel',
-            'qualification'     => 'Qualification',
-        ],
-    ],
 
-    'user'           => [
-        'title'          => 'Users',
-        'title_singular' => 'User',
-        'required' => 'The :attribute field is required.',
-        'min' => [
-            'string' => 'The :attribute may not be less than :min characters.',
-        ],
-        'max' => [
-            'string' => 'The :attribute may not be greater than :max characters.',
-        ],
-        'fields'         => [
-            'user_name'                 => 'Username',
-            'email'                     => 'Email',
-        ],
-    ],
+    // 'channel' => [
+    //     'required' => 'The :attribute field is required.',
+    //     'unique' => 'The :attribute has already been taken.',
+    //     'max' => 'The :attribute may not be greater than :max characters.',
+    // ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
+    // 'user'           => [
+    //     'title'          => 'Users',
+    //     'title_singular' => 'User',
+    //     'required' => 'The :attribute field is required.',
+    //     'min' => [
+    //         'string' => 'The :attribute may not be less than :min characters.',
+    //     ],
+    //     'max' => [
+    //         'string' => 'The :attribute may not be greater than :max characters.',
+    //     ],
+    //     'fields'         => [
+    //         'user_name'                 => 'Username',
+    //         'email'                     => 'Email',
+    //     ],
+    // ],
+
 
     'attributes' => [],
 

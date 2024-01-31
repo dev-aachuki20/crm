@@ -16,7 +16,7 @@ class CampaignController extends Controller
     public function index(CampaignDataTable $dataTable)
     {
         try {
-            $allChannel = Channel::where('status', 1)->orderBy('id', 'desc')->get();
+            $allChannel = Channel::all();
             return $dataTable->render('user.campaign', compact('allChannel'));
         } catch (\Throwable $th) {
             //throw $th;

@@ -42,6 +42,15 @@ class ChannelDataTable extends DataTable
                 </button>
             </div>';
             })
+
+            ->addColumn('channel_name', function ($data) {
+                return ucfirst($data->channel_name);
+            })
+
+            ->addColumn('description', function ($data) {
+                return ucfirst($data->description);
+            })
+
             ->rawColumns(['action']);
     }
 
@@ -88,16 +97,16 @@ class ChannelDataTable extends DataTable
                 ],
             ])
             ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
-            ]
-        );
-
+            ->buttons(
+                [
+                    Button::make('excel'),
+                    Button::make('csv'),
+                    Button::make('pdf'),
+                    Button::make('print'),
+                    Button::make('reset'),
+                    Button::make('reload'),
+                ]
+            );
     }
 
     /**

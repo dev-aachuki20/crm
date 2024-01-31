@@ -14,7 +14,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal" id="campaign">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -419,6 +419,10 @@
             location.reload();
         }, 10); */
     }
+
+    $('#campaign').click(function() {
+        $('#saveCampaign .error').remove();
+    });
 
 </script>
 @endpush

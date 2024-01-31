@@ -52,10 +52,4 @@ class WelcomeMail extends Mailable
     {
         return [];
     }
-
-    /* public function build()
-    {
-        return $this->subject('Welcome Mail')
-            ->view('emails.user-register', ['fullname' => $this->fullname, 'email' => $this->email, 'password' => $this->password]);
-    } */
 }

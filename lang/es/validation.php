@@ -169,43 +169,28 @@ return [
         ],
     ],
 
-    'channel' => [
-        'title' => 'Canales',
-        'title_singular' => 'Canal',
-        'required' => 'El campo :attribute es obligatorio.',
-        'fields' => [
-            'description'    => 'Descripción',
-            'name' => 'Nombre del Canal',
-        ],
-    ],
+    // 'channel' => [
+    //     'required' => 'The :attribute Se requiere campo.',
+    //     'unique' => 'The :attribute ya se ha tomado.',
+    //     'max' => 'The :attribute no puede ser mayor que :max caracteres.',
+    // ],
 
-    'campaign' => [
-        'title' => 'Campañas',
-        'title_singular' => 'Campaña',
-        'required' => 'El campo :attribute es obligatorio.',
-        'fields' => [
-            'description'       => 'Descripción',
-            'campaign'          => 'Campaña',
-            'assigned_channel'  => 'Canal asignado',
-            'qualification'     => 'Calificación',
-        ],
-    ],
 
-    'user'           => [
-        'title'          => 'Users',
-        'title_singular' => 'User',
-        'required' => 'El campo :attribute es obligatorio.',
-        'min' => [
-            'string' => 'El :attribute no puede tener menos de :min caracteres.',
-        ],
-        'max' => [
-            'string' => 'El :attribute no puede tener más de :max caracteres.',
-        ],
-        'fields'         => [
-            'user_name'                 => 'Username',
-            'email'                     => 'Email',
-        ],
-    ],
+    // 'user'           => [
+    //     'title'          => 'Users',
+    //     'title_singular' => 'User',
+    //     'required' => 'El campo :attribute es obligatorio.',
+    //     'min' => [
+    //         'string' => 'El :attribute no puede tener menos de :min caracteres.',
+    //     ],
+    //     'max' => [
+    //         'string' => 'El :attribute no puede tener más de :max caracteres.',
+    //     ],
+    //     'fields'         => [
+    //         'user_name'                 => 'Username',
+    //         'email'                     => 'Email',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------

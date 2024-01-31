@@ -24,7 +24,7 @@ class ChannelRequest extends FormRequest
         $channelId = $this->input('channel_id');
 
         return [
-            'channel_name' => 'required|unique:channels,channel_name,' . $channelId . '|max:255',
+            'channel_name' => 'required|unique:channels,channel_name,' . ($channelId ? $channelId : 'NULL') . '|max:255',
             'description' => 'required',
         ];
     }
@@ -32,8 +32,10 @@ class ChannelRequest extends FormRequest
     public function messages()
     {
         return [
-            'channel_name.required' => __('validation.channel.required'),
-            'description.required' => __('validation.channel.required'),
+            'channel_name.required' => __('validation.required', ['attribute' => __('cruds.channel.fields.name')]),
+            'channel_name.unique' => __('validation.unique', ['attribute' => __('cruds.channel.fields.name')]),
+            'description.required' => __('validation.required', ['attribute' => __('cruds.channel.fields.description')]),
+            'channel_name.max' => __('validation.max.string', ['attribute' => __('cruds.channel.fields.name'), 'max' => ':max']),
         ];
     }
 }

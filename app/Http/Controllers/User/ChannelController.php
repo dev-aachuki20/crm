@@ -6,7 +6,6 @@ use App\DataTables\ChannelDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\User\ChannelRequest;
 
@@ -21,19 +20,18 @@ class ChannelController extends Controller
     {
         try {
             $validatedData = $request->validated();
-           
+
             $channel = Channel::create($validatedData);
             return response()->json([
                 'message' => toastr()->success(trans('messages.channel.channel_created')),
                 'status' => 'success',
                 'data' => $channel
             ]);
-            // }
         } catch (ValidationException $e) {
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            // \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
             return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
         }
     }
@@ -70,7 +68,7 @@ class ChannelController extends Controller
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
         }
     }
@@ -84,8 +82,7 @@ class ChannelController extends Controller
             }
             $channel->delete();
             return response()->json([
-                'message' => toastr()->success(trans('messages.channel.channel_deleted')),
-                'status' => 'success'
+                'message' => toastr()->success(trans('messages.channel.channel_deleted')), 'status' => 'success'
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage());

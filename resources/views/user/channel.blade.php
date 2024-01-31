@@ -93,7 +93,9 @@
                 }
             },
             error: function(xhr, textStatus, errorThrown) {
-                console.error('Error submitting form:', textStatus);
+                // console.error('Error submitting form:', textStatus);
+                // Clear previous error messages
+                $('#channel-form .error').remove();
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     var errors = xhr.responseJSON.errors;
                     $.each(errors, function(key, value) {

@@ -21,10 +21,11 @@ class CampaignRequest extends FormRequest
      */
     public function rules(): array
     {
+        $campaignId = $this->input('campaign_id');
+
         return [
-            'campaign_name'    => 'required|string|max:255',
+            'campaign_name'    => 'required|string|unique:campaigns,campaign_name,' . ($campaignId ? $campaignId : 'NULL') . '|max:255',
             'assigned_channel' => 'required',
-            'created_by'       => 'required',
             'description'      => 'required',
         ];
     }
@@ -32,11 +33,11 @@ class CampaignRequest extends FormRequest
     public function messages()
     {
         return [
-            'campaign_name.required' => __('validation.channel.required'),
-            'assigned_channel.required' => __('validation.channel.required'),
-            'created_by.required' => __('validation.channel.required'),
-            // 'tagList.required' => __('validation.channel.required'),
-            'description.required' => __('validation.channel.required'),
+            'campaign_name.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.campaign_name')]),
+            'campaign_name.unique' => __('validation.unique', ['attribute' => __('cruds.campaign.fields.campaign_name')]),
+            'description.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.description')]),
+            'campaign_name.max' => __('validation.max.string', ['attribute' => __('cruds.campaign.fields.campaign_name'), 'max' => ':max']),
+            'assigned_channel.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.assigned_channel')]),
         ];
     }
 }

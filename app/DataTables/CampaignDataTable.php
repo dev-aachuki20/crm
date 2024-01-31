@@ -52,6 +52,14 @@ class CampaignDataTable extends DataTable
                     </button>
                 </div>';
             })
+
+            ->addColumn('campaign_name', function ($data) {
+                return ucfirst($data->campaign_name);
+            })
+
+            ->addColumn('description', function ($data) {
+                return ucfirst($data->description);
+            })
         ->rawColumns(['action']);
     }
 

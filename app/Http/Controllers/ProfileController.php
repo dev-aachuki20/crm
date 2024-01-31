@@ -24,7 +24,7 @@ class ProfileController extends Controller
     {
         $userDetail = Auth::user();
         $roles = Role::all();
-        $allCampaign = Campaign::where('status', '1')->orderBy('id', 'desc')->get();
+        $allCampaign = Campaign::all();
         return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign'));
     }
 
@@ -49,7 +49,6 @@ class ProfileController extends Controller
             }
         }
 
-        // return redirect()->back()->with('success', trans('messages.user_profile_updated'));
         toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
         return redirect()->back();
     }
