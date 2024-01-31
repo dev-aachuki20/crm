@@ -114,6 +114,7 @@
             <div class="col-12 col-lg-3">
                 <div class="form-group">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
+                    <input type="hidden" name="campaign" class="form-control" value=""> 
                     <div class="listbox-wrapper">
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
@@ -131,6 +132,11 @@
                             @endforelse
                         </div>
                     </div>
+                    @error('campaign')
+                        <span class="invalid-feedback" role="alert">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
                 <!-- <div class="form-group">
 									<label>Channel:</label>

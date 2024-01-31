@@ -27,6 +27,7 @@ class UpdateUserRequest extends FormRequest
             'password'      => 'nullable|string|min:8|confirmed|required_with:old_password',
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'campaign'      => 'required',
         ];
     }
 }

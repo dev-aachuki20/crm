@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Uploads;
 use App\Http\Requests\UpdateUserRequest;
-
 use function PHPUnit\Framework\isNull;
 
 class ProfileController extends Controller
@@ -36,7 +35,10 @@ class ProfileController extends Controller
             $inputs = $request->except('password');
         }
         
-        $inputs['campaign_id'] = implode(",",$inputs['campaign']);
+        if(!empty($inputs['campaign'])){
+            $inputs['campaign_id'] = implode(",",$inputs['campaign']);
+        }
+        
         $user->update($inputs);
         $user->roles()->sync($request->input('roles', []));
 
