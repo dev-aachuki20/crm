@@ -36,14 +36,12 @@
             <div class="modal-body p-4">
                 <form class="new-channel" id="saveCampaign" action="" method="">
                     @csrf
+                    <input type="hidden" id="campaign_id" name="campaign_id" value="">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.campaign_name")}}:</label>
                                 <input type="text" class="form-control" name="campaign_name" id="campaign_name" />
-                                {{-- @if($errors->has('campaign_name'))
-                                    <span style="color: red;">{{ $errors->first('campaign_name') }}</span>
-                                @endif --}}
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
@@ -69,12 +67,10 @@
                         <div class="col-12 col-lg-12">
                             <div class="form-group qualificationGroup">
                                 <label>{{__("cruds.campaign.fields.qualification")}}:</label>
-                                <!-- <input type="text" id="newTag" class="form-control" /> -->
                                 <div class="input-group">
                                     <input type="text" id="newTag" class="form-control" />
                                     <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
                                 </div>
-                                <!-- <textarea class="form-control mt-3"></textarea> -->
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -89,101 +85,17 @@
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
                                 <label>{{__("cruds.campaign.fields.description")}}:</label>
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control" name="description" id="description"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall" onclick="cancelForm()" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
+                                <button type="button" class="btn btn-red btnsmall" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform text-end">
-                                <button type="button" class="btn btn-green btnsmall" onclick="submitForm()">{{__('cruds.save')}}</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- For Updating the Campaign --}}
-<div class="modal fade new-channel-popup" id="updateCampaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
-                <button type="button" class="btn-close" id="" {{-- data-bs-dismiss="modal" aria-label="Close" --}} onclick="closeTheEditPopup()"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form class="new-channel" id="updateCampaign" action="" method="">
-                    @csrf
-                    <input type="hidden" name="campaign_id" id="campaign_id" value="" />
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.campaign")}}:</label>
-                                <input type="text" class="form-control" name="campaign_name" id="campaign_name_update" />
-                                {{-- @if($errors->has('campaign_name'))
-                                    <span style="color: red;">{{ $errors->first('campaign_name') }}</span>
-                                @endif --}}
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
-                                <select class="form-control" name="assigned_channel" id="assigned_channel_update">
-                                    @forelse ($allChannel as $item)
-                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
-                                    @empty
-                                    <option value="">Data Not Available</option>
-                                    @endforelse
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.created_by")}}:</label>
-                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly />
-                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by_update" />
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group qualificationGroup">
-                                <label>{{__("cruds.campaign.fields.qualification")}}:</label>
-                                <!-- <input type="text" id="newTag" class="form-control" /> -->
-                                <div class="input-group">
-                                    <input type="text" id="newTag" class="form-control" />
-                                    <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
-                                </div>
-                                <!-- <textarea class="form-control mt-3"></textarea> -->
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <div class="tags">
-                                    <ul id="tagList">
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.description")}}:</label>
-                                <textarea class="form-control" name="description" id="description_update"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall" id="" onclick="closeTheEditPopup()">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="buttonform text-end">
-                                <button type="button" class="btn btn-green btnsmall" onclick="updateCampaign()">Save</button>
+                                <button type="button" id="saveupdate" class="btn btn-green btnsmall" onclick="submitForm()">{{__('cruds.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -195,79 +107,58 @@
 
 @endsection
 @push('scripts')
-<!-- Select Tags Js -->
-<script>
-
-</script>
 {!! $dataTable->scripts() !!}
 <script>
     var tagList = [];
-    var $tagList = $("#tagList");
-    var $newTag = $("#newTag");
-
+    var tagListVal = $("#tagList");
+    var newTag = $("#newTag");
     tagList_render();
 
     function tagList_render() {
-        $tagList.empty();
+        tagListVal.empty();
         tagList.map(function(_tag) {
             var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
-            $tagList.append(temp);
+            tagListVal.append(temp);
         });
     }
-
     tagList_render();
-    // ADD JQUERY
+
     $(document).ready(function() {
-        /* var tagList = ['Optimus Prime', 'Bumblebee', 'Megatron', 'Ironhide']; */
-        // var tagList = [];
 
-
-        // cacheing the DOM elements
-        /* var $tagList = $("#tagList");
-        var $newTag = $("#newTag"); */
-
-        // initial render
-        // tagList_render();
-        // always put logic sections and render sections in seperate functions/class
-        // trust me it will help a lot on big projects!
-        /* function tagList_render () {
-            $tagList.empty();
-            tagList.map (function (_tag) {
-                var temp = '<li>'+ _tag +'<span class="rmTag">&times;</span></li>';
-                $tagList.append(temp);
-            });
-        }; */
-        jQuery("#addOption").click(function() {
-            var newTag = $("#newTag").val();
-            if (newTag.replace(/\s/g, '') !== '') {
-                tagList.push(newTag);
-                $newTag.val('');
+        $("#addOption").click(function() {
+            var newTagVal = $("#newTag").val();
+            if (newTagVal.replace(/\s/g, '') !== '') {
+                tagList.push(newTagVal);
+                newTag.val('');
                 tagList_render();
             }
         });
-        // button events
+
         // Remove Tag
-        $tagList.on("click", "li>span.rmTag", function() {
+        tagListVal.on("click", "li>span.rmTag", function() {
             var index = $(this).parent().index();
             tagList.splice(index, 1);
             tagList_render();
         });
     });
 
-    /* For Submit the campaign */
     function submitForm() {
-        $('.error').remove();
         var formData = $('#saveCampaign').serialize();
-        var appLanguage = "{{ app()->getLocale() }}";
+        var campaignId = $('#campaign_id').val();
+
+        var url = (campaignId) ? "{{ route('getCampaignUpdate') }}" : "{{ route('getCampaignStore') }}";
 
         formData += "&tagList=" + encodeURIComponent(JSON.stringify(tagList));
 
         $.ajax({
             type: 'POST',
-            url: "{{route('getCampaignStore')}}",
+            url: url,
             data: formData,
+            dataType: 'json',
             success: function(response) {
                 if (response.status === true) {
+                    $('#saveCampaign')[0].reset();
+                    $('#campaign_id').val('');
                     toastr.success(response.message);
                     setTimeout(() => {
                         location.reload();
@@ -278,6 +169,7 @@
             },
             error: function(response) {
                 console.error('Error submitting form:', response);
+                $('#saveCampaign .error').remove();
                 if (response.status === 422) {
                     var errors = response.responseJSON.errors;
                     $.each(errors, function(key, value) {
@@ -290,29 +182,24 @@
         });
     }
 
-    function openUpdateCampaignModal(campaign_id) {
-        $('#updateCampaign .error').remove();
-
-        var url = "{{ url('/campaign-edit') }}";
+    function editForm(campaign_id) {
+        tagList = [];
+        $('#saveCampaign .error').remove();
         $.ajax({
             type: 'GET',
-            url: url,
+            url: "{{ route('getCampaignEdit') }}",
             data: {
                 id: campaign_id,
             },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function(response) {
                 if (response.status === true) {
-                    $('#updateCampaignModal').modal('show');
+                    $('#exampleModal').modal('show');
 
                     $('#campaign_id').val(campaign_id);
-                    $('#campaign_name_update').val(response.data.campaign_name);
-                    $('#assigned_channel_update').val(response.data.assigned_channel);
+                    $('#campaign_name').val(response.data.campaign_name);
+                    $('#assigned_channel').val(response.data.assigned_channel);
 
                     if (response.data && response.data.tag_lists && response.data.tag_lists.tag_name) {
-                        // tagList = response.data.tag_lists.tag_name;
                         var parsedTags = JSON.parse(response.data.tag_lists.tag_name);
                         tagList.push(...parsedTags);
                         tagList_render();
@@ -321,16 +208,19 @@
                         tagList_render();
                     }
 
-                    $('#created_by_update').val(response.data.created_by);
-                    $('#description_update').val(response.data.description);
+                    $('#created_by').val(response.data.created_by);
+                    $('#description').val(response.data.description);
 
-                    $tagList.empty();
+                    tagListVal.empty();
                     tagList.map(function(_tag) {
                         var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
-                        $tagList.append(temp);
+                        tagListVal.append(temp);
                     });
                     console.log(tagList);
 
+                    // Change the button text create to "Update"
+                    $('#saveupdate').text("{{__('global.update')}}");
+                    $('#exampleModalLabel').text("{{__('global.update')}} {{__('cruds.campaign.title_singular')}}")
                 } else {
                     toastr.error(response.error);
                 }
@@ -342,87 +232,53 @@
 
     }
 
-    function updateCampaign() {
-        $('.error').remove();
-        var formData = $('#updateCampaign').serialize();
-
-        formData += "&tagList=" + JSON.stringify(tagList);
-
-        $.ajax({
-            type: 'POST',
-            url: "{{route('getCampaignUpdate')}}",
-            data: formData,
-            success: function(response) {
-                if (response.status === true) {
-                    toastr.success(response.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 200);
-                } else {
-                    toastr.error(response.error);
-                }
-            },
-            error: function(response) {
-                console.error('Error updating form:', response);
-                if (response.status === 422) {
-                    var errors = response.responseJSON.errors;
-                    $.each(errors, function(key, value) {
-                        $('[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                    });
-                } else {
-                    alert('An unexpected error occurred. Please try again.');
-                }
-            }
-        });
-    }
-
-    function deleteCompaign(userId) {
-        var url = "{{ url('/campaign/delete') }}";
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: {
-                id: userId,
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                if (response.status === true) {
-                    toastr.success(response.message);
-                    setTimeout(function() {
-                        location.reload();
-                    }, 200);
-                } else {
-                    toastr.error(response.error);
-                }
-            },
-            error: function(error) {
-                console.error(error);
+    function deleteCompaign(campaign_id) {
+        Swal.fire({
+            title: "{{ __('cruds.are_you_sure') }}",
+            text: "{{ __('cruds.delete_this_record') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "{{ __('global.cancel') }}",
+            confirmButtonText: "{{ __('cruds.yes_delete') }}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ route('campaign_delete') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: campaign_id,
+                    },
+                    success: function(response) {
+                        if (response.status === true) {
+                            toastr.success(response.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 200);
+                        } else {
+                            toastr.error(response.error);
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
             }
         });
     }
 
     $('#cancelButton').click(function() {
         $('#saveCampaign')[0].reset();
-        // var tagList = [];
-        $tagList.empty();
-        /* setTimeout(function () {
-            location.reload();
-        }, 10); */
     });
 
-    function closeTheEditPopup() {
-        var tagList = [];
-        $tagList.empty();
-        $('#updateCampaignModal').modal('hide');
-        /* setTimeout(function () {
-            location.reload();
-        }, 10); */
-    }
-
     $('#campaign').click(function() {
+        tagList = [];
         $('#saveCampaign .error').remove();
+        
+        $('#saveupdate').text("{{__('global.save')}}");
+        $('#exampleModalLabel').text("{{__('global.add')}}  {{__('cruds.campaign.title_singular')}}")
     });
 </script>
 @endpush

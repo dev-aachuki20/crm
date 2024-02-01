@@ -86,7 +86,7 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.upload')}}:</label>
-                                        <input type="file" name="image" class="form-control" id="image" onchange="readURL(this);"/>                                        
+                                        <input type="file" name="image" class="form-control" id="image" onchange="readURL(this);" />
                                         <div class="image-preview" style="">
                                             <img id="previewImage" src="{{asset('images/man.png')}}" alt="Image Preview">
                                         </div>
@@ -135,7 +135,6 @@
         var userId = $('#user-id').val();
 
         var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
-        // var method = (userId) ? 'PUT' : 'POST';
 
         var selectedCampaigns = $('input[name="campaign_id[]"]:checked').map(function() {
             return $(this).val();
@@ -144,23 +143,14 @@
         formData += '&campaign_id=' + selectedCampaigns.join(',');
 
         var formDataWithFile = new FormData($('#user-form')[0]);
-
-        // Append other form data to FormData object
         formDataWithFile.append('campaign_id', selectedCampaigns.join(','));
 
-        // Get the value of the sendPasswordToEmail checkbox
         var sendPasswordToEmail = $('#send_password_on_email').prop('checked') ? 1 : 0;
-
-        // Append the sendPasswordToEmail checkbox value to FormData object
         formDataWithFile.append('send_password_on_email', sendPasswordToEmail);
-
-
-        // console.log(formData);
         $.ajax({
             type: 'POST',
             url: url,
             data: formDataWithFile,
-            // data: formData,
             dataType: 'json',
             processData: false,
             contentType: false,
@@ -172,15 +162,12 @@
                     $('#user-form')[0].reset();
                     $('#user-id').val('');
                     $('.buttonform button').text("{{__('global.save')}}");
-
-                    // $('#userstoreModal').modal('hide');
                     window.location.reload();
                 }
             },
             error: function(error) {
                 console.error('Error submitting form:', error);
 
-                // Clear previous error messages
                 $('#user-form .error').remove();
 
                 if (error.responseJSON && error.responseJSON.errors) {
@@ -206,7 +193,6 @@
     }
 
     function editForm(user_id) {
-        // Clear previous error messages
         $('#user-form .error').remove();
         $.ajax({
             type: 'GET',
@@ -218,15 +204,6 @@
                 if (response.status === 'success') {
                     $('#userstoreModal').modal('show');
 
-                    // $('#user-id').val(userData.id);
-                    // $('#user-form input[name="first_name"]').val(userData.first_name);
-                    // $('#user-form input[name="last_name"]').val(userData.last_name);
-                    // $('#user-form input[name="username"]').val(userData.username);
-                    // $('#user-form input[name="email"]').val(userData.email);
-                    // $('#user-form input[name="password"]').val(userData.password);
-                    // $('#user-form input[name="birthdate"]').val(userData.birthdate);
-                    // $('#user-form select[name="role"]').val(role_id); 
-
                     $('#user-id').val(response.data.id);
                     $('#first_name').val(response.data.first_name);
                     $('#last_name').val(response.data.last_name);
@@ -234,16 +211,16 @@
                     $('#email').val(response.data.email);
                     $('#birthdate').val(response.data.birthdate);
                     $('#role').val(response.role_id);
-                    if ((response.data.username) || (response.data.email)) { 
+                    if ((response.data.username) || (response.data.email)) {
                         $('#username').attr('disabled', true);
                         $('#email').attr('disabled', true);
                     }
-                    if(response.profile){
+                    if (response.profile) {
                         $('#previewImage').attr('src', response.profile);
                     }
 
                     /* For get the campaign Id */
-                    if(response.campaign_id){
+                    if (response.campaign_id) {
                         try {
                             response.campaign_id.forEach(function(campaignId) {
                                 /* console.log('campaignId', parseInt(campaignId)) */
@@ -256,7 +233,6 @@
 
                     $('#send_password_on_email').prop('checked', response.data.send_password_on_email);
 
-                    // Change the button text create to "Update"
                     $('.buttonform button').text("{{__('global.update')}}");
                     $('#userstoreModalLabel').text("{{__('global.update')}} {{__('cruds.user.title_singular')}}")
                 }
@@ -303,13 +279,15 @@
 
     $('#user').click(function() {
         $('#user-form .error').remove();
+        $('.buttonform button').text("{{__('global.save')}}");
+        $('#userstoreModalLabel').text("{{__('cruds.new_user')}}");
     });
 
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 $('#previewImage')
                     .attr('src', e.target.result);
             };

@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.email')}}:</label>
-                    <input id="email" type="email" name="email" value="{{ $userDetail->email }}" class="form-control @error('email') is-invalid @enderror" />
+                    <input id="email" type="email" name="email" value="{{ $userDetail->email }}" class="form-control @error('email') is-invalid @enderror" readonly />
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -77,13 +77,13 @@
             <div class="col-12 col-lg-3">
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.user_name')}}:</label>
-                    <input type="text" id="username" name="username" value="{{ $userDetail->username }}" class="form-control" disabled/>
+                    <input type="text" id="username" name="username" value="{{ $userDetail->username }}" class="form-control" readonly />
                 </div>
 
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.role')}}:</label>
                     @if($roles)
-                    <input id="roleofuser" type="text" value="{{ $roles->title }}" class="form-control" />
+                    <input id="roleofuser" type="text" value="{{ $roles->title }}" class="form-control" readonly />
                     @endif
                 </div>
 
@@ -163,9 +163,9 @@
 
         $("#editButton").on("click", function() {
             $("#updateProfileForm :input").prop("disabled", false);
-            $("#email").prop("disabled", true);
-             $("#username").prop("disabled", true);
-            $("#roleofuser").prop("disabled", true);
+            // $("#email").prop("disabled", true);
+            //  $("#username").prop("disabled", true);
+            // $("#roleofuser").prop("disabled", true);
             $("#saveButton").prop("disabled", false);
             $("#cancelButton").prop("disabled", false);
 

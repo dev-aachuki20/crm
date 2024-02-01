@@ -46,7 +46,7 @@ class ChannelController extends Controller
                 'data' => $channel
             ]);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 
@@ -85,7 +85,7 @@ class ChannelController extends Controller
                 'message' => toastr()->success(trans('messages.channel.channel_deleted')), 'status' => 'success'
             ]);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 }

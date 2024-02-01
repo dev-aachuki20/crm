@@ -114,10 +114,6 @@ class CampaignController extends Controller
 
             $update = Campaign::where('id', $input['campaign_id'])->update($data);
             if ($update) {
-                $tagList = $request->input('tagList');
-                $tag = TagList::where('campaign_id', $input['campaign_id'])->update([
-                    'tag_name' => $tagList,
-                ]);
                 return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_update')]);
             }
 

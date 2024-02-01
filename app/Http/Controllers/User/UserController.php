@@ -18,9 +18,13 @@ class UserController extends Controller
 {
     public function index(UserDataTable $dataTable)
     {
-        $roleData = Role::all();
-        $campaigns = Campaign::all();
-        return $dataTable->render('user.user', compact('roleData', 'campaigns'));
+        try {
+            $roleData = Role::all();
+            $campaigns = Campaign::all();
+            return $dataTable->render('user.user', compact('roleData', 'campaigns'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function store(UserRequest $request)
@@ -79,7 +83,7 @@ class UserController extends Controller
                 'campaign_id' => explode(',', $user->campaign_id) ?? null,
             ]);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 
@@ -148,7 +152,8 @@ class UserController extends Controller
                 'status' => 'success'
             ]);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+
         }
     }
 }

@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::post('/users/update', [UserController::class, 'update'])->name('users_update');
 
     /* For Campaign */
-    Route::get('/campaign/delete', [CampaignController::class, 'delete']);
+    Route::delete('/campaign/delete', [CampaignController::class, 'delete'])->name('campaign_delete');
     Route::post('/campaign-store', [CampaignController::class, 'store'])->name('getCampaignStore');
     Route::get('/campaign-edit', [CampaignController::class, 'edit'])->name('getCampaignEdit');
     Route::post('/campaign-update', [CampaignController::class, 'update'])->name('getCampaignUpdate');
