@@ -10,6 +10,7 @@ use App\Mail\WelcomeMail;
 use App\Models\Campaign;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\PasswordSendOnMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
@@ -56,6 +57,14 @@ class UserController extends Controller
                 $password = $request->password;
                 Mail::to($user->email)->send(new WelcomeMail($fullname, $password));
             }
+
+            // Trigger the notification
+            // if ($request->send_password_on_email == 1) {
+            //     $fullname = $request->first_name . ' ' . $request->last_name;
+            //     $password = $request->password;
+                
+            //     $user->notify(new PasswordSendOnMail(['fullname' => $fullname , 'password' => $password]));
+            // }
 
             $user->roles()->attach($validatedData['role']);
 
