@@ -274,9 +274,8 @@
     });
 
     $('#campaign').click(function() {
-        tagList = [];
+        $('#tagList').empty();
         $('#saveCampaign .error').remove();
-        
         $('#saveupdate').text("{{__('global.save')}}");
         $('#exampleModalLabel').text("{{__('global.add')}}  {{__('cruds.campaign.title_singular')}}")
     });

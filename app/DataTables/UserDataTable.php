@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -46,12 +47,27 @@ class UserDataTable extends DataTable
                 </button>
             </div>';
             })
+            ->editColumn('created_at', function ($data) {
+                $datetimeString = $data->created_at;
+                $dateTime = new DateTime($datetimeString);
+                $formattedDateTime = $dateTime->format('d-m-Y/ H\hi');
+                return $formattedDateTime;
+            })
 
             ->filterColumn('role', function ($query, $keyword) {
                 $query->whereHas('roles', function ($subquery) use ($keyword) {
                     $subquery->where('title', 'like', '%' . $keyword . '%');
                 });
             })
+
+            ->filterColumn('created_at', function ($query, $keyword) {
+                $query->where(function ($query) use ($keyword) {
+                    $query->whereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') like ?", ["%$keyword%"])
+                        ->orWhereRaw("DATE_FORMAT(created_at, '%Hh%i') like ?", ["%$keyword%"])
+                        ->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y/ %H\hi') like ?", ["%$keyword%"]);
+                });
+            })
+
             ->rawColumns(['action']);
     }
 

@@ -34,13 +34,6 @@ class CampaignController extends Controller
     public function store(CampaignRequest $request)
     {
         try {
-            /* $validatedData = $request->validate([
-                'campaign_name'    => 'required|string|max:255',
-                'assigned_channel' => 'required',
-                'created_by'       => 'required',
-                'description'      => 'required',
-            ]); */
-
             $validatedData = $request->validated();
 
             $store = new Campaign();
