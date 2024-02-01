@@ -22,6 +22,13 @@
     </div>
 </div>
 
+<!-- Loader element -->
+<div id="loader">
+    <!-- You can customize the loader content here -->
+    <div class="spinner"></div>
+</div>
+
+
 <!-- Modal -->
 <div class="modal fade new-channel-popup" id="userstoreModal" tabindex="-1" aria-labelledby="userstoreModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -116,7 +123,7 @@
 
                         <div class="col-12 col-lg-12">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-green btnsmall" onclick="submitForm()">{{__('global.save')}}</button>
+                                <button type="button" class="btn btn-green btnsmall" id="savebtnsubmit" onclick="submitForm()">{{__('global.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -131,6 +138,16 @@
 {!! $dataTable->scripts() !!}
 <script>
     function submitForm() {
+        $('#savebtnsubmit').prop('disabled', true);
+        // $('#savebtnsubmit').addEventListener('click', function() {
+        //     // Show the loader
+        //     $('#loader').style.display = 'block';
+
+        //     setTimeout(function() {
+        //         $('#loader').style.display = 'none';
+        //     }, 3000);
+        // });
+
         var formData = $('#user-form').serialize();
         var userId = $('#user-id').val();
 
