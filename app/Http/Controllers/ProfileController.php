@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Uploads;
 use App\Http\Requests\UpdateUserRequest;
 use function PHPUnit\Framework\isNull;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -30,8 +31,9 @@ class ProfileController extends Controller
     public function updateProfile(UpdateUserRequest $request)
     {
         try {
+            $inputs = $request->validated();
             $user = Auth::User();
-            $inputs = $request->all();
+            // $inputs = $request->all();
             if (isNull($request->password)) {
                 $inputs = $request->except('password');
             }
@@ -54,9 +56,8 @@ class ProfileController extends Controller
 
             toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
             return redirect()->back();
-        } catch (\Exception $e) {
-            print_r('fbggfh');
-            print_r($e->getMessage());
+        }catch (\Exception $e) {
+            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());            
         }
     }
 }

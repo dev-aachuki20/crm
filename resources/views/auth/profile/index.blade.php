@@ -109,7 +109,7 @@
             <div class="col-12 col-lg-3">
                 <div class="form-group">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
-                    <input type="hidden" name="campaign" class="form-control" value="">
+                    <input type="hidden" name="campaign" class="form-control" value="" id="campaign">
                     <div class="listbox-wrapper">
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     @error('campaign')
-                    <span class="invalid-feedback" role="alert">
+                    <span style="color:red;">
                         {{ $message }}
                     </span>
                     @enderror
@@ -147,30 +147,29 @@
             var reader = new FileReader();
 
             reader.onload = function(e) {
-                // get loaded data and render thumbnail.
                 curElement.attr('src', e.target.result);
             };
 
-            // read the image file as a data URL.
             reader.readAsDataURL(this.files[0]);
         });
     });
 
-    $(document).ready(function() {
-        $("#updateProfileForm :input").prop("disabled", true);
-        $("#saveButton").prop("disabled", true);
-        $("#cancelButton").prop("disabled", true);
-
-        $("#editButton").on("click", function() {
+    $(document).ready(function() {  
+        if (@json($errors->any())) {
             $("#updateProfileForm :input").prop("disabled", false);
-            // $("#email").prop("disabled", true);
-            //  $("#username").prop("disabled", true);
-            // $("#roleofuser").prop("disabled", true);
             $("#saveButton").prop("disabled", false);
-            $("#cancelButton").prop("disabled", false);
+            $("#cancelButton").prop("disabled", true);
+        } else {
+            $("#updateProfileForm :input").prop("disabled", true);
+            $("#saveButton").prop("disabled", true);
+            $("#cancelButton").prop("disabled", true);
 
-
-        });
+            $("#editButton").on("click", function() {
+                $("#updateProfileForm :input").prop("disabled", false);
+                $("#saveButton").prop("disabled", false);
+                $("#cancelButton").prop("disabled", false);
+            });     
+        }
     });
 
     document.getElementById('cancelButton').addEventListener('click', function() {
