@@ -138,7 +138,7 @@
 {!! $dataTable->scripts() !!}
 <script>
     function submitForm() {
-        $('#savebtnsubmit').prop('disabled', true);
+        // $('#savebtnsubmit').prop('disabled', true);
         // $('#savebtnsubmit').addEventListener('click', function() {
         //     // Show the loader
         //     $('#loader').style.display = 'block';
