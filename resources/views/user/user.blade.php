@@ -80,6 +80,7 @@
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.password')}}:</label>
                                         <input type="password" class="form-control" name="password" id="password" />
+                                        <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -303,5 +304,13 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $(document).on('click', '.toggle-password', function() {
+        $(this).toggleClass("eye-open");
+
+        var input = $("#password");
+        input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
+    });
+
 </script>
 @endpush

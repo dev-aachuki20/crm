@@ -30,7 +30,7 @@
                     <div class="col-12 col-lg-12">
                         <div class="form-group @error('password') invalidGroup @enderror">
                             <input id="password" type="password" name="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" autocomplete="current-password" />
-                            <span toggle="#password-field" class="form-icon-password toggle-password"><img src="images/view.svg" class="img-fluid" /></span>
+                            <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 {{ $message }}

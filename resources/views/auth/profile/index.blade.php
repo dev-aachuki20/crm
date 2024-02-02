@@ -89,7 +89,8 @@
 
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.password')}}:</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" />
+                    <input type="password" name="password" id="password" class="form-control password @error('password') is-invalid @enderror" />
+                    <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -98,7 +99,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label>{{__('cruds.user.fields.repeat_password')}}:</label>
-                    <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" />
+                    <input type="password" name="password_confirmation" id="password" class="form-control password @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -152,6 +153,13 @@
 
             reader.readAsDataURL(this.files[0]);
         });
+    });
+
+    $(document).on('click', '.toggle-password', function() {
+
+        $(this).toggleClass("eye-open");
+        var input = $(".password");
+        input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
     });
 
     $(document).ready(function() {
