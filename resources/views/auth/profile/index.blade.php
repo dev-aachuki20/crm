@@ -158,7 +158,7 @@
         if (@json($errors->any())) {
             $("#updateProfileForm :input").prop("disabled", false);
             $("#saveButton").prop("disabled", false);
-            $("#cancelButton").prop("disabled", true);
+            $("#cancelButton").prop("disabled", false);
         } else {
             $("#updateProfileForm :input").prop("disabled", true);
             $("#saveButton").prop("disabled", true);

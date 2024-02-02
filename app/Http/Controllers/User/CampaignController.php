@@ -17,6 +17,7 @@ class CampaignController extends Controller
     {
         try {
             $allChannel = Channel::all();
+            
             return $dataTable->render('user.campaign', compact('allChannel'));
         } catch (\Throwable $th) {
             //throw $th;
