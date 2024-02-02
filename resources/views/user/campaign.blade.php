@@ -168,11 +168,10 @@
             if (qualificationErrorSpan) {
                 qualificationErrorSpan.style.display = 'none';
             }
+            formData += "&tagList=" + encodeURIComponent(qualification);
         }
 
         var url = (campaignId) ? "{{ route('getCampaignUpdate') }}" : "{{ route('getCampaignStore') }}";
-
-        formData += "&tagList=" + encodeURIComponent(qualification);
 
         $.ajax({
             type: 'POST',
@@ -206,7 +205,7 @@
                         $('[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                     });
                 } else {
-                    alert('An unexpected error occurred. Please try again.');
+                    console.log('An unexpected error occurred. Please try again.');
                 }
             }
         });

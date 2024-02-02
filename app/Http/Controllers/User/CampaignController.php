@@ -90,14 +90,6 @@ class CampaignController extends Controller
     {
         try {
             $input = $request->all();
-            /* $validatedData = $request->validate([
-                'campaign_name'    => 'required|string|max:255',
-                'assigned_channel' => 'required',
-                'created_by'       => 'required',
-                'description'      => 'required',
-            ]); */
-            $validatedData = $request->validated();
-
             $data = [
                 'campaign_name'    => $input['campaign_name'],
                 'assigned_channel' => $input['assigned_channel'],
