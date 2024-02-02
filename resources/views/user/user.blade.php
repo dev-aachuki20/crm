@@ -85,7 +85,7 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                                        <input type="date" class="form-control" name="birthdate" id="birthdate" />
+                                        <input type="date" class="form-control" name="birthdate" id="birthdate" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">

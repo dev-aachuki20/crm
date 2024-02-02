@@ -20,7 +20,7 @@ class UserRequest extends FormRequest
         $rules = [
             'first_name'    => 'required|string|max:30',
             'last_name'     => 'required|string|max:30',
-            'birthdate'     => 'required|date_format:Y-m-d|before:today',
+            'birthdate'     => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'campaign_id'   => 'required',
@@ -49,7 +49,8 @@ class UserRequest extends FormRequest
             'last_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.last_name'), 'max' => ':max']),
 
             'birthdate.required' => __('validation.required', ['attribute' => __('cruds.user.fields.birthdate')]),
-            'birthdate.before' => __('validation.before', ['attribute' => __('cruds.user.fields.birthdate')]),
+            'birthdate.date' => __('validation.date', ['attribute' => __('cruds.user.fields.birthdate')]),
+            'birthdate.before_or_equal' => __('validation.before', ['attribute' => __('cruds.user.fields.birthdate')]),
 
             'role.exists' => __('validation.exists', ['attribute' => __('cruds.user.fields.role')]),
 
@@ -74,7 +75,6 @@ class UserRequest extends FormRequest
             'username.required' => __('validation.required', ['attribute' => __('cruds.user.fields.user_name')]),
             'username.string' => __('validation.string', ['attribute' => __('cruds.user.fields.user_name')]),
             'username.unique' => __('validation.unique', ['attribute' => __('cruds.user.fields.user_name')]),
-
         ];
     }
 }

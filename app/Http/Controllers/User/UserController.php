@@ -53,20 +53,11 @@ class UserController extends Controller
                 }
             }
 
-            // Send mail
-            if ($request->send_password_on_email == 1) {
-                $fullname = $request->first_name . ' ' . $request->last_name;
-                $password = $request->password;
-                Mail::to($user->email)->send(new WelcomeMail($fullname, $password));
-            }
-
             // Trigger the notification
-            // if ($request->send_password_on_email == 1) {
-            //     $fullname = $request->first_name . ' ' . $request->last_name;
-            //     $password = $request->password;
-                
-            //     $user->notify(new PasswordSendOnMail(['fullname' => $fullname , 'password' => $password]));
-            // }
+            if ($request->send_password_on_email == 1) {
+                $password = $request->password;
+                $user->notify(new PasswordSendOnMail($password));
+            }
 
             $user->roles()->attach($validatedData['role']);
 
@@ -127,11 +118,10 @@ class UserController extends Controller
                 }
             }
 
-            // Send mail
+            // Trigger the notification
             if ($request->send_password_on_email == 1 && !empty($request->password)) {
-                $fullname = $request->first_name . ' ' . $request->last_name;
                 $password = $request->password;
-                Mail::to($user->email)->send(new WelcomeMail($fullname, $password));
+                $user->notify(new PasswordSendOnMail($password));
             }
 
             if (isset($validatedData['role'])) {

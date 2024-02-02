@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                    <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" />
+                    <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
                     @error('birthdate')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -154,7 +154,7 @@
         });
     });
 
-    $(document).ready(function() {  
+    $(document).ready(function() {
         if (@json($errors->any())) {
             $("#updateProfileForm :input").prop("disabled", false);
             $("#saveButton").prop("disabled", false);
@@ -168,7 +168,7 @@
                 $("#updateProfileForm :input").prop("disabled", false);
                 $("#saveButton").prop("disabled", false);
                 $("#cancelButton").prop("disabled", false);
-            });     
+            });
         }
     });
 

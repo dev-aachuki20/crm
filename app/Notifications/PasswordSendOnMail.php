@@ -10,15 +10,13 @@ use Illuminate\Notifications\Notification;
 class PasswordSendOnMail extends Notification
 {
     use Queueable;
-    public $fullname;
     public $password;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($fullname, $password)
+    public function __construct($password)
     {
-        $this->fullname = $fullname;
         $this->password = $password;
     }
 
@@ -37,12 +35,15 @@ class PasswordSendOnMail extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $fullname = $notifiable->first_name . $notifiable->first_name;
         return (new MailMessage)
-            ->view('emails.user-register', ['fullname' => $this->fullname, 'password' => $this->password]);
-        // return (new MailMessage)
-        //     ->line('The introduction to the notification.')
-        //     ->action('Notification Action', url('/'))
-        //     ->line('Thank you for using our application!');
+            ->view(
+                'emails.user-register',
+                [
+                    'fullname' => $fullname,
+                    'password' => $this->password
+                ]
+            );
     }
 
     /**
