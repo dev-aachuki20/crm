@@ -19,14 +19,16 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'    => 'required|string|max:255',
-            'last_name'     => 'required|string|max:255',
-            'email'         => 'nullable|email|max:255',
-            'birthdate'     => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
-            'password'      => 'nullable|string|min:8|max:15|confirmed|required_with:old_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'campaign'      => 'required',
-            'campaign.*'    => 'required',
+            'first_name'            => 'required|alpha|string|max:255',
+            'last_name'             => 'required|alpha|string|max:255',
+            'email'                 => 'nullable|email|max:255',
+            'birthdate'             => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
+            'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'password_confirmation' => 'required_with:password|same:password',
+            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'campaign'              => 'required',
+            'campaign.*'            => 'required',
+
         ];
     }
     
@@ -34,10 +36,12 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'first_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.first_name')]),
+            'first_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.first_name'), 'max' => ':max']),
 
             'last_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.last_name')]),
+            'last_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.last_name'), 'max' => ':max']),
 
@@ -56,6 +60,7 @@ class UpdateUserRequest extends FormRequest
             'password.min' => __('validation.min.string', ['attribute' => __('cruds.user.fields.password'), 'min' => ':min']),
             'password.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.password'), 'max' => ':max']),
             'password.regex' => __('validation.password.regex', ['attribute' => __('cruds.user.fields.password')]),
+            'password_confirmation.required' => __('validation.required', ['attribute' => __('cruds.user.fields.password_confirmation')]),
 
 
             'email.nullable' => __('validation.email', ['attribute' => __('cruds.user.fields.email')]),

@@ -18,8 +18,8 @@ class UserRequest extends FormRequest
         $userId = $this->input('user_id');
 
         $rules = [
-            'first_name'    => 'required|string|max:30',
-            'last_name'     => 'required|string|max:30',
+            'first_name'    => 'required|alpha|string|max:30',
+            'last_name'     => 'required|alpha|string|max:30',
             'birthdate'     => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -30,8 +30,8 @@ class UserRequest extends FormRequest
             unset($rules['password']);
         } else {
             $rules['password'] = 'required|string|min:8|max:15|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
-            $rules['email']    = 'required|unique:users,email';
-            $rules['username'] = 'required|string|unique:users,username';
+            $rules['email']    = 'required|ends_with:gmail.com, mail.com|unique:users,email';
+            $rules['username'] = 'required|alpha_num|string|regex:/^\S*$/|unique:users,username';
         }
 
         return $rules;
@@ -41,10 +41,12 @@ class UserRequest extends FormRequest
     {
         return [
             'first_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.first_name')]),
+            'first_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.first_name'), 'max' => ':max']),
 
             'last_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.last_name')]),
+            'last_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.last_name'), 'max' => ':max']),
 
@@ -69,6 +71,7 @@ class UserRequest extends FormRequest
 
 
             'email.required' => __('validation.required', ['attribute' => __('cruds.user.fields.email')]),
+            'email.ends_with' => __('validation.ends_with', ['attribute' => __('cruds.user.fields.email')]),
             'email.unique' => __('validation.unique', ['attribute' => __('cruds.user.fields.email')]),
 
 

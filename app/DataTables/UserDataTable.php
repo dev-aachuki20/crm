@@ -117,9 +117,9 @@ class UserDataTable extends DataTable
                 ],
             ])
 
-            // ->parameters([
-            //     'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/'.getDatatableLang().'.json']
-            // ]);
+            ->parameters([
+                'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/'.getDatatableLang().'.json']
+            ])
             ->selectStyleSingle()
             ->lengthMenu([10, 25, 50, 100])
             ->buttons([

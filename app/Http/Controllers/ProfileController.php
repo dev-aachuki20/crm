@@ -26,12 +26,13 @@ class ProfileController extends Controller
     public function updateProfile(UpdateUserRequest $request)
     {
         try {
+            
             $inputs = $request->validated();
             $user = Auth::User();
-            if (isNull($request->password)) {
-                $inputs = $request->except('password');
-            }
             
+            if($inputs['password_confirmation'] === $inputs['password'] && $inputs['password'] !== ''){
+                $inputs['password'] = \Hash::make($inputs['password_confirmation']);
+            }
             
             if (!empty($inputs['campaign'])) {
                 $inputs['campaign_id'] = implode(",", $inputs['campaign']);
