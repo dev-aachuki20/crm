@@ -43,6 +43,7 @@ class ResetPasswordController extends Controller
         if (\Auth::check()) {
             \Auth::logout();
         }
+        toastr()->success('Password Reset Successfully');
         return '/login';
     }
 }

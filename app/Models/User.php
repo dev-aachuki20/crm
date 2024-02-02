@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\PasswordReset;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -99,19 +100,20 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         try {
-            $data = [
-                $this->email
-            ];
+            // $data = [
+            //     $this->email
+            // ];
             $url = \URL::to('/password/reset/' . $token . '?email=' . $this->email);
 
-            \Mail::send('emails.reset-password', [
+            Mail::send('emails.reset-password', [
                 'fullname'      => $this->name,
                 'reset_url'     => $url,
                 'email'         => $this->email,
-            ], function ($message) use ($data) {
+            ], function ($message) {
                 $message->subject('Reset Password Request');
-                $message->to($data[0]);
-            });
+                $message->to($this->email);
+            });            
+
         } catch (Exception $e) {
             // Handle the exception here
             \Log::error('Error sending password reset email: ' . $e->getMessage());
