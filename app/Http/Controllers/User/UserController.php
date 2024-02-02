@@ -40,6 +40,8 @@ class UserController extends Controller
                 $validatedData['send_password_on_email'] = 0;
             }
 
+            $validatedData['name'] = $request->first_name.' '.$request->last_name;
+
             // upload profile
             $user = User::create($validatedData);
             if ($request->hasFile('image')) {
@@ -113,6 +115,8 @@ class UserController extends Controller
                 $validatedData['send_password_on_email'] = 0;
             }
 
+            $validatedData['name'] = $request->first_name.' '.$request->last_name;
+            
             $user->update($validatedData);
             if ($request->hasFile('image')) {
                 if ($user->profileImage) {

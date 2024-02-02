@@ -24,13 +24,6 @@ class CampaignController extends Controller
         }
     }
 
-    // public function create()
-    // {
-    //     try {
-    //     } catch (\Exception $e) {
-    //         \Log::info($e->getMessage());
-    //     }
-    // }
 
     public function store(CampaignRequest $request)
     {
@@ -52,8 +45,6 @@ class CampaignController extends Controller
                 'campaign_id' => $store->id,
             ]);
 
-            // $store->tagLists()->attach($tag);
-
             if ($store) {
 
                 return response()->json(['status' => true, 'message' => trans('messages.compaign_successfully_created')]);
@@ -68,14 +59,6 @@ class CampaignController extends Controller
             return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
         }
     }
-
-    // public function show($id)
-    // {
-    //     try {
-    //     } catch (\Exception $e) {
-    //         \Log::info($e->getMessage());
-    //     }
-    // }
 
     public function edit(Request $request)
     {

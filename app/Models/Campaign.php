@@ -24,15 +24,6 @@ class Campaign extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-    /*  
-    public function channels(){
-        return $this->belongsToMany(Channel::class,"channels","assigned_channel","id");
-    }
-
-    public function users(){
-        return $this->belongsToMany(User::class,"users","created_by","id");
-    } */
     
 
     public function tagLists()

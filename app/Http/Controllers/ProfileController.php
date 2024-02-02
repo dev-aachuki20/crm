@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
-use App\Models\Language;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Uploads;
 use App\Http\Requests\UpdateUserRequest;
 use function PHPUnit\Framework\isNull;
-use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -33,7 +28,6 @@ class ProfileController extends Controller
         try {
             $inputs = $request->validated();
             $user = Auth::User();
-            // $inputs = $request->all();
             if (isNull($request->password)) {
                 $inputs = $request->except('password');
             }
@@ -42,6 +36,7 @@ class ProfileController extends Controller
             if (!empty($inputs['campaign'])) {
                 $inputs['campaign_id'] = implode(",", $inputs['campaign']);
             }
+            $inputs['name'] = $request->first_name.' '.$request->last_name;
             
             $user->update($inputs);
 
