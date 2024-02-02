@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\PasswordReset;
+use Exception;
 
 class User extends Authenticatable
 {
@@ -97,19 +98,25 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token): void
     {
-        $data = [
-            $this->email
-        ];
-        $url = \URL::to('/password/reset/' . $token . '?email=' . $this->email);
+        try {
+            $data = [
+                $this->email
+            ];
+            $url = \URL::to('/password/reset/' . $token . '?email=' . $this->email);
 
-        \Mail::send('emails.reset-password', [
-            'fullname'      => $this->name,
-            'reset_url'     => $url,
-            'email'         => $this->email,
-        ], function ($message) use ($data) {
-            $message->subject('Reset Password Request');
-            $message->to($data[0]);
-        });
+            \Mail::send('emails.reset-password', [
+                'fullname'      => $this->name,
+                'reset_url'     => $url,
+                'email'         => $this->email,
+            ], function ($message) use ($data) {
+                $message->subject('Reset Password Request');
+                $message->to($data[0]);
+            });
+        } catch (Exception $e) {
+            // Handle the exception here
+            \Log::error('Error sending password reset email: ' . $e->getMessage());
+            // You might want to notify the user or perform other actions
+        }
     }
     public function isAssignedRole($roleId)
     {

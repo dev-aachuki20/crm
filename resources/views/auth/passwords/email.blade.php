@@ -11,8 +11,8 @@
     <div class="column-2 d-flex justify-content-center align-items-center">
         <div class="account-card">
             <h3>Lost your password</h3>
-            <p class="text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+            <p class="text-center">Enter the email address associated with your account, and we'll email you a link to reset your password
+            </p>
 
             @if (session('status'))
             <div class="alert alert-success" role="alert">

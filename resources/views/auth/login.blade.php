@@ -12,8 +12,7 @@
     <div class="column-2 d-flex justify-content-center align-items-center">
         <div class="account-card">
             <h3>Login Form</h3>
-            <p class="text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+            <p class="text-center">Welcome Back! please enter your email and password.</p>
             <form class="mt-5" method="POST" action="{{ route('login') }}">
                 @csrf
 
