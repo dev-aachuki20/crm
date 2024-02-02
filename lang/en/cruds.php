@@ -135,4 +135,5 @@ return [
     'previous' => 'Previous',
     'next' => 'Next',
     'data_not_found' => 'Data not found',
+    'processing'   => 'Processing...',
 ];

@@ -97,6 +97,7 @@ class UserDataTable extends DataTable
                 "scrollCollapse" => true,
                 'language' => [
                     "sZeroRecords" => __('cruds.data_not_found'),
+                    "sProcessing" => __('cruds.processing'),
                     "sLengthMenu" => __('cruds.show') . " _MENU_ " . __('cruds.entries'),
                     // "sInfo" => __('message.showing') . " _START_ " . __('message.to') . " _END_ " . __('message.of') . " _TOTAL_ " . __('message.records'),
                     "sInfo" =>  config('app.locale') == 'en' ?

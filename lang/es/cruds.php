@@ -138,4 +138,5 @@ return [
     'previous' => 'Previa',
     'next' => 'Próxima',
     'data_not_found' => 'Datos no encontrados',
+    'processing' => 'Procesamiento...',
 ];
