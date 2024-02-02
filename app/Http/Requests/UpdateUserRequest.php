@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
             'email'         => 'nullable|email|max:255',
             'birthdate'     => 'required|date_format:Y-m-d',
             // 'username'      => 'required|string|max:255',
-            'password'      => 'nullable|string|min:8|confirmed|required_with:old_password',
+            'password'      => 'nullable|string|min:8|max:15|confirmed|required_with:old_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             // 'role'          => 'exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'campaign'      => 'required',

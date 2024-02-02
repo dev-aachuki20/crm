@@ -97,6 +97,7 @@ return [
             'qualification'     => 'Calificación',
             'new_campaign'      => 'Ingresa a la nueva Campaña',
             'update_campaign'   => 'Ingrese a la campaña de edición',
+            'qualification_field_required' => 'El campo Calificación es obligatorio.',
         ],
     ],
 

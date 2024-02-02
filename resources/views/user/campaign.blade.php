@@ -38,7 +38,7 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
-                <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close cancelButton" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <form class="new-channel" id="saveCampaign" action="" method="">
@@ -87,6 +87,7 @@
 
                                     </ul>
                                 </div>
+                                <span id="qualificationError" style="display: none; color: red; display:none;">{{__("cruds.campaign.fields.qualification_field_required")}}</span>
                             </div>
                         </div>
                         <div class="col-12 col-lg-12">
@@ -97,7 +98,7 @@
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
+                                <button type="button" class="btn btn-red btnsmall cancelButton" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
@@ -155,9 +156,23 @@
         var formData = $('#saveCampaign').serialize();
         var campaignId = $('#campaign_id').val();
 
+        var qualification = JSON.stringify(tagList);
+        var qualificationErrorSpan = document.getElementById('qualificationError');
+        if (qualification === '[]') {
+            if (qualificationErrorSpan) {
+                setTimeout(() => {
+                    qualificationErrorSpan.style.display = 'block';
+                }, 200);
+            }
+        }else {
+            if (qualificationErrorSpan) {
+                qualificationErrorSpan.style.display = 'none';
+            }
+        }
+
         var url = (campaignId) ? "{{ route('getCampaignUpdate') }}" : "{{ route('getCampaignStore') }}";
 
-        formData += "&tagList=" + encodeURIComponent(JSON.stringify(tagList));
+        formData += "&tagList=" + encodeURIComponent(qualification);
 
         $.ajax({
             type: 'POST',
@@ -284,8 +299,12 @@
         });
     }
 
-    $('#cancelButton').click(function() {
+    $('.cancelButton').click(function() {
         $('#saveCampaign')[0].reset();
+        var qualificationErrorSpan = document.getElementById('qualificationError');
+        if (qualificationErrorSpan) {
+            qualificationErrorSpan.style.display = 'none';
+        }
     });
 
     $('#campaign').click(function() {

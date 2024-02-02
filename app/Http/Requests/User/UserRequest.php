@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
         if (isset($userId)) {
             unset($rules['password']);
         } else {
-            $rules['password'] = 'required|string|min:8|max:12';
+            $rules['password'] = 'required|string|min:8|max:15|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
             $rules['email']    = 'required|unique:users,email';
             $rules['username'] = 'required|string|unique:users,username';
         }
@@ -64,6 +64,7 @@ class UserRequest extends FormRequest
             'password.string' => __('validation.string', ['attribute' => __('cruds.user.fields.password')]),
             'password.min' => __('validation.min.string', ['attribute' => __('cruds.user.fields.password'), 'min' => ':min']),
             'password.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.password'), 'max' => ':max']),
+            'password.regex' => __('validation.password.regex', ['attribute' => __('cruds.user.fields.password')]),
 
 
             'email.required' => __('validation.required', ['attribute' => __('cruds.user.fields.email')]),

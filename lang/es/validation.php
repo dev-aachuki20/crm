@@ -119,6 +119,7 @@ return [
         'numbers' => 'The :attribute field must contain at least one number.',
         'symbols' => 'The :attribute field must contain at least one symbol.',
         'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.',
+        'regex' => 'El :attribute debe tener al menos 8 caracteres y contener al menos un carácter en mayúscula, un número y un carácter especial.',
     ],
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',

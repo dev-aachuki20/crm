@@ -94,6 +94,7 @@ return [
             'qualification'     => 'Qualification',
             'new_campaign'      => 'Enter the new Campaign',
             'update_campaign'   => 'Enter the Edit Campaign',
+            'qualification_field_required' => 'The Qualification field is required.',
         ],
     ],
 
