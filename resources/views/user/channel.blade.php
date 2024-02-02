@@ -21,6 +21,12 @@
         {!! $dataTable->table(['class' => 'table mb-0']) !!}
     </div>
 </div>
+
+<!-- Loader element -->
+<div id="loader">
+    <div class="spinner"></div>
+</div>
+
 <!-- Modal for store -->
 <div class="modal fade new-channel-popup" id="channelstoreModal" tabindex="-1" aria-labelledby="channelstoreModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -72,6 +78,8 @@
 {!! $dataTable->scripts() !!}
 <script>
     function submitForm() {
+        $('#loader').css('display', 'block');
+
         var formData = $('#channel-form').serialize();
         var channelId = $('#channel-id').val();
 
@@ -82,8 +90,10 @@
             type: method,
             url: url,
             data: formData,
-            // dataType: 'json',
             success: function(response) {
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 3000);
                 if (response.status === 'success') {
                     $('#channel-form')[0].reset();
                     $('#channel-id').val('');
@@ -94,7 +104,9 @@
             },
             error: function(xhr, textStatus, errorThrown) {
                 // console.error('Error submitting form:', textStatus);
-                // Clear previous error messages
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 500);
                 $('#channel-form .error').remove();
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     var errors = xhr.responseJSON.errors;
@@ -119,7 +131,6 @@
                 channel_id: channel_id,
             },
             success: function(response) {
-                console.log(response);
                 if (response.status === 'success') {
                     var channelData = response.data;
 

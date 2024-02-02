@@ -24,6 +24,13 @@
         {!! $dataTable->table(['class' => 'table mb-0']) !!}
     </div>
 </div>
+
+<!-- Loader element -->
+<div id="loader">
+    <div class="spinner"></div>
+</div>
+
+
 <!-- Modal -->
 {{-- For creating the Campaign --}}
 <div class="modal fade new-channel-popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,6 +150,8 @@
     });
 
     function submitForm() {
+        $('#loader').css('display', 'block');
+
         var formData = $('#saveCampaign').serialize();
         var campaignId = $('#campaign_id').val();
 
@@ -156,6 +165,9 @@
             data: formData,
             dataType: 'json',
             success: function(response) {
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 3000);
                 if (response.status === true) {
                     $('#saveCampaign')[0].reset();
                     $('#campaign_id').val('');
@@ -168,7 +180,10 @@
                 }
             },
             error: function(response) {
-                console.error('Error submitting form:', response);
+                // console.error('Error submitting form:', response);
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 500);
                 $('#saveCampaign .error').remove();
                 if (response.status === 422) {
                     var errors = response.responseJSON.errors;
@@ -216,7 +231,7 @@
                         var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
                         tagListVal.append(temp);
                     });
-                    console.log(tagList);
+                    // console.log(tagList);
 
                     // Change the button text create to "Update"
                     $('#saveupdate').text("{{__('global.update')}}");

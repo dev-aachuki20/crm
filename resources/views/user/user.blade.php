@@ -24,10 +24,8 @@
 
 <!-- Loader element -->
 <div id="loader">
-    <!-- You can customize the loader content here -->
     <div class="spinner"></div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade new-channel-popup" id="userstoreModal" tabindex="-1" aria-labelledby="userstoreModalLabel" aria-hidden="true">
@@ -138,15 +136,7 @@
 {!! $dataTable->scripts() !!}
 <script>
     function submitForm() {
-        // $('#savebtnsubmit').prop('disabled', true);
-        // $('#savebtnsubmit').addEventListener('click', function() {
-        //     // Show the loader
-        //     $('#loader').style.display = 'block';
-
-        //     setTimeout(function() {
-        //         $('#loader').style.display = 'none';
-        //     }, 3000);
-        // });
+        $('#loader').css('display', 'block');
 
         var formData = $('#user-form').serialize();
         var userId = $('#user-id').val();
@@ -175,6 +165,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 3000);
                 if (response.status === 'success') {
                     $('#user-form')[0].reset();
                     $('#user-id').val('');
@@ -183,18 +176,16 @@
                 }
             },
             error: function(error) {
-                console.error('Error submitting form:', error);
-
+                // console.error('Error submitting form:', error);
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 500);
                 $('#user-form .error').remove();
-
                 if (error.responseJSON && error.responseJSON.errors) {
                     try {
                         var errors = error.responseJSON.errors;
                         $.each(errors, function(key, value) {
-                            // Display errors for input fields
                             $('#user-form input[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-
-                            // Display errors for checkboxes
                             $('#user-form input[type="checkbox"][name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                         });
                     } catch (e) {
@@ -202,8 +193,8 @@
                     }
                 } else {
                     console.error('Empty or undefined responseText.');
-                    console.log('Status:', error.status);
-                    console.log('Response Text:', error.responseText);
+                    // console.log('Status:', error.status);
+                    // console.log('Response Text:', error.responseText);
                 }
             }
         });
@@ -244,7 +235,7 @@
                                 $('#campaign_id-' + parseInt(campaignId)).prop('checked', true);
                             });
                         } catch (error) {
-                            console.log('Error parsing campaignId:', error);
+                            // console.log('Error parsing campaignId:', error);
                         }
                     }
 
