@@ -68,7 +68,7 @@ class CampaignDataTable extends DataTable
      */
     public function query(Campaign $model): QueryBuilder
     {
-        return $model->newQuery()->orderByDesc('id');
+        return $model->newQuery();
     }
 
     /**
