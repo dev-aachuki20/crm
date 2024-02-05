@@ -37,13 +37,43 @@ class ResetPasswordController extends Controller
      */
 
     // protected $redirectTo = '/';
+    protected $redirectTo = '/';
 
-    protected function redirectTo()
+    public function reset(Request $request)
+    {
+        $request->validate($this->rules(), $this->validationErrorMessages());
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+                $this->resetPassword($user, $password);
+            }
+        );
+
+        $response == \Password::PASSWORD_RESET
+                    ? $this->sendResetResponse($request, $response)
+                    : $this->sendResetFailedResponse($request, $response);
+
+        if($response == 'passwords.reset'){
+            if (\Auth::check()) {
+                \Auth::logout();
+            }
+            toastr()->success('Password Reset Successfully');
+            return redirect()->route('login');
+        }elseif($response == 'passwords.token'){
+            toastr()->error('Password reset token has expired or is invalid');
+            return redirect()->back();
+        }else{
+            toastr()->error('Oops! Something went wrong.');
+            return redirect()->back();
+        }
+    }
+
+
+    /* protected function redirectTo()
     {
         if (\Auth::check()) {
             \Auth::logout();
         }
         toastr()->success('Password Reset Successfully');
         return '/login';
-    }
+    } */
 }

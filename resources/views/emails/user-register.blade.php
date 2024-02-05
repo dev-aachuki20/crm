@@ -1,5 +1,5 @@
 @extends('emails.admin')
-@section('title', 'Send Register Password On Your Mail')
+{{-- @section('title', 'Send Register Password On Your Mail') --}}
 @section('email-content')
     <tr>
         <td>

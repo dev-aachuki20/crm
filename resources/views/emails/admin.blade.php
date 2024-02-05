@@ -11,9 +11,10 @@
 	<div class="mail-template" style="max-width: 100%; margin: 0 auto;">
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<thead>
-				<tr style="height:0px; width:100%; background-size:cover;background-repeat:no-repeat;">
-					{{-- <th style="text-align: center; font-size:20px; color:#007bff">Forgot Your Password?</th> --}}
-					<th style="margin: 0; background-color: #007bff; padding:5px 0; text-align:center; font-size: 20px; font-weight: 400; font-family: 'Nunito Sans', sans-serif; color:#fff; border-radius:10px; box-shadow: 5px 5px #007bff;">{{-- {{config('app.name')}} - --}} @yield('title', 'Default Title')</th>
+				<tr style="background-color:hsl(210deg 93% 50% / 50%) !important; height:180px; background-repeat:no-repeat;">
+					<th style="text-align: center; background-color:hsl(210deg 93% 50% / 50%) !important;">
+						<img style="padding:30px; width:250px;" src="https://crm.hipl-staging3.com/images/logo.png" alt=""/>
+					</th>
 				</tr>
 			</thead>
 			<tbody>

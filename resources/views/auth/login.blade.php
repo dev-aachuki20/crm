@@ -4,7 +4,7 @@
 <div class="gridblock-divide h-100vh">
     <div class="column-1 d-flex justify-content-center align-items-center">
         <div class="content-inner">
-            <div class="logoimg"><img src="images/logo.png" class="img-fluid" /></div>
+            <div class="logoimg"><img src="{{asset('images/logo.png')}}" class="img-fluid" /></div>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
                 tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
         </div>
