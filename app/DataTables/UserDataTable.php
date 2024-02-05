@@ -76,7 +76,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery()->with('roles');
+        return $model->newQuery()->with('roles')->orderByDesc('id');
     }
 
     /**

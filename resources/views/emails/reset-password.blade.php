@@ -1,4 +1,5 @@
 @extends('emails.admin')
+@section('title', 'Forgot Your Password?')
 @section('email-content')
     <tr>
         <td>

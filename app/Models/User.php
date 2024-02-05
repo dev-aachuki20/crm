@@ -100,9 +100,6 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         try {
-            // $data = [
-            //     $this->email
-            // ];
             $url = \URL::to('/password/reset/' . $token . '?email=' . $this->email);
 
             Mail::send('emails.reset-password', [
@@ -115,9 +112,7 @@ class User extends Authenticatable
             });            
 
         } catch (Exception $e) {
-            // Handle the exception here
             \Log::error('Error sending password reset email: ' . $e->getMessage());
-            // You might want to notify the user or perform other actions
         }
     }
     public function isAssignedRole($roleId)

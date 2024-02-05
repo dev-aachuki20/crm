@@ -35,8 +35,9 @@ class PasswordSendOnMail extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $fullname = $notifiable->first_name . $notifiable->first_name;
+        $fullname = ucwords($notifiable->first_name).' '.ucwords($notifiable->last_name);
         return (new MailMessage)
+            ->subject('Send Register Password On Your Mail')
             ->view(
                 'emails.user-register',
                 [
