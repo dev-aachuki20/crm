@@ -12,6 +12,7 @@ class Channel extends Model
     protected $fillable = [
         'channel_name',
         'description',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

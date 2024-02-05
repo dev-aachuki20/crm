@@ -94,7 +94,7 @@ class UserDataTable extends DataTable
                 // "sScrollX" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
-                "scrollCollapse" => true,
+                // "scrollCollapse" => true,
                 'language' => [
                     "sZeroRecords" => __('cruds.data_not_found'),
                     "sProcessing" => __('cruds.processing'),

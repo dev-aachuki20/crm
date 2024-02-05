@@ -59,7 +59,7 @@ class ChannelDataTable extends DataTable
      */
     public function query(Channel $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderByDesc('id');
     }
 
     /**

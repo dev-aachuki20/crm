@@ -6,7 +6,7 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateUserRequest;
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -27,19 +27,27 @@ class ProfileController extends Controller
     {
         try {
             
-            $inputs = $request->validated();
+            $inputs = $request->validated();            
             $user = Auth::User();
-            
-            if($inputs['password_confirmation'] === $inputs['password'] && $inputs['password'] !== ''){
-                $inputs['password'] = \Hash::make($inputs['password_confirmation']);
-            }
             
             if (!empty($inputs['campaign'])) {
                 $inputs['campaign_id'] = implode(",", $inputs['campaign']);
             }
             $inputs['name'] = $request->first_name.' '.$request->last_name;
             
-            $user->update($inputs);
+            $update = '';
+            if($inputs['password_confirmation'] !== NULL && $inputs['password'] !== NULL && $inputs['password_confirmation'] === $inputs['password'] && $inputs['password'] !== ''){
+                $inputs['password'] = Hash::make($inputs['password_confirmation']);
+                $update = $user->update($inputs);
+            }else{
+                $update = $user->update([
+                    'first_name'    => $inputs['first_name'],
+                    'last_name'     => $inputs['last_name'],
+                    'name'          => $inputs['name'],
+                    'birthdate'     => $inputs['birthdate'],
+                    'campaign_id'   => $inputs['campaign_id'],
+                ]);
+            }
 
             if ($request->image) {
                 if ($user->profileImage) {
@@ -50,7 +58,11 @@ class ProfileController extends Controller
                 }
             }
 
-            toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
+            if($update){
+                toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
+                return redirect()->back();
+            }
+            toastr()->error(trans('messages.sorry_unable_to_update'), trans('messages.error'));
             return redirect()->back();
         }catch (\Exception $e) {
             \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());            

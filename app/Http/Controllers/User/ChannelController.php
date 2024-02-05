@@ -20,6 +20,7 @@ class ChannelController extends Controller
     {
         try {
             $validatedData = $request->validated();
+            $validatedData['status'] = 1;
 
             $channel = Channel::create($validatedData);
             return response()->json([
