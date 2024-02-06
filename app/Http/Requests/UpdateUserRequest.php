@@ -6,6 +6,7 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
+use App\Rules\NoMultipleSpacesRule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -19,8 +20,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'            => 'required|alpha|string|max:255',
-            'last_name'             => 'required|alpha|string|max:255',
+            'first_name'            => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
+            'last_name'             => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
             'email'                 => 'nullable|email|max:255',
             'birthdate'             => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
@@ -36,12 +37,12 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'first_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.first_name')]),
-            'first_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.first_name')]),
+            'first_name.regex' => __('validation.regex', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.first_name')]),
             'first_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.first_name'), 'max' => ':max']),
 
             'last_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.last_name')]),
-            'last_name.alpha' => __('validation.alpha', ['attribute' => __('cruds.user.fields.last_name')]),
+            'last_name.regex' => __('validation.regex', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.last_name')]),
             'last_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.last_name'), 'max' => ':max']),
 
