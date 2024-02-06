@@ -24,13 +24,13 @@ class RolesTableSeeder extends Seeder
             ],
             [
                 'id'         => 3,
-                'title'      => 'Vendedor',
+                'title'      => 'Vendor',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'id'         => 4,
-                'title'      => 'Supervior',
+                'title'      => 'Supervisor',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

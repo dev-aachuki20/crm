@@ -34,5 +34,24 @@
         );
         return $state;
     }
+
+    function toasterAlert(status,message){
+
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "closeButton": true, 
+            "timeOut": 3000, 
+            "progressBar": true, 
+            // "progressBarColor": "#ff6600", 
+           
+        };
+
+        if(status == 'success'){
+            toastr.success(message, 'Success');
+        }else if(status == 'error'){
+            toastr.error(message, 'Error');
+        }
+    }
+
 </script>
 @stack('scripts')

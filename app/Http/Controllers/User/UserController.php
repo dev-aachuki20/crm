@@ -128,7 +128,7 @@ class UserController extends Controller
                 $user->roles()->sync([$validatedData['role']]);
             }
             return response()->json([
-                'message' => toastr()->success(trans('messages.channel.channel_updated')),
+                'message' => trans('messages.user.user_updated'),
                 'status' => 'success'
             ]);
         } catch (ValidationException $e) {

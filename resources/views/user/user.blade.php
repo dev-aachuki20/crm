@@ -79,7 +79,7 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.password')}}:</label>
-                                        <input type="password" class="form-control" name="password" id="password" />
+                                        <input type="password" class="form-control" name="password" id="password" autocomplete="off"/>
                                         <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                                     </div>
                                 </div>
@@ -166,14 +166,18 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                setTimeout(function() {
-                    $('#loader').css('display', 'none');
-                }, 3000);
+                $('#loader').css('display', 'none');
+
                 if (response.status === 'success') {
                     $('#user-form')[0].reset();
                     $('#user-id').val('');
                     $('.buttonform button').text("{{__('global.save')}}");
-                    window.location.reload();
+
+                    $('#userstoreModal').modal('hide');
+
+                    toasterAlert('success',response.message);
+
+                    refreshDataTable();
                 }
             },
             error: function(error) {
@@ -202,6 +206,8 @@
     }
 
     function editForm(user_id) {
+        
+        $('#loader').css('display', 'block');
         $('#user-form .error').remove();
         $.ajax({
             type: 'GET',
@@ -210,8 +216,12 @@
                 user_id: user_id,
             },
             success: function(response) {
+                
+                $('#loader').css('display', 'none');
+                
                 if (response.status === 'success') {
-                    $('#userstoreModal').modal('show');
+                    
+                   $(document).find('#userstoreModal').modal('show');
 
                     $('#user-id').val(response.data.id);
                     $('#first_name').val(response.data.first_name);
@@ -247,6 +257,7 @@
                 }
             },
             error: function(error) {
+                $('#loader').css('display', 'none');
                 console.error('Error fetching user data:', error);
             }
         });
@@ -312,5 +323,9 @@
         input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
     });
 
+
+    function refreshDataTable() {
+        $('#user-table').DataTable().draw();
+    }
 </script>
 @endpush

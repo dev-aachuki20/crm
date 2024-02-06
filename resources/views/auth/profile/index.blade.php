@@ -89,7 +89,7 @@
 
                 <div class="form-group">
                     <label>{{__('cruds.user.fields.password')}}:</label>
-                    <input type="password" name="password" id="password" class="form-control password @error('password') is-invalid @enderror" />
+                    <input type="password" name="password" id="password" class="form-control password @error('password') is-invalid @enderror" autocomplete="off" />
                     <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -99,7 +99,8 @@
                 </div>
                 <div class="form-group mb-0">
                     <label>{{__('cruds.user.fields.repeat_password')}}:</label>
-                    <input type="password" name="password_confirmation" id="password" class="form-control password @error('password_confirmation') is-invalid @enderror" />
+                    <input type="password" name="password_confirmation" id="password_confirm" class="form-control password @error('password_confirmation') is-invalid @enderror" autocomplete="off"/>
+                    <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                     @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -157,8 +158,12 @@
 
     $(document).on('click', '.toggle-password', function() {
 
-        $(this).toggleClass("eye-open");
-        var input = $(".password");
+        var $this = $(this);
+        $this.toggleClass("eye-open");
+
+        var elementId = $this.siblings('input').attr('id');
+        var input = $('#'+elementId);
+
         input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
     });
 
