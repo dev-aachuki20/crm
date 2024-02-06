@@ -37,10 +37,17 @@ class ProfileController extends Controller
             
             $update = '';
             if($inputs['password_confirmation'] !== NULL && $inputs['password'] !== NULL && $inputs['password_confirmation'] === $inputs['password'] && $inputs['password'] !== ''){
-                $inputs['password'] = Hash::make($inputs['password_confirmation']); 
+                $inputs['password'] = Hash::make($inputs['password_confirmation']);
+                $update = $user->update($inputs);
+            }else{
+                $update = $user->update([
+                    'first_name'    => $inputs['first_name'],
+                    'last_name'     => $inputs['last_name'],
+                    'name'          => $inputs['name'],
+                    'birthdate'     => $inputs['birthdate'],
+                    'campaign_id'   => $inputs['campaign_id'],
+                ]);
             }
-
-            $update = $user->update($inputs);
 
             if ($request->image) {
                 if ($user->profileImage) {
