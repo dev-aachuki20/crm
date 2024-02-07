@@ -58,9 +58,9 @@ class CampaignDataTable extends DataTable
             })
 
             ->editColumn('description', function ($data) {
-                return ucfirst($data->description);
+                return nl2br($data->description);
             })
-            ->rawColumns(['action']);
+            ->rawColumns(['action','description']);
     }
 
     /**
@@ -83,7 +83,8 @@ class CampaignDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->parameters([
-                // "sScrollX" => true,
+                'sResponsive' => true,
+                "sScrollX" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
                 'language' => [

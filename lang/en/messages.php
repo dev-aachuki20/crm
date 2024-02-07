@@ -17,6 +17,7 @@ return [
     'sorry_unable_to_update'    => 'Sorry, Unable to update!',
     'you_are_successfully_login'    => 'Logged in successfully!',
     'you_are_successfully_logout'    => 'Logged out successfully!',
+    'check_email_verification'=> 'Please check your email to verify your account.',
 
     'success' => 'Success',
     'warning'   => 'Warning',

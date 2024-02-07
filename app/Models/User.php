@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\PasswordReset;
 use Exception;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmailMail;
+use Illuminate\Support\Facades\URL;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use SoftDeletes, HasApiTokens, HasFactory, Notifiable;
 
@@ -115,6 +117,24 @@ class User extends Authenticatable
             \Log::error('Error sending password reset email: ' . $e->getMessage());
         }
     }
+
+    public function NotificationSendToVerifyEmail()
+    {
+        $user = $this;
+
+        $url = URL::temporarySignedRoute(
+            'verification.verify',
+            \Carbon\Carbon::now()->addMinutes(config('auth.verification.expire', 60)), // Adjust the expiration time as needed
+            ['id' => $user->id, 'hash' => sha1($user->email)]
+        );
+
+        // $url =  route('verification.verify',['id'=>$user->id,'hash'=>sha1($user->email)]);
+
+        $subject = 'Verify Email Address';
+
+        Mail::to($user->email)->queue(new VerifyEmailMail($user->name, $url, $subject));
+    }
+
     public function isAssignedRole($roleId)
     {
         return $this->roles->contains('id', $roleId);

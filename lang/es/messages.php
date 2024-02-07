@@ -18,6 +18,8 @@ return [
     'you_are_successfully_login'    => 'Has iniciado sesión con éxito! Bienvenido,',
     'you_are_successfully_logout' => 'Cerré sesión correctamente!',
 
+    'check_email_verification'=> 'Please check your email to verify your account.',
+
     /* Translate of the toastr */
     'success' => 'Éxito',
     'warning'   => 'Advertencia',

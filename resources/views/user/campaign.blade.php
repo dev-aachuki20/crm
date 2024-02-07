@@ -41,7 +41,7 @@
                 <button type="button" class="btn-close cancelButton" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="saveCampaign" action="" method="">
+                <form class="new-channel" id="saveCampaign">
                     @csrf
                     <input type="hidden" id="campaign_id" name="campaign_id" value="">
                     <div class="row">
@@ -96,14 +96,14 @@
                                 <textarea class="form-control" name="description" id="description"></textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col">
                             <div class="buttonform">
                                 <button type="button" class="btn btn-red btnsmall cancelButton" id="cancelButton" data-bs-dismiss="modal" aria-label="Close">{{__('cruds.cancel')}}</button>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col-auto">
                             <div class="buttonform text-end">
-                                <button type="button" id="saveupdate" class="btn btn-green btnsmall" onclick="submitForm()">{{__('cruds.save')}}</button>
+                                <button type="submit" id="saveupdate" class="btn btn-green btnsmall">{{__('cruds.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -150,7 +150,10 @@
         });
     });
 
-    function submitForm() {
+    
+    $(document).on('submit','#saveCampaign',function(e){
+        e.preventDefault();
+    
         $('#loader').css('display', 'block');
 
         var formData = $('#saveCampaign').serialize();
@@ -209,8 +212,8 @@
                 }
             }
         });
-    }
-
+    });
+   
     function editForm(campaign_id) {
         tagList = [];
         $('#saveCampaign .error').remove();

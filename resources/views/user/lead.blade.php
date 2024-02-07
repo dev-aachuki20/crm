@@ -380,12 +380,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col">
                             <div class="buttonform">
                                 <button type="button" class="btn btn-red btnsmall">Eliminar</button>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col-auto">
                             <div class="buttonform text-end">
                                 <button type="button" class="btn btn-green btnsmall">Guardar</button>
                             </div>

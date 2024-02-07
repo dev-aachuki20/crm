@@ -87,7 +87,7 @@
                     @endif
                 </div>
 
-                <div class="form-group">
+                <div class="form-group @error('password') invalidGroup @enderror">
                     <label>{{__('cruds.user.fields.password')}}:</label>
                     <input type="password" name="password" id="password" class="form-control password @error('password') is-invalid @enderror" autocomplete="off" />
                     <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
@@ -97,7 +97,7 @@
                     </span>
                     @enderror
                 </div>
-                <div class="form-group mb-0">
+                <div class="form-group mb-0 @error('password_confirmation') invalidGroup @enderror">
                     <label>{{__('cruds.user.fields.repeat_password')}}:</label>
                     <input type="password" name="password_confirmation" id="password_confirm" class="form-control password @error('password_confirmation') is-invalid @enderror" autocomplete="off"/>
                     <span toggle="#password-field" class="form-icon-password toggle-password" style="top: 45px;"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>

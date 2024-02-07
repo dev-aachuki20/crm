@@ -23,7 +23,7 @@ class UserDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('role', function ($data) {
+            ->addColumn('roles.title', function ($data) {
                 $roles = $data->roles;
                 return $roles->pluck('title')->implode(', ');
             })
@@ -54,7 +54,7 @@ class UserDataTable extends DataTable
                 return $formattedDateTime;
             })
 
-            ->filterColumn('role', function ($query, $keyword) {
+            ->filterColumn('roles.title', function ($query, $keyword) {
                 $query->whereHas('roles', function ($subquery) use ($keyword) {
                     $subquery->where('title', 'like', '%' . $keyword . '%');
                 });
@@ -92,7 +92,8 @@ class UserDataTable extends DataTable
             // ->dom('Bfrtip')
             ->orderBy(0)
             ->parameters([
-                // "sScrollX" => true,
+                "sResponsive" => true,
+                "sScrollX" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
                 // "scrollCollapse" => true,
@@ -146,7 +147,7 @@ class UserDataTable extends DataTable
             Column::make('created_at')->title(__("cruds.user.fields.registration_date")),
             Column::make('username')->title(__("cruds.user.fields.user_name")),
             Column::make('email')->title(__("cruds.user.fields.email")),
-            Column::make('role')->title(__("cruds.user.fields.role"))->searchable(),
+            Column::make('roles.title')->title(__("cruds.user.fields.role"))->sortable(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

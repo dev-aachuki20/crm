@@ -35,7 +35,7 @@ class UserRequest extends FormRequest
 
             // $rules['email']    = 'required|ends_with:gmail.com, mail.com|unique:users,email';
             $rules['email']    = 'required|email|unique:users,email,NULL,id,deleted_at,NULL|regex:/(.+)@(.+)\.(.+)/i';
-            $rules['username'] = 'required|alpha_num|string|regex:/^\S*$/|unique:users,username';
+            $rules['username'] = 'required|alpha_num|string|regex:/^\S*$/|unique:users,username,NULL,id,deleted_at,NULL';
         }
 
         return $rules;

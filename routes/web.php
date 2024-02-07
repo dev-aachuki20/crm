@@ -8,6 +8,8 @@ use App\Http\Controllers\User\ChannelController;
 use App\Http\Controllers\User\InteractionController;
 use App\Http\Controllers\User\LeadController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Auth\VerificationController;
+
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
@@ -32,6 +34,8 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
+
+Route::get('email/verify/{id}/{hash}', [VerificationController::class,'verify'])->name('verification.verify');
 
 Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], function () {
     Route::prefix('{lang?}')->group(function () {

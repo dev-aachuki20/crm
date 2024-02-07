@@ -59,9 +59,11 @@ class UserController extends Controller
                 $user->notify(new PasswordSendOnMail($password));
             }
 
+            $user->NotificationSendToVerifyEmail();
+
             $user->roles()->attach($validatedData['role']);
 
-            return response()->json(['message' => toastr()->success(trans('messages.user.user_created')), 'status' => 'success', 'data' => $user], 200);
+            return response()->json(['message' => trans('messages.user.user_created'), 'status' => 'success', 'data' => $user], 200);
         } catch (ValidationException $e) {
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
@@ -146,9 +148,15 @@ class UserController extends Controller
     {
         try {
             $user = User::find($request->id);
+
             if (!$user) {
                 return response()->json(['status' => 'error', 'message' => 'user not found.']);
             }
+
+            if($user->profileImage){
+                deleteFile($user->profileImage->id);
+            }
+
             $user->delete();
             return response()->json([
                 'message' => toastr()->success(trans('messages.user.user_deleted')),

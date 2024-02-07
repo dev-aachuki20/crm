@@ -1,4 +1,5 @@
 @extends('layouts.auth')
+@section('title','Lost Your Password')
 @section('content')
 <div class="gridblock-divide h-100vh">
     <div class="column-1 d-flex justify-content-center align-items-center">

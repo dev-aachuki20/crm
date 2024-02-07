@@ -200,6 +200,8 @@ select.form-control {
     position: absolute;
     right: 20px;
     top: 13px;
+    display: block;
+    width: 20px;
 }
 
 .form-icon-password img {
@@ -603,6 +605,11 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     border: 0 !important;
 }
 
+.edit-delete {
+    display: flex;
+    align-items: center;
+}
+
 .edit-delete button {
     background: transparent;
     border: 0;
@@ -930,11 +937,11 @@ input[type=file]::file-selector-button {
 /*---------- DATA TABLE CSS START -----------*/
 table.dataTable thead th {
     font-size: 22px;
-    padding: 20px 15px !important;
+    padding: 20px 25px 20px 15px !important;
 }
 
 table.dataTable tbody td {
-    padding: 15px 15px !important;
+    padding: 15px 20px 15px 15px !important;
     font-size: 18px;
 }
 
@@ -1041,12 +1048,25 @@ table.dataTable.no-footer {
     margin: 0px
 }
 
-/* .dataTables_scrollHead{
-    display: none;
+/* .dataTables_scrollBody table thead tr th{
+    height: 0px !important;
+    padding: 0px !important;
+} */
+.dataTables_scrollHeadInner .dataTable thead{
+    display: none !important;
 }
+
+table thead tr th, table tbody tr td{
+    white-space: nowrap;
+}
+
 .dataTables_scrollBody table thead tr th > div{
     height: auto !important;
-} */
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    background-position: center right -4px !important;
+}
 
 
 /* SELECT TAGS CSS START */
@@ -1138,6 +1158,14 @@ table.dataTable.no-footer {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.form-group.invalidGroup .form-control {
+    padding-right: calc(3.5em + .75rem);
+}
+
+input[type="password" i]{
+    padding-right: 50px;
 }
 
 .form-group.invalidGroup .form-icon-password {

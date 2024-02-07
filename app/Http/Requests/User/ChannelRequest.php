@@ -24,7 +24,7 @@ class ChannelRequest extends FormRequest
         $channelId = $this->input('channel_id');
 
         return [
-            'channel_name' => 'required|unique:channels,channel_name,' . ($channelId ? $channelId : 'NULL') . '|max:255',
+            'channel_name' => 'required|unique:channels,channel_name,' . ($channelId ? $channelId : 'NULL') . ',id,deleted_at,NULL|max:255',
             'description' => 'required',
         ];
     }

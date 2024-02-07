@@ -2,14 +2,14 @@
     <div class="container-fluid">
         <div class="header-main">
             <div class="row align-items-center">
-                <div class="col-12 col-lg-3">
+                <div class="col-4 col-xl-3 col-lg-4 col-md-3 order-1">
                     @if (request()->route()->getName() !== 'home')
                     <div class="header-main-left">
                         <a href="{{route('home',['lang'=> app()->getLocale()])}}" class="logo"><img src="{{asset('images/gestiona.svg')}}" class="img-fluid" /></a>
                     </div>
                     @endif
                 </div>
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-xl-6 col-lg-4 col-md-4 order-3 order-md-2 mt-md-0 mt-3">
                     @if (request()->route()->getName() !== 'home')
                     <form>
                         <div class="inputWrapper position-relative">
@@ -19,7 +19,7 @@
                     </form>
                     @endif
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-8 col-xl-3 col-lg-4 col-md-5 order-2 order-md-3">
                     <ul class="d-flex justify-content-end align-items-center">
                         <li>
                             <div class="select_area">

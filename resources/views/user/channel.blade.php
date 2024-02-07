@@ -16,10 +16,11 @@
             </div>
         </div>
     </div>
-    <div class="list-creating-channel mt-3">
+    <div class="list-creating-channel mt-3 table-responsive">
         <h4>{{__('cruds.list_created_channel')}}</h4>
         {!! $dataTable->table(['class' => 'table mb-0']) !!}
     </div>
+
 </div>
 
 <!-- Loader element -->
@@ -61,7 +62,7 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="buttonform text-end">
-                                <button type="button" class="btn btn-blue btnsmall" onclick="submitForm()">{{__('global.create')}}</button>
+                                <button type="submit" class="btn btn-blue btnsmall" >{{__('global.create')}}</button>
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,9 @@
 @push('scripts')
 {!! $dataTable->scripts() !!}
 <script>
-    function submitForm() {
+    $(document).on('submit','#channel-form',function(e){
+        e.preventDefault();
+
         $('#loader').css('display', 'block');
 
         var formData = $('#channel-form').serialize();
@@ -119,7 +122,8 @@
                 }
             }
         });
-    }
+    });
+   
 
     function editForm(channel_id) {
         // Clear previous error messages

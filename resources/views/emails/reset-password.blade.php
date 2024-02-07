@@ -13,23 +13,13 @@
                 <div style="text-align: center;">
                     <a href="{{$reset_url}}" style="display: inline-block; background-color: #007bff; color: #fff; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-size: 16px;">Reset Password</a>
                 </div>                      
-                <p style="font-size:14px;">
-                    Upon successful password reset, you will receive this email as a confirmation.
-                </p>
-                <div class="mail-desc">
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li style="font-size: 14px;">
-                            Email: <a href="mailto:{{$email}}" target="_blank" style="text-decoration: none; color: #007bff;">{{$email}}</a>
-                        </li>
-                    </ul>                        
-                </div>
             </div>
         </td>
     
         <tr>
             <td>
                 <p style="font-size:14px;">
-                    If you have any questions or need further assistance, please don't hesitate to contact our support team.
+                    If you did not request a password reset, no further action is required.
                 </p>
 
             </td>

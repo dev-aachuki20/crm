@@ -122,7 +122,7 @@
 
                         <div class="col-12 col-lg-12">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-green btnsmall" id="savebtnsubmit" onclick="submitForm()">{{__('global.save')}}</button>
+                                <button type="submit" class="btn btn-green btnsmall" id="savebtnsubmit">{{__('global.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,20 @@
 @push('scripts')
 {!! $dataTable->scripts() !!}
 <script>
-    function submitForm() {
+    
+    $(document).on('click','#user',function(e){
+        e.preventDefault();
+
+        $('#previewImage').attr('src', "{{asset('images/man.png')}}");
+        $('#username').attr('disabled', false);
+        $('#email').attr('disabled', false);
+        $('#password, #send_password_on_email').parent().parent().show();
+    });
+    
+
+    $(document).on('submit','#user-form',function(e){
+        e.preventDefault();
+
         $('#loader').css('display', 'block');
 
         var formData = $('#user-form').serialize();
@@ -205,12 +218,16 @@
                 }
             }
         });
-    }
+
+    });
 
     function editForm(user_id) {
         
         $('#loader').css('display', 'block');
         $('#user-form .error').remove();
+
+        $('#password, #send_password_on_email').parent().parent().hide();
+
         $.ajax({
             type: 'GET',
             url: "{{ route('users_edit') }}",

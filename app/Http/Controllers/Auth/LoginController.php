@@ -41,6 +41,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        // $this->middleware('check-email-verified');
+
         $this->middleware('guest')->except('logout');
     }
     protected function validateLogin(Request $request)
@@ -55,6 +57,18 @@ class LoginController extends Controller
     {
         $language = \Session::get('userLanguage');
         $lang = $language ? $language : 'en';
+
+        $user = auth()->user();
+
+        if(is_null($user->email_verified_at)){
+
+            $user->NotificationSendToVerifyEmail();
+            
+            Auth::logout();
+            toastr()->success(trans('messages.check_email_verification'),trans('messages.success'));
+            return redirect('/login');
+        }
+
         app()->setLocale($lang);
         toastr()->success(trans('messages.you_are_successfully_login'),trans('messages.success'));
         return redirect()->route('home', ['lang' => $lang]);

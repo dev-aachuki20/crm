@@ -21,7 +21,8 @@ return [
         'transparent_logo' => 'assets/logo/logo-transparent.png',
         'profile_image' => 'default/default-user.svg',
         'footer-logo'   => 'images/light-logo.png',
-        'no-image' => 'images/no-image.jpg'
+        'no-image' => 'images/no-image.jpg',
+        'email_logo'=>'images/crm-logo.png',
     ],
 
     'date_format'     => 'd-m-Y',

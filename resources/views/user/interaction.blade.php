@@ -257,12 +257,12 @@
                                 <textarea class="form-control">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col">
                             <div class="buttonform">
                                 <button type="button" class="btn btn-red btnsmall">Cancle</button>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col-auto">
                             <div class="buttonform text-end">
                                 <button type="button" class="btn btn-green btnsmall">Save</button>
                             </div>
