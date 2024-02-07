@@ -30,7 +30,9 @@ class UserRequest extends FormRequest
         if (isset($userId)) {
             unset($rules['password']);
         } else {
-            $rules['password'] = 'required|string|min:8|max:15|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
+
+            $rules['password'] = 'required|string|min:8|max:15|regex:/^(?!.*\s)(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
+
             // $rules['email']    = 'required|ends_with:gmail.com, mail.com|unique:users,email';
             $rules['email']    = 'required|email|unique:users,email,NULL,id,deleted_at,NULL|regex:/(.+)@(.+)\.(.+)/i';
             $rules['username'] = 'required|alpha_num|string|regex:/^\S*$/|unique:users,username';

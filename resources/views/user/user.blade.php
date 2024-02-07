@@ -171,6 +171,8 @@
                 if (response.status === 'success') {
                     $('#user-form')[0].reset();
                     $('#user-id').val('');
+                    $('#username').attr('disabled', false);
+                    $('#email').attr('disabled', false);
                     $('.buttonform button').text("{{__('global.save')}}");
 
                     $('#userstoreModal').modal('hide');

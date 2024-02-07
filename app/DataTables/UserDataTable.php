@@ -76,7 +76,8 @@ class UserDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery()->with('roles')->orderByDesc('id');
+        // return $model->newQuery()->with('roles')->orderByDesc('id');
+        return $model->newQuery()->with('roles');
     }
 
     /**
@@ -89,7 +90,7 @@ class UserDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             // ->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->parameters([
                 // "sScrollX" => true,
                 "scrollCollapse" => true,

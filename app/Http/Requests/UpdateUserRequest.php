@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
             'last_name'             => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
             'email'                 => 'nullable|email|max:255',
             'birthdate'             => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
-            'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?!.*\s)(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'password_confirmation' => 'required_with:password|same:password',
             'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'campaign'              => 'required',
