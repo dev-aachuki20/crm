@@ -18,7 +18,9 @@
     </div>
     <div class="list-creating-channel mt-3">
         <h4>{{__('cruds.user.title')}} {{__('global.list')}}</h4>
-        {!! $dataTable->table(['class' => 'table mb-0']) !!}
+        <div class="listing-table">
+            {!! $dataTable->table(['class' => 'table mb-0']) !!}
+        </div>
     </div>
 </div>
 

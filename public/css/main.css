@@ -1056,6 +1056,10 @@ table.dataTable.no-footer {
     display: none !important;
 }
 
+.dataTables_scrollBody .dataTable thead{
+    /* display: none !important; */
+}
+
 table thead tr th, table tbody tr td{
     white-space: nowrap;
 }
@@ -1170,4 +1174,8 @@ input[type="password" i]{
 
 .form-group.invalidGroup .form-icon-password {
     right: 34px;
+}
+
+.listing-table{
+    padding: 1rem 0;
 }

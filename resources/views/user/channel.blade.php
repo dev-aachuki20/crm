@@ -16,9 +16,11 @@
             </div>
         </div>
     </div>
-    <div class="list-creating-channel mt-3 table-responsive">
+    <div class="list-creating-channel mt-3 ">
         <h4>{{__('cruds.list_created_channel')}}</h4>
-        {!! $dataTable->table(['class' => 'table mb-0']) !!}
+        <div class="listing-table">
+            {!! $dataTable->table(['class' => 'table mb-0']) !!}
+        </div>
     </div>
 
 </div>

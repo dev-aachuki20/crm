@@ -56,6 +56,14 @@
 }
 
 @media (max-width:991px){
+
+	.listing-table table{
+		display: block;
+		width: 100% !important;
+		overflow-x: scroll;
+		white-space: nowrap;
+	}
+	
 	h2 {
 	    font-size: 35px;
 	    line-height: 45px;

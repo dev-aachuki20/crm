@@ -92,8 +92,7 @@ class UserDataTable extends DataTable
             // ->dom('Bfrtip')
             ->orderBy(0)
             ->parameters([
-                "sResponsive" => true,
-                "sScrollX" => true,
+                "responsive" => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
                 // "scrollCollapse" => true,

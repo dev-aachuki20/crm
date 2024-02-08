@@ -48,9 +48,7 @@ class ChannelDataTable extends DataTable
             })
 
             ->editColumn('description', function ($data) {
-                // return ucfirst($data->description);
                 return nl2br($data->description);
-
             })
 
             ->rawColumns(['action','description']);
@@ -61,7 +59,8 @@ class ChannelDataTable extends DataTable
      */
     public function query(Channel $model): QueryBuilder
     {
-        return $model->newQuery()->orderByDesc('id');
+        // return $model->newQuery()->orderByDesc('id');
+        return $model->newQuery();
     }
 
     /**
@@ -74,11 +73,10 @@ class ChannelDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->parameters([
-                "sResponsive" => true,
-                "sScrollX" => true,
-                "scrollCollapse" => true,
+                "responsive" => true,
+                // "scrollCollapse" => true,
                 'autoWidth' => true,
                 'searching' => true,
                 'language' => [

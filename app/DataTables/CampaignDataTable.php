@@ -83,8 +83,7 @@ class CampaignDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->parameters([
-                'sResponsive' => true,
-                "sScrollX" => true,
+                'responsive' => true,
                 "scrollCollapse" => true,
                 'autoWidth' => true,
                 'language' => [
