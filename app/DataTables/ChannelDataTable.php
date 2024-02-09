@@ -44,14 +44,14 @@ class ChannelDataTable extends DataTable
             })
 
             ->editColumn('channel_name', function ($data) {
-                return ucfirst($data->channel_name);
+                return '<div class="scroll-td">'.ucfirst($data->channel_name).'</div>';
             })
 
             ->editColumn('description', function ($data) {
-                return nl2br($data->description);
+                return '<div class="scroll-td">'.nl2br($data->description).'</div>';
             })
 
-            ->rawColumns(['action','description']);
+            ->rawColumns(['action','channel_name','description']);
     }
 
     /**
@@ -68,11 +68,15 @@ class ChannelDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+        $dom = 
+        "<'row'<'col-sm-12 col-md-8'lB><'col-sm-12 col-md-4'f>>" .
+            "<'row'<'col-sm-12 table-responsive custome-responsive-table'tr>>" ;
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>";
         return $this->builder()
             ->setTableId('channel-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
+            ->dom($dom)
             ->orderBy(0)
             ->parameters([
                 "responsive" => true,
@@ -118,6 +122,7 @@ class ChannelDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
             Column::make('channel_name')->title(__('cruds.channel.fields.name')),
             Column::make('description')->title(__('cruds.channel.fields.description')),
             Column::computed('action')->title(__('global.action'))

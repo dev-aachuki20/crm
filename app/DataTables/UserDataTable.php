@@ -76,8 +76,22 @@ class UserDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        // return $model->newQuery()->with('roles')->orderByDesc('id');
-        return $model->newQuery()->with('roles');
+        $model = $model->newQuery()->with('roles');
+
+        if(auth()->user()->is_administrator){
+            $model = $model->whereHas('roles',function($query){
+                //Not Super Admin
+                $query->whereNotIN('id',[1,2]);
+            });
+        }elseif(auth()->user()->is_supervior){
+            $model = $model->whereHas('roles',function($query){
+                //Not Super Admin and Adminstrator
+                $query->whereNotIN('id',[1,2,3]);
+            });
+        }
+
+        return $model;
+
     }
 
     /**
@@ -85,11 +99,15 @@ class UserDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+        $dom = 
+        "<'row'<'col-sm-12 col-md-8'lB><'col-sm-12 col-md-4'f>>" .
+            "<'row'<'col-sm-12 table-responsive custome-responsive-table'tr>>" ;
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>";
         return $this->builder()
             ->setTableId('user-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            // ->dom('Bfrtip')
+            ->dom($dom)
             ->orderBy(0)
             ->parameters([
                 "responsive" => true,

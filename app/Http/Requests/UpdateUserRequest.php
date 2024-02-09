@@ -26,10 +26,10 @@ class UpdateUserRequest extends FormRequest
             'birthdate'             => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?!.*\s)(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'password_confirmation' => 'required_with:password|same:password',
-            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'campaign'              => 'required',
             'campaign.*'            => 'required',
-
+            // |max:2048
         ];
     }
     
@@ -52,7 +52,7 @@ class UpdateUserRequest extends FormRequest
             'image.nullable' => __('validation.image', ['attribute' => __('cruds.user.fields.image')]),
             'image.image' => __('validation.image', ['attribute' => __('cruds.user.fields.image')]),
             'image.mimes' => __('validation.mimes', ['attribute' => __('cruds.user.fields.image'), 'values' => 'jpeg, png, jpg, gif']),
-            'image.max' => __('validation.max.file', ['attribute' => __('cruds.user.fields.image'), 'max' => ':max']),
+            // 'image.max' => __('validation.max.file', ['attribute' => __('cruds.user.fields.image'), 'max' => ':max']),
 
             'campaign.required' => __('validation.required', ['attribute' => __('cruds.user.fields.campaign_id')]),
 

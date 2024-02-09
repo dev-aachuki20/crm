@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'birthdate',
         'campaign_id',
         'send_password_on_email',
+        'created_by',
     ];
 
     /**
@@ -55,6 +56,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function(User $model) {
+            $model->created_by = auth()->user()->id;
+        });
+
+    }
 
     public function roles()
     {
@@ -76,12 +85,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles()->where('id', 2)->exists();
     }
 
-    public function getIsVendedorAttribute()
+    public function getIsSuperviorAttribute()
     {
         return $this->roles()->where('id', 3)->exists();
     }
 
-    public function getIsSuperviorAttribute()
+    public function  getIsVendedorAttribute()
     {
         return $this->roles()->where('id', 4)->exists();
     }

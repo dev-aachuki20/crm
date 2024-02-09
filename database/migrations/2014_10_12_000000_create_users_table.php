@@ -23,6 +23,10 @@ return new class extends Migration
             $table->date('birthdate')->nullable();
 
             $table->rememberToken();
+            
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            
             $table->timestamps();
             $table->softDeletes();
         });

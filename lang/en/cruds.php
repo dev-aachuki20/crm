@@ -80,7 +80,7 @@ return [
     ],
 
     'campaign' => [
-        'title' => 'campaigns',
+        'title' => 'Campaigns',
         'title_singular' => 'campaign',
         'fields' => [
             'description'       => 'Description',

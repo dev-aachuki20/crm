@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
     });
 
+    
+   
     // channels route
     Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
     Route::delete('/channels/delete', [ChannelController::class, 'destroy'])->name('channels_delete');
@@ -71,7 +73,6 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
 
     Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
     Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
-
 
 
 

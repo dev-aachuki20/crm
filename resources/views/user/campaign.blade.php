@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Campaign')
+@section('title', __('cruds.campaign.title'))
 @push('styles')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 @endpush
@@ -14,7 +14,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal" id="campaign">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#compaignModal" id="campaign">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
                 </div>
             </div>
         </div>
@@ -35,11 +35,11 @@
 
 <!-- Modal -->
 {{-- For creating the Campaign --}}
-<div class="modal fade new-channel-popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade new-channel-popup" id="compaignModal" tabindex="-1" aria-labelledby="compaignModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
+                <h5 class="modal-title" id="compaignModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
                 <button type="button" class="btn-close cancelButton" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -184,18 +184,20 @@
             data: formData,
             dataType: 'json',
             success: function(response) {
-                setTimeout(function() {
-                    $('#loader').css('display', 'none');
-                }, 3000);
+
+                $('#loader').css('display', 'none');
+                
                 if (response.status === true) {
                     $('#saveCampaign')[0].reset();
                     $('#campaign_id').val('');
-                    toastr.success(response.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 200);
+                    
+                    $('#compaignModal').modal('hide');
+
+                    toasterAlert('success',response.message);
+
+                    refreshDataTable();
                 } else {
-                    toastr.error(response.error);
+                    toasterAlert('error',response.message);
                 }
             },
             error: function(response) {
@@ -227,7 +229,7 @@
             },
             success: function(response) {
                 if (response.status === true) {
-                    $('#exampleModal').modal('show');
+                    $('#compaignModal').modal('show');
 
                     $('#campaign_id').val(campaign_id);
                     $('#campaign_name').val(response.data.campaign_name);
@@ -254,9 +256,9 @@
 
                     // Change the button text create to "Update"
                     $('#saveupdate').text("{{__('global.update')}}");
-                    $('#exampleModalLabel').text("{{__('global.update')}} {{__('cruds.campaign.title_singular')}}")
+                    $('#compaignModalLabel').text("{{__('global.update')}} {{__('cruds.campaign.title_singular')}}")
                 } else {
-                    toastr.error(response.error);
+                    toasterAlert('error',response.message);
                 }
             },
             error: function(error) {
@@ -287,12 +289,13 @@
                     },
                     success: function(response) {
                         if (response.status === true) {
-                            toastr.success(response.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 200);
+
+                            toasterAlert('success',response.message);
+
+                            refreshDataTable();
+                           
                         } else {
-                            toastr.error(response.error);
+                            toasterAlert('error',response.message);
                         }
                     },
                     error: function(error) {
@@ -315,7 +318,11 @@
         $('#tagList').empty();
         $('#saveCampaign .error').remove();
         $('#saveupdate').text("{{__('global.save')}}");
-        $('#exampleModalLabel').text("{{__('global.add')}}  {{__('cruds.campaign.title_singular')}}")
+        $('#compaignModalLabel').text("{{__('global.add')}}  {{__('cruds.campaign.title_singular')}}")
     });
+
+    function refreshDataTable() {
+        $('#campaigns-table').DataTable().draw();
+    }
 </script>
 @endpush

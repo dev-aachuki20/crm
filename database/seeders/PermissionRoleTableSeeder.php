@@ -10,35 +10,50 @@ class PermissionRoleTableSeeder extends Seeder
 {
     public function run()
     {
-        $all_permissions = Permission::all();
+        //['permission_create' ,'permission_edit','permission_show','permission_delete','permission_access','role_create','role_edit','role_show','role_delete','role_access','user_access','user_create','user_edit','user_show','user_delete','channel_access','channel_create','channel_edit','channel_show','channel_delete','compaign_access','compaign_create','compaign_edit','compaign_show','compaign_delete','leads_access','leads_create','leads_edit','leads_show','leads_delete','interaction_access','interaction_create','interaction_edit','interaction_show','interaction_delete','observation_access','observation_create','observation_edit','observation_show','observation_delete'] 
+
+
+        /*  
+            1: SAdmin> Can add, delete any user. AND can view any users (Administrator, vendor, and other roles as well)
+            2: Administrator >  Same as SAdmin but Can't assign a user role of Super Admin also can't delete any  user. 
+            3: Supervisor > Same as Administrator but Can't delete any user or Campaign, Channel.
+            4: Vendedor > Same as Administrator but Can't delete any user or Campaign, Channel. 
+        */
+        
+        $roles = Role::all();
 
         //Super Admin
-        $superAdminPermissions = $all_permissions->filter(function ($permission) {
-            return $permission;
-        });
-
-        Role::findOrFail(1)->permissions()->sync($superAdminPermissions->pluck('id'));
+        $superAdminPermissions = Permission::pluck('id')->toArray();
 
         //Administrator
-        $administratorPermissions = $all_permissions->filter(function ($permission) {
-            return substr($permission->title, 0, 11) != 'permission_' && substr($permission->title, 0, 5) != 'role_'  && substr($permission->title, 0, 8) != 'channel_' && substr($permission->title, 0, 5) != 'user_'  && substr($permission->title, 0, 9) != 'compaign_'  && substr($permission->title, 0, 6) != 'leads_'  && substr($permission->title, 0, 12) != 'interaction_'  && substr($permission->title, 0, 12) != 'observation_' && substr($permission->title, 0, 5) != 'task_';
-        });
-
-        Role::findOrFail(2)->permissions()->sync($administratorPermissions);
-
-        //Vendedor
-        $vendedorPermissions = $all_permissions->filter(function ($permission) {
-            return substr($permission->title, 0, 11) != 'permission_' && substr($permission->title, 0, 5) != 'role_'  && substr($permission->title, 0, 8) != 'channel_' && substr($permission->title, 0, 5) != 'user_'  && substr($permission->title, 0, 9) != 'compaign_'  && substr($permission->title, 0, 6) != 'leads_'  && substr($permission->title, 0, 12) != 'interaction_'  && substr($permission->title, 0, 12) != 'observation_' && substr($permission->title, 0, 5) != 'task_';
-        });
-
-        Role::findOrFail(3)->permissions()->sync($vendedorPermissions);
+        $administratorPermissions = Permission::whereIn('title',['user_access','user_create','user_edit','user_show','user_delete','channel_access','channel_create','channel_edit','channel_show','channel_delete','compaign_access','compaign_create','compaign_edit','compaign_show','compaign_delete','leads_access','leads_create','leads_edit','leads_show','leads_delete','interaction_access','interaction_create','interaction_edit','interaction_show','interaction_delete','observation_access','observation_create','observation_edit','observation_show','observation_delete'] )->pluck('id')->toArray();
 
         //Supervior
-        $superviorPermissions = $all_permissions->filter(function ($permission) {
-            return substr($permission->title, 0, 11) != 'permission_' && substr($permission->title, 0, 5) != 'role_'  && substr($permission->title, 0, 8) != 'channel_' && substr($permission->title, 0, 5) != 'user_'  && substr($permission->title, 0, 9) != 'compaign_'  && substr($permission->title, 0, 6) != 'leads_'  && substr($permission->title, 0, 12) != 'interaction_'  && substr($permission->title, 0, 12) != 'observation_' && substr($permission->title, 0, 5) != 'task_';
-        });
+        $superviorPermissions = Permission::whereIn('title',['user_access','user_create','user_edit','user_show','user_delete','channel_access','channel_create','channel_edit','channel_show','compaign_access','compaign_create','compaign_edit','compaign_show','leads_access','leads_create','leads_edit','leads_show','interaction_access','interaction_create','interaction_edit','interaction_show','interaction_delete','observation_access','observation_create','observation_edit','observation_show'] )->pluck('id')->toArray();
 
-        Role::findOrFail(4)->permissions()->sync($superviorPermissions);
+      
+        //Vendedor
+        $vendedorPermissions = Permission::whereIn('title',['channel_access','channel_create','channel_edit','channel_show','channel_delete','compaign_access','compaign_create','compaign_edit','compaign_show','compaign_delete','leads_access','leads_create','leads_edit','leads_show','leads_delete','interaction_access','interaction_create','interaction_edit','interaction_show','interaction_delete','observation_access','observation_create','observation_edit','observation_show','observation_delete'] )->pluck('id')->toArray();
+
+
+        foreach ($roles as $role) {
+            switch ($role->id) {
+                case 1:
+                    $role->permissions()->sync($superAdminPermissions);
+                    break;
+                case 2:
+                    $role->permissions()->sync($administratorPermissions);
+                    break;
+                case 3:
+                    $role->permissions()->sync($superviorPermissions);
+                    break;
+                case 4:
+                    $role->permissions()->sync($vendedorPermissions);
+                    break;
+                default:
+                    break;
+            }
+        }
 
     }
 }

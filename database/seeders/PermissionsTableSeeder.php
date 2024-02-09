@@ -86,11 +86,6 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],
-            [
-                'title'      => 'user_access',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
 
            
             [
@@ -220,32 +215,6 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'title'      => 'observation_delete',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
-
-            [
-                'title'      => 'task_access',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
-            [
-                'title'      => 'task_create',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
-            [
-                'title'      => 'task_edit',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
-            [
-                'title'      => 'task_show',
-                'created_at' => $createDate,
-                'updated_at' => $updateDate,
-            ],
-            [
-                'title'      => 'task_delete',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],

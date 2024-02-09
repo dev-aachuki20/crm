@@ -484,7 +484,7 @@ footer .container {
 }
 
 .listbox {
-    max-height: 365px;
+    max-height: 340px;
     overflow-y: auto;
 }
 
@@ -608,6 +608,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .edit-delete {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .edit-delete button {
@@ -1072,6 +1073,33 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     background-position: center right -4px !important;
 }
 
+#channel-table thead tr th:nth-child(2), #campaigns-table thead tr th:nth-child(2){
+    white-space: normal;
+    min-width: 300px;
+}
+#channel-table tbody tr td:nth-child(2), #campaigns-table tbody tr td:nth-child(2){
+    white-space: normal;
+    min-width: 300px;
+}
+#channel-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
+    white-space: normal;
+    width: 200px !important;
+    min-width: 270px;
+}
+#channel-table tbody tr td:nth-child(1), #campaigns-table tbody tr td:nth-child(1){
+    white-space: normal;
+    width: 200px;
+}
+
+.dataTable thead tr th, .dataTable tbody tr td{
+    word-break: break-all;
+}
+
+.scroll-td{
+    max-height: 100px;
+    overflow: hidden auto;
+}
+
 
 /* SELECT TAGS CSS START */
 .qualificationGroup {
@@ -1214,6 +1242,48 @@ transform: translateX(0px);
     white-space: nowrap;
 } */
 
-span.error {
+span.error, span#qualificationError {
     font-size: 14px;
+}
+
+.custome-responsive-table {
+    padding: 0px;
+}
+
+
+.listing-table table{
+    width: 100% !important;
+}
+
+button.file-upload:disabled{
+    background: #fafafa;
+    color: #b4b4c1;
+}
+
+
+.listbox-wrapper .listbox .checboxcont input:checked:after {
+display: none;
+}
+
+
+
+
+/* ------------------------ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px
+}
+/* ::-webkit-scrollbar-button {
+    background: #ccc
+} */
+::-webkit-scrollbar-track-piece {
+    background: #00000003
+}
+::-webkit-scrollbar-thumb {
+    background: #eee
+}​ 
+
+.swal2-popup.swal2-toast .swal2-title{
+    line-height: normal !important;
 }

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Channel')
+@section('title', __('cruds.channel.title'))
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -96,15 +96,18 @@
             url: url,
             data: formData,
             success: function(response) {
-                setTimeout(function() {
-                    $('#loader').css('display', 'none');
-                }, 3000);
+                $('#loader').css('display', 'none');
+               
                 if (response.status === 'success') {
                     $('#channel-form')[0].reset();
                     $('#channel-id').val('');
                     $('.buttonform button').text("{{ __('global.create') }}");
 
-                    window.location.reload();
+                    $('#channelstoreModal').modal('hide');
+                    
+                    // window.location.reload();
+                    toasterAlert('success',response.message);
+                    refreshDataTable();
                 }
             },
             error: function(xhr, textStatus, errorThrown) {
@@ -177,7 +180,8 @@
                     },
                     success: function(response) {
                         if (response.status === 'success') {
-                            location.reload();
+                            toasterAlert('success',response.message);
+                            refreshDataTable();
                         }
                     },
                 });
@@ -191,5 +195,9 @@
     $('#channel').click(function() {
         $('#channel-form .error').remove();
     });
+
+    function refreshDataTable() {
+        $('#channel-table').DataTable().draw();
+    }
 </script>
 @endpush

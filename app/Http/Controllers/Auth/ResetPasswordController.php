@@ -55,14 +55,16 @@ class ResetPasswordController extends Controller
             if (\Auth::check()) {
                 \Auth::logout();
             }
-            toastr()->success('Password Reset Successfully');
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success','Password Reset Successfully!');
+
         }elseif($response == 'passwords.token'){
-            toastr()->error('Password reset token has expired or is invalid');
-            return redirect()->back();
+        
+            return redirect()->back()->with('error','Password reset token has expired or is invalid!');
+        
         }else{
-            toastr()->error('Oops! Something went wrong.');
-            return redirect()->back();
+
+            return redirect()->back()->with('error','Oops! Something went wrong.');
+
         }
     }
 

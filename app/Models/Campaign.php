@@ -22,7 +22,7 @@ class Campaign extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_campaign', 'campaign_id', 'user_id');
     }
     
 

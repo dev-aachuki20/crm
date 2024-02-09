@@ -48,10 +48,20 @@ class VerificationController extends Controller
         $userId = $request->route('id');
         $user = User::find($userId);
   
-        $user->markEmailAsVerified();
+        if(is_null($user->email_verified_at)){
 
-        event(new Verified($user));
+            $user->markEmailAsVerified();
 
-        return redirect()->route('login')->with('verified', true);
+            event(new Verified($user));
+    
+            // return redirect()->route('login')->with('verified', true);
+            return redirect()->route('login')->with('success', 'Email successfully verified!');
+
+        }else{
+
+            return redirect()->route('login')->with('success', 'Email already verified!');
+            
+        }
+
     }
 }

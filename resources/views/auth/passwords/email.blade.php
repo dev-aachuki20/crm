@@ -37,6 +37,7 @@
                     <div class="col-12 col-lg-12">
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-login btn-primary">Send</button>
+                            <a href="{{ route('login') }}" class="forget-pass">Already have your password? Login here.</a>
                         </div>
                     </div>
                 </div>

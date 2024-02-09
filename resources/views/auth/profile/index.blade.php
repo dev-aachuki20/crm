@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                    <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                    <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" max="{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" />
                     @error('birthdate')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="col-12 col-lg-3">
-                <div class="form-group">
+                <div class="form-group mb-lg-0">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
                     <input type="hidden" name="campaign" class="form-control" value="" id="campaign">
                     <div class="listbox-wrapper">

@@ -57,12 +57,6 @@
 
 @media (max-width:991px){
 
-	.listing-table table{
-		display: block;
-		width: 100% !important;
-		overflow-x: scroll;
-		white-space: nowrap;
-	}
 	
 	h2 {
 	    font-size: 35px;
@@ -133,6 +127,9 @@
 	}
 	.list-creating-channel {
 		border-radius: 30px;
+	}
+	#channel-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
+		min-width: 150px;
 	}
 	
 }
@@ -206,6 +203,56 @@
 	.list-creating-channel {
 		border-radius: 20px;
 	}
+	    
+
+	/*  */
+	.inputWrapper .search{
+		right: 15px;
+		top: 8px;
+	}
+
+	.footer{
+		transition: all ease-in-out 0.3s;
+		position: fixed;
+		z-index: 101;
+		top: 0;
+		left: 0;
+		transform: translateX(-100%);
+		max-width: 280px;
+		height: 100%;
+		width: 100%;
+		border-top: none;
+		padding: 12px 0;
+	}
+	.footer .footer-links ul{
+		flex-direction: column;
+	}
+	.footer .mobile_footer_header {
+		align-items: center;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #C6C6C6;
+	}
+	.footer .mobile_footer_header .logo{
+		display: flex;
+		max-width: 100px;
+	}
+	.footer .mobile_footer_header .logo img{
+		width: 100%;
+		object-fit: contain;
+	}
+
+	section.mainwraaper-sec{
+		padding: 50px 0;
+		min-height: calc(100vh - 109px);
+	}
+	header{
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: #fdfefe;
+	}
+	
 }
 
 @media (max-width:575px){
@@ -234,6 +281,13 @@
 		align-items: start;
 		gap: 0px;;
 	}
+	table.dataTable thead th{
+		font-size: 16px;
+
+	}
+	table.dataTable tbody td {
+		font-size: 14px;
+	}
 }
 
 @media (max-width:400px){
@@ -244,5 +298,25 @@
 	.header-main li:not(:last-child) {
 		margin-right: 10px;
 	}
+	/* ------- */
+	.select_area .select2-container {
+		min-width: 70px;
+		width: 70px !important;
+	}
+	.select_area .select2-container .select2-selection--single{
+		height: 30px;
+	}
 	
+	.flag-img{
+		font-size: 12px;
+	}
+
+	.flag-img img {
+		width: 16px;
+	}
+
+	.select2-container--default .select2-selection--single .select2-selection__arrow {
+		background-size: 10px !important;
+		background-position: 5px center;
+	}
 }

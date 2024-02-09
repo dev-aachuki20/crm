@@ -65,19 +65,16 @@ class LoginController extends Controller
             $user->NotificationSendToVerifyEmail();
             
             Auth::logout();
-            toastr()->success(trans('messages.check_email_verification'),trans('messages.success'));
-            return redirect('/login');
+            return redirect()->route('login')->with('success',trans('messages.check_email_verification'));
         }
 
         app()->setLocale($lang);
-        toastr()->success(trans('messages.you_are_successfully_login'),trans('messages.success'));
-        return redirect()->route('home', ['lang' => $lang]);
+        return redirect()->route('home', ['lang' => $lang])->with('success',trans('messages.you_are_successfully_login'));
     }
 
     public function logout(Request $request)
     {
-        toastr()->success(trans('messages.you_are_successfully_logout'), trans('messages.success'));
         Auth::logout();
-        return redirect('/login');
+        return redirect()->route('login')->with('success',trans('messages.you_are_successfully_logout'));
     }
 }

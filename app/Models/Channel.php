@@ -17,4 +17,9 @@ class Channel extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function campaigns()
+    {
+        return $this->belongsToMany(Campaign::class,'assigned_channel');
+    }
 }

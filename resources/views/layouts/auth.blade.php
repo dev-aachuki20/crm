@@ -15,8 +15,6 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-
     <!-- Font Family -->
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -40,6 +38,9 @@
             input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
         });
     </script>
+    
+    @include('layouts.includes.alert')
+
 </body>
 
 </html>

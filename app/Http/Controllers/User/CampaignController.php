@@ -18,6 +18,9 @@ class CampaignController extends Controller
         try {
             $allChannel = Channel::all();
             
+            // $tmp = Campaign::find(39);
+            // dd($tmp->users()->get()->count());
+
             return $dataTable->render('user.campaign', compact('allChannel'));
         } catch (\Throwable $th) {
             //throw $th;
@@ -56,7 +59,8 @@ class CampaignController extends Controller
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
             \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
+
+            return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
         }
     }
 
@@ -64,7 +68,7 @@ class CampaignController extends Controller
     {
         try {
             $campaign = Campaign::with('tagLists')->where('id', $request->id)->first();
-            return response()->json(['status' => true, 'message' => '', 'data' => $campaign], 200);
+            return response()->json(['status' => true, 'data' => $campaign], 200);
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
         }
@@ -90,7 +94,7 @@ class CampaignController extends Controller
                 return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_update')]);
             }
 
-            return response()->json(['status' => false, 'error' => trans('messages.sorry_unable_to_update')]);
+            return response()->json(['status' => false, 'message' => trans('messages.sorry_unable_to_update')]);
         } catch (ValidationException $e) {
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
@@ -105,12 +109,13 @@ class CampaignController extends Controller
         try {
             $campaign = Campaign::find($request->id);
             if (!$campaign) {
-                return response()->json(['status' => false, 'error' => trans('messages.unable_to_delete')]);
+                return response()->json(['status' => false, 'message' => trans('messages.unable_to_delete')]);
             }
-            $campaign->delete();
+
+            // $campaign->delete();
             return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_delete')]);
         } catch (\Exception $e) {
-            // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 }

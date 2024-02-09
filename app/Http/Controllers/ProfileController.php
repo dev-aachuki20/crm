@@ -58,14 +58,15 @@ class ProfileController extends Controller
                 }
             }
 
+
             if($update){
-                toastr()->success(trans('messages.user_profile_updated'), trans('messages.success'));
-                return redirect()->back();
+                return redirect()->back()->with('success', trans('messages.user_profile_updated'));
             }
-            toastr()->error(trans('messages.sorry_unable_to_update'), trans('messages.error'));
-            return redirect()->back();
+            return redirect()->back()->with('error', trans('messages.sorry_unable_to_update'));
         }catch (\Exception $e) {
-            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());            
+            \Log::error($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            return redirect()->back()->with('error', trans('messages.error_message'));
+
         }
     }
 }

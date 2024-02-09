@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'User')
+@section('title', __('cruds.user.title'))
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -88,7 +88,7 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                                        <input type="date" class="form-control" name="birthdate" id="birthdate" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                        <input type="date" class="form-control" name="birthdate" id="birthdate" max="{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" />
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -227,7 +227,7 @@
         
         $('#loader').css('display', 'block');
         $('#user-form .error').remove();
-
+        $('#previewImage').attr('src', "{{asset('images/man.png')}}");
         $('#password, #send_password_on_email').parent().parent().hide();
 
         $.ajax({
@@ -305,7 +305,8 @@
                     },
                     success: function(response) {
                         if (response.status === 'success') {
-                            location.reload();
+                            refreshDataTable();
+                            toasterAlert('success',response.message);
                         }
                     },
                 });

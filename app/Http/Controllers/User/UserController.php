@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Gate;
 use App\Http\Controllers\Controller;
 use App\DataTables\UserDataTable;
 use App\Http\Requests\UpdateUserRequest;
@@ -14,13 +15,33 @@ use App\Notifications\PasswordSendOnMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
     public function index(UserDataTable $dataTable)
     {
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            $roleData = Role::all();
+            
+            $roleData = Role::where('id','!=',1)->get();
+            if(auth()->user()->is_administrator){
+                //Not Super Admin and Adminstrator
+                $roleData = Role::whereNotIN('id',[1,2])->get();
+
+            }elseif(auth()->user()->is_supervior){
+
+                //Not Super Admin and Adminstrator
+                $roleData = Role::whereNotIN('id',[1,2,3])->get();
+
+            }
+            /*elseif(auth()->user()->is_vendedor){
+
+                //Not Super Admin , Adminstrator and supervior
+                $roleData = Role::whereNotIN('id',[1,2,3,4])->get();
+
+            }*/
+
             $campaigns = Campaign::all();
             return $dataTable->render('user.user', compact('roleData', 'campaigns'));
         } catch (\Throwable $th) {
@@ -30,6 +51,8 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         try {
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
@@ -74,6 +97,8 @@ class UserController extends Controller
 
     public function edit(Request $request)
     {
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         try {
             $userId = $request->input('user_id');
             $user = User::find($userId);
@@ -93,6 +118,8 @@ class UserController extends Controller
 
     public function update(UserRequest $request)
     {
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         try {
             $validatedData = $request->validated();
             $userId = $request->input('user_id');
@@ -146,6 +173,8 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         try {
             $user = User::find($request->id);
 
@@ -159,7 +188,7 @@ class UserController extends Controller
 
             $user->delete();
             return response()->json([
-                'message' => toastr()->success(trans('messages.user.user_deleted')),
+                'message' => trans('messages.user.user_deleted'),
                 'status' => 'success'
             ]);
         } catch (\Exception $e) {
