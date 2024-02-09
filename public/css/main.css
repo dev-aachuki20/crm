@@ -1179,3 +1179,41 @@ input[type="password" i]{
 .listing-table{
     padding: 1rem 0;
 }
+
+
+/* 08-02-24 */
+.searchaGroup {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+.searchaGroup form {
+    width: 100%;
+}
+
+.toggleBtn {
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+}
+.toggleBtn.small {
+    width: 35px;
+    height: 35px;
+}
+.toggleBtn img {
+    width: 100%;
+    object-fit: contain;
+}
+
+footer.mobilefooter{
+transform: translateX(0px);
+}
+/* .toast-message{
+    white-space: nowrap;
+} */
+
+span.error {
+    font-size: 14px;
+}
