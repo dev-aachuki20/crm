@@ -159,12 +159,16 @@
     $(document).on('click', '.toggle-password', function() {
 
         var $this = $(this);
-        $this.toggleClass("eye-open");
 
-        var elementId = $this.siblings('input').attr('id');
-        var input = $('#'+elementId);
+        if ($this.siblings('.password ').is(':disabled') == false) {
+            $this.toggleClass("eye-open");
 
-        input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
+            var elementId = $this.siblings('input').attr('id');
+            var input = $('#'+elementId);
+
+            input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password');
+        }
+
     });
 
     $(document).ready(function() {

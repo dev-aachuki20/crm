@@ -20,6 +20,6 @@ class Channel extends Model
 
     public function campaigns()
     {
-        return $this->belongsToMany(Campaign::class,'assigned_channel');
+        return $this->hasMany(Campaign::class,'assigned_channel', 'id');
     }
 }

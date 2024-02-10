@@ -65,7 +65,7 @@ class LoginController extends Controller
             $user->NotificationSendToVerifyEmail();
             
             Auth::logout();
-            return redirect()->route('login')->with('success',trans('messages.check_email_verification'));
+            return redirect()->route('login')->with('warning',trans('messages.check_email_verification'));
         }
 
         app()->setLocale($lang);

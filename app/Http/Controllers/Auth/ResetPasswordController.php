@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => ['required', Rules\Password::defaults()],
+            'password' => ['required', 'regex:/^(?!.*\s)(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/', Rules\Password::defaults()],
         ];
     }
 
@@ -40,7 +40,11 @@ class ResetPasswordController extends Controller
 
     public function reset(Request $request)
     {
-        $request->validate($this->rules(), $this->validationErrorMessages());
+        // $request->validate($this->rules(), $this->validationErrorMessages());
+        $request->validate($this->rules(), [
+            'password.regex' => __('validation.password.regex', ['attribute' => __('cruds.user.fields.password')]),
+        ]);
+
         $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
                 $this->resetPassword($user, $password);
@@ -63,7 +67,9 @@ class ResetPasswordController extends Controller
         
         }else{
 
-            return redirect()->back()->with('error','Oops! Something went wrong.');
+            // return redirect()->back()->with('error','Oops! Something went wrong.');
+
+            return redirect()->back()->with('error','Your password reset token has expired. Please request a new one!');
 
         }
     }

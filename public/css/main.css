@@ -1260,12 +1260,46 @@ button.file-upload:disabled{
     color: #b4b4c1;
 }
 
-
+/* 
 .listbox-wrapper .listbox .checboxcont input:checked:after {
 display: none;
+} */
+
+.swal2-popup.swal2-toast .swal2-title {
+    line-height: normal;
 }
 
 
+/* ----10-2-24--- */
+.remeber_account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    color: #000;
+    text-transform: capitalize;
+    margin-top: 10px;
+    gap: 5px;
+}
+.remeber_account a {
+    margin-top: 0px;
+}
+
+.btn-primary:hover{
+    background-color: #000;
+    border-color: #000;
+}
+.btn-login {
+    text-transform: uppercase;
+}
+
+body.swal2-toast-shown .swal2-container {
+    width: 420px !important;
+}
+
+.swal2-close{
+    display: inline-block !important;
+}
 
 
 /* ------------------------ */
@@ -1284,6 +1318,3 @@ display: none;
     background: #eee
 }​ 
 
-.swal2-popup.swal2-toast .swal2-title{
-    line-height: normal !important;
-}

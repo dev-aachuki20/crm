@@ -22,9 +22,9 @@ class UserRequest extends FormRequest
             'first_name'    => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
             'last_name'     => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
             'birthdate'     => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
-            'role'          => 'exists:roles,id',
+            'role'          => 'required|exists:roles,id',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'campaign_id'   => 'required',
+            'campaign'   => 'array|required',
         ];
 
         if (isset($userId)) {

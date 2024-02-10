@@ -83,12 +83,15 @@ class ChannelController extends Controller
             if (!$channel) {
                 return response()->json(['status' => 'error', 'message' => 'Channel not found.']);
             }
+            $assignedCampaignCount = $channel->campaigns()->count();
+            if($assignedCampaignCount > 0){
+                return response()->json(['status' => 'error', 'message' => trans('messages.channel_associated_with_campian')]);
+            }
             $channel->delete();
-            return response()->json([
-                'message' => trans('messages.channel.channel_deleted'), 'status' => 'success'
-            ]);
+            return response()->json(['message' => trans('messages.channel.channel_deleted'), 'status' => 'success']);
         } catch (\Exception $e) {
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
         }
     }
 }

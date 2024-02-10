@@ -43,4 +43,7 @@ return [
     'campaign_successfully_delete' => 'Campaign Successfully Deleted!',
     'unable_to_delete' => 'Unable to delete!',
     'campaign_successfully_update' => 'Campaign Successfully Updated',
+
+    'campaign_associated_with_user' => 'This campaign is associated with a user and cannot be deleted.',
+    'channel_associated_with_campian' => 'This channel is associated with a campaign and cannot be deleted.',
 ];

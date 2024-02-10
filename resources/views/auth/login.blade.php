@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-12">
-                        <div class="form-group @error('password') invalidGroup @enderror">
+                        <div class="form-group mb-0 @error('password') invalidGroup @enderror">
                             <input id="password" type="password" name="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" autocomplete="current-password" />
                             <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                             @error('password')
@@ -38,13 +38,18 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-12">
+                        @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="forget-pass text-end">{{ __('Forgot Password') }}</a>
+                        @endif
+                    </div>
                     <div class="col-12 col-lg-12">
-                        <div class="form-group mt-4">
-                            <button type="submit" class="btn btn-login btn-primary">{{ __('Login') }}</button>
+                        <div class="form-group mt-lg-5 mt-4 loginbtngroup">
+                            <button type="submit" class="btn btn-login btn-primary">{{ __('LOGIN') }}</button>
 
-                            @if (Route::has('password.request'))
+                            {{-- @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="forget-pass">{{ __('Forgot Your Password?') }}</a>
-                            @endif
+                            @endif --}}
 
                         </div>
                     </div>

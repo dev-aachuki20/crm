@@ -21,8 +21,9 @@
                 <input type="hidden" name="email" value="{{ $email }}">
                 <div class="row">
                     <div class="col-12 col-lg-12">
-                        <div class="form-group">
-                            <input type="password" name="password" placeholder="generate" class="form-control @error('password') is-invalid @enderror" />
+                        <div class="form-group @error('password') invalidGroup @enderror">
+                            <input type="password" id="password" name="password" placeholder="generate" class="form-control @error('password') is-invalid @enderror" />
+                            <span toggle="#password-field" class="form-icon-password toggle-password"><img src="{{asset('images/view.svg')}}" class="img-fluid" /></span>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 {{ $message }}

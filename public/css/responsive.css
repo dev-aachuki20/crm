@@ -78,6 +78,9 @@
 	.form-group{
 		margin-top: 0 !important;
 	}
+	.form-group.loginbtngroup{
+		margin-top: 2rem!important;
+	}
 	.footer-links li a{
 		font-size: 17px;
 	}

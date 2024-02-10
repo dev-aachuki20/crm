@@ -112,7 +112,12 @@ class CampaignController extends Controller
                 return response()->json(['status' => false, 'message' => trans('messages.unable_to_delete')]);
             }
 
-            // $campaign->delete();
+            $assignedUsersCount = $campaign->users()->count();
+            if($assignedUsersCount > 0){
+                return response()->json(['status' => false, 'message' => trans('messages.campaign_associated_with_user')]);
+            }
+            
+            $campaign->delete();
             return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_delete')]);
         } catch (\Exception $e) {
             dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());

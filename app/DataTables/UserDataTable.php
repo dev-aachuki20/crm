@@ -78,9 +78,14 @@ class UserDataTable extends DataTable
     {
         $model = $model->newQuery()->with('roles');
 
-        if(auth()->user()->is_administrator){
+        if(auth()->user()->is_super_admin){
             $model = $model->whereHas('roles',function($query){
                 //Not Super Admin
+                $query->whereNotIN('id',[1]);
+            });
+        }elseif(auth()->user()->is_administrator){
+            $model = $model->whereHas('roles',function($query){
+                //Not Super Admin and adminstrator
                 $query->whereNotIN('id',[1,2]);
             });
         }elseif(auth()->user()->is_supervior){

@@ -124,6 +124,12 @@
     var newTag = $("#newTag");
     tagList_render();
 
+    $(document).on('click', '#campaign', function(e){
+        e.preventDefault();
+        tagList = [];
+    });
+
+
     function tagList_render() {
         tagListVal.empty();
         tagList.map(function(_tag) {
@@ -295,7 +301,7 @@
                             refreshDataTable();
                            
                         } else {
-                            toasterAlert('error',response.message);
+                            toasterAlert('warning',response.message);
                         }
                     },
                     error: function(error) {

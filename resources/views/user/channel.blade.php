@@ -182,6 +182,8 @@
                         if (response.status === 'success') {
                             toasterAlert('success',response.message);
                             refreshDataTable();
+                        } else if(response.status === 'error'){
+                            toasterAlert('warning',response.message);
                         }
                     },
                 });

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -52,12 +53,12 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        DB::beginTransaction();
         try {
             $validatedData = $request->validated();
             $validatedData['password'] = bcrypt($request->password);
 
-            if ($request->has('send_password_on_email') && $request->send_password_on_email == 1) {
+            if ($request->has('send_password_on_email') && $request->send_password_on_email == "on") {
                 $validatedData['send_password_on_email'] = 1;
             } else {
                 $validatedData['send_password_on_email'] = 0;
@@ -77,21 +78,28 @@ class UserController extends Controller
             }
 
             // Trigger the notification
-            if ($request->send_password_on_email == 1) {
+            if ($request->has('send_password_on_email') && $request->send_password_on_email == "on") {
                 $password = $request->password;
                 $user->notify(new PasswordSendOnMail($password));
             }
 
             $user->NotificationSendToVerifyEmail();
 
-            $user->roles()->attach($validatedData['role']);
+            $user->roles()->sync([$validatedData['role']]);
+            $user->campaigns()->sync($validatedData['campaign']);
+
+            DB::commit(); 
 
             return response()->json(['message' => trans('messages.user.user_created'), 'status' => 'success', 'data' => $user], 200);
         } catch (ValidationException $e) {
+            DB::rollBack();
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
+            DB::rollBack();
             \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            // return response()->json(['status' => 'error', 'errors' => $e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine()], 500);
+            return response()->json(['status' => 'error', 'errors' => trans('messages.error_message')], 500);
         }
     }
 
@@ -103,29 +111,31 @@ class UserController extends Controller
             $userId = $request->input('user_id');
             $user = User::find($userId);
             $roleId = $user->roles->first()->id ?? null;
+            $campaigns = $user->campaigns ? $user->campaigns->pluck('id') : null;
 
             return response()->json([
                 'status' => 'success',
                 'data' => $user,
                 'role_id' => $roleId,
                 'profile' => $user->ProfileImageUrl ?? null,
-                'campaign_id' => explode(',', $user->campaign_id) ?? null,
+                'campaigns' => $campaigns ?? null,
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            return response()->json(['status' => 'error', 'errors' => trans('messages.error_message')], 500);
         }
     }
 
     public function update(UserRequest $request)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        DB::beginTransaction();
         try {
             $validatedData = $request->validated();
             $userId = $request->input('user_id');
             $user = User::find($userId);
 
-            if ($request->has('send_password_on_email')) {
+            /* if ($request->has('send_password_on_email')) {
                 if ($request->send_password_on_email == 1) {
                     $validatedData['send_password_on_email'] = 1;
                 } else {
@@ -133,7 +143,7 @@ class UserController extends Controller
                 }
             } else {
                 $validatedData['send_password_on_email'] = 0;
-            }
+            } */
 
             $validatedData['name'] = $request->first_name.' '.$request->last_name;
             
@@ -148,26 +158,31 @@ class UserController extends Controller
             }
 
             // Trigger the notification
-            if ($request->send_password_on_email == 1 && !empty($request->password)) {
+            /* if ($request->send_password_on_email == 1 && !empty($request->password)) {
                 $password = $request->password;
                 $user->notify(new PasswordSendOnMail($password));
-            }
+            } */
 
             if (isset($validatedData['role'])) {
                 $user->roles()->sync([$validatedData['role']]);
             }
+            $user->campaigns()->sync($validatedData['campaign']);
+            DB::commit(); 
             return response()->json([
                 'message' => trans('messages.user.user_updated'),
                 'status' => 'success'
             ]);
         } catch (ValidationException $e) {
+            DB::rollBack();
             $errors = $e->errors();
             return response()->json([
                 'status' => 'error',
                 'errors' => $errors
             ], 422);
         } catch (\Exception $e) {
+            DB::rollBack();
             \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            return response()->json(['status' => 'error', 'errors' => trans('messages.error_message')], 500);
         }
     }
 
@@ -186,6 +201,8 @@ class UserController extends Controller
                 deleteFile($user->profileImage->id);
             }
 
+            // $user->roles()->delete();
+            $user->campaigns()->sync([]);
             $user->delete();
             return response()->json([
                 'message' => trans('messages.user.user_deleted'),

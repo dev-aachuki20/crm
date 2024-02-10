@@ -1,6 +1,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     
+    @if (session()->has('status'))
+        toasterAlert('success',"{{ session()->get('status') }}");
+    @endif
+
     @if (session()->has('success'))
         toasterAlert('success',"{{ session()->get('success') }}");
     @endif
@@ -25,6 +29,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
+            // showCancelButton :true,
             didOpen: (toast) => {
                 toast.onmouseenter = Swal.stopTimer;
                 toast.onmouseleave = Swal.resumeTimer;

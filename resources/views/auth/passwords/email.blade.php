@@ -15,11 +15,11 @@
             <p class="text-center">Enter the email address associated with your account, and we'll email you a link to reset your password
             </p>
 
-            @if (session('status'))
+            {{-- @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
-            @endif
+            @endif --}}
             <form class="mt-5" method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <div class="row">
@@ -37,7 +37,7 @@
                     <div class="col-12 col-lg-12">
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-login btn-primary">Send</button>
-                            <a href="{{ route('login') }}" class="forget-pass">Already have your password? Login here.</a>
+                            <div class="remeber_account">Remember Your Account? <a href="{{ route('login') }}" class="forget-pass">Login</a></span>
                         </div>
                     </div>
                 </div>

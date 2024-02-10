@@ -66,6 +66,7 @@
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.role')}}:</label>
                                         <select class="form-control" name="role" id="role">
+                                            <option value="">Select {{__('cruds.user.fields.role')}}</option>
                                             @foreach($roleData as $role)
                                             <option value="{{ $role->id }}">{{ $role->title }}</option>
                                             @endforeach
@@ -113,12 +114,12 @@
                                 <div class="listbox">
                                     @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
-                                        <input type="checkbox" name="campaign_id[]" class="form-control" id="campaign_id-{{$campaign->id}}" value="{{$campaign->id}}">
+                                        <input type="checkbox" name="campaign[]" class="form-control" id="campaign-{{$campaign->id}}" value="{{$campaign->id}}">
                                         <span>{{ucwords($campaign->campaign_name)}}</span>
                                     </div>
                                     @endforeach
                                 </div>
-                                <input type="hidden" name="campaign_id" class="form-control">
+                                <div id="campaign-error"></div>
                             </div>
                         </div>
 
@@ -154,22 +155,22 @@
 
         $('#loader').css('display', 'block');
 
-        var formData = $('#user-form').serialize();
+        // var formData = $('#user-form').serialize();
         var userId = $('#user-id').val();
 
+        var formDataWithFile = new FormData(this);
         var url = (userId) ? "{{ route('users_update') }}" : "{{ route('users_store') }}";
 
-        var selectedCampaigns = $('input[name="campaign_id[]"]:checked').map(function() {
+        /* var selectedCampaigns = $('input[name="campaign_id[]"]:checked').map(function() {
             return $(this).val();
         }).get();
 
-        formData += '&campaign_id=' + selectedCampaigns.join(',');
+        formData += '&campaign_id=' + selectedCampaigns.join(','); */
 
-        var formDataWithFile = new FormData($('#user-form')[0]);
-        formDataWithFile.append('campaign_id', selectedCampaigns.join(','));
+        // formDataWithFile.append('campaign_id', selectedCampaigns.join(','));
 
-        var sendPasswordToEmail = $('#send_password_on_email').prop('checked') ? 1 : 0;
-        formDataWithFile.append('send_password_on_email', sendPasswordToEmail);
+        // var sendPasswordToEmail = $('#send_password_on_email').prop('checked') ? 1 : 0;
+        // formDataWithFile.append('send_password_on_email', sendPasswordToEmail);
         $.ajax({
             type: 'POST',
             url: url,
@@ -208,7 +209,10 @@
                         var errors = error.responseJSON.errors;
                         $.each(errors, function(key, value) {
                             $('#user-form input[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                            $('#user-form input[type="checkbox"][name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                            if(key == 'campaign'){
+                                $('#campaign-error').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                            }
+                            $('#user-form select[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                         });
                     } catch (e) {
                         console.error('Error parsing JSON response:', e);
@@ -260,11 +264,11 @@
                     }
 
                     /* For get the campaign Id */
-                    if (response.campaign_id) {
+                    if (response.campaigns) {
                         try {
-                            response.campaign_id.forEach(function(campaignId) {
+                            response.campaigns.forEach(function(campaignId) {
                                 /* console.log('campaignId', parseInt(campaignId)) */
-                                $('#campaign_id-' + parseInt(campaignId)).prop('checked', true);
+                                $('#campaign-' + parseInt(campaignId)).prop('checked', true);
                             });
                         } catch (error) {
                             // console.log('Error parsing campaignId:', error);
