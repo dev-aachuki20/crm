@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-12 col-lg-12">
                         <div class="form-group mt-4">
-                            <button type="submit" class="btn btn-login btn-primary">Send</button>
+                            <button type="submit" class="btn btn-login btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>

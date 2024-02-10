@@ -20,7 +20,9 @@ class ProfileController extends Controller
         $userDetail = Auth::user();
         $roles = $userDetail->roles->first();
         $allCampaign = Campaign::all();
-        return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign'));
+        $userCampaigns = $userDetail->campaigns ? $userDetail->campaigns->pluck('id')->toArray() : null;
+        
+        return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign', 'userCampaigns'));
     }
 
     public function updateProfile(UpdateUserRequest $request)
@@ -30,9 +32,7 @@ class ProfileController extends Controller
             $inputs = $request->validated();            
             $user = Auth::User();
             
-            if (!empty($inputs['campaign'])) {
-                $inputs['campaign_id'] = implode(",", $inputs['campaign']);
-            }
+           
             $inputs['name'] = $request->first_name.' '.$request->last_name;
             
             $update = '';
@@ -45,7 +45,6 @@ class ProfileController extends Controller
                     'last_name'     => $inputs['last_name'],
                     'name'          => $inputs['name'],
                     'birthdate'     => $inputs['birthdate'],
-                    'campaign_id'   => $inputs['campaign_id'],
                 ]);
             }
 

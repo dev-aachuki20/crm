@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('title', __('cruds.user.title'))
+
+@push('scripts')
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+@endpush
+
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -30,7 +36,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade new-channel-popup" id="userstoreModal" tabindex="-1" aria-labelledby="userstoreModalLabel" aria-hidden="true">
+<div class="modal fade new-channel-popup" id="userstoreModal" tabindex="-1" aria-labelledby="userstoreModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -89,7 +95,7 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                                        <input type="date" class="form-control" name="birthdate" id="birthdate" max="{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" />
+                                        <input type="text" class="form-control" name="birthdate" id="birthdate" readonly placeholder="DOB"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -137,8 +143,31 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 {!! $dataTable->scripts() !!}
 <script>
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    $(document).on('show.bs.modal','#userstoreModal', function () {        
+        $('#birthdate').daterangepicker({
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            maxDate: yesterday,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+        },
+        function(start, end, label) {
+            $('#birthdate').val(start.format('YYYY-MM-DD'));
+        });
+    });
+
+    $(document).on('hide.bs.modal','#userstoreModal', function () {
+        $('#birthdate').data('daterangepicker').remove();
+    });
     
     $(document).on('click','#user',function(e){
         e.preventDefault();
@@ -254,6 +283,24 @@
                     $('#username').val(response.data.username);
                     $('#email').val(response.data.email);
                     $('#birthdate').val(response.data.birthdate);
+
+                    // $('#birthdate').data('daterangepicker').remove();
+                    $('#birthdate').daterangepicker({
+                        autoApply: true,
+                        singleDatePicker: true,
+                        showDropdowns: true,
+                        autoUpdateInput: false,
+                        startDate: response.data.birthdate,
+                        maxDate: yesterday,
+                        locale: {
+                            format: 'YYYY-MM-DD'
+                        },
+                    },
+                    function(start, end, label) {
+                        $('#birthdate').val(start.format('YYYY-MM-DD'));
+                    });
+
+
                     $('#role').val(response.role_id);
                     if ((response.data.username) || (response.data.email)) {
                         $('#username').attr('disabled', true);

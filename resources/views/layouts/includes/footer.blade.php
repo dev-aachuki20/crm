@@ -6,7 +6,7 @@
                 <div class="col-auto"><button type="button" class="btn closebtn d-md-none d-flex"><img src="{{asset('images/close.svg')}}"></button></div>
             </div>
             <ul class="list-unstyled mb-0">
-                <li><a href="{{route('channels',['lang' => app()->getLocale()])}}">{{__('cruds.channel.title_singular')}}</a></li>
+                <li><a href="{{route('channels',['lang' => app()->getLocale()])}}">{{__('cruds.channel.title')}}</a></li>
                 <li><a href="{{route('campaigns',['lang' => app()->getLocale()])}}">{{__('cruds.campaign.title')}}</a></li>
                 <li><a href="javascript:void(0);">{{__('cruds.interaction.title_singular')}}</a></li>
 

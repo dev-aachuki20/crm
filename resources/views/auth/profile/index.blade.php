@@ -1,5 +1,10 @@
 @extends('layouts.master')
 @section('title', 'Profile')
+
+@push('scripts')
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+@endpush
+
 @section('content')
 <div class="container">
     <div class="headingbar">
@@ -66,7 +71,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label>{{__('cruds.user.fields.birthdate')}}:</label>
-                    <input type="date" name="birthdate" value="{{ $userDetail->birthdate }}" class="form-control @error('birthdate') is-invalid @enderror" max="{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" />
+                    <input type="text" name="birthdate" id="birthdate" value="{{ $userDetail->birthdate ? \Carbon\Carbon::parse($userDetail->birthdate)->format('Y-m-d') : \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" class="form-control @error('birthdate') is-invalid @enderror" readonly/>
                     @error('birthdate')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -112,13 +117,14 @@
                 <div class="form-group mb-lg-0">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
                     <input type="hidden" name="campaign" class="form-control" value="" id="campaign">
-                    <div class="listbox-wrapper">
+                    <div class="listbox-wrapper campaign-listing">
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
                             <div class="checboxcont">
-                                <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" @if(in_array($campaign->id, explode(',', $userDetail->campaign_id)))
+                                {{-- <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" @if(in_array($campaign->id, $userCampaigns))
                                 checked
-                                @endif>
+                                @endif> --}}
+                                <span class="custom-check {{ in_array($campaign->id, $userCampaigns) ? 'checked' : ''}}"></span>
                                 <span>{{$campaign->campaign_name}}</span>
                             </div>
                             @empty
@@ -128,11 +134,11 @@
                             @endforelse
                         </div>
                     </div>
-                    @error('campaign')
+                    {{-- @error('campaign')
                     <span style="color:red;">
                         {{ $message }}
                     </span>
-                    @enderror
+                    @enderror --}}
                 </div>
             </div>
         </div>
@@ -141,8 +147,30 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        var dobval = $('#birthdate').val();
+            
+        $('#birthdate').daterangepicker({
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            maxDate: yesterday,
+            startDate: dobval,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+        },
+        function(start, end, label) {
+            $('#birthdate').val(start.format('YYYY-MM-DD'));
+        });
+            
         $('.file-input').change(function() {
             var curElement = $('.image');
             console.log(curElement);
@@ -176,12 +204,17 @@
             $("#updateProfileForm :input").prop("disabled", false);
             $("#saveButton").prop("disabled", false);
             $("#cancelButton").prop("disabled", false);
+            $("#editButton").prop("disabled", true);
+
         } else {
             $("#updateProfileForm :input").prop("disabled", true);
             $("#saveButton").prop("disabled", true);
             $("#cancelButton").prop("disabled", true);
 
             $("#editButton").on("click", function() {
+
+                $(this).prop("disabled", true);
+                
                 $("#updateProfileForm :input").prop("disabled", false);
                 $("#saveButton").prop("disabled", false);
                 $("#cancelButton").prop("disabled", false);

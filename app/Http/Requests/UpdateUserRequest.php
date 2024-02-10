@@ -27,8 +27,8 @@ class UpdateUserRequest extends FormRequest
             'password'              => 'nullable|string|min:8|max:15|confirmed|regex:/^(?!.*\s)(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'password_confirmation' => 'required_with:password|same:password',
             'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'campaign'              => 'required',
-            'campaign.*'            => 'required',
+            // 'campaign'              => 'required',
+            // 'campaign.*'            => 'required',
             // |max:2048
         ];
     }
