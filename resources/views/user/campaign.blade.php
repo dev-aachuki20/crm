@@ -142,12 +142,30 @@
     $(document).ready(function() {
 
         $("#addOption").click(function() {
-            var newTagVal = $("#newTag").val();
+            // var newTagVal = $("#newTag").val();
+            // if (newTagVal.replace(/\s/g, '') !== '') {
+            //     tagList.push(newTagVal);
+            //     newTag.val('');
+            //     tagList_render();
+            // }
+
+            var newTagVal = newTag.val();
             if (newTagVal.replace(/\s/g, '') !== '') {
-                tagList.push(newTagVal);
-                newTag.val('');
-                tagList_render();
+                if (tagList.indexOf(newTagVal) === -1) {
+                    tagList.push(newTagVal);
+                    newTag.val('');
+                    tagList_render();
+                } else {
+                    toasterAlert('warning','{{__("messages.qualification_already_exists")}}');
+                }
+            }else{
+                toasterAlert('warning','{{__("messages.qualification_not_added")}}');
             }
+
+            // $('#saveCampaign')[0].reset();
+            // tagList = [];
+            // tagList_render();
+
         });
 
         // Remove Tag

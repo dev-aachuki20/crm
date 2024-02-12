@@ -48,4 +48,6 @@ return [
     'unable_to_delete' => 'No se puede eliminar!',
     'campaign_successfully_update' => 'Campaña actualizada con éxito!',
 
+    'qualification_already_exists' => 'Lo sentimos, ¡la calificación ya existe!',
+    'qualification_not_added' => 'Lo sentimos, ¡no has añadido ninguna calificación!',
 ];
