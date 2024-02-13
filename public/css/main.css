@@ -1326,6 +1326,11 @@ body.swal2-toast-shown .swal2-container {
 .campaign-listing .checboxcont{
     padding-left: 0;
 }
+
+.campaign-listing:hover{
+    cursor: not-allowed;
+}
+
 /* ------------------------ */
 
 ::-webkit-scrollbar {
