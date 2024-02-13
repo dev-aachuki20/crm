@@ -117,7 +117,7 @@
                 <div class="form-group mb-lg-0">
                     <label>{{ __('cruds.campaign.title_singular') }}:</label>
                     <input type="hidden" name="campaign" class="form-control" value="" id="campaign">
-                    <div class="listbox-wrapper campaign-listing">
+                    <div class="listbox-wrapper campaign-listing ban-element">
                         <div class="listbox">
                             @forelse($allCampaign as $campaign)
                             <div class="checboxcont">
