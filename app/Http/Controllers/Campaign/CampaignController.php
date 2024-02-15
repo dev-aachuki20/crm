@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Campaign;
 
+use Gate;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CampaignRequest;
+use App\Http\Requests\Campaign\CampaignRequest;
 use App\Models\Campaign;
 use App\Models\TagList;
 use Illuminate\Http\Request;
-use App\DataTables\CampaignDataTable;
+use App\DataTables\Campaign\CampaignDataTable;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Channel;
 use Illuminate\Support\Facades\DB;
 
@@ -17,13 +19,10 @@ class CampaignController extends Controller
 {
     public function index(CampaignDataTable $dataTable)
     {
+        abort_if(Gate::denies('compaign_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $allChannel = Channel::all();
-            
-            // $tmp = Campaign::find(39);
-            // dd($tmp->users()->get()->count());
-
-            return $dataTable->render('user.campaign', compact('allChannel'));
+            return $dataTable->render('campaign.index', compact('allChannel'));
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -32,6 +31,7 @@ class CampaignController extends Controller
 
     public function store(CampaignRequest $request)
     {
+        abort_if(Gate::denies('compaign_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         DB::beginTransaction();
         try {
             $validatedData = $request->validated();
@@ -72,8 +72,10 @@ class CampaignController extends Controller
 
     public function edit(Request $request)
     {
+        abort_if(Gate::denies('compaign_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $campaign = Campaign::with('tagLists')->where('id', $request->id)->first();
+            \Log::info($campaign);
             return response()->json(['status' => true, 'data' => $campaign], 200);
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
@@ -82,8 +84,8 @@ class CampaignController extends Controller
 
     public function update(CampaignRequest $request)
     {
+        abort_if(Gate::denies('compaign_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         DB::beginTransaction();
-
         try {
             $input = $request->all();
             $data = [
@@ -120,6 +122,7 @@ class CampaignController extends Controller
 
     public function delete(Request $request)
     {
+        abort_if(Gate::denies('compaign_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $campaign = Campaign::find($request->id);
             if (!$campaign) {

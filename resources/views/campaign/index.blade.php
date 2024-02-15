@@ -14,7 +14,11 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#compaignModal" id="campaign">+ {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}</button>
+                    @can('compaign_create')
+                        <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#compaignModal" id="campaign">
+                            + {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}
+                        </button>
+                    @endcan
                 </div>
             </div>
         </div>

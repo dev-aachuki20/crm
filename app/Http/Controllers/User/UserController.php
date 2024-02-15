@@ -4,16 +4,13 @@ namespace App\Http\Controllers\User;
 
 use Gate;
 use App\Http\Controllers\Controller;
-use App\DataTables\UserDataTable;
-use App\Http\Requests\UpdateUserRequest;
+use App\DataTables\User\UserDataTable;
 use App\Http\Requests\User\UserRequest;
-use App\Mail\WelcomeMail;
 use App\Models\Campaign;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\PasswordSendOnMail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +41,7 @@ class UserController extends Controller
             }*/
 
             $campaigns = Campaign::all();
-            return $dataTable->render('user.user', compact('roleData', 'campaigns'));
+            return $dataTable->render('user.index', compact('roleData', 'campaigns'));
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -92,7 +89,6 @@ class UserController extends Controller
 
             return response()->json(['message' => trans('messages.user.user_created'), 'status' => 'success', 'data' => $user], 200);
         } catch (ValidationException $e) {
-            DB::rollBack();
             $errors = $e->errors();
             return response()->json(['status' => 'error', 'errors' => $errors], 422);
         } catch (\Exception $e) {
@@ -173,7 +169,6 @@ class UserController extends Controller
                 'status' => 'success'
             ]);
         } catch (ValidationException $e) {
-            DB::rollBack();
             $errors = $e->errors();
             return response()->json([
                 'status' => 'error',

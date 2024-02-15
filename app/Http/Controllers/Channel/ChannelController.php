@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Channel;
 
-use App\DataTables\ChannelDataTable;
+use Gate;
+use App\DataTables\Channel\ChannelDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use App\Http\Requests\User\ChannelRequest;
+use App\Http\Requests\Channel\ChannelRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChannelController extends Controller
 {
     public function index(ChannelDataTable $dataTable)
     {
-        return $dataTable->render('user.channel');
+        abort_if(Gate::denies('channel_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return $dataTable->render('channel.index');
     }
 
     public function store(ChannelRequest $request)
     {
+        abort_if(Gate::denies('channel_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $validatedData = $request->validated();
             $validatedData['status'] = 1;
@@ -39,6 +43,7 @@ class ChannelController extends Controller
 
     public function edit(Request $request)
     {
+        abort_if(Gate::denies('channel_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $channelId = $request->input('channel_id');
             $channel = Channel::find($channelId);
@@ -53,6 +58,7 @@ class ChannelController extends Controller
 
     public function update(ChannelRequest $request)
     {
+        abort_if(Gate::denies('channel_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $validatedData = $request->validated();
 
@@ -78,6 +84,7 @@ class ChannelController extends Controller
 
     public function destroy(Request $request)
     {
+        abort_if(Gate::denies('channel_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $channel = Channel::find($request->id);
             if (!$channel) {

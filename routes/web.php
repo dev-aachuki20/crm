@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\User\CampaignController;
-use App\Http\Controllers\User\ChannelController;
-use App\Http\Controllers\User\InteractionController;
-use App\Http\Controllers\User\LeadController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Campaign\CampaignController;
+use App\Http\Controllers\Channel\ChannelController;
+use App\Http\Controllers\Interaction\InteractionController;
+use App\Http\Controllers\Lead\LeadController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 
@@ -20,6 +20,16 @@ Route::get('/generate-key', function () {
     Artisan::call('key:generate');
     return "App key generated successfully!";
 });
+
+Route::get('/log-file', function () {
+    $file = File::get(storage_path() . '/logs/laravel.log');
+    return "<div style='white-space: pre;'>$file</div>";
+})->name('logFile');
+
+Route::get('/clear-log-file', function () {
+    $file = File::put(storage_path() . '/logs/laravel.log', '');
+    return $file;
+})->name('clearlogFile');
 
 Route::get('/clear-cache', function () {
     Artisan::call('view:clear');

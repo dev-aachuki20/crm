@@ -37,6 +37,8 @@ class SetLanguage
                     'campaign-update',
                     'campaign-edit',
                     'campaign/delete',
+                    'log-file',
+                    'clear-log-file'
                 ];
 
                 if (!in_array($currentPath, $excludedPaths)) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Lead;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +9,6 @@ class LeadController extends Controller
 {
     public function index()
     {
-        return view('user.lead');
+        return view('lead.index');
     }
 }

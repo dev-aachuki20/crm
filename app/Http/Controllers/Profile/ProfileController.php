@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
+use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\Profile\ProfileRequest;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -25,7 +26,7 @@ class ProfileController extends Controller
         return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign', 'userCampaigns'));
     }
 
-    public function updateProfile(UpdateUserRequest $request)
+    public function updateProfile(ProfileRequest $request)
     {
         try {
             

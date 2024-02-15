@@ -1335,15 +1335,29 @@ body.swal2-toast-shown .swal2-container {
 
 ::-webkit-scrollbar {
     width: 6px;
-    height: 6px
+    height: 6px;
 }
 /* ::-webkit-scrollbar-button {
-    background: #ccc
+    background: #ccc;
 } */
 ::-webkit-scrollbar-track-piece {
-    background: #00000003
+    background: #00000003;
 }
 ::-webkit-scrollbar-thumb {
-    background: #eee
-}​ 
+    background: #eee;
+}
 
+@media screen and (max-width: 767px){
+    .list-creating-channel .dataTables_wrapper .dataTables_paginate{
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: normal;
+        -webkit-justify-content: normal;
+    }
+    
+    .list-creating-channel .dataTables_wrapper .dataTables_paginate>*{
+        flex: 0 0 auto;
+        -webkit-flex: 0 0 auto;
+    }
+}

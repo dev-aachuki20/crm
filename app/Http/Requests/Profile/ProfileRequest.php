@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
 use App\User;
 use Gate;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Rules\NoMultipleSpacesRule;
 
-class UpdateUserRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     public function authorize()
     {
