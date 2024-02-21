@@ -73,12 +73,12 @@ return [
         ],
     ],
 
-    'channel' => [
-        'title' => 'Canales',
-        'title_singular' => 'Canal',
+    'area' => [
+        'title' => 'Área',
+        'title_singular' => 'Área',
         'fields' => [
             'description'    => 'Descripción',
-            'name' => 'Nombre del Canal',
+            'name' => 'Nombre del Área',
         ],
     ],
 

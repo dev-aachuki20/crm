@@ -129,8 +129,8 @@ class ChannelDataTable extends DataTable
     {
         return [
             Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
-            Column::make('channel_name')->title(__('cruds.channel.fields.name')),
-            Column::make('description')->title(__('cruds.channel.fields.description')),
+            Column::make('channel_name')->title(__('cruds.area.fields.name')),
+            Column::make('description')->title(__('cruds.area.fields.description')),
             Column::computed('action')->title(__('global.action'))
                 ->exportable(false)
                 ->printable(false)

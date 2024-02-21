@@ -140,7 +140,29 @@
                     </span>
                     @enderror --}}
                 </div>
+                <div class="form-group mb-lg-0 mt-4">
+                    <label>{{ __('cruds.area.title_singular') }}:</label>
+                    <input type="hidden" name="area" class="form-control" value="" id="area">
+                    <div class="listbox-wrapper campaign-listing ban-element">
+                        <div class="listbox">
+                            @forelse($allArea as $area)
+                            <div class="checboxcont">
+                                {{-- <input type="checkbox" name="campaign[]" class="form-control" value="{{$campaign->id}}" @if(in_array($campaign->id, $userCampaigns))
+                                checked
+                                @endif> --}}
+                                <span class="custom-check {{ in_array($area->id, $userCampaigns) ? 'checked' : ''}}"></span>
+                                <span>{{$area->channel_name}}</span>
+                            </div>
+                            @empty
+                            <div class="checboxcont">
+                                <span>Data Not Found!</span>
+                            </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </form>
 </div>

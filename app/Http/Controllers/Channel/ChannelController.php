@@ -78,7 +78,6 @@ class ChannelController extends Controller
 
             \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
-
         }
     }
 
@@ -91,7 +90,7 @@ class ChannelController extends Controller
                 return response()->json(['status' => 'error', 'message' => 'Channel not found.']);
             }
             $assignedCampaignCount = $channel->campaigns()->count();
-            if($assignedCampaignCount > 0){
+            if ($assignedCampaignCount > 0) {
                 return response()->json(['status' => 'error', 'message' => trans('messages.channel_associated_with_campian')]);
             }
             $channel->delete();

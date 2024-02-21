@@ -40,7 +40,7 @@
 <!-- Modal -->
 {{-- For creating the Campaign --}}
 <div class="modal fade new-channel-popup" id="compaignModal" tabindex="-1" aria-labelledby="compaignModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="compaignModalLabel">{{__("cruds.campaign.fields.new_campaign")}}</h5>
@@ -51,55 +51,67 @@
                     @csrf
                     <input type="hidden" id="campaign_id" name="campaign_id" value="">
                     <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.campaign_name")}}:</label>
-                                <input type="text" class="form-control" name="campaign_name" id="campaign_name" />
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
-                                <select class="form-control" name="assigned_channel" id="assigned_channel">
-                                    <option value="">Select the channel</option>
-                                    @forelse ($allChannel as $item)
-                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
-                                    @empty
-                                    <option value="">Data Not Available</option>
-                                    @endforelse
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.created_by")}}:</label>
-                                <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly />
-                                <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by" />
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group qualificationGroup">
-                                <label>{{__("cruds.campaign.fields.qualification")}}:</label>
-                                <div class="input-group">
-                                    <input type="text" id="newTag" class="form-control" />
-                                    <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
+                        <div class="col-12 col-lg-8">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label>{{__("cruds.campaign.fields.campaign_name")}}:</label>
+                                        <input type="text" class="form-control" name="campaign_name" id="campaign_name" />
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <div class="tags">
-                                    <ul id="tagList">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label>{{__("cruds.campaign.fields.created_by")}}:</label>
+                                        <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly />
+                                        <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="created_by" id="created_by" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-12">
+                                    <div class="form-group qualificationGroup">
+                                        <label>{{__("cruds.campaign.fields.qualification")}}:</label>
+                                        <div class="input-group">
+                                            <input type="text" id="newTag" class="form-control" />
+                                            <input type="button" class="input-group-text btn btn-blue btnsmall shadow-none" id="addOption" value="+ {{__('cruds.add')}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-12">
+                                    <div class="form-group">
+                                        <div class="tags">
+                                            <ul id="tagList">
 
-                                    </ul>
+                                            </ul>
+                                        </div>
+                                        <span id="qualificationError" style="display: none; color: red; display:none;">{{__("cruds.campaign.fields.qualification_field_required")}}</span>
+                                    </div>
                                 </div>
-                                <span id="qualificationError" style="display: none; color: red; display:none;">{{__("cruds.campaign.fields.qualification_field_required")}}</span>
+                                <div class="col-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label>{{__("cruds.campaign.fields.description")}}:</label>
+                                        <textarea class="form-control" name="description" id="description"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-12">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.description")}}:</label>
-                                <textarea class="form-control" name="description" id="description"></textarea>
+                        <div class="col-12 col-lg-4">
+                            <div class="form-group mb-lg-0">
+                                <label>{{ __('cruds.area.title_singular') }}:</label>
+                                <!-- <input type="hidden" name="channel" class="form-control" value="" id="channel"> -->
+                                <div class="listbox-wrapper campaign-listing">
+                                    <div class="listbox">
+                                        @forelse($allChannel as $channel)
+                                        <div class="checboxcont">
+                                            <span class="custom-check"></span>
+                                            <input type="checkbox" name="assigned_channel[]" class="form-control channel-checkbox" value="{{ $channel->id }}" id="assigned_channel_{{ $channel->id }}">
+                                            <span>{{$channel->channel_name}}</span>
+                                        </div>
+                                        @empty
+                                        <div class="checboxcont">
+                                            <span>Data Not Found!</span>
+                                        </div>
+                                        @endforelse
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col">
@@ -112,6 +124,29 @@
                                 <button type="submit" id="saveupdate" class="btn btn-green btnsmall">{{__('cruds.save')}}</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
+                        {{-- <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
+                                <select class="form-control" name="assigned_channel" id="assigned_channel">
+                                    <option value="">Select the channel</option>
+                                    @forelse ($allChannel as $item)
+                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
+                                    @empty
+                                    <option value="">Data Not Available</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div> --}}
+
+
+                        
+                        
+                        
+                        
+                        
                     </div>
                 </form>
             </div>
@@ -256,6 +291,7 @@
                 id: campaign_id,
             },
             success: function(response) {
+
                 if (response.status === true) {
                     $('#compaignModal').modal('show');
 
@@ -280,7 +316,18 @@
                         var temp = '<li>' + _tag + '<span class="rmTag">&times;</span></li>';
                         tagListVal.append(temp);
                     });
-                    // console.log(tagList);
+
+                    // get channel ids
+                    var assignedChannelArray = response.channels;
+                    if (assignedChannelArray) {
+                        try {
+                            assignedChannelArray.forEach(function(assigned_channelId) {
+                                $('#assigned_channel_' + parseInt(assigned_channelId)).prop('checked', true);
+                            });
+                        } catch (error) {
+                            // console.log('Error parsing campaignId:', error);
+                        }
+                    }
 
                     // Change the button text create to "Update"
                     $('#saveupdate').text("{{__('global.update')}}");

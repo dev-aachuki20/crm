@@ -226,6 +226,9 @@ select.form-control {
 .form-icon-password.eye-open:before {
     display: none;
 }
+#updateProfileForm .listbox{
+    max-height: 140px;
+}
 
 /*---------- LOGIN PAGE CSS END -----------*/
 

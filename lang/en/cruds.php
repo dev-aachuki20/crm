@@ -70,12 +70,12 @@ return [
         ],
     ],
 
-    'channel' => [
-        'title' => 'Channels',
-        'title_singular' => 'Channel',
+    'area' => [
+        'title' => 'Area',
+        'title_singular' => 'Area',
         'fields' => [
             'description'    => 'Description',
-            'name' => 'Channel Name',
+            'name' => 'Area Name',
         ],
     ],
 

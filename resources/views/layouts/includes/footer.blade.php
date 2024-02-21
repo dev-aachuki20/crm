@@ -7,7 +7,7 @@
             </div>
             <ul class="list-unstyled mb-0">
                 @can('channel_access')
-                    <li><a href="{{route('channels',['lang' => app()->getLocale()])}}">{{__('cruds.channel.title')}}</a></li>
+                    <li><a href="{{route('channels',['lang' => app()->getLocale()])}}">{{__('cruds.area.title')}}</a></li>
                 @endcan
 
                 @can('compaign_access')

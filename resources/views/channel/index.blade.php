@@ -1,19 +1,19 @@
 @extends('layouts.master')
-@section('title', __('cruds.channel.title'))
+@section('title', __('cruds.area.title'))
 @section('content')
 <div class="container">
     <div class="headingbar">
         <div class="row">
             <div class="col-12 col-lg-6">
                 <div class="headingleft">
-                    <h2>{{__('cruds.channel.title')}}</h2>
+                    <h2>{{__('cruds.area.title')}}</h2>
                 </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
                     @can('channel_create')
                         <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#channelstoreModal" id="channel">
-                            + {{__('cruds.add')}} {{__('cruds.channel.title_singular')}}
+                            + {{__('cruds.add')}} {{__('cruds.area.title_singular')}}
                         </button>
                     @endcan    
                 </div>
@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <label>{{__('cruds.channel.fields.name')}}:</label>
+                                <label>{{__('cruds.area.fields.name')}}:</label>
                                 <input type="text" name="channel_name" class="form-control" />
                                 @if($errors->has('channel_name'))
                                 <span style="color: red;">{{ $errors->first('channel_name') }}</span>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
-                                <label>{{__('cruds.channel.fields.description')}}:</label>
+                                <label>{{__('cruds.area.fields.description')}}:</label>
                                 <textarea class="form-control" name="description"></textarea>
                                 @if($errors->has('description'))
                                 <span style="color: red;">{{ $errors->first('description') }}</span>
@@ -154,7 +154,7 @@
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{ __('global.update') }}");
-                    $('#channelstoreModalLabel').text("{{__('global.update')}} {{__('cruds.channel.title_singular')}}")
+                    $('#channelstoreModalLabel').text("{{__('global.update')}} {{__('cruds.area.title_singular')}}")
                 }
             },
             error: function(error) {

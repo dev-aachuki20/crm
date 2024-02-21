@@ -22,4 +22,9 @@ class Channel extends Model
     {
         return $this->hasMany(Campaign::class,'assigned_channel', 'id');
     }
+
+    public function campaignss()
+    {
+        return $this->belongsToMany(Campaign::class, 'campaign_channel', 'channel_id', 'campaign_id');
+    }
 }

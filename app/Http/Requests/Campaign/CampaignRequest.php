@@ -25,7 +25,7 @@ class CampaignRequest extends FormRequest
 
         return [
             'campaign_name'    => 'required|string|unique:campaigns,campaign_name,' . ($campaignId ? $campaignId : 'NULL') . ',id,deleted_at,NULL|max:150',
-            'assigned_channel' => 'required',
+            'assigned_channel' => 'array|required',
             'description'      => 'required|max:255',
         ];
     }

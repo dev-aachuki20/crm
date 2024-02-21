@@ -36,25 +36,34 @@ class CampaignController extends Controller
         try {
             $validatedData = $request->validated();
 
-            $store = new Campaign();
-            $store->campaign_name     = $validatedData['campaign_name'];
-            $store->assigned_channel  = $validatedData['assigned_channel'] ?? '';
-            $store->description       = $validatedData['description'];
-            $store->status            = '1';
-            $store->created_by        = \Auth::user()->id;
+            $requestData = $request->all();
+            $requestData['status'] = '1';
 
-            $store->save();
+            // $store = new Campaign();
+
+            // $store->campaign_name     = $validatedData['campaign_name'];
+            // // $store->assigned_channel  = $validatedData['assigned_channel'] ?? '';
+            // $store->assigned_channel = implode(',', $validatedData['assigned_channel'] ?? []);
+
+            // $store->description       = $validatedData['description'];
+
+            // $store->status            = '1';
+            // $store->created_by        = \Auth::user()->id;
+
+            // $store->save();
+            $campaign = Campaign::create($requestData);
 
             $tagList = $request->input('tagList');
             $tag = TagList::firstOrCreate([
                 'tag_name' => $tagList,
-                'campaign_id' => $store->id,
+                // 'campaign_id' => $store->id,
+                'campaign_id' => $campaign->id,
             ]);
 
+            $campaign->channels()->sync($validatedData['assigned_channel']);
             DB::commit();
 
-            if ($store) {
-
+            if ($campaign) {
                 return response()->json(['status' => true, 'message' => trans('messages.compaign_successfully_created')]);
             }
 
@@ -74,9 +83,10 @@ class CampaignController extends Controller
     {
         abort_if(Gate::denies('compaign_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            $campaign = Campaign::with('tagLists')->where('id', $request->id)->first();
+            $campaign = Campaign::with('tagLists', 'channels')->where('id', $request->id)->first();
+            $channels = $campaign->channels ? $campaign->channels->pluck('id') : null;
             \Log::info($campaign);
-            return response()->json(['status' => true, 'data' => $campaign], 200);
+            return response()->json(['status' => true, 'data' => $campaign, 'channels' => $channels ?? null], 200);
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
         }
@@ -88,15 +98,19 @@ class CampaignController extends Controller
         DB::beginTransaction();
         try {
             $input = $request->all();
-            $data = [
-                'campaign_name'    => $input['campaign_name'],
-                'assigned_channel' => $input['assigned_channel'],
-                'created_by'       => $input['created_by'],
-                'description'      => $input['description'],
-            ];
+            // $validatedData = $request->validated();
+            $campaignId = $request->input('campaign_id');
+            $campaign = Campaign::find($campaignId);
 
-            $update = Campaign::where('id', $input['campaign_id'])->update($data);
-           
+            // $data = [
+            //     'campaign_name'    => $input['campaign_name'],
+            //     'assigned_channel' => implode(',', $input['assigned_channel']),
+            //     'created_by'       => $input['created_by'],
+            //     'description'      => $input['description'],
+            // ];
+            // $update = Campaign::where('id', $input['campaign_id'])->update($data);
+            $update = $campaign->update($input);
+
 
             if ($update) {
                 $tagList = $request->input('tagList');
@@ -104,6 +118,8 @@ class CampaignController extends Controller
                     'tag_name' => $tagList,
                 ]);
 
+                $campaign->channels()->sync($input['assigned_channel']);
+                
                 DB::commit();
                 return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_update')]);
             }
@@ -118,7 +134,6 @@ class CampaignController extends Controller
             \Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             // return response()->json(['status' => 'error', 'errors' => [$e->getMessage()]], 500);
             return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
-
         }
     }
 
@@ -132,10 +147,10 @@ class CampaignController extends Controller
             }
 
             $assignedUsersCount = $campaign->users()->count();
-            if($assignedUsersCount > 0){
+            if ($assignedUsersCount > 0) {
                 return response()->json(['status' => false, 'message' => trans('messages.campaign_associated_with_user')]);
             }
-            
+
             $campaign->delete();
             return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_delete')]);
         } catch (\Exception $e) {

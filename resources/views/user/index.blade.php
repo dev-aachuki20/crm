@@ -314,6 +314,7 @@
                         $('#previewImage').attr('src', response.profile);
                     }
 
+                    console.log(response.campaigns);
                     /* For get the campaign Id */
                     if (response.campaigns) {
                         try {

@@ -32,10 +32,10 @@ class ChannelRequest extends FormRequest
     public function messages()
     {
         return [
-            'channel_name.required' => __('validation.required', ['attribute' => __('cruds.channel.fields.name')]),
-            'channel_name.unique' => __('validation.unique', ['attribute' => __('cruds.channel.fields.name')]),
-            'description.required' => __('validation.required', ['attribute' => __('cruds.channel.fields.description')]),
-            'channel_name.max' => __('validation.max.string', ['attribute' => __('cruds.channel.fields.name'), 'max' => ':max']),
+            'channel_name.required' => __('validation.required', ['attribute' => __('cruds.area.fields.name')]),
+            'channel_name.unique' => __('validation.unique', ['attribute' => __('cruds.area.fields.name')]),
+            'description.required' => __('validation.required', ['attribute' => __('cruds.area.fields.description')]),
+            'channel_name.max' => __('validation.max.string', ['attribute' => __('cruds.area.fields.name'), 'max' => ':max']),
         ];
     }
 }
