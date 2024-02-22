@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             LanguageTableSeeder::class,
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
-            ChannelTableSeeder::class,
+            AreaTableSeeder::class,
         ]);
     }
 }

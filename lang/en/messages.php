@@ -24,10 +24,11 @@ return [
     'error'   => 'Error',
     'info' => 'Information',
 
-    'channel' => [
-        'channel_created' => 'Channel created successfully',
-        'channel_deleted' => 'Channel deleted successfully',
-        'channel_updated' => 'Channel updated successfully',
+    'area' => [
+        'area_created' => 'Area created successfully',
+        'area_deleted' => 'Area deleted successfully',
+        'area_updated' => 'Area updated successfully',
+        'area_not_found' => 'Area not found',
     ],
 
     'user' => [
@@ -45,7 +46,7 @@ return [
     'campaign_successfully_update' => 'Campaign Successfully Updated',
 
     'campaign_associated_with_user' => 'This campaign is associated with a user and cannot be deleted.',
-    'channel_associated_with_campian' => 'This channel is associated with a campaign and cannot be deleted.',
+    'area_associated_with_campian' => 'This area is associated with a campaign and cannot be deleted.',
 
     'qualification_already_exists' => 'Sorry, Qualitifcation already exists!',
     'qualification_not_added' => 'Sorry, You have not added any qualification!',

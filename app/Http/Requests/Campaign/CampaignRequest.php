@@ -25,7 +25,7 @@ class CampaignRequest extends FormRequest
 
         return [
             'campaign_name'    => 'required|string|unique:campaigns,campaign_name,' . ($campaignId ? $campaignId : 'NULL') . ',id,deleted_at,NULL|max:150',
-            'assigned_channel' => 'array|required',
+            'assigned_area' => 'array|required',
             'description'      => 'required|max:255',
         ];
     }
@@ -37,7 +37,7 @@ class CampaignRequest extends FormRequest
             'campaign_name.unique' => __('validation.unique', ['attribute' => __('cruds.campaign.fields.campaign_name')]),
             'description.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.description')]),
             'campaign_name.max' => __('validation.max.string', ['attribute' => __('cruds.campaign.fields.campaign_name'), 'max' => ':max']),
-            'assigned_channel.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.assigned_channel')]),
+            'assigned_area.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.assigned_area')]),
         ];
     }
 }

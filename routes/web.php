@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Campaign\CampaignController;
-use App\Http\Controllers\Channel\ChannelController;
+use App\Http\Controllers\Area\AreaController;
 use App\Http\Controllers\Interaction\InteractionController;
 use App\Http\Controllers\Lead\LeadController;
 use App\Http\Controllers\User\UserController;
@@ -45,7 +45,7 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('email/verify/{id}/{hash}', [VerificationController::class,'verify'])->name('verification.verify');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], function () {
     Route::prefix('{lang?}')->group(function () {
@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
-        Route::get('/channels', [ChannelController::class, 'index'])->name('channels');
+        Route::get('/areas', [AreaController::class, 'index'])->name('areas');
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/users', [UserController::class, 'index'])->name('users');
 
@@ -61,13 +61,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
     });
 
-    
-   
-    // channels route
-    Route::post('/channels/store', [ChannelController::class, 'store'])->name('channels_store');
-    Route::delete('/channels/delete', [ChannelController::class, 'destroy'])->name('channels_delete');
-    Route::get('/channels/edit', [ChannelController::class, 'edit'])->name('channels_edit');
-    Route::put('/channels/update', [ChannelController::class, 'update'])->name('channels_update');
+
+
+    // areas route
+    Route::post('/areas/store', [AreaController::class, 'store'])->name('areas_store');
+    Route::delete('/areas/delete', [AreaController::class, 'destroy'])->name('areas_delete');
+    Route::get('/areas/edit', [AreaController::class, 'edit'])->name('areas_edit');
+    Route::put('/areas/update', [AreaController::class, 'update'])->name('areas_update');
 
     // user routes
     Route::post('/users/store', [UserController::class, 'store'])->name('users_store');

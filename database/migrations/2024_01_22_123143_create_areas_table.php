@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('channels', function (Blueprint $table) {
+        Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->string('channel_name')->nullable();
+            $table->string('area_name')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('status')->default(0)->comment('1 => active, 0 => inactive');
             $table->unsignedBigInteger('created_by')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('areas');
     }
 };

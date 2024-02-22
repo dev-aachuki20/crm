@@ -1076,20 +1076,20 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     background-position: center right -4px !important;
 }
 
-#channel-table thead tr th:nth-child(2), #campaigns-table thead tr th:nth-child(2){
+#area-table thead tr th:nth-child(2), #campaigns-table thead tr th:nth-child(2){
     white-space: normal;
     min-width: 300px;
 }
-#channel-table tbody tr td:nth-child(2), #campaigns-table tbody tr td:nth-child(2){
+#area-table tbody tr td:nth-child(2), #campaigns-table tbody tr td:nth-child(2){
     white-space: normal;
     min-width: 300px;
 }
-#channel-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
+#area-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
     white-space: normal;
     width: 200px !important;
     min-width: 270px;
 }
-#channel-table tbody tr td:nth-child(1), #campaigns-table tbody tr td:nth-child(1){
+#area-table tbody tr td:nth-child(1), #campaigns-table tbody tr td:nth-child(1){
     white-space: normal;
     width: 200px;
 }

@@ -7,7 +7,7 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Profile\ProfileRequest;
-use App\Models\Channel;
+use App\Models\Area;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $userDetail = Auth::user();
         $roles = $userDetail->roles->first();
         $allCampaign = Campaign::all();
-        $allArea = Channel::all();
+        $allArea = Area::all();
         $userCampaigns = $userDetail->campaigns ? $userDetail->campaigns->pluck('id')->toArray() : null;
         
         return view('auth.profile.index', compact('userDetail', 'roles', 'allCampaign', 'userCampaigns','allArea'));

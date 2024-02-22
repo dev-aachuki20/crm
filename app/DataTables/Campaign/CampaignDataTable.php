@@ -8,10 +8,7 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use App\Models\Channel;
 
 class CampaignDataTable extends DataTable
 {
@@ -130,7 +127,7 @@ class CampaignDataTable extends DataTable
         return [
             Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
             Column::make('campaign_name')->title(__("cruds.campaign.fields.campaign")),
-            // Column::make('assigned_channel')->title(__("cruds.campaign.fields.assigned_channel")),
+            // Column::make('assigned_area')->title(__("cruds.campaign.fields.assigned_area")),
             // Column::make('created_at')->title(__("cruds.campaign.fields.created_at")),
             // Column::make('qualification')->title(__("cruds.campaign.fields.qualification")),
             Column::make('description')->title(__("cruds.campaign.fields.description"))->searchable(),

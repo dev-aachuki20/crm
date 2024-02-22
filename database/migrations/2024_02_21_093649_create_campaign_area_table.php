@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaign_channel', function (Blueprint $table) {
+        Schema::create('campaign_area', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('campaign_id');
-            $table->unsignedBigInteger('channel_id');
+            $table->unsignedBigInteger('area_id');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
-            $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaign_channel');
+        Schema::dropIfExists('campaign_area');
     }
 };

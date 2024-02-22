@@ -96,14 +96,13 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group mb-lg-0">
                                 <label>{{ __('cruds.area.title_singular') }}:</label>
-                                <!-- <input type="hidden" name="channel" class="form-control" value="" id="channel"> -->
                                 <div class="listbox-wrapper campaign-listing">
                                     <div class="listbox">
-                                        @forelse($allChannel as $channel)
+                                        @forelse($allArea as $area)
                                         <div class="checboxcont">
                                             <span class="custom-check"></span>
-                                            <input type="checkbox" name="assigned_channel[]" class="form-control channel-checkbox" value="{{ $channel->id }}" id="assigned_channel_{{ $channel->id }}">
-                                            <span>{{$channel->channel_name}}</span>
+                                            <input type="checkbox" name="assigned_area[]" class="form-control channel-checkbox" value="{{ $area->id }}" id="assigned_area_{{ $area->id }}">
+                                            <span>{{$area->area_name}}</span>
                                         </div>
                                         @empty
                                         <div class="checboxcont">
@@ -125,29 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        
-                        {{-- <div class="col-12 col-lg-6">
-                            <div class="form-group">
-                                <label>{{__("cruds.campaign.fields.assigned_channel")}}:</label>
-                                <select class="form-control" name="assigned_channel" id="assigned_channel">
-                                    <option value="">Select the channel</option>
-                                    @forelse ($allChannel as $item)
-                                    <option value="{{$item->id}}">{{$item->channel_name}}</option>
-                                    @empty
-                                    <option value="">Data Not Available</option>
-                                    @endforelse
-                                </select>
-                            </div>
-                        </div> --}}
-
-
-                        
-                        
-                        
-                        
-                        
-                    </div>
+                    <div class="row"></div>
                 </form>
             </div>
         </div>
@@ -297,7 +274,7 @@
 
                     $('#campaign_id').val(campaign_id);
                     $('#campaign_name').val(response.data.campaign_name);
-                    $('#assigned_channel').val(response.data.assigned_channel);
+                    $('#assigned_area').val(response.data.assigned_area);
 
                     if (response.data && response.data.tag_lists && response.data.tag_lists.tag_name) {
                         var parsedTags = JSON.parse(response.data.tag_lists.tag_name);
@@ -317,12 +294,12 @@
                         tagListVal.append(temp);
                     });
 
-                    // get channel ids
-                    var assignedChannelArray = response.channels;
-                    if (assignedChannelArray) {
+                    // get area ids
+                    var assignedAreaArray = response.areas;
+                    if (assignedAreaArray) {
                         try {
-                            assignedChannelArray.forEach(function(assigned_channelId) {
-                                $('#assigned_channel_' + parseInt(assigned_channelId)).prop('checked', true);
+                            assignedAreaArray.forEach(function(assigned_areaId) {
+                                $('#assigned_area_' + parseInt(assigned_areaId)).prop('checked', true);
                             });
                         } catch (error) {
                             // console.log('Error parsing campaignId:', error);

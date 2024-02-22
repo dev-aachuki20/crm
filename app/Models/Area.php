@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Channel extends Model
+class Area extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'channel_name',
+        'area_name',
         'description',
         'status',
         'created_at',
@@ -20,11 +20,11 @@ class Channel extends Model
 
     public function campaigns()
     {
-        return $this->hasMany(Campaign::class,'assigned_channel', 'id');
+        return $this->hasMany(Campaign::class,'assigned_area', 'id');
     }
 
     public function campaignss()
     {
-        return $this->belongsToMany(Campaign::class, 'campaign_channel', 'channel_id', 'campaign_id');
+        return $this->belongsToMany(Campaign::class, 'campaign_area', 'area_id', 'campaign_id');
     }
 }

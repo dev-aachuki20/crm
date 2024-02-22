@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\Channel;
+namespace App\Http\Controllers\Area;
 
 use Gate;
-use App\DataTables\Channel\ChannelDataTable;
+use App\DataTables\Area\AreaDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Channel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use App\Http\Requests\Channel\ChannelRequest;
+use App\Http\Requests\Area\AreaRequest;
+use App\Models\Area;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChannelController extends Controller
+class AreaController extends Controller
 {
-    public function index(ChannelDataTable $dataTable)
+    public function index(AreaDataTable $dataTable)
     {
-        abort_if(Gate::denies('channel_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        return $dataTable->render('channel.index');
+        abort_if(Gate::denies('area_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return $dataTable->render('area.index');
     }
 
-    public function store(ChannelRequest $request)
+    public function store(AreaRequest $request)
     {
-        abort_if(Gate::denies('channel_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('area_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $validatedData = $request->validated();
             $validatedData['status'] = 1;
 
-            $channel = Channel::create($validatedData);
+            $area = Area::create($validatedData);
             return response()->json([
-                'message' => trans('messages.channel.channel_created'),
+                'message' => trans('messages.area.area_created'),
                 'status' => 'success',
-                'data' => $channel
+                'data' => $area
             ]);
         } catch (ValidationException $e) {
             $errors = $e->errors();
@@ -43,32 +43,32 @@ class ChannelController extends Controller
 
     public function edit(Request $request)
     {
-        abort_if(Gate::denies('channel_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('area_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            $channelId = $request->input('channel_id');
-            $channel = Channel::find($channelId);
+            $areaId = $request->input('area_id');
+            $area = Area::find($areaId);
             return response()->json([
                 'status' => 'success',
-                'data' => $channel
+                'data' => $area
             ]);
         } catch (\Exception $e) {
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
 
-    public function update(ChannelRequest $request)
+    public function update(AreaRequest $request)
     {
-        abort_if(Gate::denies('channel_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('area_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
             $validatedData = $request->validated();
 
-            $channelId = $request->input('channel_id');
-            $channel = Channel::find($channelId);
+            $areaId = $request->input('area_id');
+            $area = Area::find($areaId);
 
-            $channel->update($validatedData);
+            $area->update($validatedData);
 
             return response()->json([
-                'message' => trans('messages.channel.channel_updated'),
+                'message' => trans('messages.area.area_updated'),
                 'status' => 'success'
             ]);
         } catch (ValidationException $e) {
@@ -83,18 +83,18 @@ class ChannelController extends Controller
 
     public function destroy(Request $request)
     {
-        abort_if(Gate::denies('channel_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('area_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            $channel = Channel::find($request->id);
-            if (!$channel) {
-                return response()->json(['status' => 'error', 'message' => 'Channel not found.']);
+            $area = Area::find($request->id);
+            if (!$area) {
+                return response()->json(['status' => 'error', 'message' => trans('messages.area_not_found')]);
             }
-            $assignedCampaignCount = $channel->campaigns()->count();
+            $assignedCampaignCount = $area->campaigns()->count();
             if ($assignedCampaignCount > 0) {
-                return response()->json(['status' => 'error', 'message' => trans('messages.channel_associated_with_campian')]);
+                return response()->json(['status' => 'error', 'message' => trans('messages.area_associated_with_campian')]);
             }
-            $channel->delete();
-            return response()->json(['message' => trans('messages.channel.channel_deleted'), 'status' => 'success']);
+            $area->delete();
+            return response()->json(['message' => trans('messages.area.area_deleted'), 'status' => 'success']);
         } catch (\Exception $e) {
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);

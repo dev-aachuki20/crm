@@ -14,7 +14,7 @@ class Campaign extends Model
     protected $table = "campaigns";
     protected $fillable = [
         "campaign_name",
-        // "assigned_channel",
+        // "assigned_area",
         "description",
         "status",
         "created_by"
@@ -30,9 +30,9 @@ class Campaign extends Model
     {
         return $this->hasOne(TagList::class, "campaign_id", "id");
     }
-
-    public function channels()
+    
+    public function areas()
     {
-        return $this->belongsToMany(Channel::class, 'campaign_channel', 'campaign_id', 'channel_id');
+        return $this->belongsToMany(Area::class, 'campaign_area', 'campaign_id', 'area_id');
     }
 }

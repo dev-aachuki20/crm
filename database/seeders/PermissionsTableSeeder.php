@@ -89,27 +89,27 @@ class PermissionsTableSeeder extends Seeder
 
            
             [
-                'title'      => 'channel_access',
+                'title'      => 'area_access',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],
             [
-                'title'      => 'channel_create',
+                'title'      => 'area_create',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],
             [
-                'title'      => 'channel_edit',
+                'title'      => 'area_edit',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],
             [
-                'title'      => 'channel_show',
+                'title'      => 'area_show',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],
             [
-                'title'      => 'channel_delete',
+                'title'      => 'area_delete',
                 'created_at' => $createDate,
                 'updated_at' => $updateDate,
             ],

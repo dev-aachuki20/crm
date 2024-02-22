@@ -11,8 +11,8 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    @can('channel_create')
-                        <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#channelstoreModal" id="channel">
+                    @can('area_create')
+                        <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#areastoreModal" id="area">
                             + {{__('cruds.add')}} {{__('cruds.area.title_singular')}}
                         </button>
                     @endcan    
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="list-creating-channel mt-3 ">
-        <h4>{{__('cruds.list_created_channel')}}</h4>
+        <h4>{{__('cruds.list_created_area')}}</h4>
         <div class="listing-table">
             {!! $dataTable->table(['class' => 'table mb-0']) !!}
         </div>
@@ -35,25 +35,25 @@
 </div>
 
 <!-- Modal for store -->
-<div class="modal fade new-channel-popup" id="channelstoreModal" tabindex="-1" aria-labelledby="channelstoreModalLabel" aria-hidden="true">
+<div class="modal fade new-channel-popup" id="areastoreModal" tabindex="-1" aria-labelledby="areastoreModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="channelstoreModalLabel">{{__('cruds.enter_new_channel')}}</h5>
+                <h5 class="modal-title" id="areastoreModalLabel">{{__('cruds.enter_new_area')}}</h5>
                 <button type="button" class="btn-close" id="cancelButton" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="channel-form">
+                <form class="new-channel" id="area-form">
                     @csrf
-                    <input type="hidden" id="channel-id" name="channel_id" value="">
+                    <input type="hidden" id="area-id" name="area_id" value="">
 
                     <div class="row">
                         <div class="col-12 col-lg-12">
                             <div class="form-group">
                                 <label>{{__('cruds.area.fields.name')}}:</label>
-                                <input type="text" name="channel_name" class="form-control" />
-                                @if($errors->has('channel_name'))
-                                <span style="color: red;">{{ $errors->first('channel_name') }}</span>
+                                <input type="text" name="area_name" class="form-control" />
+                                @if($errors->has('area_name'))
+                                <span style="color: red;">{{ $errors->first('area_name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -84,16 +84,16 @@
 @push('scripts')
 {!! $dataTable->scripts() !!}
 <script>
-    $(document).on('submit','#channel-form',function(e){
+    $(document).on('submit','#area-form',function(e){
         e.preventDefault();
 
         $('#loader').css('display', 'block');
 
-        var formData = $('#channel-form').serialize();
-        var channelId = $('#channel-id').val();
+        var formData = $('#area-form').serialize();
+        var areaId = $('#area-id').val();
 
-        var url = (channelId) ? "{{ route('channels_update') }}" : "{{ route('channels_store') }}";
-        var method = (channelId) ? 'PUT' : 'POST';
+        var url = (areaId) ? "{{ route('areas_update') }}" : "{{ route('areas_store') }}";
+        var method = (areaId) ? 'PUT' : 'POST';
 
         $.ajax({
             type: method,
@@ -103,11 +103,11 @@
                 $('#loader').css('display', 'none');
                
                 if (response.status === 'success') {
-                    $('#channel-form')[0].reset();
-                    $('#channel-id').val('');
+                    $('#area-form')[0].reset();
+                    $('#area-id').val('');
                     $('.buttonform button').text("{{ __('global.create') }}");
 
-                    $('#channelstoreModal').modal('hide');
+                    $('#areastoreModal').modal('hide');
                     
                     // window.location.reload();
                     toasterAlert('success',response.message);
@@ -119,12 +119,12 @@
                 setTimeout(function() {
                     $('#loader').css('display', 'none');
                 }, 500);
-                $('#channel-form .error').remove();
+                $('#area-form .error').remove();
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     var errors = xhr.responseJSON.errors;
                     $.each(errors, function(key, value) {
-                        $('#channel-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
-                        $('#channel-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        $('#area-form').find('input[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        $('#area-form').find('textarea[name=' + key + ']').after('<span class="error" style="color: red;">' + value[0] + '</span>');
                     });
                 } else {
                     console.error('Unexpected error:', errorThrown);
@@ -134,31 +134,31 @@
     });
    
 
-    function editForm(channel_id) {
+    function editForm(area_id) {
         // Clear previous error messages
-        $('#channel-form .error').remove();
+        $('#area-form .error').remove();
         $.ajax({
             type: 'GET',
-            url: "{{ route('channels_edit') }}",
+            url: "{{ route('areas_edit') }}",
             data: {
-                channel_id: channel_id,
+                area_id: area_id,
             },
             success: function(response) {
                 if (response.status === 'success') {
-                    var channelData = response.data;
+                    var areaData = response.data;
 
                     // Populate the form fields with the retrieved data
-                    $('#channel-id').val(channelData.id);
-                    $('#channel-form input[name="channel_name"]').val(channelData.channel_name);
-                    $('#channel-form textarea[name="description"]').val(channelData.description);
+                    $('#area-id').val(areaData.id);
+                    $('#area-form input[name="area_name"]').val(areaData.area_name);
+                    $('#area-form textarea[name="description"]').val(areaData.description);
 
                     // Change the button text create to "Update"
                     $('.buttonform button').text("{{ __('global.update') }}");
-                    $('#channelstoreModalLabel').text("{{__('global.update')}} {{__('cruds.area.title_singular')}}")
+                    $('#areastoreModalLabel').text("{{__('global.update')}} {{__('cruds.area.title_singular')}}")
                 }
             },
             error: function(error) {
-                console.error('Error fetching channel data:', error);
+                console.error('Error fetching area data:', error);
             }
         });
     }
@@ -177,7 +177,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ route('channels_delete') }}",
+                    url: "{{ route('areas_delete') }}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         id: id,
@@ -196,14 +196,14 @@
     }
 
     $('#cancelButton').click(function() {
-        $('#channel-form')[0].reset();
+        $('#area-form')[0].reset();
     });
-    $('#channel').click(function() {
-        $('#channel-form .error').remove();
+    $('#area').click(function() {
+        $('#area-form .error').remove();
     });
 
     function refreshDataTable() {
-        $('#channel-table').DataTable().draw();
+        $('#area-table').DataTable().draw();
     }
 </script>
 @endpush

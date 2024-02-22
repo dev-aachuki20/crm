@@ -131,7 +131,7 @@
 	.list-creating-channel {
 		border-radius: 30px;
 	}
-	#channel-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
+	#area-table thead tr th:nth-child(1), #campaigns-table thead tr th:nth-child(1){
 		min-width: 150px;
 	}
 	

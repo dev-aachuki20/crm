@@ -6,8 +6,8 @@
                 <div class="col-auto"><button type="button" class="btn closebtn d-md-none d-flex"><img src="{{asset('images/close.svg')}}"></button></div>
             </div>
             <ul class="list-unstyled mb-0">
-                @can('channel_access')
-                    <li><a href="{{route('channels',['lang' => app()->getLocale()])}}">{{__('cruds.area.title')}}</a></li>
+                @can('area_access')
+                    <li><a href="{{route('areas',['lang' => app()->getLocale()])}}">{{__('cruds.area.title')}}</a></li>
                 @endcan
 
                 @can('compaign_access')
