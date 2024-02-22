@@ -15,9 +15,9 @@
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
                     @can('compaign_create')
-                        <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#compaignModal" id="campaign">
-                            + {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}
-                        </button>
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#compaignModal" id="campaign">
+                        + {{__('cruds.add')}} {{__('cruds.campaign.title_singular')}}
+                    </button>
                     @endcan
                 </div>
             </div>
@@ -111,6 +111,7 @@
                                         @endforelse
                                     </div>
                                 </div>
+                                <div id="area_error"></div>
                             </div>
                         </div>
                         <div class="col">
@@ -140,7 +141,7 @@
     var newTag = $("#newTag");
     tagList_render();
 
-    $(document).on('click', '#campaign', function(e){
+    $(document).on('click', '#campaign', function(e) {
         e.preventDefault();
         tagList = [];
     });
@@ -172,10 +173,10 @@
                     newTag.val('');
                     tagList_render();
                 } else {
-                    toasterAlert('warning','{{__("messages.qualification_already_exists")}}');
+                    toasterAlert('warning', '{{__("messages.qualification_already_exists")}}');
                 }
-            }else{
-                toasterAlert('warning','{{__("messages.qualification_not_added")}}');
+            } else {
+                toasterAlert('warning', '{{__("messages.qualification_not_added")}}');
             }
 
             // $('#saveCampaign')[0].reset();
@@ -192,10 +193,10 @@
         });
     });
 
-    
-    $(document).on('submit','#saveCampaign',function(e){
+
+    $(document).on('submit', '#saveCampaign', function(e) {
         e.preventDefault();
-    
+
         $('#loader').css('display', 'block');
 
         var formData = $('#saveCampaign').serialize();
@@ -209,7 +210,7 @@
                     qualificationErrorSpan.style.display = 'block';
                 }, 200);
             }
-        }else {
+        } else {
             if (qualificationErrorSpan) {
                 qualificationErrorSpan.style.display = 'none';
             }
@@ -226,18 +227,18 @@
             success: function(response) {
 
                 $('#loader').css('display', 'none');
-                
+
                 if (response.status === true) {
                     $('#saveCampaign')[0].reset();
                     $('#campaign_id').val('');
-                    
+
                     $('#compaignModal').modal('hide');
 
-                    toasterAlert('success',response.message);
+                    toasterAlert('success', response.message);
 
                     refreshDataTable();
                 } else {
-                    toasterAlert('error',response.message);
+                    toasterAlert('error', response.message);
                 }
             },
             error: function(response) {
@@ -250,6 +251,9 @@
                     var errors = response.responseJSON.errors;
                     $.each(errors, function(key, value) {
                         $('[name="' + key + '"]').after('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        if (key == 'assigned_area') {
+                            $('#area_error').html('<span class="error" style="color: red;">' + value[0] + '</span>');
+                        }
                     });
                 } else {
                     console.log('An unexpected error occurred. Please try again.');
@@ -257,7 +261,7 @@
             }
         });
     });
-   
+
     function editForm(campaign_id) {
         tagList = [];
         $('#saveCampaign .error').remove();
@@ -310,7 +314,7 @@
                     $('#saveupdate').text("{{__('global.update')}}");
                     $('#compaignModalLabel').text("{{__('global.update')}} {{__('cruds.campaign.title_singular')}}")
                 } else {
-                    toasterAlert('error',response.message);
+                    toasterAlert('error', response.message);
                 }
             },
             error: function(error) {
@@ -342,12 +346,12 @@
                     success: function(response) {
                         if (response.status === true) {
 
-                            toasterAlert('success',response.message);
+                            toasterAlert('success', response.message);
 
                             refreshDataTable();
-                           
+
                         } else {
-                            toasterAlert('warning',response.message);
+                            toasterAlert('warning', response.message);
                         }
                     },
                     error: function(error) {
