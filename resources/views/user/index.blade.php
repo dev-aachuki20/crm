@@ -121,7 +121,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>{{__('cruds.campaign.title_singular')}}:</label>
-                                <div class="listbox">
+                                <div class="listbox-wrapper">
                                     @foreach($campaigns as $campaign)
                                     <div class="checboxcont">
                                         <input type="checkbox" name="campaign[]" class="form-control" id="campaign-{{$campaign->id}}" value="{{$campaign->id}}">
