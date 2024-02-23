@@ -24,18 +24,18 @@ class AreaRequest extends FormRequest
         $areaId = $this->input('area_id');
 
         return [
-            'area_name' => 'required|unique:areas,area_name,' . ($areaId ? $areaId : 'NULL') . ',id,deleted_at,NULL|max:150',
-            'description' => 'required|max:255',
+            'area_name'     => 'required|unique:areas,area_name,' . ($areaId ? $areaId : 'NULL') . ',id,deleted_at,NULL|max:150',
+            'description'   => 'required|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'area_name.required' => __('validation.required', ['attribute' => __('cruds.area.fields.name')]),
-            'area_name.unique' => __('validation.unique', ['attribute' => __('cruds.area.fields.name')]),
-            'description.required' => __('validation.required', ['attribute' => __('cruds.area.fields.description')]),
-            'area_name.max' => __('validation.max.string', ['attribute' => __('cruds.area.fields.name'), 'max' => ':max']),
+            'area_name.required'    => __('validation.required', ['attribute' => __('cruds.area.fields.name')]),
+            'area_name.unique'      => __('validation.unique', ['attribute' => __('cruds.area.fields.name')]),
+            'description.required'  => __('validation.required', ['attribute' => __('cruds.area.fields.description')]),
+            'area_name.max'         => __('validation.max.string', ['attribute' => __('cruds.area.fields.name'), 'max' => ':max']),
         ];
     }
 }

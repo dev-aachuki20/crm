@@ -13,14 +13,17 @@ class LanguageTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $language = [
+        Language::truncate();
+        $update_at = $created_at = date('Y-m-d H:i:s');
+
+        $languages = [
             [
                 'id'             => 1,
                 'code'           => 'en',
                 'name'           => 'english',
                 'icon'           => 'images/eng.svg',
-                'created_at'     => date('Y-m-d H:i:s'),
-                'updated_at'     => date('Y-m-d H:i:s'),
+                'created_at'     => $created_at,
+                'updated_at'     => $update_at,
             ],
 
             [
@@ -28,11 +31,10 @@ class LanguageTableSeeder extends Seeder
                 'code'           => 'es',
                 'name'           => 'spanish',
                 'icon'           => 'images/japan.svg',
-                'created_at'     => date('Y-m-d H:i:s'),
-                'updated_at'     => date('Y-m-d H:i:s'),
+                'created_at'     => $created_at,
+                'updated_at'     => $update_at,
             ],
         ];
-
-        Language::insert($language);
+        Language::insert($languages);
     }
 }

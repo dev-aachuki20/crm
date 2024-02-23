@@ -20,11 +20,6 @@ class Area extends Model
 
     public function campaigns()
     {
-        return $this->hasMany(Campaign::class,'assigned_area', 'id');
-    }
-
-    public function campaignss()
-    {
         return $this->belongsToMany(Campaign::class, 'campaign_area', 'area_id', 'campaign_id');
     }
 }

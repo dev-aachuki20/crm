@@ -324,7 +324,7 @@
 
     }
 
-    function deleteCompaign(campaign_id) {
+    function deleteRecord(campaign_id) {
         Swal.fire({
             title: "{{ __('cruds.are_you_sure') }}",
             text: "{{ __('cruds.delete_this_record') }}",
@@ -361,7 +361,7 @@
             }
         });
     }
-
+    
     $('.cancelButton').click(function() {
         $('#saveCampaign')[0].reset();
         var qualificationErrorSpan = document.getElementById('qualificationError');

@@ -242,3 +242,18 @@ if (!function_exists('getSettingByGroup')) {
 //         return $settings;
 //     }
 // }
+
+
+
+// dynamic button and views rendering.
+if (!function_exists('datatableButton')) {
+    function datatableButton($type, $data, $permission)
+    {
+        if ($type == 'edit') {
+            return view('layouts.includes.partials.datatable_action.edit_action', ['data' => $data, 'canEdit' => $permission])->render();
+        } elseif ($type == 'delete') {
+            return view('layouts.includes.partials.datatable_action.delete_action', ['data' => $data, 'canDelete' => $permission])->render();
+        }
+        return '';
+    }
+}
