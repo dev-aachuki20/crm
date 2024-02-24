@@ -89,7 +89,7 @@ class AreaController extends Controller
             if (!$area) {
                 return response()->json(['status' => 'error', 'message' => trans('messages.area_not_found')]);
             }
-            $assignedCampaignCount = $area->campaignss()->count();
+            $assignedCampaignCount = $area->campaigns()->count();
             if ($assignedCampaignCount > 0) {
                 return response()->json(['status' => 'error', 'message' => trans('messages.area_associated_with_campian')]);
             }
