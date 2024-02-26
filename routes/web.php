@@ -84,6 +84,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::post('/update-language', [HomeController::class, 'updateLanguage'])->name('updateLanguage');
     Route::post('/upload-profile-image', 'ProfileController@uploadProfileImage')->name('upload.profile.image');
 
+    Route::get('/check-campaign', [HomeController::class, 'checkCampaign'])->name('checkCampaign');
+
 
 
     // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {

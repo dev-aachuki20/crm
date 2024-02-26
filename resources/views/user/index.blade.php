@@ -18,7 +18,7 @@
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
                     @can('user_create')
-                        <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#userstoreModal" id="user">
+                        <button type="button" class="btn btn-blue btnsmall" id="addNewUser">
                             + {{__('global.add')}} {{__('cruds.new')}} {{__('cruds.user.title_singular')}}
                         </button>
                     @endcan
@@ -175,13 +175,19 @@
         $('#birthdate').data('daterangepicker').remove();
     });
     
-    $(document).on('click','#user',function(e){
+    $(document).on('click','#addNewUser',function(e){
         e.preventDefault();
+
+        checkCampaignRecords(handleCampaignResult);
 
         $('#previewImage').attr('src', "{{asset('images/man.png')}}");
         $('#username').attr('disabled', false);
         $('#email').attr('disabled', false);
         $('#password, #send_password_on_email').parent().parent().show();
+
+        $('#user-form .error').remove();
+        $('.buttonform button').text("{{__('global.save')}}");
+        $('#userstoreModalLabel').text("{{__('cruds.new_user')}}");
     });
     
 
@@ -377,12 +383,6 @@
         $('#user-form')[0].reset();
     });
 
-    $('#user').click(function() {
-        $('#user-form .error').remove();
-        $('.buttonform button').text("{{__('global.save')}}");
-        $('#userstoreModalLabel').text("{{__('cruds.new_user')}}");
-    });
-
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -406,6 +406,36 @@
 
     function refreshDataTable() {
         $('#user-table').DataTable().draw();
+    }
+
+
+    function checkCampaignRecords() {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('checkCampaign') }}",
+            success: function(response) {
+                if (response.data.exists == false) {
+                    toasterAlert('warning',response.message);
+                    handleCampaignResult(false);
+                }else{
+                    handleCampaignResult(true);
+                }
+            },
+        });
+            
+    }
+
+    function handleCampaignResult(campaignExists) {
+        if (campaignExists) {
+            
+            $(document).find('#userstoreModal').modal('show');
+
+            // console.log("Campaign exists");
+        } else {
+            $(document).find('#userstoreModal').modal('hide');
+            // console.log("Campaign doesn't exist");
+        }
     }
 </script>
 @endpush

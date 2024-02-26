@@ -145,6 +145,8 @@
             },
             success: function(response) {
                 if (response.status === 'success') {
+                    $(document).find('#areastoreModal').modal('show');
+
                     var areaData = response.data;
 
                     // Populate the form fields with the retrieved data

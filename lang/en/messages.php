@@ -4,6 +4,7 @@ return [
     'add_success_message'    => 'Added successfully',
     'edit_success_message'   => 'Updated successfully',
     'delete_success_message' => 'Deleted successfully',
+    'retrieve_records_success' => 'Retrieve records successfully!',
     'change_status_success_message' => 'Status successfully changed',
     'error_message'   => 'Something went wrong....please try again later!',
     'no_record_found' => 'No Records Found!',
@@ -44,6 +45,8 @@ return [
     'campaign_successfully_delete' => 'Campaign Successfully Deleted!',
     'unable_to_delete' => 'Unable to delete!',
     'campaign_successfully_update' => 'Campaign Successfully Updated',
+
+    'compaign_no_records' => 'Please add the campaign first!',
 
     'campaign_associated_with_user' => 'This campaign is associated with a user and cannot be deleted.',
     'area_associated_with_campian' => 'This area is associated with a campaign and cannot be deleted.',

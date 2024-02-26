@@ -1,13 +1,14 @@
 <?php
 
 return [
-    'add_success_message'    => 'Added successfully',
-    'edit_success_message'   => 'Updated successfully',
-    'delete_success_message' => 'Deleted successfully',
-    'change_status_success_message' => 'Status successfully changed',
-    'error_message'   => 'Something went wrong....please try again later!',
-    'no_record_found' => 'No Records Found!',
-    'suspened' => "Your account has been suspened!",
+    'add_success_message'    => 'Agregado exitosamente',
+    'edit_success_message'   => 'Actualizado exitosamente',
+    'delete_success_message' => 'Borrado exitosamente',
+    'retrieve_records_success' => 'Recuperar registros exitosamente',
+    'change_status_success_message' => 'El estado cambió exitosamente',
+    'error_message'   => 'Algo salió mal... inténtelo de nuevo más tarde!',
+    'no_record_found' => 'No se encontraron registros',
+    'suspened' => "Tu cuenta ha sido suspendida",
 
     'welcome' => 'Bienvenido',
     'user_profile_updated' => 'perfil actualizado con éxito!',
@@ -47,6 +48,8 @@ return [
     'campaign_successfully_delete' => 'Campaña eliminada exitosamente!',
     'unable_to_delete' => 'No se puede eliminar!',
     'campaign_successfully_update' => 'Campaña actualizada con éxito!',
+
+    'compaign_no_records' => 'Por favor agregue la campaña primero',
 
     'campaign_associated_with_user' => 'Esta campaña está asociada a un usuario y no se puede eliminar.',
     'area_associated_with_campian' => 'Esta área está asociada a una campaña y no se puede eliminar.',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,5 +38,21 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['success' => false, 'error' => $th->getMessage()]);
         }
+    }
+
+    public function checkCampaign(){
+        $records = [];
+        $alert_message = '';
+        $campaignCount = Campaign::get()->count();
+        if($campaignCount > 0){
+            $records['exists'] = true; 
+            $alert_message = trans('messages.retrieve_records_success');
+        }else{
+            $records['exists'] = false;
+            $alert_message = trans('messages.compaign_no_records');
+        }
+
+        return response()->json(['status' => true,'message' =>$alert_message , 'data' => $records], 200);
+
     }
 }
