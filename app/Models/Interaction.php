@@ -16,6 +16,7 @@ class Interaction extends Model
         'registration_at',
         'lead_id',
         'qualification',
+        'customer_observation',
         'created_by',
         'updated_by',
         'deleted_by',
