@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class Interaction extends Model
 {
     use HasFactory,Notifiable,SoftDeletes;
+    
     public $table = 'interactions';
 
     protected $fillable = [
@@ -42,4 +43,15 @@ class Interaction extends Model
             $model->updated_by = auth()->user()->id;
         });
     }
+
+    public function lead()
+    {
+        return $this->belongsTo(Lead::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
 }

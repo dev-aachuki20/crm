@@ -108,7 +108,13 @@ return [
         'title' => 'Interacciones',
         'title_singular' => 'Interacción',
         'fields' => [
-            'description'    => 'Descripción',
+            'registration_date' => 'Fecha de Registro',
+            'identification'    => 'Identificación',
+            'campaign'          => 'Campaña',
+            'area'              => 'Área',
+            'qualification'     => 'Calificación',
+            'customer_observation' => 'Observación del cliente',
+            'created_by'        => 'Creado por',
         ],
     ],
 

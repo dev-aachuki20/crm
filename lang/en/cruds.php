@@ -102,7 +102,13 @@ return [
         'title' => 'Interactions',
         'title_singular' => 'Interaction',
         'fields' => [
-            'description'    => 'Description',
+            'registration_date' => 'Registration Date',
+            'identification'    => 'Identification',
+            'campaign'          => 'Campaign',
+            'area'              => 'Area',
+            'qualification'     => 'Qualification',
+            'customer_observation' => 'Customer observation',
+            'created_by'        => 'Created by',
         ],
     ],
 

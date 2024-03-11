@@ -38,6 +38,13 @@ return [
         'user_updated' => 'User updated successfully',
     ],
 
+    'interaction' => [
+        'interaction_created' => 'Interaction created successfully',
+        'interaction_deleted' => 'Interaction deleted successfully',
+        'interaction_updated' => 'Interaction updated successfully',
+        'interaction_not_found' => 'Interaction not found',
+    ],
+
     'email_messages' => [],
 
     /* Compaign */

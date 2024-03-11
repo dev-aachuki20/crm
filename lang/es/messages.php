@@ -40,6 +40,13 @@ return [
         'user_updated' => 'Usuario actualizada con éxito',
     ],
 
+    'interaction' => [
+        'interaction_created' => 'Interacción creada exitosamente',
+        'interaction_deleted' => 'Interacción eliminada exitosamente',
+        'interaction_updated' => 'Interacción actualizada con éxito',
+        'interaction_not_found' => 'Interacción no encontrada',
+    ],
+
 
     'email_messages' => [],
 
