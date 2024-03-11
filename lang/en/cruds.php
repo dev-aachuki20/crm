@@ -110,7 +110,15 @@ return [
         'title' => 'Leads',
         'title_singular' => 'Lead',
         'fields' => [
-            'description'    => 'Description',
+            'description'           => 'Description',
+            'list_of_lead'          => 'List Of Leads',
+            'registration'          => 'Registration',
+            'registration_date'     => 'Registration Date',
+            'identification'        => 'Identification',
+            'phone'                 => 'Phone',
+            'campaign'              => 'Campaign',
+            'channel'               => 'Channel',
+            'created_by'            => 'Created by',
         ],
     ],
 

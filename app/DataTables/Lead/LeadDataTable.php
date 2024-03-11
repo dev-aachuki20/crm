@@ -2,7 +2,7 @@
 
 namespace App\DataTables\Lead;
 
-use App\Models\Area;
+use App\Models\Lead;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -19,31 +19,40 @@ class LeadDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
+        return (new EloquentDataTable(
+            $query->with(['createdBy', 'area', 'campaign'])->select('leads.*')))
             ->addColumn('action', function ($data) {
-
                 $html = '<div class="edit-delete">';
-                $html .= datatableButton('edit', $data, auth()->user()->can('area_edit'));
-                $html .= datatableButton('delete', $data, auth()->user()->can('area_delete'));
+                $html .= datatableButton('edit', $data, auth()->user()->can('lead_edit'));
+                $html .= datatableButton('delete', $data, auth()->user()->can('lead_delete'));
                 $html .= '</div>';
                 return $html;
             })
-
-            ->editColumn('area_name', function ($data) {
-                return '<div class="scroll-td">' . ucfirst($data->area_name) . '</div>';
+            ->editColumn('registration_at', function ($data) {
+                return $data->registration_at;
             })
-
-            ->editColumn('description', function ($data) {
-                return '<div class="scroll-td">' . nl2br($data->description) . '</div>';
+            ->editColumn('identification', function ($data) {
+                return $data->identification;
             })
-
-            ->rawColumns(['action', 'area_name', 'description']);
+            ->editColumn('phone', function ($data) {
+                return $data->phone;
+            })
+            ->editColumn('campaign.campaign_name', function ($data) {
+                return $data->campaign ? $data->campaign->campaign_name : '';
+            })
+            ->editColumn('area.area_name', function ($data) {
+                return $data->area ? $data->area->campaign_name : '';
+            })
+            ->editColumn('createdBy.name', function ($data) {
+                return $data->createdBy ? $data->createdBy->name : '';
+            })
+        ->rawColumns(['action']);
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Area $model): QueryBuilder
+    public function query(Lead $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -60,7 +69,7 @@ class LeadDataTable extends DataTable
             "<'d-none d-md-block'<'row'<'col-sm-12 d-flex justify-content-end'p>>>";
 
         return $this->builder()
-            ->setTableId('area-table')
+            ->setTableId('lead-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom($dom)
@@ -109,9 +118,13 @@ class LeadDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
-            Column::make('area_name')->title(__('cruds.area.fields.name')),
-            Column::make('description')->title(__('cruds.area.fields.description')),
+            // Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
+            Column::make('registration_at')->title(__('cruds.lead.fields.registration_date')),
+            Column::make('identification')->title(__('cruds.lead.fields.identification')),
+            Column::make('phone')->title(__('cruds.lead.fields.phone')),
+            Column::make('campaign.campaign_name')->title(__('cruds.lead.fields.campaign')),
+            Column::make('area.area_name')->title(__('cruds.lead.fields.channel')),
+            Column::make('createdBy.name')->title(__('cruds.lead.fields.created_by')),
             Column::computed('action')->title(__('global.action'))
                 ->exportable(false)
                 ->printable(false)
