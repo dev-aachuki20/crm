@@ -142,10 +142,12 @@ return [
         'female' => 'Female',
     ],
 
-    'civil_status'=>[
+    'civil_status' => [
         'single'   => 'Single',
         'married'  => 'Married',
         'divorced' => 'Divorced',
         'widower'  => 'Widower',
-    ]
+    ],
+    'list_lead'    => 'List Of Lead',
+
 ];

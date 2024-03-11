@@ -99,8 +99,8 @@ return [
             'update_campaign'   => 'Ingrese a la campaña de edición',
             'qualification_field_required' => 'El campo Calificación es obligatorio.',
             'min_qualification_field_required' => 'Se requiere mínimo una calificación.',
-            'exist_qualification_field_required' => 'La calificación ya existe.', 
-            
+            'exist_qualification_field_required' => 'La calificación ya existe.',
+
         ],
     ],
 
@@ -143,15 +143,17 @@ return [
     'data_not_found' => 'Datos no encontrados',
     'processing' => 'Procesamiento...',
 
-    'genders'=>[
+    'genders' => [
         'male'   => 'Masculina',
         'female' => 'Femenina',
     ],
-    
+
     'civil_status' => [
         'single'   => 'Soltero',
         'married'  => 'Casado',
         'divorced' => 'Divorciado',
         'widower'  => 'Viudo',
-    ]
+    ],
+    'list_lead'    => 'Lista de clientes potenciales',
+
 ];

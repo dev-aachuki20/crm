@@ -87,6 +87,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::get('/check-campaign', [HomeController::class, 'checkCampaign'])->name('checkCampaign');
 
 
+    // lead routes
+    Route::post('/leads/store', [UserController::class, 'store'])->name('leads_store');
+    Route::delete('/leads/delete', [UserController::class, 'destroy'])->name('leads_delete');
+    Route::get('/leads/edit', [UserController::class, 'edit'])->name('leads_edit');
+    Route::post('/leads/update', [UserController::class, 'update'])->name('leads_update');
+
+
 
     // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
 

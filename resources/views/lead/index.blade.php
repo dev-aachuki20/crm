@@ -1,351 +1,350 @@
 @extends('layouts.master')
 @section('title', __('cruds.lead.title'))
+
+@push('scripts')
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+@endpush
+
 @section('content')
 <div class="container">
     <div class="headingbar">
         <div class="row">
             <div class="col-12 col-lg-6">
                 <div class="headingleft">
-                    <h2>Leads</h2>
+                    <h2>{{__('cruds.lead.title')}}</h2>
                 </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
-                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Lead</button>
+                    @can('leads_create')
+                    <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#addLead" id="add_lead">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button>
+                    @endcan
                 </div>
             </div>
         </div>
     </div>
     <div class="list-creating-channel mt-3">
-        <h4>List of Lead</h4>
-        <table class="table mb-0">
-            <thead>
-                <tr>
-                    <th scope="col">Registration Date</th>
-                    <th scope="col">Indentification</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Campaign</th>
-                    <th scope="col">Channel</th>
-                    <th scope="col">Create by</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>21-10-2023 / 16h00</td>
-                    <td>0924033228</td>
-                    <td>0983327242</td>
-                    <td>Black friday</td>
-                    <td>Call center externo</td>
-                    <td>Yesi Tacury</td>
-                    <td>
-                        <div class="edit-delete">
-                            <button type="button" class="edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button type="button" class="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>21-10-2023 / 16h00</td>
-                    <td>0924033228</td>
-                    <td>0983327242</td>
-                    <td>Black friday</td>
-                    <td>Call center externo</td>
-                    <td>Yesi Tacury</td>
-                    <td>
-                        <div class="edit-delete">
-                            <button type="button" class="edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button type="button" class="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>21-10-2023 / 16h00</td>
-                    <td>0924033228</td>
-                    <td>0983327242</td>
-                    <td>Black friday</td>
-                    <td>Call center externo</td>
-                    <td>Yesi Tacury</td>
-                    <td>
-                        <div class="edit-delete">
-                            <button type="button" class="edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button type="button" class="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>21-10-2023 / 16h00</td>
-                    <td>0924033228</td>
-                    <td>0983327242</td>
-                    <td>Black friday</td>
-                    <td>Call center externo</td>
-                    <td>Yesi Tacury</td>
-                    <td>
-                        <div class="edit-delete">
-                            <button type="button" class="edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button type="button" class="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>21-10-2023 / 16h00</td>
-                    <td>0924033228</td>
-                    <td>0983327242</td>
-                    <td>Black friday</td>
-                    <td>Call center externo</td>
-                    <td>Yesi Tacury</td>
-                    <td>
-                        <div class="edit-delete">
-                            <button type="button" class="edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button type="button" class="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <nav class="paginationbar mt-5" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#5c5c63" opacity="1" data-original="#000000"></path>
-                                </g>
-                            </svg>
-                        </span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#5c5c63" opacity="1" data-original="#000000" class=""></path>
-                                </g>
-                            </svg>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <h4>{{__('cruds.list_created_area')}}</h4>
+        <div class="listing-table">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Registration Date</th>
+                        <th scope="col">Indentification</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Campaign</th>
+                        <th scope="col">Channel</th>
+                        <th scope="col">Create by</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>21-10-2023 / 16h00</td>
+                        <td>0924033228</td>
+                        <td>0983327242</td>
+                        <td>Black friday</td>
+                        <td>Call center externo</td>
+                        <td>Yesi Tacury</td>
+                        <td>
+                            <div class="edit-delete">
+                                <button type="button" class="edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21-10-2023 / 16h00</td>
+                        <td>0924033228</td>
+                        <td>0983327242</td>
+                        <td>Black friday</td>
+                        <td>Call center externo</td>
+                        <td>Yesi Tacury</td>
+                        <td>
+                            <div class="edit-delete">
+                                <button type="button" class="edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21-10-2023 / 16h00</td>
+                        <td>0924033228</td>
+                        <td>0983327242</td>
+                        <td>Black friday</td>
+                        <td>Call center externo</td>
+                        <td>Yesi Tacury</td>
+                        <td>
+                            <div class="edit-delete">
+                                <button type="button" class="edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21-10-2023 / 16h00</td>
+                        <td>0924033228</td>
+                        <td>0983327242</td>
+                        <td>Black friday</td>
+                        <td>Call center externo</td>
+                        <td>Yesi Tacury</td>
+                        <td>
+                            <div class="edit-delete">
+                                <button type="button" class="edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21-10-2023 / 16h00</td>
+                        <td>0924033228</td>
+                        <td>0983327242</td>
+                        <td>Black friday</td>
+                        <td>Call center externo</td>
+                        <td>Yesi Tacury</td>
+                        <td>
+                            <div class="edit-delete">
+                                <button type="button" class="edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13.26 3.59997L5.04997 12.29C4.73997 12.62 4.43997 13.27 4.37997 13.72L4.00997 16.96C3.87997 18.13 4.71997 18.93 5.87997 18.73L9.09997 18.18C9.54997 18.1 10.18 17.77 10.49 17.43L18.7 8.73997C20.12 7.23997 20.76 5.52997 18.55 3.43997C16.35 1.36997 14.68 2.09997 13.26 3.59997Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.89 5.05005C12.32 7.81005 14.56 9.92005 17.34 10.2" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3 22H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.33 16.5H13.66" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.5 12.5H14.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {{-- {!! $dataTable->table(['class' => 'table mb-0']) !!} --}}
+
+        </div>
+
     </div>
 </div>
 
+<!-- Loader element -->
+<div id="loader">
+    <div class="spinner"></div>
+</div>
+
+
 <!-- Modal -->
-<div class="modal fade new-channel-popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade new-channel-popup" id="addLead" tabindex="-1" aria-labelledby="addLeadLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">Enter the fields below</h5>
+                <h5 class="modal-title" id="addLeadLabel">{{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel">
+                <form class="new-channel" id="lead-form">
+                    @csrf
+                    <input type="hidden" id="lead-id" name="lead_id" value="">
                     <div class="row">
-                        <div class="col-12 col-lg-4">
+
+                        <!-- <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Registration day:</label>
                                 <input type="datetime-local" class="form-control" />
                             </div>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group">
-                                <label>Create by:</label>
-                                <input type="text" class="form-control" value="Yesi Tacury" />
-                            </div>
-                        </div>
+                        </div> -->
+
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>First Name:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="first_name" id="first_name" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Last Name:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="last_name" id="last_name" />
                             </div>
                         </div>
+                        <!-- <div class="col-12 col-lg-4">
+                            <div class="form-group">
+                                <label>Create by:</label>
+                                <input type="text" class="form-control" value="Yesi Tacury" />
+                            </div>
+                        </div> -->
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Identification:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="identification" id="identification" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Birthdate:</label>
-                                <input type="date" class="form-control" />
+                                <input type="date" class="form-control" name="birthdate" id="birthdate" placeholder="DOB" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Sex:</label>
-                                <select class="form-control">
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                <select class="form-control" name="gender" id="gender">
+                                    @foreach(config('constants.genders') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Civil status:</label>
-                                <select class="form-control">
-                                    <option>soltero</option>
-                                    <option>casado</option>
-                                    <option>divorciado</option>
-                                    <option>viudo</option>
+                                <select class="form-control" name="civil_status" id="civil_status">
+                                    @foreach(config('constants.civil_status') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Phone:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="phone" id="phone" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Cellphone:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="cellphone" id="cellphone" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Email:</label>
-                                <input type="email" class="form-control" />
+                                <input type="email" class="form-control" name="email" id="email" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Province:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="province" id="province" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>City:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="city" id="city" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Street address / Intersection:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="address" id="address" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Sector:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="sector" id="sector" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Reference:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="reference" id="reference" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Employment status:</label>
-                                <input type="text" class="form-control" />
+                                <select class="form-control" name="employment_status" id="employment_status">
+                                    @foreach(config('constants.employment_status') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Social security:</label>
-                                <select class="form-control">
-                                    <option>SI</option>
-                                    <option>NO</option>
+                                <select class="form-control" name="social_securities" id="social_securities">
+                                    @foreach(config('constants.social_securities') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Company name:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="company_name" id="company_name" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Ocupation:</label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" name="occupation" id="occupation" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
@@ -357,38 +356,43 @@
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Channel:</label>
-                                <select class="form-control">
-                                    <option>Channel</option>
+                                <select class="form-control" name="area" id="area">
+                                    @foreach($areas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->area_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Campaign:</label>
-                                <select class="form-control">
-                                    <option>Campaign</option>
+                                <select class="form-control" name="campaign" id="campaign">
+                                    @foreach($campaigns as $campaign)
+                                    <option value="{{ $campaign->id }}">{{ $campaign->campaign_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-4">
+                        <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label>Qualification:</label>
-                                <select class="form-control">
-                                    <option>Do not anwser the phone many time.</option>
-                                    <option>Do not anwser the phone many time.</option>
-                                    <option>Do not anwser the phone many time.</option>
-                                    <option>Do not anwser the phone many time.</option>
+                                <select class="form-control" name="qualification" id="qualification">
+                                    @foreach($qualificationTagList as $qualification)
+                                    <option value="{{ $qualification->id }}">{{ is_array($decoded = json_decode($qualification->tag_name, true)) ? reset($decoded) : $qualification->tag_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-12 col-lg-6"></div>
                         <div class="col">
                             <div class="buttonform">
-                                <button type="button" class="btn btn-red btnsmall">Eliminar</button>
+                                <button type="button" class="btn btn-red btnsmall">{{__('global.cancel')}}</button>
                             </div>
                         </div>
                         <div class="col-auto">
                             <div class="buttonform text-end">
-                                <button type="button" class="btn btn-green btnsmall">Guardar</button>
+                                <button type="submit" class="btn btn-green btnsmall">{{__('global.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -398,3 +402,47 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+{{-- {!! $dataTable->scripts() !!} --}}
+
+<script>
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    $(document).on('show.bs.modal','#addLead', function () {        
+        $('#birthdate').daterangepicker({
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            maxDate: yesterday,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+        },
+        function(start, end, label) {
+            $('#birthdate').val(start.format('YYYY-MM-DD'));
+        });
+    });
+
+    $(document).on('hide.bs.modal','#addLead', function () {
+        $('#birthdate').data('daterangepicker').remove();
+    });
+
+    $(document).on('click','#add_lead',function(e){
+        e.preventDefault();
+
+        checkCampaignRecords(handleCampaignResult);
+
+        $('#username').attr('disabled', false);
+        $('#email').attr('disabled', false);
+        $('#password, #send_password_on_email').parent().parent().show();
+
+        $('#lead-id .error').remove();
+        $('.buttonform button').text("{{__('global.save')}}");
+        $('#userstoreModalLabel').text("{{__('cruds.new_user')}}");
+    });
+</script>
+@endpush
