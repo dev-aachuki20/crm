@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('title', __('cruds.lead.title'))
-@push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-@endpush
 @push('scripts')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -43,7 +40,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade new-channel-popup" id="addLead" tabindex="-1" aria-labelledby="addLeadLabel" aria-hidden="true">
+{{-- <div class="modal fade new-channel-popup" id="addLead" tabindex="-1" aria-labelledby="addLeadLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -56,12 +53,12 @@
                     <input type="hidden" id="lead-id" name="lead_id" value="">
                     <div class="row">
 
-                        <!-- <div class="col-12 col-lg-4">
+                        <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Registration day:</label>
                                 <input type="datetime-local" class="form-control" />
                             </div>
-                        </div> -->
+                        </div> 
 
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
@@ -75,12 +72,12 @@
                                 <input type="text" class="form-control" name="last_name" id="last_name" />
                             </div>
                         </div>
-                        <!-- <div class="col-12 col-lg-4">
+                        <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Create by:</label>
                                 <input type="text" class="form-control" value="Yesi Tacury" />
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label>Identification:</label>
@@ -246,7 +243,8 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+{{-- @include("lead.create") --}}
 @endsection
 
 @push('scripts')

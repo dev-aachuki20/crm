@@ -23,8 +23,8 @@ class LeadDataTable extends DataTable
             $query->with(['createdBy', 'area', 'campaign'])->select('leads.*')))
             ->addColumn('action', function ($data) {
                 $html = '<div class="edit-delete">';
-                $html .= datatableButton('edit', $data, auth()->user()->can('lead_edit'));
-                $html .= datatableButton('delete', $data, auth()->user()->can('lead_delete'));
+                $html .= datatableButton('edit', $data, auth()->user()->can('user_edit'));
+                $html .= datatableButton('delete', $data, auth()->user()->can('user_delete'));
                 $html .= '</div>';
                 return $html;
             })
@@ -41,7 +41,7 @@ class LeadDataTable extends DataTable
                 return $data->campaign ? $data->campaign->campaign_name : '';
             })
             ->editColumn('area.area_name', function ($data) {
-                return $data->area ? $data->area->campaign_name : '';
+                return $data->area ? $data->area->area_name : '';
             })
             ->editColumn('createdBy.name', function ($data) {
                 return $data->createdBy ? $data->createdBy->name : '';
