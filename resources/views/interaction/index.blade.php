@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', __('cruds.interaction.title'))
 @section('content')
 <div class="container">
     <div class="headingbar">

@@ -28,7 +28,27 @@ return [
     'date_format'     => 'd-m-Y',
     'datetime_format' => 'd-m-Y H:i',
     'time_format'     => 'H:i:s',
-   
- 
+
+    'genders'=>[
+        1=>'male',
+        2=>'female',
+    ],
+
+    'civil_status'=>[
+        1 => 'single', 
+        2 => 'married', 
+        3 => 'divorced', 
+        4 => 'widower'
+    ],
+
+    'employment_status'=>[
+        1=>'employee', 
+        2=>'unemployed',
+    ],
+
+    'social_securities'=>[
+        1=>'si', 
+        2=>'no',
+    ]
     
 ];

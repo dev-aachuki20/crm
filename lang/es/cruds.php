@@ -142,4 +142,16 @@ return [
     'next' => 'Próxima',
     'data_not_found' => 'Datos no encontrados',
     'processing' => 'Procesamiento...',
+
+    'genders'=>[
+        'male'   => 'Masculina',
+        'female' => 'Femenina',
+    ],
+    
+    'civil_status' => [
+        'single'   => 'Soltero',
+        'married'  => 'Casado',
+        'divorced' => 'Divorciado',
+        'widower'  => 'Viudo',
+    ]
 ];

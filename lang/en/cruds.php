@@ -136,4 +136,16 @@ return [
     'next' => 'Next',
     'data_not_found' => 'Data not found',
     'processing'   => 'Processing...',
+
+    'genders' => [
+        'male'   => 'Male',
+        'female' => 'Female',
+    ],
+
+    'civil_status'=>[
+        'single'   => 'Single',
+        'married'  => 'Married',
+        'divorced' => 'Divorced',
+        'widower'  => 'Widower',
+    ]
 ];
