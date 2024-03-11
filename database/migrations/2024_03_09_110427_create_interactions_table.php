@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('interactions', function (Blueprint $table) {
             $table->id();
+            $table->datetime('registration_at')->nullable();
+            $table->unsignedBigInteger('lead_id');
+            $table->string('qualification')->nullable();
+            $table->tinyInteger('status')->default(1)->comment('1=> active, 0=>deactive');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('lead_id')->references('id')->on('leads')->onDelete('cascade');
+
         });
     }
 

@@ -11,19 +11,9 @@ class Lead extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "leads";
-    
-    protected $primarykey = "id";
-
-    protected $foreignkey = [
-        'campaign_id',
-        "created_by",
-        "assign_to",
-        "area_id",
-        "qualification_id",
-    ];
 
     protected $fillable = [
-        "registration_at",
+
         "name",
         "last_name",
         "email",
@@ -42,15 +32,17 @@ class Lead extends Model
         "social_security",
         "company_name",
         "occupation",
-        "created_by",
-        "assign_to",
-        "area_id",
-        "campaign_id",
-        "qualification_id",
+        'area_id',
+        'campaign_id',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+        'deleted_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     protected $dates = [
-        'registration_at',
         'birthdate',
         'created_at',
         'updated_at',
@@ -61,8 +53,16 @@ class Lead extends Model
     {
         parent::boot();
         static::creating(function(Lead $model) {
-            // $model->uuid = Str::uuid();
             $model->created_by = auth()->user()->id;
+        });
+
+        static::deleting(function(Lead $model) {
+            $model->deleted_by = auth()->user()->id;
+            $model->save();
+        });
+
+        static::updating(function(Lead $model) {
+            $model->updated_by = auth()->user()->id;
         });
     }
 
