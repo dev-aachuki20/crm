@@ -57,11 +57,12 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/users', [UserController::class, 'index'])->name('users');
 
-        Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
-        Route::get('/leads', [LeadController::class, 'index'])->name('leads');
+        // Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
+        // Route::get('/leads', [LeadController::class, 'index'])->name('leads');
+        Route::resource('/leads',LeadController::class);
+        Route::resource('/interactions',InteractionController::class);
+
     });
-
-
 
     // areas route
     Route::post('/areas/store', [AreaController::class, 'store'])->name('areas_store');
@@ -88,10 +89,10 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
 
 
     // lead routes
-    Route::post('/leads/store', [UserController::class, 'store'])->name('leads_store');
-    Route::delete('/leads/delete', [UserController::class, 'destroy'])->name('leads_delete');
-    Route::get('/leads/edit', [UserController::class, 'edit'])->name('leads_edit');
-    Route::post('/leads/update', [UserController::class, 'update'])->name('leads_update');
+    // Route::post('/leads/store', [UserController::class, 'store'])->name('leads_store');
+    // Route::delete('/leads/delete', [UserController::class, 'destroy'])->name('leads_delete');
+    // Route::get('/leads/edit', [UserController::class, 'edit'])->name('leads_edit');
+    // Route::post('/leads/update', [UserController::class, 'update'])->name('leads_update');
 
 
 

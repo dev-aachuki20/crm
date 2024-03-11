@@ -28,8 +28,8 @@ class LeadDataTable extends DataTable
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('registration_at', function ($data) {
-                return $data->registration_at;
+            ->editColumn('created_at', function ($data) {
+                return $data->created_at;
             })
             ->editColumn('identification', function ($data) {
                 return $data->identification;
@@ -119,7 +119,7 @@ class LeadDataTable extends DataTable
     {
         return [
             // Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
-            Column::make('registration_at')->title(__('cruds.lead.fields.registration_date')),
+            Column::make('created_at')->title(__('cruds.lead.fields.registration_date')),
             Column::make('identification')->title(__('cruds.lead.fields.identification')),
             Column::make('phone')->title(__('cruds.lead.fields.phone')),
             Column::make('campaign.campaign_name')->title(__('cruds.lead.fields.campaign')),
