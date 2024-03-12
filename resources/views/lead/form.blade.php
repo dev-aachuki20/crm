@@ -21,7 +21,7 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.birth_date') : </label>
-            <input type="date" class="form-control" name="birthdate" id="birthdate" placeholder="DOB" value="{{ isset($lead) ? $lead->birthdate : old('birthdate') }}" />
+            <input type="text" class="form-control" name="birthdate" id="birthdate" value="{{ isset($lead) ? $lead->birthdate : old('birthdate') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">

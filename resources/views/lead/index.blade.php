@@ -49,28 +49,25 @@
 $(document).ready(function(){
 
     var DataaTable = $('#dataaTable').DataTable();
-    var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    $(document).on('show.bs.modal','#addLead', function () {
+
+
+    function initializeDatepicker() {
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
         $('#birthdate').daterangepicker({
             autoApply: true,
             singleDatePicker: true,
             showDropdowns: true,
-            autoUpdateInput: false,
+            autoUpdateInput: true, // Set autoUpdateInput to true
             maxDate: yesterday,
             locale: {
                 format: 'YYYY-MM-DD'
             },
-        },
-        function(start, end, label) {
-            $('#birthdate').val(start.format('YYYY-MM-DD'));
+        }, function(start, end, label) {
+            $('#birthdate').val(start.format('YYYY-MM-DD')); // Update the input field with the selected date
         });
-    });
-
-    $(document).on('hide.bs.modal','#addLead', function () {
-        $('#birthdate').data('daterangepicker').remove();
-    });
-
+    }
     // Open Add Lead Form Modal
 
     $(document).on('click','.addNewLeadBtn', function(e)
@@ -86,6 +83,7 @@ $(document).ready(function(){
                 if(response.success) {
                     $('.popup_render_div').html(response.htmlView);
                     $('.popup_render_div #addLeadModal').modal('show');
+                    initializeDatepicker();
                 }
             }
         });
@@ -187,6 +185,7 @@ $(document).ready(function(){
                 if(response.success) {
                     $('.popup_render_div').html(response.htmlView);
                     $('.popup_render_div #editLeadModal').modal('show');
+                    initializeDatepicker();
                 }
             }
         });

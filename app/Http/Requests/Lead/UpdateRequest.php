@@ -52,7 +52,8 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'assign_to_id.required' => 'The Assign To is required.',
+            'gender.required' => 'The Sex is required.',
+            'birthdate.required' => 'The Birth Date is required.',
             'area_id.required' => 'The Area is required.',
             'campaign_id.required' => 'The Campaign is required.',
         ];
