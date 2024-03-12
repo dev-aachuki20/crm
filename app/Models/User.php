@@ -120,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
             ], function ($message) {
                 $message->subject('Reset Password Request');
                 $message->to($this->email);
-            });            
+            });
 
         } catch (Exception $e) {
             \Log::error('Error sending password reset email: ' . $e->getMessage());
@@ -153,4 +153,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Campaign::class, 'user_campaign');
     }
+
 }

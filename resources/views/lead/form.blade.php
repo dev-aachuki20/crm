@@ -1,35 +1,36 @@
-<input type="hidden" id="lead-id" name="lead_id" value="">
+
 <div class="row">
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.first_name') : </label>
-            <input type="text" class="form-control" name="first_name" id="first_name" />
+            <input type="text" class="form-control" name="name" id="name" value="{{ isset($lead) ? $lead->name : old('name') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.last_name') : </label>
-            <input type="text" class="form-control" name="last_name" id="last_name" />
+            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ isset($lead) ? $lead->last_name : old('last_name') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.birth_date') : </label>
-            <input type="date" class="form-control" name="birthdate" id="birthdate" placeholder="DOB" />
+            <input type="date" class="form-control" name="birthdate" id="birthdate" placeholder="DOB" value="{{ isset($lead) ? $lead->birthdate : old('birthdate') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.gender') : </label>
             <select class="form-control" name="gender" id="gender">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_gender')</option>
                 @foreach(config('constants.genders') as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->gender == $key ? 'selected' : '' }}>{{ $value }}</option>
                 @endforeach
             </select>
         </div>
@@ -38,8 +39,9 @@
         <div class="form-group">
             <label>@lang('cruds.lead.fields.civil_status') : </label>
             <select class="form-control" name="civil_status" id="civil_status">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_civil_status')</option>
                 @foreach(config('constants.civil_status') as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->civil_status == $key ? 'selected' : '' }}>{{ $value }}</option>
                 @endforeach
             </select>
         </div>
@@ -47,57 +49,58 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.phone') : </label>
-            <input type="text" class="form-control" name="phone" id="phone" />
+            <input type="text" class="form-control" name="phone" id="phone" value="{{ isset($lead) ? $lead->phone : old('phone') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.cell_phone') : </label>
-            <input type="text" class="form-control" name="cellphone" id="cellphone" />
+            <input type="text" class="form-control" name="cellphone" id="cellphone" value="{{ isset($lead) ? $lead->cellphone : old('cellphone') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.email') : </label>
-            <input type="email" class="form-control" name="email" id="email" />
+            <input type="email" class="form-control" name="email" id="email" value="{{ isset($lead) ? $lead->email : old('email') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.province') : </label>
-            <input type="text" class="form-control" name="province" id="province" />
+            <input type="text" class="form-control" name="province" id="province" value="{{ isset($lead) ? $lead->province : old('province') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.city') : </label>
-            <input type="text" class="form-control" name="city" id="city" />
+            <input type="text" class="form-control" name="city" id="city" value="{{ isset($lead) ? $lead->city : old('city') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.address') : </label>
-            <input type="text" class="form-control" name="address" id="address" />
+            <input type="text" class="form-control" name="address" id="address" value="{{ isset($lead) ? $lead->address : old('address') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.sector') : </label>
-            <input type="text" class="form-control" name="sector" id="sector" />
+            <input type="text" class="form-control" name="sector" id="sector" value="{{ isset($lead) ? $lead->sector : old('sector') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.reference') : </label>
-            <input type="text" class="form-control" name="reference" id="reference" />
+            <input type="text" class="form-control" name="reference" id="reference" value="{{ isset($lead) ? $lead->reference : old('reference') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.employment_status') : </label>
             <select class="form-control" name="employment_status" id="employment_status">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_emp_status')</option>
                 @foreach(config('constants.employment_status') as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->employment_status == $key ? 'selected' : '' }}>{{ $value }}</option>
                 @endforeach
             </select>
         </div>
@@ -105,9 +108,10 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.social_security') : </label>
-            <select class="form-control" name="social_securities" id="social_securities">
+            <select class="form-control" name="social_security" id="social_security">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_social_security')</option>
                 @foreach(config('constants.social_securities') as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->social_security == $key ? 'selected' : '' }}>{{ $value }}</option>
                 @endforeach
             </select>
         </div>
@@ -115,27 +119,24 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.company_name') : </label>
-            <input type="text" class="form-control" name="company_name" id="company_name" />
+            <input type="text" class="form-control" name="company_name" id="company_name" value="{{ isset($lead) ? $lead->company_name : old('company_name') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.occupation') : </label>
-            <input type="text" class="form-control" name="occupation" id="occupation" />
-        </div>
-    </div>
-    <div class="col-12 col-lg-4">
-        <div class="form-group">
-            <label>@lang('cruds.lead.fields.assign_to') : </label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" name="occupation" id="occupation" value="{{ isset($lead) ? $lead->occupation : old('occupation') }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.campaign') :</label>
-            <select class="form-control" name="campaign" id="campaign">
+            <select class="form-control" name="campaign_id" id="campaign_id">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_campaign')</option>
                 @foreach($campaigns as $campaign)
-                <option value="{{ $campaign->id }}">{{ $campaign->campaign_name }}</option>
+                    <option value="{{ $campaign->id }}" {{ isset($lead) && $lead->campaign_id == $campaign->id ? 'selected' : '' }}>
+                        {{ $campaign->campaign_name }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -143,10 +144,10 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.area') :</label>
-            <select class="form-control" name="area" id="area">
-                {{-- @foreach($areas as $area)
-                <option value="{{ $area->id }}">{{ $area->area_name }}</option>
-                @endforeach --}}
+            <select class="form-control" name="area_id" id="area_id">
+                <option value="{{ isset($lead) ? $lead->area_id : "" }}" {{ isset($lead) ? 'selected' : '' }}>
+                    {{ isset($lead) ? $lead->area->area_name : trans('cruds.lead.fields.select_area') }}
+                </option>
             </select>
         </div>
     </div>
@@ -155,7 +156,7 @@
     <div class="col-12 col-lg-6"></div>
     <div class="col">
         <div class="buttonform">
-            <button type="button" class="btn btn-red btnsmall">{{__('global.cancel')}}</button>
+            <button type="button" class="btn btn-red btnsmall" id="CancelFormBtn">{{__('global.cancel')}}</button>
         </div>
     </div>
     <div class="col-auto">
@@ -164,3 +165,5 @@
         </div>
     </div>
 </div>
+
+

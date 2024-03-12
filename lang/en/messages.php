@@ -6,7 +6,7 @@ return [
     'delete_success_message' => 'Deleted successfully',
     'retrieve_records_success' => 'Retrieve records successfully!',
     'change_status_success_message' => 'Status successfully changed',
-    'error_message'   => 'Something went wrong....please try again later!',
+    'error_message'   => 'Something went wrong....Please try again later!',
     'no_record_found' => 'No Records Found!',
     'suspened' => "Your account has been suspened!",
 
@@ -30,6 +30,13 @@ return [
         'area_deleted' => 'Area deleted successfully',
         'area_updated' => 'Area updated successfully',
         'area_not_found' => 'Area not found',
+    ],
+
+    'lead' => [
+        'lead_created' => 'Lead Created Successfully',
+        'lead_deleted' => 'Lead Deleted Successfully',
+        'lead_updated' => 'Lead Updated Successfully',
+        'lead_not_found' => 'Area Not Found',
     ],
 
     'user' => [

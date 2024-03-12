@@ -6,8 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form class="new-channel" id="lead-form" action="" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form class="new-channel" id="AddForm" action="{{route('leads.store',['lang' => app()->getLocale()])}}" method="POST" enctype="multipart/form-data">
                     @include('lead.form')
                 </form>
             </div>

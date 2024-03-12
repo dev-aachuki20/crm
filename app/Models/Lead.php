@@ -57,6 +57,7 @@ class Lead extends Model
         });
 
         static::deleting(function(Lead $model) {
+            $model->interactions()->delete();
             $model->deleted_by = auth()->user()->id;
             $model->save();
         });
@@ -89,5 +90,9 @@ class Lead extends Model
     {
         return $this->belongsTo(Campaign::class, 'qualification_id');
     } */
+
+    public function interactions(){
+        return $this->hasMany(Interaction::class);
+    }
 
 }

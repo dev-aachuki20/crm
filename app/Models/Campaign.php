@@ -30,7 +30,7 @@ class Campaign extends Model
     {
         return $this->hasOne(TagList::class, "campaign_id", "id");
     }
-    
+
     public function areas()
     {
         return $this->belongsToMany(Area::class, 'campaign_area', 'campaign_id', 'area_id');

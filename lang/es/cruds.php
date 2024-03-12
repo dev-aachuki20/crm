@@ -150,6 +150,12 @@ return [
             'comapny_name'          => 'Nombre de la Empresa',
             'occupation'            => 'Ocupación',
             'assign_to'             => 'Asignado a',
+            'select_gender'         => 'Seleccionar género',
+            'select_civil_status'   => 'Seleccionar estado civil',
+            'select_emp_status'     => 'Seleccionar estado laboral',
+            'select_social_security' => 'Seleccionar seguridad social',
+            'select_campaign'           => 'Seleccionar campaña',
+            'select_area'               => 'Seleccionar área',
         ],
     ],
 

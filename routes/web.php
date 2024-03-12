@@ -59,8 +59,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
 
         // Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         // Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-        Route::resource('/leads',LeadController::class);
+        Route::resource('leads',LeadController::class);
         Route::resource('/interactions',InteractionController::class);
+        Route::get('/campaign/areas/list/{campaignId}', [CampaignController::class, 'getAreas'])->name('campaign.areaList');
 
     });
 

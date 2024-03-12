@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Lead;
 use Illuminate\Support\Facades\Gate;
 use App\DataTables\Lead\LeadDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\StoreRequest;
+use App\Http\Requests\Lead\UpdateRequest;
 use App\Models\Area;
 use App\Models\Campaign;
 use App\Models\Lead;
 use App\Models\TagList;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
@@ -16,6 +19,7 @@ use Illuminate\Http\Response;
 
 class LeadController extends Controller
 {
+
     public function index(LeadDataTable $dataTable)
     {
         abort_if(Gate::denies('leads_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -28,4 +32,45 @@ class LeadController extends Controller
         $htmlView = view('lead.create', compact('campaigns'))->render();
         return response()->json(['success' => true, 'htmlView' => $htmlView]);
     }
+
+    public function store(StoreRequest $request)
+    {
+        try{
+            $lead = Lead::create($request->all());
+            return response()->json(['status' => true, 'message' => trans('messages.lead.lead_created')]);
+        }catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }
+    }
+
+    public function edit($lang, Lead $lead)
+    {
+        $campaigns = Campaign::orderBy('id','desc')->get();
+        $htmlView = view('lead.edit', compact('campaigns','lead'))->render();
+        return response()->json(['success' => true, 'htmlView' => $htmlView]);
+    }
+
+    public function update($lang,UpdateRequest $request, Lead $lead)
+    {
+        try{
+            $lead->update($request->all());
+            return response()->json(['status' => true, 'message' => trans('messages.lead.lead_updated')]);
+        }catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }
+    }
+
+    public function destroy($lang,Lead $lead)
+    {
+        abort_if(Gate::denies('leads_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        try {
+            $lead->delete();
+            return response()->json(['status' => true, 'message' => trans('messages.lead.lead_updated')]);
+        }
+        catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }
+    }
+
+
 }

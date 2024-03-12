@@ -34,6 +34,13 @@ return [
         'area_not_found' => 'Área no encontrada',
     ],
 
+    'lead' => [
+        'lead_created' => 'Cliente potencial creado exitosamente',
+        'lead_deleted' => 'Cliente potencial eliminado exitosamente',
+        'lead_updated' => 'Cliente potencial actualizado exitosamente',
+        'lead_not_found' => 'Cliente potencial no encontrado',
+    ],
+
     'user' => [
         'user_created' => 'Usuario creada con éxito',
         'user_deleted' => 'Usuario eliminada exitosamente',

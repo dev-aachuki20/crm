@@ -96,7 +96,7 @@ class CampaignController extends Controller
                 ]);
 
                 $campaign->areas()->sync($input['assigned_area']);
-                
+
                 DB::commit();
                 return response()->json(['status' => true, 'message' => trans('messages.campaign_successfully_update')]);
             }
@@ -134,5 +134,13 @@ class CampaignController extends Controller
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
         }
+    }
+
+
+    public function getAreas($lang,$campaignId)
+    {
+        $campaign = Campaign::findOrFail($campaignId);
+        $areas = $campaign->areas()->pluck('area_name', 'areas.id');
+        return response()->json(['status' => true, 'data' => $areas ?? null], 200);
     }
 }

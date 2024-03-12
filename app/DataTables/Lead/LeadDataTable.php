@@ -4,6 +4,7 @@ namespace App\DataTables\Lead;
 
 use App\Models\Lead;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -22,11 +23,19 @@ class LeadDataTable extends DataTable
         return (new EloquentDataTable(
             $query->with(['createdBy', 'area', 'campaign'])->select('leads.*')))
             ->addColumn('action', function ($data) {
-                $html = '<div class="edit-delete">';
-                $html .= datatableButton('edit', $data, auth()->user()->can('user_edit'));
-                $html .= datatableButton('delete', $data, auth()->user()->can('user_delete'));
-                $html .= '</div>';
-                return $html;
+                $action='<div class="edit-delete">';
+                if (Gate::check('leads_edit')) {
+                    $editIcon = view('components.svg-icon', ['icon' => 'edit'])->render();
+                    $action .= '<button title="'.trans('global.edit').'" class="edit-area edit-lead-btn" data-href="'.route('leads.edit',['lang' => app()->getLocale(), 'lead' => $data->id]).'">'.$editIcon.'</button>';
+                }
+                if (Gate::check('leads_delete')) {
+                    $deleteIcon = view('components.svg-icon', ['icon' => 'delete'])->render();
+                    $action .= '<form action="'.route('leads.destroy', ['lang' => app()->getLocale(), 'lead' => $data->id]).'" method="POST" class="deleteForm">
+                    <button title="'.trans('global.delete').'" class="delete-area lead_delete_btn">'.$deleteIcon.'</button>
+                    </form>';
+                }
+                $action .= '</div>';
+                return $action;
             })
             ->editColumn('created_at', function ($data) {
                 return $data->created_at;
@@ -123,7 +132,7 @@ class LeadDataTable extends DataTable
             Column::make('identification')->title(__('cruds.lead.fields.identification')),
             Column::make('phone')->title(__('cruds.lead.fields.phone')),
             Column::make('campaign.campaign_name')->title(__('cruds.lead.fields.campaign')),
-            Column::make('area.area_name')->title(__('cruds.lead.fields.channel')),
+            Column::make('area.area_name')->title(__('cruds.lead.fields.area')),
             Column::make('createdBy.name')->title(__('cruds.lead.fields.created_by')),
             Column::computed('action')->title(__('global.action'))
                 ->exportable(false)
