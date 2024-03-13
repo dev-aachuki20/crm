@@ -50,9 +50,8 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], function () {
     Route::prefix('{lang?}')->group(function () {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-        Route::get('/home/{uuid}', [HomeController::class, 'searchInterations'])->name('home.search');
+        Route::get('/search/{uuid}', [HomeController::class, 'searchInterations'])->name('search');
 
-        Route::post('/search', [HomeController::class, 'submitSearchForm'])->name('submitSearch');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
@@ -60,13 +59,11 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/areas', [AreaController::class, 'index'])->name('areas');
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/users', [UserController::class, 'index'])->name('users');
-        
-        // Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
-        // Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-        
+
         Route::get('/leads', [LeadController::class, 'index'])->name('leads');
 
-        Route::resource('/interactions',InteractionController::class);
+        Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
+
     });
 
     // areas route
@@ -101,5 +98,16 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::post('/lead-delete', [LeadController::class, 'destroy'])->name('deleteLead');
 
     Route::get('/campaign/areas/list', [CampaignController::class, 'getAreaData'])->name('campaignAreaList');
+
+    /* Interaction Module */
+    Route::get('/interactions-create/{uuid}', [InteractionController::class, 'create'])->name('interactions-create');
+    Route::post('/interactions-store', [InteractionController::class, 'store'])->name('interactions-store');
+    Route::get('/interactions-edit', [InteractionController::class, 'edit'])->name('interactions-edit');
+    Route::put('/interactions-update', [InteractionController::class, 'update'])->name('interactions-update');
+    Route::post('/interactions-delete', [InteractionController::class, 'destroy'])->name('interactions-delete');
+
+
+    //Search form
+    Route::post('/search', [HomeController::class, 'submitSearchForm'])->name('submitSearch');
 
 });

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title', __('cruds.lead.title'))
-@push('scripts')
+@push('styles')
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 

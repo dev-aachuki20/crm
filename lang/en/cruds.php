@@ -110,6 +110,7 @@ return [
             'registration_date' => 'Registration Date',
             'identification'    => 'Identification',
             'campaign'          => 'Campaign',
+            'phone'             => 'Phone',
             'area'              => 'Area',
             'qualification'     => 'Qualification',
             'customer_observation' => 'Customer observation',

@@ -13,7 +13,7 @@
                 <div class="col-xl-6 col-md mt-md-0 mt-2 order-md-2 order-3">
                     <div class="searchaGroup">
                         <button type="button" class="btn toggleBtn d-md-none d-flex"><img src="{{asset('images/menu.svg')}}"></button>
-                        <form id="makeSearch" method="POST">
+                        <form id="makeSearch">
                             @csrf
                             <div class="inputWrapper position-relative">
                                 <input id="search" type="text" name="search" class="form-control" value="{{ $lead->identification ?? '' }}" placeholder="{{__('cruds.search_by_identification')}}"  autocomplete="off"/>

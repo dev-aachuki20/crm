@@ -57,7 +57,7 @@ class HomeController extends Controller
 
     }
 
-    public function submitSearchForm($lang,Request $request){
+    public function submitSearchForm(Request $request){
 
         $request->validate([
             'search' => 'nullable|numeric|min:16|digits:16',
@@ -73,7 +73,7 @@ class HomeController extends Controller
         $lead = Lead::where('identification',$request->search)->first();
 
         if($lead){
-            $data['redirectRoute'] = route('home.search',['lang' => app()->getLocale(),'uuid' => $lead->uuid]);
+            $data['redirectRoute'] = route('search',['lang' => app()->getLocale(),'uuid' => $lead->uuid]);
 
             return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
 

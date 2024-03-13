@@ -83,6 +83,10 @@
                     
                 } else {
                     toasterAlert('error', response.message);
+
+                    if(response.data.redirectRoute != ''){
+                        window.location.href = response.data.redirectRoute;
+                    }
                 }
             },
             error: function(response) {

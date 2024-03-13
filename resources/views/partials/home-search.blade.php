@@ -1,5 +1,13 @@
 @extends('layouts.master')
 @section('title', __('cruds.home.title'))
+
+@push('styles')
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+@endpush
+
+
 @section('content')
 <!-- Loader element -->
 <div id="loader">
@@ -66,41 +74,64 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Start Interaction Records --}}
                 <div class="observation-data">
                     <div class="row">
                         <div class="col-12 col-lg-9">
                             <div class="datablock-observation">
-                                <h6>0924033228 / 14 - 11 - 2023 / 16h00</h6>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id sapien quam. Nulla tempus odio at ipsum ultricies pellentesque. Duis et risus bibendum, molestie purus non, placerat justo. Praesent facilisis mauris eu sollicitudin auctor. Quisque commodo blandit lacus, vitae porttitor mi consectetur eget.</p>
+                                @if($lead->interactions)
+                                @php
+                                   $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
+                                @endphp
+
+                                <h6>
+                                    {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('i') }}
+                                </h6>
+                                <p>
+                                    {{ nl2br($latestInteractions->customer_observation) }}
+                                </p>
                                 <ul class="mb-0 list-unstyled">
-                                    <li>Observation: <span>12</span></li>
-                                    <li>Campaigns: <span>Black Friday</span></li>
-                                    <li>Channel: <span>Whatsapp</span></li>
-                                    <li>Create: <span>Yesi Tacury</span></li>
+                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
                                 </ul>
+
                                 <div class="datablock-observationinner">
-                                    <div class="datablock-observation">
-                                        <h6>0924033228 / 14 - 11 - 2023 / 16h00</h6>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id sapien quam. Nulla tempus odio at ipsum ultricies pellentesque. Duis et risus bibendum, molestie purus non, placerat justo. Praesent facilisis mauris eu sollicitudin auctor. Quisque commodo blandit lacus, vitae porttitor mi consectetur eget.</p>
-                                    </div>
-                                    <div class="datablock-observation">
-                                        <h6>0924033228 / 14 - 11 - 2023 / 16h00</h6>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id sapien quam. Nulla tempus odio at ipsum ultricies pellentesque. Duis et risus bibendum, molestie purus non, placerat justo. Praesent facilisis mauris eu sollicitudin auctor. Quisque commodo blandit lacus, vitae porttitor mi consectetur eget.</p>
-                                    </div>
-                                    <div class="datablock-observation">
-                                        <h6>0924033228 / 14 - 11 - 2023 / 16h00</h6>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id sapien quam. Nulla tempus odio at ipsum ultricies pellentesque. Duis et risus bibendum, molestie purus non, placerat justo. Praesent facilisis mauris eu sollicitudin auctor. Quisque commodo blandit lacus, vitae porttitor mi consectetur eget.</p>
-                                    </div>
+                                    @foreach($lead->interactions()->orderBy('created_at','desc')->get() as $key=>$interaction)
+
+                                        @if($key != 0)
+                                            
+                                        <div class="datablock-observation">
+                                            <h6>
+                                                {{ $lead->identification }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($interaction->registration_at)->format('i') }}
+                                            </h6>
+                                            <p> {{ nl2br($interaction->customer_observation) }} </p>
+                                        </div>
+
+                                        @endif
+
+                                    @endforeach
                                 </div>
+                                @endif
+                               
                             </div>
                         </div>
                         <div class="col-12 col-lg-3">
                             <div class="buttongroup-block d-flex justify-content-end">
-                                <button type="button" class="btn btn-blue btnsmall" data-bs-toggle="modal" data-bs-target="#observationpopup">+ Add Observation</button>
+                               
+                                @can('interaction_create')
+
+                                <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['lang' => app()->getLocale(),'uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                @endcan
+
                             </div>
                         </div>
                     </div>
                 </div>
+                {{-- End Interaction Records --}}
+
             </div>
             <div class="col-12 col-lg-4">
                 <div class="daily-task">
@@ -196,5 +227,120 @@
  </section>
  <!-- MAIN BLOCK END -->
 
+ <div class="popup_render_div"></div>
+
 </div>
+
+
 @endsection
+
+@push('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        function initializeDatepicker() {
+           
+            $('#registration_at').daterangepicker({
+                autoApply: true,
+                singleDatePicker: true,
+                showDropdowns: true,
+                autoUpdateInput: true, // Set autoUpdateInput to true
+                timePicker: true,
+                timePicker24Hour: true,
+                maxDate: moment().format('YYYY-MM-DD HH:mm'),
+                startDate: moment().format('YYYY-MM-DD HH:mm'),
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm'
+                },
+            }, function(start, end, label) {
+                $('#registration_at').val(start.format('YYYY-MM-DD HH:mm')); // Update the input field with the selected date
+            });
+        }
+
+        // Open Add Interaction Form Modal
+
+        $(document).on('click','.addNewInterationBtn', function(e)
+        {
+           e.preventDefault();
+            var hrefUrl = $(this).attr('data-href');
+            $.ajax({
+                type: 'get',
+                url: hrefUrl,
+                dataType: 'json',
+                success: function (response) {
+    
+                    if(response.success) {
+                        $('.popup_render_div').html(response.htmlView);
+                        $('.popup_render_div #addInteractionModal').modal('show');
+                        initializeDatepicker();
+                    }
+                }
+            });
+        });
+    
+        // Close modal on cancel
+        $(document).on('click','#addInteractionModal #AddForm #CancelFormBtn',function(e) {
+            e.preventDefault();
+            $('#AddForm')[0].reset();
+            $('#addInteractionModal').modal('hide');
+        });
+    
+        
+    
+        // Add Interaction
+        $(document).on('submit', '#AddForm', function(e) {
+    
+            e.preventDefault();
+            $('#loader').css('display', 'block');
+            $("#AddForm button[type=submit]").prop('disabled',true);
+            $(".error").remove();
+            //$(".is-invalid").removeClass('is-invalid');
+          
+            var formData = new FormData(this);
+
+            formData.append('registration_at', $('#registration_at').val());
+
+            var formAction = $(this).attr('action');
+            $.ajax({
+                url: formAction,
+                type: 'POST',
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                        $('#addInteractionModal').modal('hide');
+                        $('#loader').css('display', 'none');
+                        toasterAlert('success', response.message);
+                        $('#AddForm')[0].reset();
+                        $("#AddForm button[type=submit]").prop('disabled',false);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+
+                    var errors= xhr.responseJSON.errors;
+                    console.log(errors);
+                    $('#loader').css('display', 'none');
+                    for (const elementId in errors) {
+                        //$("#"+elementId).addClass('is-invalid');
+                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
+                        $(errorHtml).insertAfter($("#addInteractionModal #"+elementId));
+                    }
+                    $("#AddForm button[type=submit]").prop('disabled',false);
+                }
+            });
+        });
+    
+    
+    });
+    
+    
+    
+    
+    </script>
+@endpush

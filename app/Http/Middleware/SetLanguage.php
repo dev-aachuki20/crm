@@ -48,13 +48,29 @@ class SetLanguage
                     'lead-edit',
                     'lead-update',
                     'lead-delete',
+
+                    'search',
+
+                    'interactions-create',
+                    'interactions-store',
+                    'interactions-edit',
+                    'interactions-update',
+                    'interactions-delete',
                 ];
 
-                if (!in_array($currentPath, $excludedPaths)) {
-                    $updatedPath = "{$languageCode}/{$route}";
+                if (!in_array($route, $excludedPaths)) {
+                    
+                    $routeArr = explode('/',$currentPath);
+                    unset($routeArr[0]);
+
+                    $routeArr = array_values($routeArr);
+
+                    $updatedPath = $languageCode.'/' . implode('/',$routeArr);
+
                     if ($currentPath !== $updatedPath) {
                         return redirect("/{$updatedPath}");
                     }
+                    
                 }
             }
         }

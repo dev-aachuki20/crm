@@ -12,6 +12,13 @@ class Interaction extends Model
     
     public $table = 'interactions';
 
+    protected $dates = [
+        'registration_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected $fillable = [
         'registration_at',
         'lead_id',
