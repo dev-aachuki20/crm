@@ -40,11 +40,18 @@ class SetLanguage
                     'log-file',
                     'clear-log-file',
                     'check-campaign',
+
+                    /* For Lead*/
+                    'lead-create',
+                    'lead-store',
+                    'campaign/areas/list',
+                    'lead-edit',
+                    'lead-update',
+                    'lead-delete',
                 ];
 
                 if (!in_array($currentPath, $excludedPaths)) {
                     $updatedPath = "{$languageCode}/{$route}";
-
                     if ($currentPath !== $updatedPath) {
                         return redirect("/{$updatedPath}");
                     }

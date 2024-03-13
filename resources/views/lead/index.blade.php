@@ -18,7 +18,8 @@
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
                     @can('leads_create')
-                    <button type="button" class="btn btn-blue btnsmall addNewLeadBtn" data-href="{{route('leads.create',['lang' => app()->getLocale()])}}">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button>
+                    {{-- <button type="button" class="btn btn-blue btnsmall addNewLeadBtn" data-href="{{route('leads.create',['lang' => app()->getLocale()])}}">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button> --}}
+                        <button type="button" class="btn btn-blue btnsmall addNewLeadBtn" data-href="{{route('createLead')}}">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button>
                     @endcan
                 </div>
             </div>
@@ -50,7 +51,6 @@ $(document).ready(function(){
 
     var DataaTable = $('#dataaTable').DataTable();
 
-
     function initializeDatepicker() {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -59,19 +59,18 @@ $(document).ready(function(){
             autoApply: true,
             singleDatePicker: true,
             showDropdowns: true,
-            autoUpdateInput: true, // Set autoUpdateInput to true
+            autoUpdateInput: true,
             maxDate: yesterday,
             locale: {
                 format: 'YYYY-MM-DD'
             },
         }, function(start, end, label) {
-            $('#birthdate').val(start.format('YYYY-MM-DD')); // Update the input field with the selected date
+            $('#birthdate').val(start.format('YYYY-MM-DD'));
         });
     }
-    // Open Add Lead Form Modal
 
-    $(document).on('click','.addNewLeadBtn', function(e)
-    {
+    /* Open Add Lead Form Modal */
+    $(document).on('click','.addNewLeadBtn', function(e){
        e.preventDefault();
         var hrefUrl = $(this).attr('data-href');
         $.ajax({
@@ -100,26 +99,23 @@ $(document).ready(function(){
     $(document).on('change','#campaign_id', function(e) {
         e.preventDefault();
         var campaignId = $(this).val();
-        console.log(campaignId);
-
         if (campaignId) {
-            var hrefUrl = "{{ route('campaign.areaList', ['lang' => app()->getLocale(), 'campaignId' => ':campaignId']) }}";
-            hrefUrl = hrefUrl.replace(':campaignId', campaignId);
+            var hrefUrl = "{{ route('campaignAreaList')}}";
             $.ajax({
                 type: 'GET',
                 url: hrefUrl,
+                data: {
+                    campaignId: campaignId 
+                },
                 success: function(response) {
-                    // Store the selected option if it exists
                     var selectedOption = $('#area_id').val();
-                    // Clear existing options except the "Select the Area" option
                     $('#area_id').children('option:not(:first-child)').remove();
                     if (response.status && response.data) {
                         $.each(response.data, function(key, value) {
-                            // Append each area as an option to the select box
                             $('#area_id').append('<option value="' + key + '">' + value + '</option>');
                         });
                     } else {
-                        console.error('Error: Empty response or invalid data');
+                        // console.error('Error: Empty response or invalid data');
                     }
 
                     if (selectedOption) {
@@ -134,12 +130,10 @@ $(document).ready(function(){
 
     // Add Lead
     $(document).on('submit', '#AddForm', function(e) {
-
         e.preventDefault();
         $('#loader').css('display', 'block');
         $("#AddForm button[type=submit]").prop('disabled',true);
         $(".error").remove();
-        //$(".is-invalid").removeClass('is-invalid');
         var formData = $(this).serialize();
         var formAction = $(this).attr('action');
         $.ajax({
@@ -150,19 +144,21 @@ $(document).ready(function(){
             },
             data: formData,
             success: function (response) {
+                if(response.status == 1){
                     $('#addLeadModal').modal('hide');
-                    $('#loader').css('display', 'none');
                     toasterAlert('success', response.message);
                     $('#AddForm')[0].reset();
                     DataaTable.ajax.reload();
                     $("#AddForm button[type=submit]").prop('disabled',false);
+                }else{
+                    toasterAlert('error', @json(__('messages.error_message')));
+                }
+                $('#loader').css('display', 'none');
             },
             error: function (xhr) {
                 var errors= xhr.responseJSON.errors;
-                console.log(errors);
                 $('#loader').css('display', 'none');
                 for (const elementId in errors) {
-                    //$("#"+elementId).addClass('is-invalid');
                     var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
                     $(errorHtml).insertAfter($("#addLeadModal #"+elementId));
                 }
@@ -172,15 +168,18 @@ $(document).ready(function(){
     });
 
     // Open Edit Lead Form Modal
-
     $(document).on('click','.edit-lead-btn', function(e)
     {
        e.preventDefault();
         var hrefUrl = $(this).attr('data-href');
+        var lead_id = $(this).attr('lead_id');
         $.ajax({
             type: 'get',
             url: hrefUrl,
             dataType: 'json',
+            data: {
+                lead_id: lead_id 
+            },
             success: function (response) {
                 if(response.success) {
                     $('.popup_render_div').html(response.htmlView);
@@ -209,14 +208,20 @@ $(document).ready(function(){
         },
             data: formData,
             success: function (response) {
+                if(response.status == 1){
+                    console.log('response' , response);
                     $('#editLeadModal').modal('hide');
-                    $('#loader').css('display', 'none');
                     toasterAlert('success', response.message);
                     $('#EditForm')[0].reset();
                     DataaTable.ajax.reload();
                     $("#EditForm button[type=submit]").prop('disabled',false);
+                }else{
+                    toasterAlert('error', @json(__('messages.error_message')));
+                }
+                $('#loader').css('display', 'none');
             },
             error: function (xhr) {
+                console.log(xhr);
                 var errors= xhr.responseJSON.errors;
                 console.log(xhr.responseJSON);
                 for (const elementId in errors) {
@@ -224,6 +229,9 @@ $(document).ready(function(){
                     var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
                     $(errorHtml).insertAfter($("#EditForm #"+elementId));
                 }
+                setTimeout(() => {
+                    $('#loader').css('display', 'none');
+                }, 100);
                 $("#EditForm button[type=submit]").prop('disabled',false);
             }
         });
@@ -245,9 +253,10 @@ $(document).ready(function(){
             confirmButtonText: "{{ __('cruds.yes_delete') }}"
         }).then((result) => {
             if (result.isConfirmed) {
+                $('#loader').css('display', 'block');
                 $.ajax({
                     url: formAction,
-                    type: 'DELETE',
+                    type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -258,26 +267,19 @@ $(document).ready(function(){
                             }else{
                                 toasterAlert('warning',response.message);
                             }
+                            $('#loader').css('display', 'none');
                     },
                     error: function (xhr) {
                         var errors= xhr.responseJSON.errors;
                         console.log(xhr.responseJSON);
                         toasterAlert('error',response.message);
+                        $('#loader').css('display', 'none');
                     }
                 });
             }
         });
     });
-
-
-
-
-
-
 });
-
-
-
 
 </script>
 @endpush

@@ -21,7 +21,7 @@
                 @endcan
 
                 @can('leads_access')
-                <li><a href="{{route('leads.index',['lang' => app()->getLocale()])}}">{{__('cruds.lead.title')}}</a></li>
+                <li><a href="{{route('leads',['lang' => app()->getLocale()])}}">{{__('cruds.lead.title')}}</a></li>
                 @endcan
             </ul>
         </div>

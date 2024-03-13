@@ -161,7 +161,7 @@
     </div>
     <div class="col-auto">
         <div class="buttonform text-end">
-            <button type="submit" class="btn btn-green btnsmall">{{__('global.save')}}</button>
+            <button type="submit" class="btn btn-green btnsmall">{{ isset($lead) ? __('global.update') : __('global.save')}}</button>
         </div>
     </div>
 </div>

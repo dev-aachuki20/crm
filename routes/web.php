@@ -60,13 +60,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
         Route::get('/areas', [AreaController::class, 'index'])->name('areas');
         Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
         Route::get('/users', [UserController::class, 'index'])->name('users');
-
+        
         // Route::get('/interactions', [InteractionController::class, 'index'])->name('interactions');
         // Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-        Route::resource('leads',LeadController::class);
-        Route::resource('/interactions',InteractionController::class);
-        Route::get('/campaign/areas/list/{campaignId}', [CampaignController::class, 'getAreas'])->name('campaign.areaList');
+        
+        Route::get('/leads', [LeadController::class, 'index'])->name('leads');
 
+        Route::resource('/interactions',InteractionController::class);
     });
 
     // areas route
@@ -93,17 +93,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::get('/check-campaign', [HomeController::class, 'checkCampaign'])->name('checkCampaign');
 
 
-    // lead routes
-    // Route::post('/leads/store', [UserController::class, 'store'])->name('leads_store');
-    // Route::delete('/leads/delete', [UserController::class, 'destroy'])->name('leads_delete');
-    // Route::get('/leads/edit', [UserController::class, 'edit'])->name('leads_edit');
-    // Route::post('/leads/update', [UserController::class, 'update'])->name('leads_update');
+    /* Lead Module */
+    Route::get('/lead-create', [LeadController::class, 'create'])->name('createLead');
+    Route::post('/lead-store', [LeadController::class, 'store'])->name('storeLead');
+    Route::get('/lead-edit', [LeadController::class, 'edit'])->name('editLead');
+    Route::put('/lead-update', [LeadController::class, 'update'])->name('updateLead');
+    Route::post('/lead-delete', [LeadController::class, 'destroy'])->name('deleteLead');
 
-
-
-    // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
-
-    //     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // });
+    Route::get('/campaign/areas/list', [CampaignController::class, 'getAreaData'])->name('campaignAreaList');
 
 });

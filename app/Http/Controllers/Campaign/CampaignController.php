@@ -137,10 +137,23 @@ class CampaignController extends Controller
     }
 
 
-    public function getAreas($lang,$campaignId)
+    /* public function getAreas($lang,$campaignId)
     {
         $campaign = Campaign::findOrFail($campaignId);
         $areas = $campaign->areas()->pluck('area_name', 'areas.id');
         return response()->json(['status' => true, 'data' => $areas ?? null], 200);
+    } */
+    public function getAreaData(Request $request)
+    {
+        try {
+            if($request->ajax()){
+                $campaign = Campaign::findOrFail($request->campaignId);
+                $areas = $campaign->areas()->pluck('area_name', 'areas.id');
+                return response()->json(['status' => true, 'data' => $areas ?? null], 200);
+            }
+            return response()->json(['status' => 'error', 'message' => trans('messages.error_message')], 500);
+        } catch (\Throwable $th) {
+            \Log::info($th->getMessage().' '.$th->getFile().' '.$th->getLine());
+        }
     }
 }
