@@ -50,6 +50,10 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], function () {
     Route::prefix('{lang?}')->group(function () {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/home/{uuid}', [HomeController::class, 'searchInterations'])->name('home.search');
+
+        Route::post('/search', [HomeController::class, 'submitSearchForm'])->name('submitSearch');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 

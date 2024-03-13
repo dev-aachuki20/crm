@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('interactions', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->datetime('registration_at')->nullable();
             $table->unsignedBigInteger('lead_id');
             $table->string('qualification')->nullable();

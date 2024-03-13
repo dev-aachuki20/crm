@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\Lead;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -54,5 +55,42 @@ class HomeController extends Controller
 
         return response()->json(['status' => true,'message' =>$alert_message , 'data' => $records], 200);
 
+    }
+
+    public function submitSearchForm($lang,Request $request){
+
+        $request->validate([
+            'search' => 'nullable|numeric|min:16|digits:16',
+        ]);
+
+        if(is_null($request->search)){
+       
+            $data['redirectRoute'] = route('home',['lang' => app()->getLocale()]);
+
+            return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
+        }
+
+        $lead = Lead::where('identification',$request->search)->first();
+
+        if($lead){
+            $data['redirectRoute'] = route('home.search',['lang' => app()->getLocale(),'uuid' => $lead->uuid]);
+
+            return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
+
+        }else{
+            $data['redirectRoute'] = route('home',['lang' => app()->getLocale()]);
+
+            return response()->json(['status' => false,'message' =>trans('messages.interaction.interaction_not_found'),'data'=> $data], 200);
+        }
+
+    }
+
+    public function searchInterations($lang,$uuid){
+        $lead = Lead::where('uuid',$uuid)->first();
+        if($lead){
+            return view('partials.home-search',compact('lead'));
+        }else{
+            return abort('404');
+        }
     }
 }

@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = "leads";
 
     protected $fillable = [
-
         "name",
         "last_name",
         "email",
@@ -53,6 +52,7 @@ class Lead extends Model
     {
         parent::boot();
         static::creating(function(Lead $model) {
+            $model->uuid = Str::uuid();
             $model->created_by = auth()->user()->id;
         });
 
@@ -81,6 +81,7 @@ class Lead extends Model
     {
         return $this->belongsTo(Area::class, 'area_id');
     }
+    
     public function campaign()
     {
         return $this->belongsTo(Campaign::class, 'campaign_id');

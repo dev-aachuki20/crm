@@ -46,6 +46,64 @@
         return $state;
     }
 
+
+    $(document).on('submit', '#makeSearch', function(e) {
+        e.preventDefault();
+        doSearch();
+    });
+
+    $(document).on('click','.clear-search',function(e){
+        e.preventDefault();
+        $('#search').val('');
+        doSearch();
+    });
+
+   function doSearch(){
+        $('#loader').css('display', 'block');
+
+        var formData = $('#makeSearch').serialize();
+
+        var url = "{{ route('submitSearch',['lang' => app()->getLocale()]) }}";
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+
+                $('#loader').css('display', 'none');
+                $('#makeSearch .error-message').remove();
+
+                if (response.status === true) {
+                   
+                    if(response.data.redirectRoute != ''){
+                        window.location.href = response.data.redirectRoute;
+                    }
+                    
+                } else {
+                    toasterAlert('error', response.message);
+                }
+            },
+            error: function(response) {
+                // console.error('Error submitting form:', response);
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                }, 500);
+                $('#makeSearch .error-message').remove();
+                if (response.status === 422) {
+                    var errors = response.responseJSON.errors;
+                    $.each(errors, function(key, value) {
+                        $('[name="' + key + '"]').after('<span class="error-message text-danger">' + value[0] + '</span>');
+                    });
+                } else {
+                    console.log('An unexpected error occurred. Please try again.');
+                }
+            }
+        });
+   }
+
+   
 </script>
 
 @include('layouts.includes.alert')

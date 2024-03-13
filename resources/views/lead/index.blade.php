@@ -133,13 +133,13 @@ $(document).ready(function(){
     });
 
     // Add Lead
-    $(document).on('submit','#addLeadModal #AddForm', function (e)
-    {
+    $(document).on('submit', '#AddForm', function(e) {
+
         e.preventDefault();
         $('#loader').css('display', 'block');
         $("#AddForm button[type=submit]").prop('disabled',true);
         $(".error").remove();
-        $(".is-invalid").removeClass('is-invalid');
+        //$(".is-invalid").removeClass('is-invalid');
         var formData = $(this).serialize();
         var formAction = $(this).attr('action');
         $.ajax({
@@ -162,7 +162,7 @@ $(document).ready(function(){
                 console.log(errors);
                 $('#loader').css('display', 'none');
                 for (const elementId in errors) {
-                    $("#"+elementId).addClass('is-invalid');
+                    //$("#"+elementId).addClass('is-invalid');
                     var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
                     $(errorHtml).insertAfter($("#addLeadModal #"+elementId));
                 }
@@ -191,13 +191,13 @@ $(document).ready(function(){
         });
     });
 
-    // edit item
+    // Start Edit
     $(document).on('submit', '#editLeadModal #EditForm', function (e) {
         e.preventDefault();
         $("#EditForm button[type=submit]").prop('disabled',true);
         $('#loader').css('display', 'block');
         $(".error").remove();
-        $(".is-invalid").removeClass('is-invalid');
+        //$(".is-invalid").removeClass('is-invalid');
         var formData = $(this).serialize();
         var formAction = $(this).attr('action');
 
@@ -220,7 +220,7 @@ $(document).ready(function(){
                 var errors= xhr.responseJSON.errors;
                 console.log(xhr.responseJSON);
                 for (const elementId in errors) {
-                    $("#EditForm #"+elementId).addClass('is-invalid');
+                    //$("#EditForm #"+elementId).addClass('is-invalid');
                     var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
                     $(errorHtml).insertAfter($("#EditForm #"+elementId));
                 }
@@ -229,6 +229,7 @@ $(document).ready(function(){
         });
     });
 
+    // Start Delete
     $(document).on('submit', '.deleteForm', function(e) {
         e.preventDefault();
         var formAction = $(this).attr('action');

@@ -73,6 +73,12 @@ return [
         ],
     ],
 
+
+    'home'=>[
+        'title'=>'Hogar',
+        'registration_data' => 'Datos registrados',
+    ],
+
     'area' => [
         'title' => 'Área',
         'title_singular' => 'Área',

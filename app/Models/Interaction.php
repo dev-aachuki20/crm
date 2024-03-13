@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 class Interaction extends Model
 {
-    use HasFactory,Notifiable,SoftDeletes;
+    use SoftDeletes;
     
     public $table = 'interactions';
 
@@ -31,6 +30,7 @@ class Interaction extends Model
     {
         parent::boot();
         static::creating(function(Interaction $model) {
+            $model->uuid = Str::uuid();
             $model->created_by = auth()->user()->id;
         });
 

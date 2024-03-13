@@ -1356,7 +1356,45 @@ body.swal2-toast-shown .swal2-container {
     background: #eee;
 }
 
+.searchaGroup .inputWrapper input.form-control,
+.search-identify .inputWrapper input.form-control{
+    padding-right: 100px;
+}
+.ajax-click{
+    border: 0;
+    background: transparent;
+    padding: 0;
+    position: absolute;
+    right: 70px;
+    top: 17px;
+    opacity: 1;
+    visibility: visible;
+}
+.ajax-click img{
+    width: 14px;
+}
+.searchaGroup .inputWrapper input.form-control:placeholder-shown + .ajax-click,
+.search-identify .inputWrapper input.form-control:placeholder-shown + .ajax-click{
+    opacity: 0;
+    visibility: hidden;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .ajax-click{
+        right: 58px;
+        top: 12px;
+    }
+    .searchaGroup .inputWrapper input.form-control,
+    .search-identify .inputWrapper input.form-control {
+        padding-right: 90px;
+    }
+}
+
 @media screen and (max-width: 767px){
+    .searchaGroup .inputWrapper input.form-control,
+    .search-identify .inputWrapper input.form-control {
+        padding-right: 90px;
+    }
     .list-creating-channel .dataTables_wrapper .dataTables_paginate{
         white-space: nowrap;
         overflow-x: auto;
@@ -1368,5 +1406,9 @@ body.swal2-toast-shown .swal2-container {
     .list-creating-channel .dataTables_wrapper .dataTables_paginate>*{
         flex: 0 0 auto;
         -webkit-flex: 0 0 auto;
+    }
+    .ajax-click{
+        right: 52px;
+        top: 9px;
     }
 }

@@ -70,6 +70,11 @@ return [
         ],
     ],
 
+    'home'=>[
+        'title'=>'Home',
+        'registration_data' => 'Registered Data',
+    ],
+
     'area' => [
         'title' => 'Area',
         'title_singular' => 'Area',

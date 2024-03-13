@@ -13,10 +13,12 @@
                 <div class="col-xl-6 col-md mt-md-0 mt-2 order-md-2 order-3">
                     <div class="searchaGroup">
                         <button type="button" class="btn toggleBtn d-md-none d-flex"><img src="{{asset('images/menu.svg')}}"></button>
-                        <form>
+                        <form id="makeSearch" method="POST">
+                            @csrf
                             <div class="inputWrapper position-relative">
-                                <input id="search" type="search" name="" class="form-control" placeholder="{{__('cruds.search_id')}}" />
-                                <button type="button" class="search"><img src="{{asset('images/search.svg')}}" class="img-fluid" /></button>
+                                <input id="search" type="text" name="search" class="form-control" value="{{ $lead->identification ?? '' }}" placeholder="{{__('cruds.search_by_identification')}}"  autocomplete="off"/>
+                                <button type="button" class="ajax-click clear-search"><img src="{{asset('images/close-wocircle.svg')}}" class="img-fluid" /></button>
+                                <button type="submit" class="search"><img src="{{asset('images/search.svg')}}" class="img-fluid" /></button>
                             </div>
                         </form>
                     </div>
@@ -64,7 +66,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function() {
-        /* function myFunction() { */
+       
         var storedLanguage = localStorage.getItem('userLanguage');
 
         if (storedLanguage) {
@@ -88,8 +90,6 @@
                 location.reload();
             });
         });
-        /* }
-
-        myFunction(); */
+     
     });
 </script>
