@@ -66,15 +66,55 @@ class InteractionController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
         abort_if(Gate::denies('interaction_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        try {
+            $interaction = Interaction::find($request->interaction);
+            if($interaction){
+
+                $lead = $interaction->lead;
+
+                $htmlView = view('interaction.edit', compact('lead','interaction'))->render();
+                return response()->json(['success' => true, 'htmlView' => $htmlView]);
+            }else{
+                return response()->json(['status' => true, 'message' => trans('messages.no_record_found')], 200);
+            }
+
+        } catch (\Exception $e) {
+            \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }
 
     }
 
-    public function update()
+    public function update(Request $request)
     {
         abort_if(Gate::denies('interaction_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'qualification'  => 'required',
+            'customer_observation' => 'required|string|',
+        ]);
+
+        try{
+            if($request->ajax()){
+
+                $input = [
+                    'qualification' => $request->qualification,
+                    'customer_observation' => $request->customer_observation, 
+                ];
+
+                $lead = Interaction::findOrFail($request->interaction);
+                $lead->update($input);
+                return response()->json(['status' => true, 'message' => trans('messages.interaction.interaction_updated')],200);
+            }
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }catch (\Exception $e) {
+            \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+        }
 
     }
 
@@ -83,7 +123,7 @@ class InteractionController extends Controller
         abort_if(Gate::denies('interaction_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try {
-            $interaction = Interaction::find($request->id);
+            $interaction = Interaction::find($request->interaction);
 
             if (!$interaction) {
                 return response()->json(['status' => 'error', 'message' => trans('messages.interaction.interaction_not_found')]);
@@ -97,7 +137,7 @@ class InteractionController extends Controller
         } catch (\Exception $e) {
             // dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
 
-            return response()->json(['status' => 'error', 'message' => trans('messages.error_message'),'error_details'=>$e->getMessage() . ' '. $e->getLine()]);
+            return response()->json(['status' => 'error', 'message' => trans('messages.error_message')]);
 
         }
     }

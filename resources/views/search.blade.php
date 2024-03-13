@@ -62,15 +62,15 @@
                         </div>
                         <div class="datablockitem">
                             <label>@lang('cruds.lead.fields.province'):</label>
-                            <div class="dataitem">{{ $lead->province ?? '' }}</div>
+                            <div class="dataitem">{{ $lead->province ? ucwords($lead->province) :'' }}</div>
                         </div>
                         <div class="datablockitem">
                             <label>@lang('cruds.lead.fields.city'):</label>
-                            <div class="dataitem">{{ $lead->city ?? '' }}</div>
+                            <div class="dataitem">{{ $lead->city ? ucwords($lead->city) : '' }}</div>
                         </div>
                         <div class="datablockitem">
                             <label>@lang('cruds.lead.fields.address'):</label>
-                            <div class="dataitem">{{ $lead->address ?? '' }}</div>
+                            <div class="dataitem">{{ $lead->address ? ucwords($lead->address) : '' }}</div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,8 @@
                     <div class="row">
                         <div class="col-12 col-lg-9">
                             <div class="datablock-observation">
-                                @if($lead->interactions)
+                                @if($lead->interactions()->count() > 0)
+
                                 @php
                                    $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
                                 @endphp

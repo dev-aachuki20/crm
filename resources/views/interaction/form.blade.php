@@ -3,7 +3,7 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.interaction.fields.registration_date'):</label>
-            <input type="text" name="registration_at" id="registration_at" class="form-control"  disabled />
+            <input type="text" name="registration_at" id="registration_at" class="form-control" value="{{ isset($interaction) ? \Carbon\Carbon::parse($interaction->registration_at)->format('Y-m-d H:i') : ''  }}"  disabled />
         </div>
     </div>
     <div class="col-12 col-lg-4">

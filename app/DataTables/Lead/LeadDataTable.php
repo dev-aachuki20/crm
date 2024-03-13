@@ -26,14 +26,10 @@ class LeadDataTable extends DataTable
                 $action='<div class="edit-delete">';
                 if (Gate::check('leads_edit')) {
                     $editIcon = view('components.svg-icon', ['icon' => 'edit'])->render();
-                    // $action .= '<button title="'.trans('global.edit').'" class="edit-area edit-lead-btn" data-href="'.route('leads.edit',['lang' => app()->getLocale(), 'lead' => $data->id]).'">'.$editIcon.'</button>';
                     $action .= '<button title="'.trans('global.edit').'" class="edit-area edit-lead-btn" data-lead_id="'.$data->id.'" data-href="'.route('editLead', ['lead' => $data->id]).'">'.$editIcon.'</button>';
                 }
                 if (Gate::check('leads_delete')) {
                     $deleteIcon = view('components.svg-icon', ['icon' => 'delete'])->render();
-                    /* $action .= '<form action="'.route('leads.destroy', ['lang' => app()->getLocale(), 'lead' => $data->id]).'" method="POST" class="deleteForm">
-                    <button title="'.trans('global.delete').'" class="delete-area lead_delete_btn">'.$deleteIcon.'</button>
-                    </form>'; */
                     $action .= '<form action="'.route('deleteLead', ['lead' => $data->id]).'" method="POST" class="deleteForm">
                     <button title="'.trans('global.delete').'" class="delete-area lead_delete_btn">'.$deleteIcon.'</button>
                     </form>';

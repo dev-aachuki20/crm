@@ -88,7 +88,7 @@ class HomeController extends Controller
     public function searchInterations($lang,$uuid){
         $lead = Lead::where('uuid',$uuid)->first();
         if($lead){
-            return view('partials.home-search',compact('lead'));
+            return view('search',compact('lead'));
         }else{
             return abort('404');
         }

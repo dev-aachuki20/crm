@@ -2,7 +2,9 @@
 
 namespace App\DataTables\Interaction;
 
+
 use App\Models\Interaction;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -21,13 +23,23 @@ class InteractionDataTable extends DataTable
     {
         return (new EloquentDataTable(
             $query->with(['createdBy', 'lead'])->select('interactions.*')))
+            
             ->addColumn('action', function ($data) {
-                $html = '<div class="edit-delete">';
-                $html .= datatableButton('edit', $data, auth()->user()->can('interaction_edit'));
-                $html .= datatableButton('delete', $data, auth()->user()->can('interaction_delete'));
-                $html .= '</div>';
-                return $html;
+                $action='<div class="edit-delete">';
+                if (Gate::check('interaction_edit')) {
+                    $editIcon = view('components.svg-icon', ['icon' => 'edit'])->render();
+                    $action .= '<button title="'.trans('global.edit').'" class="edit-interaction edit-interaction-btn" data-interaction_id="'.$data->id.'" data-href="'.route('interactions-edit', ['interaction' => $data->id]).'">'.$editIcon.'</button>';
+                }
+                if (Gate::check('interaction_delete')) {
+                    $deleteIcon = view('components.svg-icon', ['icon' => 'delete'])->render();
+                    $action .= '<form action="'.route('interactions-delete', ['interaction' => $data->id]).'" method="POST" class="deleteForm">
+                    <button title="'.trans('global.delete').'" class="delete-interaction interaction_delete_btn">'.$deleteIcon.'</button>
+                    </form>';
+                }
+                $action .= '</div>';
+                return $action;
             })
+
             ->editColumn('registration_at', function ($data) {
                 return $data->registration_at;
             })
