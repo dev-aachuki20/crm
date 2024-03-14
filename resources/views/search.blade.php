@@ -86,34 +86,23 @@
                                    $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
                                 @endphp
 
-                                <h6>
-                                    {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('i') }}
-                                </h6>
-                                <p>
-                                    {{ nl2br($latestInteractions->customer_observation) }}
-                                </p>
-                                <ul class="mb-0 list-unstyled">
-                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
-                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
-                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
-                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
-                                </ul>
+                                <div class="latest-interaction">
+                                    <h6>
+                                        {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('i') }}
+                                    </h6>
+                                    <p>
+                                        {{ nl2br($latestInteractions->customer_observation) }}
+                                    </p>
+                                    <ul class="mb-0 list-unstyled">
+                                        <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                        <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                        <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                        <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
+                                    </ul>
+                                </div>
 
-                                <div class="datablock-observationinner">
-                                    @foreach($lead->interactions()->orderBy('created_at','desc')->get() as $key=>$interaction)
-
-                                        @if($key != 0)
-                                            
-                                        <div class="datablock-observation">
-                                            <h6>
-                                                {{ $lead->identification }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($interaction->registration_at)->format('i') }}
-                                            </h6>
-                                            <p> {{ nl2br($interaction->customer_observation) }} </p>
-                                        </div>
-
-                                        @endif
-
-                                    @endforeach
+                                <div class="datablock-observationinner interaction-list">
+                                    
                                 </div>
                                 @endif
                                
@@ -242,6 +231,58 @@
 <script>
     $(document).ready(function(){
 
+        var latestInteractionId = "{{  ($lead->interactions()->count() > 0) ? $lead->interactions()->orderBy('created_at','desc')->value('id') : ''}}";
+        var nextPageUrl = "{{ route('loadInteractionList',['uuid'=>$uuid]) }}";
+        loadMoreInteractionList();
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                if(nextPageUrl){
+                    loadMoreInteractionList();
+                }
+            }
+        });
+
+        function getLatestInteraction() {
+            var hrefUrl = "{{ route('latestInteraction',['uuid'=>$uuid]) }}";
+            $.ajax({
+                type: 'get',
+                url: hrefUrl,
+                dataType: 'json',
+                success: function (response) {
+                    if(response.success) {
+                        latestInteractionId = response.latestInteractionId;
+                        $('.latest-interaction').html(response.htmlView);
+                        loadMoreInteractionList();
+                    }
+                }
+            });
+        }
+
+        function loadMoreInteractionList(){
+            // $('#loader').css('display', 'block');
+
+            // $('.spinner-loader').removeClass('d-none');
+            $.ajax({
+                url: nextPageUrl,
+                type: 'get',
+                data: { latestInteractionId:latestInteractionId},
+                beforeSend: function(){
+                    nextPageUrl='';
+                },
+                success: function(res){
+                    nextPageUrl = res.nextPageUrl;
+                    $('.interaction-list').append(res.htmlView);
+                },
+                error: function(res, status, error){
+                    console.log(error);
+                },
+                complete: function(res){
+                    // $('.spinner-loader').addClass('d-none');
+                }
+            });
+        }
+
         function initializeDatepicker() {
            
             $('#registration_at').daterangepicker({
@@ -320,6 +361,11 @@
                         toasterAlert('success', response.message);
                         $('#AddForm')[0].reset();
                         $("#AddForm button[type=submit]").prop('disabled',false);
+
+                        nextPageUrl = "{{ route('loadInteractionList',['uuid'=>$uuid]) }}";
+
+                        $('.interaction-list').html('');
+                        getLatestInteraction();
                 },
                 error: function (xhr) {
                     console.log(xhr);

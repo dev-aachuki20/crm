@@ -88,9 +88,32 @@ class HomeController extends Controller
     public function searchInterations($lang,$uuid){
         $lead = Lead::where('uuid',$uuid)->first();
         if($lead){
-            return view('search',compact('lead'));
+            return view('search',compact('lead','uuid'));
         }else{
             return abort('404');
+        }
+    }
+
+    public function latestInteraction($uuid){
+        $lead = Lead::where('uuid',$uuid)->first();
+        if($lead){
+            $latestInteractions =  $lead->interactions()->count() > 0 ? $lead->interactions()->orderBy('created_at','desc')->first() : null;
+            $htmlView = view('partials.latest-interaction-list', compact('lead','latestInteractions'))->render();
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'latestInteractionId'=>$latestInteractions->id]);
+        }else{
+            return response()->json(['success' => false, 'htmlView' => '']);
+        }
+    }
+
+    public function loadMoreInteractionList($uuid,Request $request)
+    {
+        $lead = Lead::where('uuid',$uuid)->first();
+        $interactions = $lead ? $lead->interactions()->where('id','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(5) : null;
+        if($interactions){
+            $htmlView = view('partials.interaction-list', compact('interactions'))->render();
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'nextPageUrl'=>$interactions->nextPageUrl()]);
+        }else{
+            return response()->json(['success' => false, 'htmlView' => '']);
         }
     }
 }

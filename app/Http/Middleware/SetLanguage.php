@@ -50,13 +50,16 @@ class SetLanguage
                     'updateLead',
                     'deleteLead',
 
-                    'submitSearch',
-
+                   
                     'interactions-create',
                     'interactions-store',
                     'interactions-edit',
                     'interactions-update',
                     'interactions-delete',
+
+                    'submitSearch',
+                    'latestInteraction',
+                    'loadInteractionList',
                 ];
 
                 if (!in_array($route, $excludedPaths)) {
