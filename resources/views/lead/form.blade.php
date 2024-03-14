@@ -152,8 +152,9 @@
         </div>
     </div>
 
+    <div class="col-12 col-lg-4">    
+    </div>
 
-    <div class="col-12 col-lg-6"></div>
     <div class="col">
         <div class="buttonform">
             <button type="button" class="btn btn-red btnsmall" id="CancelFormBtn">{{__('global.cancel')}}</button>

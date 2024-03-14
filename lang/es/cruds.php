@@ -153,7 +153,7 @@ return [
             'reference'             => 'Referencia',
             'employment_status'     => 'Estado Laboral',
             'social_security'       => 'Seguridad Social',
-            'comapny_name'          => 'Nombre de la Empresa',
+            'company_name'          => 'Nombre de la Empresa',
             'occupation'            => 'Ocupación',
             'assign_to'             => 'Asignado a',
             'select_gender'         => 'Seleccionar género',
