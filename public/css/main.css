@@ -743,7 +743,7 @@ input[type=file]::file-selector-button {
 
 .registered-data h4 {
     padding: 30px;
-    border-bottom: 1px solid #e2e2e2;
+    /* border-bottom: 1px solid #e2e2e2; */
     margin-bottom: 0;
 }
 
@@ -1339,6 +1339,9 @@ body.swal2-toast-shown .swal2-container {
 .ban-element:hover{
     cursor: not-allowed;
 }
+.error{
+    color: #e34141;
+}
 
 /* ------------------------ */
 
@@ -1431,11 +1434,15 @@ body.swal2-toast-shown .swal2-container {
 .daily-taskbox .task-buttongroup .btn{
     padding: 8px 12px;
 }
-.dt-buttons{
-    position: absolute;
+div.dt-buttons{
+    position: absolute !important;
     right: 0;
     bottom: calc(100% + 24px);
 }
+.registered-data .search-register-title{
+    border-bottom: 1px solid #e2e2e2;
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 1199px){
     .ajax-click{

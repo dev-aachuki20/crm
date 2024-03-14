@@ -72,7 +72,7 @@ class LeadDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         $dom =
-            "<'row'<'col-sm-12 col-md-8'lB><'col-sm-12 col-md-4'f>>" .
+            "<'row'<'col-sm-12 col-md-8'l><'col-sm-12 col-md-4'Bf>>" .
             "<'row'<'col-sm-12 table-responsive custome-responsive-table'tr>>" .
             "<'row d-md-none'<'col-sm-12 d-flex justify-content-end'p>>" .
             "<'d-none d-md-block'<'row'<'col-sm-12 d-flex justify-content-end'p>>>";
@@ -112,11 +112,10 @@ class LeadDataTable extends DataTable
             ->buttons(
                 [
                     Button::make('excel'),
-                    Button::make('csv'),
-                    Button::make('pdf'),
-                    Button::make('print'),
-                    Button::make('reset'),
-                    Button::make('reload'),
+                    // Button::make('csv'),
+                    // Button::make('pdf'),
+                    // Button::make('print'),
+
                 ]
             );
     }

@@ -85,7 +85,7 @@ class HomeController extends Controller
 
     }
 
-    public function searchInterations($lang,$uuid){
+    public function searchInterations($lang,$uuid,Request $request){
         $lead = Lead::where('uuid',$uuid)->first();
         if($lead){
             return view('search',compact('lead','uuid'));
@@ -99,7 +99,7 @@ class HomeController extends Controller
         if($lead){
             $latestInteractions =  $lead->interactions()->count() > 0 ? $lead->interactions()->orderBy('created_at','desc')->first() : null;
             $htmlView = view('partials.latest-interaction-list', compact('lead','latestInteractions'))->render();
-            return response()->json(['success' => true, 'htmlView' => $htmlView,'latestInteractionId'=>$latestInteractions->id]);
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'latestInteractionId'=>$latestInteractions->uuid]);
         }else{
             return response()->json(['success' => false, 'htmlView' => '']);
         }
@@ -108,10 +108,11 @@ class HomeController extends Controller
     public function loadMoreInteractionList($uuid,Request $request)
     {
         $lead = Lead::where('uuid',$uuid)->first();
+        $totalRecords =  $lead->interactions()->count();
         $interactions = $lead ? $lead->interactions()->where('id','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(10) : null;
         if($interactions){
             $htmlView = view('partials.interaction-list', compact('interactions'))->render();
-            return response()->json(['success' => true, 'htmlView' => $htmlView,'nextPageUrl'=>$interactions->nextPageUrl()]);
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'nextPageUrl'=>$interactions->nextPageUrl(),'totalRecords'=>$totalRecords]);
         }else{
             return response()->json(['success' => false, 'htmlView' => '']);
         }

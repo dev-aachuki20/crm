@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script>
     // toggle js
     const toggleBtn = document.querySelector('.toggleBtn')
@@ -46,10 +46,26 @@
         return $state;
     }
 
+    $("#makeSearch").validate({
+        rules: {
+            search: {
+                required: false,
+                minlength: 16
+            },
+        },
+        messages: {
+            search: {
+                required: "The search field required.",
+                minlength: "The search field must be 16 digits."
+            },
+        }
+    });
 
     $(document).on('submit', '#makeSearch', function(e) {
         e.preventDefault();
-        doSearch();
+        if ($(this).valid()) {
+            doSearch();
+        }
     });
 
     $(document).on('click','.clear-search',function(e){

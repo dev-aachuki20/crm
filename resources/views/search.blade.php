@@ -22,7 +22,21 @@
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="registered-data">
-                    <h4 class="text-capitalize">@lang('cruds.home.registration_data')</h4>
+                    <div class="search-register-title">
+                        <h4 class="text-capitalize">@lang('cruds.home.registration_data')</h4>
+{{-- 
+                        @can('leads_edit')
+                            <button title="{{trans('global.edit')}}" class="edit-area edit-lead-btn" data-lead_id="{{$lead->id}}" data-href="{{route('editLead', ['lead' => $lead->id])}}"><x-svg-icon icon='edit'/></button>
+                        @endcan
+    
+                        @can('leads_delete')
+                            <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm">
+                                <button title="{{trans('global.delete')}}" class="delete-area lead_delete_btn"><x-svg-icon icon='delete'/></button>
+                            </form>
+                        @endcan --}}
+                    </div>
+                    
+                    
                     <div class="datablock">
                         <div class="datablockitem">
                             <label>@lang('cruds.lead.fields.first_name'):</label>
@@ -240,17 +254,11 @@
 <script>
     $(document).ready(function(){
 
-        var latestInteractionId = "{{  ($lead->interactions()->count() > 0) ? $lead->interactions()->orderBy('created_at','desc')->value('id') : ''}}";
+        var latestInteractionId = "{{  ($lead->interactions()->count() > 0) ? $lead->interactions()->orderBy('created_at','desc')->value('uuid') : ''}}";
         var nextPageUrl = "{{ route('loadInteractionList',['uuid'=>$uuid]) }}";
+        var totalInteractionRecords = "{{  $lead->interactions()->count() - 1 }}";
+        var interactionCount = 0;
         loadMoreInteractionList();
-
-        // $(window).scroll(function () {
-        //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        //         if(nextPageUrl){
-        //             loadMoreInteractionList();
-        //         }
-        //     }
-        // });
 
         $('.interaction-list').scroll(function() {
             var element = $(this)[0];
@@ -276,26 +284,31 @@
         }
 
         function loadMoreInteractionList(){
-            $('.data-loader-area').css('display', 'block');
 
-            $.ajax({
-                url: nextPageUrl,
-                type: 'get',
-                data: { latestInteractionId:latestInteractionId},
-                beforeSend: function(){
-                    nextPageUrl='';
-                },
-                success: function(res){
-                    nextPageUrl = res.nextPageUrl;
-                    $('.interaction-list').append(res.htmlView);
-                },
-                error: function(res, status, error){
-                    console.log(error);
-                },
-                complete: function(res){
-                    $('.data-loader-area').css('display', 'none');
-                }
-            });
+           if(nextPageUrl){
+                $('.data-loader-area').css('display', 'block');
+
+                $.ajax({
+                    url: nextPageUrl,
+                    type: 'get',
+                    data: { latestInteractionId:latestInteractionId},
+                    dataType: 'json',
+                    beforeSend: function(){
+                        nextPageUrl='';
+                    },
+                    success: function(res){
+                        nextPageUrl = res.nextPageUrl;
+                        $('.interaction-list').append(res.htmlView);
+                    },
+                    error: function(res, status, error){
+                        console.log(error);
+                    },
+                    complete: function(res){
+                        $('.data-loader-area').css('display', 'none');
+                    }
+                });
+           }
+            
         }
 
         function initializeDatepicker() {
