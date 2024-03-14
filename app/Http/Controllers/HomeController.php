@@ -108,7 +108,7 @@ class HomeController extends Controller
     public function loadMoreInteractionList($uuid,Request $request)
     {
         $lead = Lead::where('uuid',$uuid)->first();
-        $interactions = $lead ? $lead->interactions()->where('id','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(5) : null;
+        $interactions = $lead ? $lead->interactions()->where('id','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(10) : null;
         if($interactions){
             $htmlView = view('partials.interaction-list', compact('interactions'))->render();
             return response()->json(['success' => true, 'htmlView' => $htmlView,'nextPageUrl'=>$interactions->nextPageUrl()]);

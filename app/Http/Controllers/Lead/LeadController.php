@@ -90,4 +90,9 @@ class LeadController extends Controller
     }
 
 
+    public function exportExcel(Request $request){
+
+        dd('working...');
+    }
+
 }

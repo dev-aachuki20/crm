@@ -40,7 +40,7 @@
                 }
             @endphp
             <select class="form-control" name="qualification">
-                <option>@lang('global.select') @lang('cruds.interaction.fields.qualification')</option>
+                <option>@lang('cruds.interaction.fields.select_qualification')</option>
 
                 @if($qualifications)
 

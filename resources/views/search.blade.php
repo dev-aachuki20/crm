@@ -101,9 +101,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="datablock-observationinner interaction-list">
-                                    
-                                </div>
+                               
                                 @endif
                                
                             </div>
@@ -117,6 +115,17 @@
                                 @endcan
 
                             </div>
+                        </div>
+                        <div class="col-12">
+                            @if($lead->interactions()->count() > 0)
+
+                            <div class="datablock-observationinner interaction-list">
+                                    
+                            </div>
+                            <div class="data-loader-area text-center">
+                                <img src="{{ asset('images/data-loader.gif') }}" alt="Loader" class="img-fluid">
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -235,11 +244,18 @@
         var nextPageUrl = "{{ route('loadInteractionList',['uuid'=>$uuid]) }}";
         loadMoreInteractionList();
 
-        $(window).scroll(function () {
-            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                if(nextPageUrl){
-                    loadMoreInteractionList();
-                }
+        // $(window).scroll(function () {
+        //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        //         if(nextPageUrl){
+        //             loadMoreInteractionList();
+        //         }
+        //     }
+        // });
+
+        $('.interaction-list').scroll(function() {
+            var element = $(this)[0];
+            if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+                loadMoreInteractionList();
             }
         });
 
@@ -260,9 +276,8 @@
         }
 
         function loadMoreInteractionList(){
-            // $('#loader').css('display', 'block');
+            $('.data-loader-area').css('display', 'block');
 
-            // $('.spinner-loader').removeClass('d-none');
             $.ajax({
                 url: nextPageUrl,
                 type: 'get',
@@ -278,7 +293,7 @@
                     console.log(error);
                 },
                 complete: function(res){
-                    // $('.spinner-loader').addClass('d-none');
+                    $('.data-loader-area').css('display', 'none');
                 }
             });
         }

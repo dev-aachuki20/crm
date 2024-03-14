@@ -30,7 +30,7 @@
             <select class="form-control" name="gender" id="gender">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_gender')</option>
                 @foreach(config('constants.genders') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->gender == $key ? 'selected' : '' }}>{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->gender == $key ? 'selected' : '' }}>{{ ucfirst(trans('cruds.genders.'.$value)) }}</option>
                 @endforeach
             </select>
         </div>
@@ -41,7 +41,7 @@
             <select class="form-control" name="civil_status" id="civil_status">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_civil_status')</option>
                 @foreach(config('constants.civil_status') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->civil_status == $key ? 'selected' : '' }}>{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->civil_status == $key ? 'selected' : '' }}>{{ ucfirst(trans('cruds.civil_status.'.$value)) }}</option>
                 @endforeach
             </select>
         </div>
@@ -100,7 +100,7 @@
             <select class="form-control" name="employment_status" id="employment_status">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_emp_status')</option>
                 @foreach(config('constants.employment_status') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->employment_status == $key ? 'selected' : '' }}>{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->employment_status == $key ? 'selected' : '' }}>{{ ucfirst(trans('cruds.employment_status.'.$value)) }}</option>
                 @endforeach
             </select>
         </div>
@@ -111,7 +111,7 @@
             <select class="form-control" name="social_security" id="social_security">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_social_security')</option>
                 @foreach(config('constants.social_securities') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->social_security == $key ? 'selected' : '' }}>{{ $value }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && $lead->social_security == $key ? 'selected' : '' }}>{{ ucfirst(trans('cruds.social_securities.'.$value)) }}</option>
                 @endforeach
             </select>
         </div>

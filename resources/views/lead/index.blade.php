@@ -18,7 +18,7 @@
             <div class="col-12 col-lg-6">
                 <div class="buttongroup-block d-flex justify-content-end">
                     @can('leads_create')
-                    {{-- <button type="button" class="btn btn-blue btnsmall addNewLeadBtn" data-href="{{route('leads.create',['lang' => app()->getLocale()])}}">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button> --}}
+                        <a href="{{ route('exportLeadExcel') }}" class="btn  btnsmall" title="Export Excel"><x-svg-icon icon="export-excel" /></a>
                         <button type="button" class="btn btn-blue btnsmall addNewLeadBtn" data-href="{{route('createLead')}}">+ {{__('cruds.add')}} {{__('cruds.lead.title_singular')}}</button>
                     @endcan
                 </div>

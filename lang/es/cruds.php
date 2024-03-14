@@ -119,7 +119,9 @@ return [
             'campaign'          => 'Campaña',
             'area'              => 'Área',
             'qualification'     => 'Calificación',
+            'phone'             => 'Teléfono',
             'customer_observation' => 'Observación del cliente',
+            'select_qualification' => 'Seleccionar Calificación',
             'created_by'        => 'Creado por',
         ],
     ],
@@ -199,6 +201,17 @@ return [
         'divorced' => 'Divorciado',
         'widower'  => 'Viudo',
     ],
+
+    'employment_status'=>[
+        'employee' => 'Empleada', 
+        'unemployed' => 'Desempleadas',
+    ],
+
+    'social_securities'=>[
+        'si'=>'SI', 
+        'no'=>'NO',
+    ],
+
     'list_lead'    => 'Lista de clientes potenciales',
 
 ];

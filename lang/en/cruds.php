@@ -114,6 +114,7 @@ return [
             'area'              => 'Area',
             'qualification'     => 'Qualification',
             'customer_observation' => 'Customer observation',
+            'select_qualification' => 'Select Qualification',
             'created_by'        => 'Created by',
         ],
     ],
@@ -192,6 +193,17 @@ return [
         'divorced' => 'Divorced',
         'widower'  => 'Widower',
     ],
+
+    'employment_status'=>[
+        'employee' => 'Employee', 
+        'unemployed' => 'Unemployed',
+    ],
+
+    'social_securities'=>[
+        'si'=>'SI', 
+        'no'=>'NO',
+    ],
+
     'list_lead'    => 'List Of Lead',
 
 ];

@@ -60,6 +60,7 @@ class SetLanguage
                     'submitSearch',
                     'latestInteraction',
                     'loadInteractionList',
+                    'exportLeadExcel'
                 ];
 
                 if (!in_array($route, $excludedPaths)) {
