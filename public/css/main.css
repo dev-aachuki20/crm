@@ -1439,9 +1439,15 @@ div.dt-buttons{
     right: 0;
     bottom: calc(100% + 24px);
 }
-.registered-data .search-register-title{
+
+.registered-data .search-title-bar{
     border-bottom: 1px solid #e2e2e2;
 }
+
+.registered-data .search-title-bar h4{
+    padding: 20px !important;
+}
+
 
 
 @media screen and (min-width: 768px) and (max-width: 1199px){

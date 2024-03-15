@@ -11,22 +11,20 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Yajra\DataTables\Exports\DataTablesCollectionExport;
 
-
-class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, WithColumnWidths
+class LeadExport extends DataTablesCollectionExport implements FromQuery, WithHeadings,WithMapping, WithStyles, WithColumnWidths
 {
     use Exportable;
 
     protected $search, $sortColumnName, $sortDirection;
 
-    public function __construct($filterStartDate, $filterEndDate, $search,$sortColumnName,$sortDirection)
-    {
-        $this->filterStartDate = $filterStartDate;
-        $this->filterEndDate = $filterEndDate;
-        $this->search = $search;
-        $this->sortColumnName = $sortColumnName;
-        $this->sortDirection = $sortDirection;
-    }
+    // public function __construct($filterEndDate, $search,$sortColumnName,$sortDirection)
+    // {
+    //     $this->search = $search;
+    //     $this->sortColumnName = $sortColumnName;
+    //     $this->sortDirection = $sortDirection;
+    // }
 
     public function columnWidths(): array
     {
@@ -41,58 +39,54 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
     public function headings(): array
     {
         return [
-            'Full Name',
-            'Phone Number',
-            'Email',
-            'Created Date',
+            'Registraction At',
+            'Name',
         ];
 
     }
 
-    public function query()
-    {
-        $statusSearch = null;
-        $searchValue = $this->search;
-        if (Str::contains('break', strtolower($searchValue))) {
-            $statusSearch = 1;
-        } else if (Str::contains('continue', strtolower($searchValue))) {
-            $statusSearch = 0;
-        }
+    // public function query()
+    // {
+    //     $statusSearch = null;
+    //     $searchValue = $this->search;
+    //     if (Str::contains('break', strtolower($searchValue))) {
+    //         $statusSearch = 1;
+    //     } else if (Str::contains('continue', strtolower($searchValue))) {
+    //         $statusSearch = 0;
+    //     }
 
-        $starNumber = null;
-        if(in_array($searchValue,config('constants.ratings'))){
-            $starNumber = $searchValue;
-        }
+    //     $starNumber = null;
+    //     if(in_array($searchValue,config('constants.ratings'))){
+    //         $starNumber = $searchValue;
+    //     }
       
-        $startDate = $this->filterStartDate ? $this->filterStartDate->startOfDay() : null;
-        $endDate = $this->filterEndDate ? $this->filterEndDate->endOfDay() : null;
+    //     $startDate = $this->filterStartDate ? $this->filterStartDate->startOfDay() : null;
+    //     $endDate = $this->filterEndDate ? $this->filterEndDate->endOfDay() : null;
 
-        $allUsers = User::query()->where(function ($query) use ($searchValue, $statusSearch, $starNumber) {
-            $query->where('name', 'like', '%' . $searchValue . '%')
-                ->orWhere('phone', 'like', '%' . $searchValue . '%')
-                ->orWhere('star_no', $starNumber)
-                ->orWhere('is_active', $statusSearch)
-                ->orWhereRaw("date_format(created_at, '" . config('constants.search_full_date_format') . "') like ?", ['%' . $searchValue . '%']);
-        })->whereHas('roles', function ($query) {
-            $query->where('id', 2);
-        });
+    //     $allUsers = User::query()->where(function ($query) use ($searchValue, $statusSearch, $starNumber) {
+    //         $query->where('name', 'like', '%' . $searchValue . '%')
+    //             ->orWhere('phone', 'like', '%' . $searchValue . '%')
+    //             ->orWhere('star_no', $starNumber)
+    //             ->orWhere('is_active', $statusSearch)
+    //             ->orWhereRaw("date_format(created_at, '" . config('constants.search_full_date_format') . "') like ?", ['%' . $searchValue . '%']);
+    //     })->whereHas('roles', function ($query) {
+    //         $query->where('id', 2);
+    //     });
 
-        if(!is_null($startDate) && !is_null($endDate)){
-            $allUsers = $allUsers->whereBetween('created_at', [$startDate, $endDate]);
-        }
+    //     if(!is_null($startDate) && !is_null($endDate)){
+    //         $allUsers = $allUsers->whereBetween('created_at', [$startDate, $endDate]);
+    //     }
 
-        $allUsers = $allUsers->orderBy($this->sortColumnName, $this->sortDirection);
+    //     $allUsers = $allUsers->orderBy($this->sortColumnName, $this->sortDirection);
      
-        return $allUsers;
-    }
+    //     return $allUsers;
+    // }
 
     public function map($row): array
     {
         return [
+            $row->created_at,
             $row->name,
-            $row->phone,
-            $row->email,
-            convertDateTimeFormat($row->created_at,'fulldate'),
         ];
     }
 

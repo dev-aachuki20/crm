@@ -11,8 +11,10 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
+
 class LeadDataTable extends DataTable
 {
+
     /**
      * Build the DataTable class.
      *
@@ -107,17 +109,28 @@ class LeadDataTable extends DataTable
                         "cancel" => __('message.cancel'),
                     ],
                 ],
+                'buttons'=> [
+                    [
+                        'extend'    => 'excelHtml5',
+                        'text'      => view('components.svg-icon', ['icon' => 'export-excel'])->render(),
+                        'titleAttr' => 'Excel',
+                        'exportOptions' => [
+                            'columns' => [1,2,3,4,5],
+                            // 'sheets' => [
+                            //     'data' => [
+                            //         'sheetName' => 'Leads Data',
+                            //         'exportFormat' => 'xlsx',
+                            //     ]
+                            // ],
+                            'modifier' => [
+                                'page' => 'all', // Export all pages
+                            ]
+                        ]
+                    ],
+                ],
+                // "lengthMenu"=> [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
             ])
-            ->selectStyleSingle()
-            ->buttons(
-                [
-                    Button::make('excel'),
-                    // Button::make('csv'),
-                    // Button::make('pdf'),
-                    // Button::make('print'),
-
-                ]
-            );
+            ->selectStyleSingle();
     }
 
     /**

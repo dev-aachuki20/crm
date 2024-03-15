@@ -77,11 +77,17 @@ class LeadController extends Controller
     {
         abort_if(Gate::denies('leads_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            if($request->ajax()){
-                $lead = Lead::whereId($request->lead);
+            $lead = Lead::whereId($request->lead);
+            if($lead){
                 $lead->delete();
-                return response()->json(['status' => true, 'message' => trans('messages.lead.lead_updated')]);
+
+                if($request->ajax()){
+                    return response()->json(['status' => true, 'message' => trans('messages.lead.lead_deleted')]);
+                }else{
+                    return redirect()->route('home',['lang'=>app()->getLocale()])->with('success',trans('messages.lead.lead_deleted'));
+                }
             }
+    
             return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
         } catch (\Exception $e) {
             \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());
@@ -90,9 +96,9 @@ class LeadController extends Controller
     }
 
 
-    public function exportExcel(Request $request){
+    public function exportExcel(LeadDataTable $dataTable){
 
-        dd('working...');
+        dd($dataTable->request());
     }
 
 }

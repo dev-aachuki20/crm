@@ -22,70 +22,26 @@
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="registered-data">
-                    <div class="search-register-title">
+                    <div class="search-title-bar d-flex justify-content-between">
                         <h4 class="text-capitalize">@lang('cruds.home.registration_data')</h4>
-{{-- 
+
+                        <div class="d-flex justify-content-between">
                         @can('leads_edit')
-                            <button title="{{trans('global.edit')}}" class="edit-area edit-lead-btn" data-lead_id="{{$lead->id}}" data-href="{{route('editLead', ['lead' => $lead->id])}}"><x-svg-icon icon='edit'/></button>
+                            <button title="{{trans('global.edit')}}" class="btn btn-sm edit-lead-btn" data-lead_id="{{$lead->id}}" data-href="{{route('editLead', ['lead' => $lead->id])}}"><x-svg-icon icon='edit'/></button>
                         @endcan
     
                         @can('leads_delete')
                             <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm">
-                                <button title="{{trans('global.delete')}}" class="delete-area lead_delete_btn"><x-svg-icon icon='delete'/></button>
+                                @csrf
+                                <button title="{{trans('global.delete')}}" class="btn btn-sm lead_delete_btn my-4"><x-svg-icon icon='delete'/></button>
                             </form>
-                        @endcan --}}
+                        @endcan
+                        </div>
                     </div>
                     
                     
-                    <div class="datablock">
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.first_name'):</label>
-                            <div class="dataitem">{{ $lead->name ? ucfirst($lead->name) : '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.last_name'):</label>
-                            <div class="dataitem">{{ $lead->last_name ? ucfirst($lead->last_name) : '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.identification'):</label>
-                            <div class="dataitem">{{ $lead->identification ?? '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.birth_date'):</label>
-                            <div class="dataitem">{{ $lead->birthdate ?? '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.gender'):</label>
-                            <div class="dataitem">{{ isset(config('constants.genders')[$lead->gender]) ? ucfirst(trans('cruds.genders.'.config('constants.genders')[$lead->gender]) ) :''  }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.civil_status'):</label>
-                            <div class="dataitem">{{ isset(config('constants.civil_status')[$lead->civil_status]) ? ucfirst(trans('cruds.civil_status.'.config('constants.civil_status')[$lead->civil_status]) ) :''  }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.phone'):</label>
-                            <div class="dataitem">{{ $lead->phone ?? '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.cell_phone'):</label>
-                            <div class="dataitem">{{ $lead->cellphone ?? '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.email'):</label>
-                            <div class="dataitem">{{ $lead->email ?? '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.province'):</label>
-                            <div class="dataitem">{{ $lead->province ? ucwords($lead->province) :'' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.city'):</label>
-                            <div class="dataitem">{{ $lead->city ? ucwords($lead->city) : '' }}</div>
-                        </div>
-                        <div class="datablockitem">
-                            <label>@lang('cruds.lead.fields.address'):</label>
-                            <div class="dataitem">{{ $lead->address ? ucwords($lead->address) : '' }}</div>
-                        </div>
+                    <div class="datablock lead-view">
+                        @include('search.partials.lead-view')
                     </div>
                 </div>
 
@@ -124,14 +80,14 @@
                             <div class="buttongroup-block d-flex justify-content-end">
                                
                                 @can('interaction_create')
-
-                                <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['lang' => app()->getLocale(),'uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
                                 @endcan
 
                             </div>
                         </div>
+                        
+                        @if($lead->interactions()->count() > 0)
                         <div class="col-12">
-                            @if($lead->interactions()->count() > 0)
 
                             <div class="datablock-observationinner interaction-list">
                                     
@@ -139,8 +95,9 @@
                             <div class="data-loader-area text-center">
                                 <img src="{{ asset('images/data-loader.gif') }}" alt="Loader" class="img-fluid">
                             </div>
-                            @endif
                         </div>
+                        @endif
+
                     </div>
                 </div>
                 {{-- End Interaction Records --}}
@@ -256,8 +213,7 @@
 
         var latestInteractionId = "{{  ($lead->interactions()->count() > 0) ? $lead->interactions()->orderBy('created_at','desc')->value('uuid') : ''}}";
         var nextPageUrl = "{{ route('loadInteractionList',['uuid'=>$uuid]) }}";
-        var totalInteractionRecords = "{{  $lead->interactions()->count() - 1 }}";
-        var interactionCount = 0;
+      
         loadMoreInteractionList();
 
         $('.interaction-list').scroll(function() {
@@ -332,8 +288,7 @@
 
         // Open Add Interaction Form Modal
 
-        $(document).on('click','.addNewInterationBtn', function(e)
-        {
+        $(document).on('click','.addNewInterationBtn', function(e){
            e.preventDefault();
             var hrefUrl = $(this).attr('data-href');
             $.ajax({
@@ -367,7 +322,6 @@
             $('#loader').css('display', 'block');
             $("#AddForm button[type=submit]").prop('disabled',true);
             $(".error").remove();
-            //$(".is-invalid").removeClass('is-invalid');
           
             var formData = new FormData(this);
 
@@ -402,7 +356,6 @@
                     console.log(errors);
                     $('#loader').css('display', 'none');
                     for (const elementId in errors) {
-                        //$("#"+elementId).addClass('is-invalid');
                         var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
                         $(errorHtml).insertAfter($("#addInteractionModal #"+elementId));
                     }
@@ -411,7 +364,132 @@
             });
         });
     
-    
+        
+        //Edit Lead functionality
+
+        function getLeadView() {
+            var hrefUrl = "{{ route('loadLeadView',['uuid'=>$uuid]) }}";
+            $.ajax({
+                type: 'get',
+                url: hrefUrl,
+                dataType: 'json',
+                success: function (response) {
+                    if(response.success) {
+                        $('.lead-view').html(response.htmlView);
+                    }
+                },
+                error: function(res, status, error){
+                    console.log(error);
+                },
+            });
+        }
+
+        function initializeBirthDateDatepicker() {
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            $('#birthdate').daterangepicker({
+                autoApply: true,
+                singleDatePicker: true,
+                showDropdowns: true,
+                autoUpdateInput: true,
+                maxDate: yesterday,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+            }, function(start, end, label) {
+                $('#birthdate').val(start.format('YYYY-MM-DD'));
+            });
+        }
+
+        // Open Edit Lead Form Modal
+        $(document).on('click','.edit-lead-btn', function(e){
+            e.preventDefault();
+            var hrefUrl = $(this).attr('data-href');
+            var lead_id = $(this).attr('lead_id');
+            $.ajax({
+                type: 'get',
+                url: hrefUrl,
+                dataType: 'json',
+                data: {
+                    lead_id: lead_id 
+                },
+                success: function (response) {
+                    if(response.success) {
+                        $('.popup_render_div').html(response.htmlView);
+                        $('.popup_render_div #editLeadModal').modal('show');
+                        initializeBirthDateDatepicker();
+                    }
+                }
+            });
+        });
+
+        // Start update
+        $(document).on('submit', '#editLeadModal #EditForm', function (e) {
+            e.preventDefault();
+            $("#EditForm button[type=submit]").prop('disabled',true);
+            $('#loader').css('display', 'block');
+            $(".error").remove();
+            var formData = $(this).serialize();
+            var formAction = $(this).attr('action');
+
+            $.ajax({
+                url: formAction,
+                type: 'PUT',
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+                data: formData,
+                success: function (response) {
+                    if(response.status == 1){
+                        $('#editLeadModal').modal('hide');
+                        toasterAlert('success', response.message);
+                        $('#EditForm')[0].reset();
+                        $("#EditForm button[type=submit]").prop('disabled',false);
+                        getLeadView();
+                    }else{
+                        toasterAlert('error', @json(__('messages.error_message')));
+                    }
+                    $('#loader').css('display', 'none');
+                },
+                error: function (xhr) {
+                    // console.log(xhr);
+                    var errors= xhr.responseJSON.errors;
+                    console.log(xhr.responseJSON);
+                    for (const elementId in errors) {
+                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
+                        $(errorHtml).insertAfter($("#EditForm #"+elementId));
+                    }
+                    setTimeout(() => {
+                        $('#loader').css('display', 'none');
+                    }, 100);
+                    $("#EditForm button[type=submit]").prop('disabled',false);
+                }
+            });
+        });
+
+        //Delete Lead functionality
+        $(document).on('click', '.lead_delete_btn', function(e) {
+            e.preventDefault();
+            var formElement = $('.deleteForm');
+
+            Swal.fire({
+                title: "{{ __('cruds.are_you_sure') }}",
+                text: "{{ __('cruds.delete_this_record') }}",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "{{ __('global.cancel') }}",
+                confirmButtonText: "{{ __('cruds.yes_delete') }}"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            });
+        });
+        
+
     });
     
     

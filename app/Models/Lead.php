@@ -72,11 +72,6 @@ class Lead extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function assignTo()
-    {
-        return $this->belongsTo(User::class, 'assign_to');
-    }
-
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');

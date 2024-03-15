@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     //Search form
     Route::get('/get-latest-interaction/{uuid}', [HomeController::class, 'latestInteraction'])->name('latestInteraction');
     Route::get('/load-interaction-list/{uuid}', [HomeController::class, 'loadMoreInteractionList'])->name('loadInteractionList');
+    Route::get('/lead-view/{uuid}', [HomeController::class, 'loadLeadView'])->name('loadLeadView');
     Route::post('/search', [HomeController::class, 'submitSearchForm'])->name('submitSearch');
 
 });
