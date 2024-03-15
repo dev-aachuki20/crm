@@ -28,6 +28,15 @@ return [
     'date_format'     => 'd-m-Y',
     'datetime_format' => 'd-m-Y H:i',
     'time_format'     => 'H:i:s',
+    'full_date_time'  => 'd-m-Y/ H\hi',
+    'search_datetime_format' => '%Y-%m-%d/ %H:%i:%s',
+
+    'role'=>[
+        'super_admin'   => 1,
+        'administrator' => 2,
+        'supervisor'    => 3,
+        'vendor'        => 4,
+    ],
 
     'genders'=>[
         1=>'male',

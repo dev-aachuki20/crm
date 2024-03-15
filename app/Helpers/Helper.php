@@ -160,7 +160,7 @@ if (!function_exists('convertDateTimeFormat')) {
         } else if ($type == 'datetime') {
             return $changeFormatValue->format(config('constants.datetime_format'));
         } else if ($type == 'fulldatetime') {
-            return $changeFormatValue->format(config('constants.full_datetime_format'));
+            return $changeFormatValue->format(config('constants.full_date_time'));
         } else if ($type == 'fulldate') {
             return $changeFormatValue->format(config('constants.full_date_format'));
         } else if ($type == 'date_month_year') {

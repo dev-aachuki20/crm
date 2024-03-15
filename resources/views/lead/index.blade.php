@@ -26,7 +26,11 @@
         </div>
     </div>
     <div class="list-creating-channel mt-3">
-        <h4>{{__('cruds.lead.fields.list_of_lead')}}</h4>
+        <div class="d-flex justify-content-between">
+            <h4>{{__('cruds.lead.fields.list_of_lead')}}</h4> 
+            <button class="btn btn-small" title="Export Excel" id="export-excel"><x-svg-icon icon="export-excel"/></button>
+        </div>
+
         <div class="listing-table">
             {!! $dataTable->table(['class' => 'table mb-0','id'=>'dataaTable']) !!}
         </div>
@@ -60,6 +64,60 @@ $(document).ready(function(){
 
     var DataaTable = $('#dataaTable').DataTable();
 
+   
+    $('#export-excel').on('click', function() {
+        // Get the search value
+        var searchValue = DataaTable.search();
+
+        // Get the sorting information
+        var sorting = DataaTable.order();
+        var sortColumnName = DataaTable.column(sorting[0][0]).dataSrc();
+        var sortDirection = sorting[0][1]; 
+        
+  
+        $('#loader').css('display', 'block');
+
+        $.ajax({
+            xhrFields: {
+                responseType: 'blob',
+            },
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url:  "{{ route('exportLeadExcel') }}",
+            data: {
+                search: searchValue,
+                sortColumn: sortColumnName,
+                sortDirection: sortDirection
+            },
+            success: function(result, status, xhr) {
+
+                $('#loader').css('display', 'none');
+
+                var disposition = xhr.getResponseHeader('content-disposition');
+                var matches = /"([^"]*)"/.exec(disposition);
+                var filename = (matches != null && matches[1] ? matches[1] : 'leads-list.xlsx');
+
+                // The actual download
+                var blob = new Blob([result], {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+
+                document.body.appendChild(link);
+
+                link.click();
+                document.body.removeChild(link);
+
+               console.log('Export successful');
+            }
+        }); 
+
+    });
+        
     function initializeDatepicker() {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);

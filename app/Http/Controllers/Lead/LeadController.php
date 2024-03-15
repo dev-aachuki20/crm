@@ -7,14 +7,12 @@ use App\DataTables\Lead\LeadDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Lead\StoreRequest;
 use App\Http\Requests\Lead\UpdateRequest;
-use App\Models\Area;
 use App\Models\Campaign;
 use App\Models\Lead;
-use App\Models\TagList;
-use App\Models\User;
 use Illuminate\Http\Request;
-
 use Illuminate\Http\Response;
+use App\Exports\LeadExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class LeadController extends Controller
@@ -96,9 +94,18 @@ class LeadController extends Controller
     }
 
 
-    public function exportExcel(LeadDataTable $dataTable){
+    public function exportExcel(Request $request){
 
-        dd($dataTable->request());
+        if($request->ajax()){
+
+            $searchValue = $request->input('search');
+            $sortColumn = $request->input('sortColumn');
+            $sortDirection = $request->input('sortDirection');
+
+            return Excel::download(new LeadExport($searchValue, $sortColumn, $sortDirection), 'leads-list.xlsx');
+
+        }
+
     }
 
 }

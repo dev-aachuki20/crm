@@ -11,82 +11,72 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
-use Yajra\DataTables\Exports\DataTablesCollectionExport;
 
-class LeadExport extends DataTablesCollectionExport implements FromQuery, WithHeadings,WithMapping, WithStyles, WithColumnWidths
+class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, WithColumnWidths
 {
     use Exportable;
 
-    protected $search, $sortColumnName, $sortDirection;
+    protected $searchValue, $sortColumnName, $sortDirection;
 
-    // public function __construct($filterEndDate, $search,$sortColumnName,$sortDirection)
-    // {
-    //     $this->search = $search;
-    //     $this->sortColumnName = $sortColumnName;
-    //     $this->sortDirection = $sortDirection;
-    // }
+    public function __construct($searchValue,$sortColumnName,$sortDirection)
+    {
+        $this->searchValue = $searchValue;
+        $this->sortColumnName = $sortColumnName;
+        $this->sortDirection = $sortDirection;
+    }
 
     public function columnWidths(): array
     {
         return [
-            'A' => 40,
+            'A' => 20,
             'B' => 20,
-            'C' => 40,
+            'C' => 20,
             'D' => 20,
+            'E' => 20,
+            'F' => 20,
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Registraction At',
-            'Name',
+            trans('cruds.lead.fields.registration_date'),
+            trans('cruds.lead.fields.identification'),
+            trans('cruds.lead.fields.phone'),
+            trans('cruds.lead.fields.campaign'),
+            trans('cruds.lead.fields.area'),
+            trans('cruds.lead.fields.created_by'),
         ];
 
     }
 
-    // public function query()
-    // {
-    //     $statusSearch = null;
-    //     $searchValue = $this->search;
-    //     if (Str::contains('break', strtolower($searchValue))) {
-    //         $statusSearch = 1;
-    //     } else if (Str::contains('continue', strtolower($searchValue))) {
-    //         $statusSearch = 0;
-    //     }
+    public function query()
+    {
+        $searchValue = $this->searchValue;
+        
+        $allLeads = Lead::query()->where(function ($query) use ($searchValue) {
+            $query->where('phone', 'like', '%' . $searchValue . '%')
+                ->orWhere('identification', 'like', '%' . $searchValue . '%')
+                ->orWhereRelation('campaign', 'campaign_name', 'like', '%' . $searchValue . '%')
+                ->orWhereRelation('area', 'area_name', 'like', '%' . $searchValue . '%')
+                ->orWhereRelation('createdBy', 'name', 'like', '%' . $searchValue . '%')
+                ->orWhereRaw("date_format(created_at, '" . config('constants.search_datetime_format') . "') like ?", ['%' . $searchValue . '%']);
+        });
 
-    //     $starNumber = null;
-    //     if(in_array($searchValue,config('constants.ratings'))){
-    //         $starNumber = $searchValue;
-    //     }
-      
-    //     $startDate = $this->filterStartDate ? $this->filterStartDate->startOfDay() : null;
-    //     $endDate = $this->filterEndDate ? $this->filterEndDate->endOfDay() : null;
-
-    //     $allUsers = User::query()->where(function ($query) use ($searchValue, $statusSearch, $starNumber) {
-    //         $query->where('name', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('phone', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('star_no', $starNumber)
-    //             ->orWhere('is_active', $statusSearch)
-    //             ->orWhereRaw("date_format(created_at, '" . config('constants.search_full_date_format') . "') like ?", ['%' . $searchValue . '%']);
-    //     })->whereHas('roles', function ($query) {
-    //         $query->where('id', 2);
-    //     });
-
-    //     if(!is_null($startDate) && !is_null($endDate)){
-    //         $allUsers = $allUsers->whereBetween('created_at', [$startDate, $endDate]);
-    //     }
-
-    //     $allUsers = $allUsers->orderBy($this->sortColumnName, $this->sortDirection);
+        $allLeads = $allLeads->orderBy($this->sortColumnName, $this->sortDirection);
      
-    //     return $allUsers;
-    // }
+        return $allLeads;
+    }
 
     public function map($row): array
     {
         return [
-            $row->created_at,
-            $row->name,
+            convertDateTimeFormat($row->created_at,'fulldatetime'),
+            '="' . $row->identification . '"',
+            '="' . $row->phone . '"',
+            ucwords($row->campaign->campaign_name),
+            ucwords($row->area->area_name),
+            ucwords($row->createdBy->name),
         ];
     }
 

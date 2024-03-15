@@ -40,7 +40,7 @@ class LeadDataTable extends DataTable
                 return $action;
             })
             ->editColumn('created_at', function ($data) {
-                return $data->created_at;
+                return convertDateTimeFormat($data->created_at,'fulldatetime');
             })
             ->editColumn('identification', function ($data) {
                 return $data->identification;
@@ -74,7 +74,7 @@ class LeadDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         $dom =
-            "<'row'<'col-sm-12 col-md-8'l><'col-sm-12 col-md-4'Bf>>" .
+            "<'row'<'col-sm-12 col-md-8'l><'col-sm-12 col-md-4'f>>" .
             "<'row'<'col-sm-12 table-responsive custome-responsive-table'tr>>" .
             "<'row d-md-none'<'col-sm-12 d-flex justify-content-end'p>>" .
             "<'d-none d-md-block'<'row'<'col-sm-12 d-flex justify-content-end'p>>>";
@@ -109,25 +109,19 @@ class LeadDataTable extends DataTable
                         "cancel" => __('message.cancel'),
                     ],
                 ],
-                'buttons'=> [
-                    [
-                        'extend'    => 'excelHtml5',
-                        'text'      => view('components.svg-icon', ['icon' => 'export-excel'])->render(),
-                        'titleAttr' => 'Excel',
-                        'exportOptions' => [
-                            'columns' => [1,2,3,4,5],
-                            // 'sheets' => [
-                            //     'data' => [
-                            //         'sheetName' => 'Leads Data',
-                            //         'exportFormat' => 'xlsx',
-                            //     ]
-                            // ],
-                            'modifier' => [
-                                'page' => 'all', // Export all pages
-                            ]
-                        ]
-                    ],
-                ],
+                // 'buttons'=> [
+                //     [
+                //         'extend'    => 'excelHtml5',
+                //         'text'      => view('components.svg-icon', ['icon' => 'export-excel'])->render(),
+                //         'titleAttr' => 'Excel',
+                //         'exportOptions' => [
+                //             'columns' => [1,2,3,4,5],
+                //             'modifier' => [
+                //                 'page' => 'all', 
+                //             ]
+                //         ]
+                //     ],
+                // ],
                 // "lengthMenu"=> [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
             ])
             ->selectStyleSingle();

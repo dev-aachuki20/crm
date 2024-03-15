@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::get('/lead-edit', [LeadController::class, 'edit'])->name('editLead');
     Route::put('/lead-update', [LeadController::class, 'update'])->name('updateLead');
     Route::post('/lead-delete', [LeadController::class, 'destroy'])->name('deleteLead');
-    Route::get('/export-leads-excel', [LeadController::class, 'exportExcel'])->name('exportLeadExcel');
+    Route::post('/export-leads-excel', [LeadController::class, 'exportExcel'])->name('exportLeadExcel');
 
 
     Route::get('/campaign/areas/list', [CampaignController::class, 'getAreaData'])->name('campaignAreaList');
