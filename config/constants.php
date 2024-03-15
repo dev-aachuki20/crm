@@ -51,7 +51,7 @@ return [
     ],
 
     'employment_status'=>[
-        1=>'employee', 
+        1=>'employed', 
         2=>'unemployed',
     ],
 

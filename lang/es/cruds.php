@@ -203,7 +203,7 @@ return [
     ],
 
     'employment_status'=>[
-        'employee' => 'Empleada', 
+        'employed' => 'Empleada', 
         'unemployed' => 'Desempleadas',
     ],
 

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', __('cruds.home.title'))
+@section('title', __('global.search'))
 
 @push('styles')
 
@@ -356,7 +356,7 @@
                     console.log(errors);
                     $('#loader').css('display', 'none');
                     for (const elementId in errors) {
-                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
+                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
                         $(errorHtml).insertAfter($("#addInteractionModal #"+elementId));
                     }
                     $("#AddForm button[type=submit]").prop('disabled',false);
@@ -457,7 +457,7 @@
                     var errors= xhr.responseJSON.errors;
                     console.log(xhr.responseJSON);
                     for (const elementId in errors) {
-                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
+                        var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
                         $(errorHtml).insertAfter($("#EditForm #"+elementId));
                     }
                     setTimeout(() => {

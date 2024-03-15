@@ -32,9 +32,9 @@ class StoreRequest extends FormRequest
             'birthdate'         => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'gender'            => 'required|numeric|in:' . implode(',', array_keys(config('constants.genders'))),
             'civil_status'      => 'required|numeric|in:' . implode(',', array_keys(config('constants.civil_status'))),
-            'phone'             => 'required', 'numeric', 'min:10',
-            'cellphone'         => 'required', 'numeric', 'min:12',
-            'email'             => 'required', 'email', 'regex:/(.+)@(.+)\.(.+)/i',
+            'phone'             => 'required|numeric|regex:/^[0-9]{7,15}$/',
+            'cellphone'         => 'required|numeric|regex:/^[0-9]{7,15}$/',
+            'email'             => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
             'province'          => 'required|string',
             'city'              => ['required', 'regex:/^[a-zA-Z\s]+$/', 'string', 'max:255', new NoMultipleSpacesRule],
             'address'           => 'required|string',
@@ -49,14 +49,16 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'gender.required' => 'The Sex is required.',
-    //         'birthdate.required' => 'The Birth Date is required.',
-    //         'gender.required' => 'The Sex is required.',
-    //         'area_id.required' => 'The Area is required.',
-    //         'campaign_id.required' => 'The Campaign is required.',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'gender.required' => 'The Sex is required.',
+            'birthdate.required' => 'The Birth Date is required.',
+            'gender.required' => 'The Sex is required.',
+            'area_id.required' => 'The Area is required.',
+            'campaign_id.required' => 'The Campaign is required.',
+            'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
+            'cellphone.regex'      => 'The :attribute must be between 7 and 15 digits.',
+        ];
+    }
 }

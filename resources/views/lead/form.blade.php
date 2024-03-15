@@ -15,7 +15,7 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -49,19 +49,19 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.phone') : </label>
-            <input type="text" class="form-control" name="phone" id="phone" value="{{ isset($lead) ? $lead->phone : old('phone') }}" />
+            <input type="text" class="form-control" name="phone" id="phone" value="{{ isset($lead) ? $lead->phone : old('phone') }}" autocomplete="off" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.cell_phone') : </label>
-            <input type="text" class="form-control" name="cellphone" id="cellphone" value="{{ isset($lead) ? $lead->cellphone : old('cellphone') }}" />
+            <input type="text" class="form-control" name="cellphone" id="cellphone" value="{{ isset($lead) ? $lead->cellphone : old('cellphone') }}" autocomplete="off" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.email') : </label>
-            <input type="email" class="form-control" name="email" id="email" value="{{ isset($lead) ? $lead->email : old('email') }}" />
+            <input type="email" class="form-control" name="email" id="email" value="{{ isset($lead) ? $lead->email : old('email') }}" autocomplete="off" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -144,10 +144,20 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.area') :</label>
+            
             <select class="form-control" name="area_id" id="area_id">
-                <option value="{{ isset($lead) ? $lead->area_id : "" }}" {{ isset($lead) ? 'selected' : '' }}>
-                    {{ isset($lead) ? $lead->area->area_name : trans('cruds.lead.fields.select_area') }}
-                </option>
+                <option>{{ trans('cruds.lead.fields.select_area') }}</option>
+              
+                @if(isset($lead))
+                    @foreach($lead->campaign->areas as $area)
+
+                    <option value="{{ isset($lead) ? $lead->area_id : "" }}" {{ $area->id == $lead->area_id ? 'selected' : '' }}>
+                        {{ ucwords($area->area_name) }}
+                    </option>
+
+                    @endforeach
+                @endif
+               
             </select>
         </div>
     </div>

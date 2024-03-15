@@ -56,7 +56,7 @@
         messages: {
             search: {
                 required: "The search field required.",
-                minlength: "The search field must be 16 digits."
+                minlength: "The search field must be a valid identification number."
             },
         }
     });
@@ -68,10 +68,26 @@
         }
     });
 
+    $(document).on('input','#search',function(e){
+        e.preventDefault();
+        
+        const element = $(".clear-search");
+        if($(this).val() == ''){
+            element.hide();
+        }else{
+            element.show();
+        }
+       
+    });
+
+
     $(document).on('click','.clear-search',function(e){
         e.preventDefault();
         $('#search').val('');
-        doSearch();
+        $('#search-error').remove();
+        @if (request()->routeIs('search*'))
+            doSearch();
+        @endif
     });
 
    function doSearch(){
@@ -100,9 +116,13 @@
                 } else {
                     toasterAlert('error', response.message);
 
-                    if(response.data.redirectRoute != ''){
-                        window.location.href = response.data.redirectRoute;
-                    }
+                    @if (request()->routeIs('search*'))
+
+                        if(response.data.redirectRoute != ''){
+                            window.location.href = response.data.redirectRoute;
+                        }
+                        
+                    @endif
                 }
             },
             error: function(response) {

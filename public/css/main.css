@@ -1339,8 +1339,10 @@ body.swal2-toast-shown .swal2-container {
 .ban-element:hover{
     cursor: not-allowed;
 }
-.error{
+
+label.error{
     color: #e34141;
+    font-size:14px;
 }
 
 /* ------------------------ */
@@ -1388,7 +1390,7 @@ body.swal2-toast-shown .swal2-container {
     font-size: 20px;
 }
 .registered-data>.datablock{
-    max-height: 340px;
+    max-height: 311px;
     overflow-y: auto;
 }
 .registered-data>.datablock .datablockitem{

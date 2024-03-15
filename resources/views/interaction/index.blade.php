@@ -128,7 +128,7 @@ $(document).ready(function(){
                 console.log(xhr.responseJSON);
                 for (const elementId in errors) {
                     //$("#EditForm #"+elementId).addClass('is-invalid');
-                    var errorHtml = '<div><span class="error text-danger">'+errors[elementId]+'</span></';
+                    var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
                     $(errorHtml).insertAfter($("#EditForm #"+elementId));
                 }
                 setTimeout(() => {

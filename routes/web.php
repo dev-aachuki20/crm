@@ -95,7 +95,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory', 'setLanguage']], fu
     Route::post('/lead-store', [LeadController::class, 'store'])->name('storeLead');
     Route::get('/lead-edit', [LeadController::class, 'edit'])->name('editLead');
     Route::put('/lead-update', [LeadController::class, 'update'])->name('updateLead');
-    Route::post('/lead-delete', [LeadController::class, 'destroy'])->name('deleteLead');
+    Route::post('/lead-delete', [LeadController::class, 'delete'])->name('deleteLead');
     Route::post('/export-leads-excel', [LeadController::class, 'exportExcel'])->name('exportLeadExcel');
 
 

@@ -44,7 +44,7 @@ class InteractionDataTable extends DataTable
                 return $data->registration_at;
             })
             ->editColumn('lead.identification', function ($data) {
-                return $data->lead->identification;
+                return $data->lead->identification ?? null;
             })
             ->editColumn('lead.campaign.campaign_name', function ($data) {
                 return $data->lead->campaign ? $data->lead->campaign->campaign_name : '';

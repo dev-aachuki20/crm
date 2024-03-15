@@ -36,7 +36,7 @@ return [
         'lead_created' => 'Lead Created Successfully',
         'lead_deleted' => 'Lead Deleted Successfully',
         'lead_updated' => 'Lead Updated Successfully',
-        'lead_not_found' => 'Area Not Found',
+        'lead_not_found' => 'Lead Not Found',
     ],
 
     'user' => [
@@ -63,6 +63,9 @@ return [
     'compaign_no_records' => 'Please add the campaign first!',
 
     'campaign_associated_with_user' => 'This campaign is associated with a user and cannot be deleted.',
+    'campaign_associated_with_lead' => 'This campaign cannot be deleted due to associated leads.',
+    
+
     'area_associated_with_campian' => 'This area is associated with a campaign and cannot be deleted.',
 
     'qualification_already_exists' => 'Sorry, Qualitifcation already exists!',

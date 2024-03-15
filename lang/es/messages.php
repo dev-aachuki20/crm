@@ -66,6 +66,8 @@ return [
     'compaign_no_records' => 'Por favor agregue la campaña primero',
 
     'campaign_associated_with_user' => 'Esta campaña está asociada a un usuario y no se puede eliminar.',
+    'campaign_associated_with_lead' => 'Esta campaña no se puede eliminar debido a clientes potenciales asociados.',
+
     'area_associated_with_campian' => 'Esta área está asociada a una campaña y no se puede eliminar.',
 
     'qualification_already_exists' => 'Lo sentimos, ¡la calificación ya existe!',

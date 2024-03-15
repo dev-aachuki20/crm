@@ -37,9 +37,9 @@ class UpdateRequest extends FormRequest
             'birthdate'         => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'gender'            => 'required|numeric',
             'civil_status'      => 'required|numeric',
-            'phone'             => 'required|numeric|min:10|unique:leads,phone,'.$lead.',id,deleted_at,NULL',
-            'cellphone'         => 'required|numeric|min:12|unique:leads,cellphone,'.$lead.',id,deleted_at,NULL',
-            'email'             => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:leads,email,'.$lead.',id,deleted_at,NULL',
+            'phone'             => 'required|numeric|regex:/^[0-9]{7,15}$/',
+            'cellphone'         => 'required|numeric|regex:/^[0-9]{7,15}$/',
+            'email'             => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
             'province'          => 'required|string',
             'city'              => ['required','regex:/^[a-zA-Z\s]+$/','string','max:255',new NoMultipleSpacesRule],
             'address'           => 'required|string',
@@ -61,6 +61,10 @@ class UpdateRequest extends FormRequest
             'birthdate.required' => 'The Birth Date is required.',
             'area_id.required' => 'The Area is required.',
             'campaign_id.required' => 'The Campaign is required.',
+            'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
+            'cellphone.regex'      => 'The :attribute must be between 7 and 15 digits.',
+
+
         ];
     }
 }

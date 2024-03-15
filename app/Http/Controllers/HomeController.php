@@ -80,7 +80,7 @@ class HomeController extends Controller
         }else{
             $data['redirectRoute'] = route('home',['lang' => app()->getLocale()]);
 
-            return response()->json(['status' => false,'message' =>trans('messages.interaction.interaction_not_found'),'data'=> $data], 200);
+            return response()->json(['status' => false,'message' =>trans('messages.lead.lead_not_found'),'data'=> $data], 200);
         }
 
     }

@@ -71,12 +71,13 @@ class LeadController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         abort_if(Gate::denies('leads_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         try {
-            $lead = Lead::whereId($request->lead);
+            $lead = Lead::whereId($request->lead)->first();
             if($lead){
+               
                 $lead->delete();
 
                 if($request->ajax()){
@@ -89,7 +90,7 @@ class LeadController extends Controller
             return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
         } catch (\Exception $e) {
             \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());
-            return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
+            return response()->json(['status' => false, 'message' => trans('messages.error_message'),'error_detail'=>$e->getMessage().' '.$e->getFile().' '.$e->getLine()], 500);
         }
     }
 

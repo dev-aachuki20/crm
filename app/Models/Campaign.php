@@ -35,4 +35,9 @@ class Campaign extends Model
     {
         return $this->belongsToMany(Area::class, 'campaign_area', 'campaign_id', 'area_id');
     }
+
+    public function leads()
+    {
+        return $this->hasMany(Lead::class);
+    }
 }

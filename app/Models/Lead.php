@@ -48,7 +48,7 @@ class Lead extends Model
         'deleted_at',
     ];
 
-    protected static function boot ()
+    protected static function boot()
     {
         parent::boot();
         static::creating(function(Lead $model) {
@@ -56,7 +56,7 @@ class Lead extends Model
             $model->created_by = auth()->user()->id;
         });
 
-        static::deleting(function(Lead $model) {
+        static::deleting(function (Lead $model) {
             $model->interactions()->delete();
             $model->deleted_by = auth()->user()->id;
             $model->save();

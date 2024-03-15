@@ -123,9 +123,12 @@ class CampaignController extends Controller
                 return response()->json(['status' => false, 'message' => trans('messages.unable_to_delete')]);
             }
 
-            $assignedUsersCount = $campaign->users()->count();
-            if ($assignedUsersCount > 0) {
+            if ($campaign->users()->count() > 0) {
                 return response()->json(['status' => false, 'message' => trans('messages.campaign_associated_with_user')]);
+            }
+
+            if ($campaign->leads->count() > 0) {
+                return response()->json(['status' => false, 'message' => trans('messages.campaign_associated_with_lead')]);
             }
 
             $campaign->delete();

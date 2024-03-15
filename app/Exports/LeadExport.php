@@ -72,8 +72,8 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
     {
         return [
             convertDateTimeFormat($row->created_at,'fulldatetime'),
-            '="' . $row->identification . '"',
-            '="' . $row->phone . '"',
+            $row->identification,
+            $row->phone,
             ucwords($row->campaign->campaign_name),
             ucwords($row->area->area_name),
             ucwords($row->createdBy->name),
