@@ -33,11 +33,11 @@ class CampaignRequest extends FormRequest
     public function messages()
     {
         return [
-            'campaign_name.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.campaign_name')]),
-            'campaign_name.unique' => __('validation.unique', ['attribute' => __('cruds.campaign.fields.campaign_name')]),
-            'description.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.description')]),
-            'campaign_name.max' => __('validation.max.string', ['attribute' => __('cruds.campaign.fields.campaign_name'), 'max' => ':max']),
-            'assigned_area.required' => __('validation.required', ['attribute' => __('cruds.campaign.fields.assigned_area')]),
+            'campaign_name.required' => __('validation.required', ['attribute' => strtolower(__('cruds.campaign.fields.campaign_name'))]),
+            'campaign_name.unique' => __('validation.unique', ['attribute' => strtolower(__('cruds.campaign.fields.campaign_name'))]),
+            'description.required' => __('validation.required', ['attribute' => strtolower(__('cruds.campaign.fields.description'))]),
+            'campaign_name.max' => __('validation.max.string', ['attribute' => strtolower(__('cruds.campaign.fields.campaign_name')), 'max' => ':max']),
+            'assigned_area.required' => __('validation.required', ['attribute' => strtolower(__('cruds.campaign.fields.assigned_area'))]),
         ];
     }
 }

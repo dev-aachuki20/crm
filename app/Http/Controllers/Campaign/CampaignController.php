@@ -36,13 +36,19 @@ class CampaignController extends Controller
         try {
             $validatedData = $request->validated();
 
+           
             $requestData = $request->all();
             $requestData['status'] = '1';
             $campaign = Campaign::create($requestData);
 
             $tagList = $request->input('tagList');
-            $tag = TagList::firstOrCreate([
-                'tag_name' => $tagList,
+
+            $tagList = array_map('trim', json_decode($tagList,true));
+            
+            $tagListString  = '["'.implode('","',$tagList).'"]';
+
+            $tag = TagList::create([
+                'tag_name' => $tagListString,
                 'campaign_id' => $campaign->id,
             ]);
 
@@ -91,8 +97,11 @@ class CampaignController extends Controller
 
             if ($update) {
                 $tagList = $request->input('tagList');
+                $tagList = array_map('trim', json_decode($tagList,true));
+                $tagListString  = '["'.implode('","',$tagList).'"]';
+
                 $tag = TagList::where('campaign_id', $input['campaign_id'])->update([
-                    'tag_name' => $tagList,
+                    'tag_name' => $tagListString,
                 ]);
 
                 $campaign->areas()->sync($input['assigned_area']);

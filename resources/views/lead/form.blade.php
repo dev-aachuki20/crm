@@ -15,7 +15,7 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="16" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -146,7 +146,7 @@
             <label>@lang('cruds.lead.fields.area') :</label>
             
             <select class="form-control" name="area_id" id="area_id">
-                <option>{{ trans('cruds.lead.fields.select_area') }}</option>
+                <option value="">{{ trans('cruds.lead.fields.select_area') }}</option>
               
                 @if(isset($lead))
                     @foreach($lead->campaign->areas as $area)

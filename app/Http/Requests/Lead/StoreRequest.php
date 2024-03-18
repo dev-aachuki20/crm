@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
             'civil_status'      => 'required|numeric|in:' . implode(',', array_keys(config('constants.civil_status'))),
             'phone'             => 'required|numeric|regex:/^[0-9]{7,15}$/',
             'cellphone'         => 'required|numeric|regex:/^[0-9]{7,15}$/',
-            'email'             => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+            'email'             => 'required|email|regex:/^(?!.*[\/]).+@(?!.*[\/]).+\.(?!.*[\/]).+$/i',
             'province'          => 'required|string',
             'city'              => ['required', 'regex:/^[a-zA-Z\s]+$/', 'string', 'max:255', new NoMultipleSpacesRule],
             'address'           => 'required|string',
@@ -44,21 +44,31 @@ class StoreRequest extends FormRequest
             'social_security'   => 'required|numeric|in:' . implode(',', array_keys(config('constants.social_securities'))),
             'company_name'      => 'required|string',
             'occupation'        => 'required|string',
-            'campaign_id'       => 'required|numeric|exists:campaigns,id',
-            'area_id'           => 'required|numeric|exists:areas,id',
+            'campaign_id'       => 'required|numeric|exists:campaigns,id,deleted_at,NULL',
+            'area_id'           => 'required|numeric|exists:areas,id,deleted_at,NULL',
         ];
     }
 
     public function messages()
     {
         return [
-            'gender.required' => 'The Sex is required.',
-            'birthdate.required' => 'The Birth Date is required.',
-            'gender.required' => 'The Sex is required.',
-            'area_id.required' => 'The Area is required.',
-            'campaign_id.required' => 'The Campaign is required.',
+            'gender.required' => 'The sex is required.',
+            'birthdate.required' => 'The birth date is required.',
+            'area_id.required' => 'The area is required.',
+            'campaign_id.required' => 'The campaign is required.',
             'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
             'cellphone.regex'      => 'The :attribute must be between 7 and 15 digits.',
         ];
+    }
+
+    public function attributes()
+    { 
+        return [
+            'campaign_id'=> 'campaign',
+            'area_id' => 'area',
+            'civil_status' => 'civil status',
+            'employment_status' => 'employment status',
+        ];
+
     }
 }

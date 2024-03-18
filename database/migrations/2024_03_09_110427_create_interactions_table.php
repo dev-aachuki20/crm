@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid();
             $table->datetime('registration_at')->nullable();
             $table->unsignedBigInteger('lead_id');
+            $table->string('phone')->nullable();
             $table->string('qualification')->nullable();
             $table->text('customer_observation')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=> active, 0=>deactive');

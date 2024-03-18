@@ -91,7 +91,7 @@ return [
             'description'       => 'Description',
             'campaign'          => 'Campaign',
             'campaign_name'     => 'Campaign Name',
-            'assigned_area'  => 'Assigned Area',
+            'assigned_area'     => 'Area',
             'created_by'        => 'Created By',
             'created_at'        => 'Created at',
             'updated_at'        => 'Updated at',
@@ -99,7 +99,7 @@ return [
             'qualification'     => 'Qualification',
             'new_campaign'      => 'Enter the new Campaign',
             'update_campaign'   => 'Enter the Edit Campaign',
-            'qualification_field_required' => 'The Qualification field is required.',
+            'qualification_field_required' => 'The qualification field is required.',
         ],
     ],
 

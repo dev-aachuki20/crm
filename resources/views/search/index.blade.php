@@ -31,9 +31,9 @@
                         @endcan
     
                         @can('leads_delete')
-                            <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm">
+                            <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm align-self-center">
                                 @csrf
-                                <button title="{{trans('global.delete')}}" class="btn btn-sm lead_delete_btn my-4"><x-svg-icon icon='delete'/></button>
+                                <button title="{{trans('global.delete')}}" class="btn btn-sm lead_delete_btn"><x-svg-icon icon='delete'/></button>
                             </form>
                         @endcan
                         </div>
@@ -49,14 +49,13 @@
                 <div class="observation-data">
                     <div class="row">
                         <div class="col-12 col-lg-9">
-                            <div class="datablock-observation">
+                            <div class="datablock-observation latest-interaction">
                                 @if($lead->interactions()->count() > 0)
 
                                 @php
                                    $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
                                 @endphp
 
-                                <div class="latest-interaction">
                                     <h6>
                                         {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('i') }}
                                     </h6>
@@ -69,7 +68,6 @@
                                         <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
                                         <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
                                     </ul>
-                                </div>
 
                                
                                 @endif
@@ -86,7 +84,6 @@
                             </div>
                         </div>
                         
-                        @if($lead->interactions()->count() > 0)
                         <div class="col-12">
 
                             <div class="datablock-observationinner interaction-list">
@@ -96,7 +93,7 @@
                                 <img src="{{ asset('images/data-loader.gif') }}" alt="Loader" class="img-fluid">
                             </div>
                         </div>
-                        @endif
+
 
                     </div>
                 </div>
@@ -233,7 +230,10 @@
                     if(response.success) {
                         latestInteractionId = response.latestInteractionId;
                         $('.latest-interaction').html(response.htmlView);
-                        loadMoreInteractionList();
+
+                        if(response.totalInteractions > 1){
+                            loadMoreInteractionList();
+                        }
                     }
                 }
             });

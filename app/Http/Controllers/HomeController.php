@@ -65,7 +65,7 @@ class HomeController extends Controller
 
         if(is_null($request->search)){
        
-            $data['redirectRoute'] = route('home',['lang' => app()->getLocale()]);
+            $data['redirectRoute'] = route('leads',['lang' => app()->getLocale()]);
 
             return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
         }
@@ -78,7 +78,7 @@ class HomeController extends Controller
             return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
 
         }else{
-            $data['redirectRoute'] = route('home',['lang' => app()->getLocale()]);
+            $data['redirectRoute'] = route('leads',['lang' => app()->getLocale()]);
 
             return response()->json(['status' => false,'message' =>trans('messages.lead.lead_not_found'),'data'=> $data], 200);
         }
@@ -108,9 +108,10 @@ class HomeController extends Controller
     public function latestInteraction($uuid){
         $lead = Lead::where('uuid',$uuid)->first();
         if($lead){
-            $latestInteractions =  $lead->interactions()->count() > 0 ? $lead->interactions()->orderBy('created_at','desc')->first() : null;
+            $totalInteractions = $lead->interactions()->count();
+            $latestInteractions =  $totalInteractions > 0 ? $lead->interactions()->orderBy('created_at','desc')->first() : null;
             $htmlView = view('search.partials.latest-interaction-list', compact('lead','latestInteractions'))->render();
-            return response()->json(['success' => true, 'htmlView' => $htmlView,'latestInteractionId'=>$latestInteractions->uuid]);
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'totalInteractions'=>$totalInteractions,'latestInteractionId'=>$latestInteractions->uuid]);
         }else{
             return response()->json(['success' => false, 'htmlView' => '']);
         }
@@ -120,7 +121,7 @@ class HomeController extends Controller
     {
         $lead = Lead::where('uuid',$uuid)->first();
         $totalRecords =  $lead->interactions()->count();
-        $interactions = $lead ? $lead->interactions()->where('id','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(10) : null;
+        $interactions = $lead ? $lead->interactions()->where('uuid','!=',$request->latestInteractionId)->orderBy('created_at','desc')->paginate(10) : null;
         if($interactions){
             $htmlView = view('search.partials.interaction-list', compact('interactions'))->render();
             return response()->json(['success' => true, 'htmlView' => $htmlView,'nextPageUrl'=>$interactions->nextPageUrl(),'totalRecords'=>$totalRecords]);

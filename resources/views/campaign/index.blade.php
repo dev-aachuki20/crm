@@ -242,7 +242,7 @@
                 }
             },
             error: function(response) {
-                // console.error('Error submitting form:', response);
+                console.error('Error submitting form:', response);
                 setTimeout(function() {
                     $('#loader').css('display', 'none');
                 }, 500);

@@ -1449,7 +1449,15 @@ div.dt-buttons{
 .registered-data .search-title-bar h4{
     padding: 20px !important;
 }
-
+header .searchaGroup{
+    position: relative;
+}
+header .searchaGroup label.error{
+    position: absolute;
+    left: 0;
+    bottom: -22px;
+    line-height: 15px;
+}
 
 
 @media screen and (min-width: 768px) and (max-width: 1199px){
@@ -1461,12 +1469,23 @@ div.dt-buttons{
     .search-identify .inputWrapper input.form-control {
         padding-right: 90px;
     }
+    .footer-links ul{
+        gap: 80px !important;
+    }
+    label.error{
+        font-size: 12px;
+        line-height: 14px !important;
+        white-space: nowrap;
+    }
+    header .searchaGroup label.error{
+        bottom: -14px;
+    }
 }
 
 @media screen and (max-width: 767px){
     .searchaGroup .inputWrapper input.form-control,
     .search-identify .inputWrapper input.form-control {
-        padding-right: 90px;
+        padding-right: 70px;
     }
     .list-creating-channel .dataTables_wrapper .dataTables_paginate{
         white-space: nowrap;
@@ -1481,7 +1500,45 @@ div.dt-buttons{
         -webkit-flex: 0 0 auto;
     }
     .ajax-click{
-        right: 52px;
+        right: 46px;
         top: 9px;
+    }
+    .form-control{
+        font-size: 14px;
+    }
+    select.form-control{
+        background-size: 12px !important;
+        padding-right: 30px;
+    }
+    .datablock-observation ul{
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        gap: 6px;
+        padding-bottom: 14px;
+    }
+    .datablock-observation ul>li{
+        flex: 0 0 100%;
+        -webkit-flex: 0 0 100%;
+    }
+    .daily-task{
+        padding: 15px;
+    }
+    .daily-task .sidebyside,
+    .daily-taskbox .task-buttongroup{
+        justify-content: center;
+        -webkit-justify-content: center;
+        text-align: center;
+    }
+    label.error{
+        font-size: 12px;
+        line-height: 14px !important;
+    }
+    header .searchaGroup label.error{
+        position: inherit;
+        bottom: inherit;
+    }
+    header .searchaGroup .toggleBtn{
+        align-self: flex-start;
+        -webkit-align-self: flex-start;
     }
 }

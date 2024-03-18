@@ -95,7 +95,7 @@ return [
             'description'       => 'Descripción',
             'campaign'          => 'Campaña',
             'campaign_name'     => 'Campaña Nombre',
-            'assigned_area'  => 'Área asignada',
+            'assigned_area'     => 'Área',
             'created_by'        => 'Creado por',
             'created_at'        => 'Creado en',
             'updated_at'        => 'Actualizado en',

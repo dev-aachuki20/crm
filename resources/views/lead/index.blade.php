@@ -162,6 +162,10 @@ $(document).ready(function(){
         $('#addLeadModal').modal('hide');
     });
 
+    $(document).on('click','#editLeadModal #EditForm #CancelFormBtn',function(e) {
+        $('#editLeadModal').modal('hide');
+    });
+
     // Get Area according Campaign
     $(document).on('change','#campaign_id', function(e) {
         e.preventDefault();
@@ -288,9 +292,9 @@ $(document).ready(function(){
                 $('#loader').css('display', 'none');
             },
             error: function (xhr) {
-                console.log(xhr);
+                // console.log(xhr);
                 var errors= xhr.responseJSON.errors;
-                console.log(xhr.responseJSON);
+                // console.log(xhr.responseJSON);
                 for (const elementId in errors) {
                     //$("#EditForm #"+elementId).addClass('is-invalid');
                     var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
@@ -346,6 +350,7 @@ $(document).ready(function(){
             }
         });
     });
+
 });
 
 </script>

@@ -22,6 +22,7 @@ class Interaction extends Model
     protected $fillable = [
         'registration_at',
         'lead_id',
+        'phone',
         'qualification',
         'customer_observation',
         'created_by',

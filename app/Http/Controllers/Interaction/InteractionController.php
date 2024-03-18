@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\DataTables\Interaction\InteractionDataTable;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class InteractionController extends Controller
 {
     public function index(InteractionDataTable $dataTable)
@@ -35,21 +34,28 @@ class InteractionController extends Controller
     {
         abort_if(Gate::denies('interaction_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $request->validate([
-            'registration_at' => 'required',
-            'lead_id'        => 'required',
-            'qualification'  => 'required',
-            'customer_observation' => 'required|string|',
-        ]);
+        $lead = Lead::where('uuid',$request->lead_id)->first();
 
-        try{
-            $lead = Lead::where('uuid',$request->lead_id)->first();
+        if($lead){
 
-            if($lead){
+            $exists_qualification = $lead ? json_decode($lead->campaign->tagLists->tag_name,true) :'';
+
+            $request->validate([
+                'registration_at' => 'required',
+                'lead_id'        => 'required',
+                'phone'          => 'required|numeric|regex:/^[0-9]{7,15}$/',
+                'qualification'  => 'required|in:'.implode(',',$exists_qualification),
+                'customer_observation' => 'required|string|',
+            ],[
+                'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
+            ]);
+
+            try{
 
                 $insertRecord = [
                     'lead_id' => $lead->id,
                     'registration_at' => \carbon\carbon::parse($request->registration_at),
+                    'phone'         => $request->phone,
                     'qualification' => $request->qualification,
                     'customer_observation' => $request->customer_observation,
                 ];
@@ -57,11 +63,13 @@ class InteractionController extends Controller
                 $lead->interactions()->create($insertRecord);
 
                 return response()->json(['status' => true, 'message' => trans('messages.interaction.interaction_created')],200);
-            }else{
+            
+            
+            }catch (\Exception $e) {
                 return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
             }
-           
-        }catch (\Exception $e) {
+
+        }else{
             return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
         }
     }
@@ -93,15 +101,23 @@ class InteractionController extends Controller
     {
         abort_if(Gate::denies('interaction_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $interaction = Interaction::find($request->interaction);
+        $exists_qualification = $interaction->lead ? json_decode($interaction->lead->campaign->tagLists->tag_name,true) :'';
+
         $request->validate([
-            'qualification'  => 'required',
+            'phone'          => 'required|numeric|regex:/^[0-9]{7,15}$/',
+            'qualification'  => 'required|in:'.implode(',',$exists_qualification),
             'customer_observation' => 'required|string|',
+        ],
+        [
+            'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
         ]);
 
         try{
             if($request->ajax()){
 
                 $input = [
+                    'phone'         => $request->phone,
                     'qualification' => $request->qualification,
                     'customer_observation' => $request->customer_observation, 
                 ];

@@ -32,10 +32,10 @@ class AreaRequest extends FormRequest
     public function messages()
     {
         return [
-            'area_name.required'    => __('validation.required', ['attribute' => __('cruds.area.fields.name')]),
-            'area_name.unique'      => __('validation.unique', ['attribute' => __('cruds.area.fields.name')]),
-            'description.required'  => __('validation.required', ['attribute' => __('cruds.area.fields.description')]),
-            'area_name.max'         => __('validation.max.string', ['attribute' => __('cruds.area.fields.name'), 'max' => ':max']),
+            'area_name.required'    => __('validation.required', ['attribute' => strtolower(__('cruds.area.fields.name'))]),
+            'area_name.unique'      => __('validation.unique', ['attribute' => strtolower(__('cruds.area.fields.name'))]),
+            'description.required'  => __('validation.required', ['attribute' => strtolower(__('cruds.area.fields.description'))]),
+            'area_name.max'         => __('validation.max.string', ['attribute' => strtolower(__('cruds.area.fields.name')), 'max' => ':max']),
         ];
     }
 }

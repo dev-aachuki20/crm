@@ -36,35 +36,35 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.first_name')]),
-            'first_name.regex' => __('validation.regex', ['attribute' => __('cruds.user.fields.first_name')]),
-            'first_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.first_name')]),
-            'first_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.first_name'), 'max' => ':max']),
+            'first_name.required' => __('validation.required', ['attribute' => strtolower(__('cruds.user.fields.first_name'))]),
+            'first_name.regex' => __('validation.regex', ['attribute' => strtolower(__('cruds.user.fields.first_name'))]),
+            'first_name.string' => __('validation.string', ['attribute' => strtolower(__('cruds.user.fields.first_name'))]),
+            'first_name.max' => __('validation.max.string', ['attribute' => strtolower(__('cruds.user.fields.first_name')), 'max' => ':max']),
 
-            'last_name.required' => __('validation.required', ['attribute' => __('cruds.user.fields.last_name')]),
-            'last_name.regex' => __('validation.regex', ['attribute' => __('cruds.user.fields.last_name')]),
-            'last_name.string' => __('validation.string', ['attribute' => __('cruds.user.fields.last_name')]),
-            'last_name.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.last_name'), 'max' => ':max']),
+            'last_name.required' => __('validation.required', ['attribute' => strtolower(__('cruds.user.fields.last_name'))]),
+            'last_name.regex' => __('validation.regex', ['attribute' => strtolower(__('cruds.user.fields.last_name'))]),
+            'last_name.string' => __('validation.string', ['attribute' => strtolower(__('cruds.user.fields.last_name'))]),
+            'last_name.max' => __('validation.max.string', ['attribute' => strtolower(__('cruds.user.fields.last_name')), 'max' => ':max']),
 
-            'birthdate.required' => __('validation.required', ['attribute' => __('cruds.user.fields.birthdate')]),
-            'birthdate.before' => __('validation.before', ['attribute' => __('cruds.user.fields.birthdate')]),
+            'birthdate.required' => __('validation.required', ['attribute' => strtolower(__('cruds.user.fields.birthdate'))]),
+            'birthdate.before' => __('validation.before', ['attribute' => strtolower(__('cruds.user.fields.birthdate'))]),
 
-            'image.nullable' => __('validation.image', ['attribute' => __('cruds.user.fields.image')]),
-            'image.image' => __('validation.image', ['attribute' => __('cruds.user.fields.image')]),
-            'image.mimes' => __('validation.mimes', ['attribute' => __('cruds.user.fields.image'), 'values' => 'jpeg, png, jpg, gif']),
-            // 'image.max' => __('validation.max.file', ['attribute' => __('cruds.user.fields.image'), 'max' => ':max']),
+            'image.nullable' => __('validation.image', ['attribute' => strtolower(__('cruds.user.fields.image'))]),
+            'image.image' => __('validation.image', ['attribute' => strtolower(__('cruds.user.fields.image'))]),
+            'image.mimes' => __('validation.mimes', ['attribute' => strtolower(__('cruds.user.fields.image')), 'values' => 'jpeg, png, jpg, gif']),
+            // 'image.max' => __('validation.max.file', ['attribute' => strtolower(__('cruds.user.fields.image')), 'max' => ':max']),
 
-            'campaign.required' => __('validation.required', ['attribute' => __('cruds.user.fields.campaign_id')]),
+            'campaign.required' => __('validation.required', ['attribute' => strtolower(__('cruds.user.fields.campaign_id'))]),
 
-            'password.nullable' => __('validation.password', ['attribute' => __('cruds.user.fields.password')]),
-            'password.string' => __('validation.string', ['attribute' => __('cruds.user.fields.password')]),
-            'password.min' => __('validation.min.string', ['attribute' => __('cruds.user.fields.password'), 'min' => ':min']),
-            'password.max' => __('validation.max.string', ['attribute' => __('cruds.user.fields.password'), 'max' => ':max']),
-            'password.regex' => __('validation.password.regex', ['attribute' => __('cruds.user.fields.password')]),
-            'password_confirmation.required' => __('validation.required', ['attribute' => __('cruds.user.fields.password_confirmation')]),
+            'password.nullable' => __('validation.password', ['attribute' => strtolower(__('cruds.user.fields.password'))]),
+            'password.string' => __('validation.string', ['attribute' => strtolower(__('cruds.user.fields.password'))]),
+            'password.min' => __('validation.min.string', ['attribute' => strtolower(__('cruds.user.fields.password')), 'min' => ':min']),
+            'password.max' => __('validation.max.string', ['attribute' => strtolower(__('cruds.user.fields.password')), 'max' => ':max']),
+            'password.regex' => __('validation.password.regex', ['attribute' => strtolower(__('cruds.user.fields.password'))]),
+            'password_confirmation.required' => __('validation.required', ['attribute' => strtolower(__('cruds.user.fields.password_confirmation'))]),
 
 
-            'email.nullable' => __('validation.email', ['attribute' => __('cruds.user.fields.email')]),
+            'email.nullable' => __('validation.email', ['attribute' => strtolower(__('cruds.user.fields.email'))]),
 
         ];
     }
