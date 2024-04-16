@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('cellphone')->nullable();
-            $table->unsignedBigInteger('identification')->nullable();
+            $table->string('identification')->nullable();
             $table->date('birthdate')->nullable();
             $table->tinyInteger('gender')->nullable()->comment(' 1 => male, 2 => female, 3 => other');
             $table->tinyInteger('civil_status')->nullable()->comment(' 1 => single, 2 => married, 3 => divorced, 4 => widower');

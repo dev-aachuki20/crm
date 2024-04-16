@@ -27,7 +27,7 @@
     </div>
     <div class="list-creating-channel mt-3">
         <div class="d-flex justify-content-between">
-            <h4>{{__('cruds.lead.fields.list_of_lead')}}</h4> 
+            <h4>{{__('cruds.lead.fields.list_of_lead')}}</h4>
             <button class="btn btn-small" title="Export Excel" id="export-excel"><x-svg-icon icon="export-excel"/></button>
         </div>
 
@@ -64,7 +64,7 @@ $(document).ready(function(){
 
     var DataaTable = $('#dataaTable').DataTable();
 
-   
+
     $('#export-excel').on('click', function() {
         // Get the search value
         var searchValue = DataaTable.search();
@@ -72,9 +72,9 @@ $(document).ready(function(){
         // Get the sorting information
         var sorting = DataaTable.order();
         var sortColumnName = DataaTable.column(sorting[0][0]).dataSrc();
-        var sortDirection = sorting[0][1]; 
-        
-  
+        var sortDirection = sorting[0][1];
+
+
         $('#loader').css('display', 'block');
 
         $.ajax({
@@ -114,10 +114,10 @@ $(document).ready(function(){
 
                console.log('Export successful');
             }
-        }); 
+        });
 
     });
-        
+
     function initializeDatepicker() {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -176,7 +176,7 @@ $(document).ready(function(){
                 type: 'GET',
                 url: hrefUrl,
                 data: {
-                    campaignId: campaignId 
+                    campaignId: campaignId
                 },
                 success: function(response) {
                     var selectedOption = $('#area_id').val();
@@ -249,7 +249,7 @@ $(document).ready(function(){
             url: hrefUrl,
             dataType: 'json',
             data: {
-                lead_id: lead_id 
+                lead_id: lead_id
             },
             success: function (response) {
                 if(response.success) {
@@ -349,6 +349,14 @@ $(document).ready(function(){
                 });
             }
         });
+    });
+
+
+    $(document).on('change','#identification_type',function() {
+        var selectedOption = $(this).val();
+        var maxLength = selectedOption == '1' ? '10' : (selectedOption == '2' ? '13' : '16');
+        $('#identification').attr('maxlength', maxLength);
+        $('#identificationField').removeClass('d-none');
     });
 
 });

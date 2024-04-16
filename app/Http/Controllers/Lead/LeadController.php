@@ -33,6 +33,7 @@ class LeadController extends Controller
 
     public function store(StoreRequest $request)
     {
+        //dd($request->all() , 'df');
         try{
             $lead = Lead::create($request->all());
             return response()->json(['status' => true, 'message' => trans('messages.lead.lead_created')]);
@@ -77,7 +78,7 @@ class LeadController extends Controller
         try {
             $lead = Lead::whereId($request->lead)->first();
             if($lead){
-               
+
                 $lead->delete();
 
                 if($request->ajax()){
@@ -86,7 +87,7 @@ class LeadController extends Controller
                     return redirect()->route('home',['lang'=>app()->getLocale()])->with('success',trans('messages.lead.lead_deleted'));
                 }
             }
-    
+
             return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
         } catch (\Exception $e) {
             \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());

@@ -3,12 +3,25 @@
     @foreach($interactions as $key=>$interaction)
 
         <div class="datablock-observation">
-            <h6>
-                {{ $interaction->lead->identification }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('d-m-Y') }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('H') }}h{{ \Carbon\Carbon::parse($interaction->registration_at)->format('i') }}
-            </h6>
-            <p> {{ nl2br($interaction->customer_observation) }} </p>
+            <div class="row gx-2 pt-1">
+                <div class="col-sm-auto mb-sm-0 mb-4">
+                    <div class="dategroup nestingdate">
+                        <span class="month">{{ \Carbon\Carbon::parse($interaction->registration_at)->format('F') }}</span>
+                        <span class="date">{{ \Carbon\Carbon::parse($interaction->registration_at)->format('d') }}</span>
+                        <span class="year">{{ \Carbon\Carbon::parse($interaction->registration_at)->format('Y') }}</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="datecontentside">
+                        <h6>
+                            {{ $interaction->lead->identification }} / {{ \Carbon\Carbon::parse($interaction->registration_at)->format('h:i A') }}
+                        </h6>
+                        <p class="content"> {{ nl2br($interaction->customer_observation) }} </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
     @endforeach
-  
+
 @endif

@@ -50,7 +50,7 @@
         rules: {
             search: {
                 required: false,
-                minlength: 16
+                // minlength: 16
             },
         },
         messages: {
@@ -70,14 +70,14 @@
 
     $(document).on('input','#search',function(e){
         e.preventDefault();
-        
+
         const element = $(".clear-search");
         if($(this).val() == ''){
             element.hide();
         }else{
             element.show();
         }
-       
+
     });
 
 
@@ -108,11 +108,11 @@
                 $('#makeSearch .error-message').remove();
 
                 if (response.status === true) {
-                   
+
                     if(response.data.redirectRoute != ''){
                         window.location.href = response.data.redirectRoute;
                     }
-                    
+
                 } else {
                     toasterAlert('error', response.message);
 
@@ -121,7 +121,7 @@
                         if(response.data.redirectRoute != ''){
                             window.location.href = response.data.redirectRoute;
                         }
-                        
+
                     @endif
                 }
             },
@@ -143,7 +143,7 @@
         });
    }
 
-   
+
 </script>
 
 @include('layouts.includes.alert')

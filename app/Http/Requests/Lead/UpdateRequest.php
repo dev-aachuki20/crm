@@ -28,12 +28,14 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $lead = $this->lead;
+        $size = $this->input('identification_type') == 1 ? 10 : ($this->input('identification_type') == 2 ? 13 : 16);
 
         return [
             'name'              => 'required|string|max:150|regex:/^[a-zA-Z]+$/',new NoMultipleSpacesRule,
             'last_name'         => 'required|string|max:150|regex:/^[a-zA-Z]+$/',new NoMultipleSpacesRule,
             // 'identification'    => 'required|numeric|min:16|digits:16|unique:leads,identification,'.$lead.',id,deleted_at,NULL',
-            'identification'    => ['required','numeric','min:16','digits:16',Rule::unique('leads')->ignore($lead)->whereNull('deleted_at'),],
+            //'identification'    => ['required','numeric','min:16','digits:16',Rule::unique('leads')->ignore($lead)->whereNull('deleted_at'),],
+            'identification'    => ['required','string','size:'.$size ,Rule::unique('leads')->ignore($lead)->whereNull('deleted_at'),],
             'birthdate'         => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
             'gender'            => 'required|numeric',
             'civil_status'      => 'required|numeric',
@@ -63,13 +65,12 @@ class UpdateRequest extends FormRequest
             'campaign_id.required' => 'The campaign is required.',
             'phone.regex'          => 'The :attribute must be between 7 and 15 digits.',
             'cellphone.regex'      => 'The :attribute must be between 7 and 15 digits.',
-
-
+            'identification.size'       => 'The Identification Number must be :size digits.',
         ];
     }
 
     public function attribute()
-    { 
+    {
         return [
             'campaign_id'=> 'campaign',
             'area_id' => 'area',

@@ -32,17 +32,17 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
             'B' => 20,
             'C' => 20,
             'D' => 20,
-            'E' => 10,
-            'F' => 7,
-            'G' => 10,
-            'H' => 20,
+            'E' => 20,
+            'F' => 10,
+            'G' => 7,
+            'H' => 10,
             'I' => 20,
             'J' => 20,
             'K' => 20,
             'L' => 20,
-            'M' => 25,
-            'N' => 10,
-            'O' => 20,
+            'M' => 20,
+            'N' => 25,
+            'O' => 10,
             'P' => 20,
             'Q' => 20,
             'R' => 20,
@@ -50,6 +50,8 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
             'T' => 20,
             'U' => 20,
             'V' => 20,
+            'W' => 20,
+
         ];
     }
 
@@ -60,6 +62,7 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
             trans('cruds.lead.fields.first_name'),
             trans('cruds.lead.fields.last_name'),
             trans('cruds.lead.fields.identification'),
+            trans('cruds.lead.fields.identification_type'),
             trans('cruds.lead.fields.birth_date'),
             trans('cruds.lead.fields.gender'),
             trans('cruds.lead.fields.civil_status'),
@@ -85,7 +88,7 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
     public function query()
     {
         $searchValue = $this->searchValue;
-        
+
         $allLeads = Lead::query()->where(function ($query) use ($searchValue) {
             $query->where('phone', 'like', '%' . $searchValue . '%')
                 ->orWhere('identification', 'like', '%' . $searchValue . '%')
@@ -96,18 +99,24 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
         });
 
         $allLeads = $allLeads->orderBy($this->sortColumnName, $this->sortDirection);
-     
+
         return $allLeads;
     }
 
     public function map($row): array
     {
+       //dd(config('constants.identification_type')[$row->identification_type]);
+        $identificationType = '';
+        if (!empty($row->identification_type) && isset(config('constants.identification_type')[$row->identification_type])) {
+            $identificationType = trans('cruds.identification_type.'.config('constants.identification_type')[$row->identification_type]);
+        }
 
         return [
             convertDateTimeFormat($row->created_at,'fulldatetime'),
             ucwords($row->name),
             ucwords($row->last_name),
             $row->identification,
+            $identificationType,
             convertDateTimeFormat($row->birthdate,'date'),
             ucfirst(trans('cruds.genders.'.config('constants.genders')[$row->gender])),
             ucfirst(trans('cruds.civil_status.'.config('constants.civil_status')[$row->civil_status])),

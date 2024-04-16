@@ -14,8 +14,19 @@
     </div>
     <div class="col-12 col-lg-4">
         <div class="form-group">
+            <label>@lang('cruds.lead.fields.identification_type') : </label>
+            <select class="form-control" name="identification_type" id="identification_type">
+                <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_identification_type')</option>
+                @foreach(config('constants.identification_type') as $key => $value)
+                <option value="{{ $key }}" {{ isset($lead) && $lead->identification_type == $key ? 'selected' : '' }}>{{ trans('cruds.identification_type.'.$value) }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col-12 col-lg-12 {{ isset($lead) && !is_null($lead->identification) ? '' : 'd-none' }}" id="identificationField">
+        <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="16" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -144,10 +155,10 @@
     <div class="col-12 col-lg-4">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.area') :</label>
-            
+
             <select class="form-control" name="area_id" id="area_id">
                 <option value="">{{ trans('cruds.lead.fields.select_area') }}</option>
-              
+
                 @if(isset($lead))
                     @foreach($lead->campaign->areas as $area)
 
@@ -157,12 +168,12 @@
 
                     @endforeach
                 @endif
-               
+
             </select>
         </div>
     </div>
 
-    <div class="col-12 col-lg-4">    
+    <div class="col-12 col-lg-4">
     </div>
 
     <div class="col">

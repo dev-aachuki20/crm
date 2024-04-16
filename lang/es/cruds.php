@@ -135,7 +135,8 @@ return [
             'list_of_lead'          => 'Lista de Leads',
             'registration'          => 'Registro',
             'registration_date'     => 'Fecha de Registro',
-            'identification'        => 'Identificación',
+            'identification'        => 'Número de Identificación',
+            'identification_type'   => 'Identificación',
             'phone'                 => 'Teléfono',
             'cell_phone'            => 'Celular',
             'area'                  => 'Área',
@@ -164,6 +165,7 @@ return [
             'select_social_security' => 'Seleccionar seguridad social',
             'select_campaign'           => 'Seleccionar campaña',
             'select_area'               => 'Seleccionar área',
+            'select_identification_type'   => 'Seleccionar Identificación',
         ],
     ],
 
@@ -203,13 +205,19 @@ return [
     ],
 
     'employment_status'=>[
-        'employed' => 'Empleada', 
+        'employed' => 'Empleada',
         'unemployed' => 'Desempleadas',
     ],
 
     'social_securities'=>[
-        'si'=>'SI', 
+        'si'=>'SI',
         'no'=>'NO',
+    ],
+
+    'identification_type' => [
+        'Cedula' => 'Cedula',
+        'RUC' => 'RUC',
+        'Pasaporte' => 'Pasaporte'
     ],
 
     'list_lead'    => 'Lista de clientes potenciales',

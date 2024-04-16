@@ -7,9 +7,9 @@ return [
     | Default Request Type List
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which of the request type list 
+    | Here you may specify which of the request type list
     |
-    */ 
+    */
     'app_name' => env('APP_NAME', 'CRM'),
     'app_mode' => env('APP_MODE', 'staging'),
     'owner_email_id' => 'rohithelpfullinsight@gmail.com',
@@ -44,20 +44,32 @@ return [
     ],
 
     'civil_status'=>[
-        1 => 'single', 
-        2 => 'married', 
-        3 => 'divorced', 
+        1 => 'single',
+        2 => 'married',
+        3 => 'divorced',
         4 => 'widower'
     ],
 
     'employment_status'=>[
-        1=>'employed', 
+        1=>'employed',
         2=>'unemployed',
     ],
 
     'social_securities'=>[
-        1=>'si', 
+        1=>'si',
         2=>'no',
+    ],
+
+    'identification_type'=>[
+        1 => 'Cedula',
+        2 => 'RUC',
+        3 => 'Pasaporte'
+    ],
+
+    'identification_length'=>[
+        1    => 10,
+        2    => 13,
+        3    => 16
     ]
-    
+
 ];

@@ -46,7 +46,7 @@ class HomeController extends Controller
         $alert_message = '';
         $campaignCount = Campaign::get()->count();
         if($campaignCount > 0){
-            $records['exists'] = true; 
+            $records['exists'] = true;
             $alert_message = trans('messages.retrieve_records_success');
         }else{
             $records['exists'] = false;
@@ -57,14 +57,17 @@ class HomeController extends Controller
 
     }
 
-    public function submitSearchForm(Request $request){
-
+    public function submitSearchForm(Request $request)
+    {
+        $values = implode(', ',config('constants.identification_length'));
         $request->validate([
-            'search' => 'nullable|numeric|min:16|digits:16',
+            'search' => 'nullable|string|multiple_size:'.$values,
+        ], [
+            'search.multiple_size' => 'The search field size can be '.$values.' digits.'
         ]);
 
         if(is_null($request->search)){
-       
+
             $data['redirectRoute'] = route('leads',['lang' => app()->getLocale()]);
 
             return response()->json(['status' => true,'message' =>trans('messages.retrieve_records_success'),'data'=>$data], 200);
@@ -103,7 +106,7 @@ class HomeController extends Controller
             return response()->json(['success' => false, 'htmlView' => '']);
         }
     }
-    
+
 
     public function latestInteraction($uuid){
         $lead = Lead::where('uuid',$uuid)->first();

@@ -19,6 +19,7 @@ class Lead extends Model
         "phone",
         "cellphone",
         "identification",
+        'identification_type',
         "birthdate",
         "gender",
         "civil_status",
@@ -76,7 +77,7 @@ class Lead extends Model
     {
         return $this->belongsTo(Area::class, 'area_id');
     }
-    
+
     public function campaign()
     {
         return $this->belongsTo(Campaign::class, 'campaign_id');
