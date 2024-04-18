@@ -31,7 +31,12 @@ class StoreRequest extends FormRequest
 
         $identificationRegex = in_array($this->input('identification_type'),array_keys(config('constants.identification_type'))) ? config('constants.identification_validation_regex')[$this->input('identification_type')] : '';
 
-        $allAreaIds = Campaign::where('id',$this->input('campaign_id'))->first()->areas()->get()->pluck(['id'])->toArray();
+        $campaign = Campaign::where('id',$this->input('campaign_id'))->first();
+
+        $allAreaIds = [];
+        if($campaign){
+            $allAreaIds = $campaign->areas ? $campaign->areas()->get()->pluck(['id'])->toArray() : [];
+        }
 
         return [
             'name'                  => 'required|string|max:150|regex:/^[a-zA-Z]+$/', new NoMultipleSpacesRule,
