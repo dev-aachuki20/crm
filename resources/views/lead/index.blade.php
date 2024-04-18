@@ -280,7 +280,7 @@ $(document).ready(function(){
             data: formData,
             success: function (response) {
                 if(response.status == 1){
-                    console.log('response' , response);
+                    // console.log('response' , response);
                     $('#editLeadModal').modal('hide');
                     toasterAlert('success', response.message);
                     $('#EditForm')[0].reset();
@@ -342,7 +342,7 @@ $(document).ready(function(){
                     },
                     error: function (xhr) {
                         var errors= xhr.responseJSON.errors;
-                        console.log(xhr.responseJSON);
+                        // console.log(xhr.responseJSON);
                         toasterAlert('error',response.message);
                         $('#loader').css('display', 'none');
                     }
@@ -353,8 +353,12 @@ $(document).ready(function(){
 
 
     $(document).on('change','#identification_type',function() {
-        var selectedOption = $(this).val();
-        var maxLength = selectedOption == '1' ? '10' : (selectedOption == '2' ? '13' : '16');
+        var $this = $(this);
+
+        var maxLength = $this.find('option:selected').attr('data-max-rule');
+
+        $('#identification').val('');
+        $('#identification').siblings('div').children('span.error').remove();
         $('#identification').attr('maxlength', maxLength);
         $('#identificationField').removeClass('d-none');
     });

@@ -113,8 +113,12 @@ class HomeController extends Controller
         if($lead){
             $totalInteractions = $lead->interactions()->count();
             $latestInteractions =  $totalInteractions > 0 ? $lead->interactions()->orderBy('created_at','desc')->first() : null;
+
             $htmlView = view('search.partials.latest-interaction-list', compact('lead','latestInteractions'))->render();
-            return response()->json(['success' => true, 'htmlView' => $htmlView,'totalInteractions'=>$totalInteractions,'latestInteractionId'=>$latestInteractions->uuid]);
+            
+            $latestIntreactionUUID = $latestInteractions ? $latestInteractions->uuid : null;
+
+            return response()->json(['success' => true, 'htmlView' => $htmlView,'totalInteractions'=>$totalInteractions,'latestInteractionId'=>$latestIntreactionUUID]);
         }else{
             return response()->json(['success' => false, 'htmlView' => '']);
         }

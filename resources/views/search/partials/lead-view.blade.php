@@ -9,6 +9,10 @@
         <div class="dataitem">{{ $lead->last_name ? ucfirst($lead->last_name) : '' }}</div>
     </div>
     <div class="datablockitem">
+        <label>@lang('cruds.lead.fields.identification_type'):</label>
+        <div class="dataitem">{{ isset(config('constants.identification_type')[$lead->identification_type]) ? trans('cruds.identification_type.'.config('constants.identification_type')[$lead->identification_type]) : ''  }}</div>
+    </div>
+    <div class="datablockitem">
         <label>@lang('cruds.lead.fields.identification'):</label>
         <div class="dataitem">{{ $lead->identification ?? '' }}</div>
     </div>

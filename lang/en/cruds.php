@@ -138,7 +138,7 @@ return [
             'first_name'                => 'First Name',
             'last_name'                 => 'Last Name',
             'birth_date'                => 'Birth Date',
-            'gender'                    => 'Sex',
+            'gender'                    => 'Gender',
             'civil_status'              => 'Civil Status',
             'email'                     => 'Email',
             'province'                  => 'Province',
@@ -207,9 +207,9 @@ return [
     ],
 
     'identification_type' => [
-        'Cedula' => 'Cedula',
+        'Cedula' => 'Identification card',
         'RUC' => 'RUC',
-        'Pasaporte' => 'Pasaporte'
+        'Pasaporte' => 'Passport'
     ],
 
     'list_lead'    => 'List Of Lead',

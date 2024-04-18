@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class LeadController extends Controller
 {
 
+
     public function index(LeadDataTable $dataTable)
     {
         abort_if(Gate::denies('leads_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

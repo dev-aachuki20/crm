@@ -52,52 +52,87 @@
                             <div class="datablock-observation topdaterow latest-interaction">
                                 @if($lead->interactions()->count() > 0)
 
-                                @php
-                                   $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
-                                @endphp
-                                <div class="row gx-2">
-                                    <div class="col-sm-auto mb-sm-0 mb-4">
-                                        <div class="dategroup">
-                                            <span class="month">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('F') }}</span>
-                                            <span class="date">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d') }}</span>
-                                            <span class="year">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('Y') }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="datecontentside">
-                                            <div class="dateheader">
-                                                <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
-                                                    {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('h:i A') }}
-                                                    <div class="buttongroup-block mb-md-0 mb-3">
-
-                                                        @can('interaction_create')
-                                                        <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
-                                                        @endcan
-
-                                                    </div>
-                                                </h6>
+                                    @php
+                                    $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
+                                    @endphp
+                                    <div class="row gx-2">
+                                        <div class="col-sm-auto mb-sm-0 mb-4">
+                                            <div class="dategroup">
+                                                <span class="month">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('F') }}</span>
+                                                <span class="date">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('d') }}</span>
+                                                <span class="year">{{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('Y') }}</span>
                                             </div>
-                                            <p class="content">
-                                                {{ nl2br($latestInteractions->customer_observation) }}
-                                            </p>
-                                            <ul class="mb-0 list-unstyled">
-                                                <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
-                                                <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
-                                                <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
-                                                <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
-                                            </ul>
                                         </div>
+                                        <div class="col">
+                                            <div class="datecontentside">
+                                                <div class="dateheader">
+                                                    <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
+                                                        {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('h:i A') }}
+                                                        <div class="buttongroup-block mb-md-0 mb-3">
+
+                                                            @can('interaction_create')
+                                                            <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                                            @endcan
+
+                                                        </div>
+                                                    </h6>
+                                                </div>
+                                                <p class="content">
+                                                    {{ nl2br($latestInteractions->customer_observation) }}
+                                                </p>
+                                                <ul class="mb-0 list-unstyled">
+                                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-auto">
+                                            <div class="buttongroup-block d-flex justify-content-end">
+
+                                                @can('interaction_create')
+                                                <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                                @endcan
+
+                                            </div>
+                                        </div> --}}
                                     </div>
-                                    {{-- <div class="col-auto">
-                                        <div class="buttongroup-block d-flex justify-content-end">
 
-                                            @can('interaction_create')
-                                            <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
-                                            @endcan
+                                @else
 
+                                <div class="row gx-2">
+                                        <div class="col-sm-auto mb-sm-0 mb-4">
+                                           
                                         </div>
-                                    </div> --}}
-                                </div>
+                                        <div class="col">
+                                            <div class="datecontentside">
+                                                <div class="dateheader">
+                                                    <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
+                                                        <p class="m-0"></p>
+                                                        <div class="buttongroup-block mb-md-0 mb-3">
+
+                                                            @can('interaction_create')
+                                                            <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                                            @endcan
+
+                                                        </div>
+                                                    </h6>
+                                                </div>
+                                                <p class="content">
+                                                   
+                                                </p>
+                                                <ul class="mb-0 list-unstyled">
+                                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
                                 @endif
                             </div>
                         </div>
@@ -264,6 +299,9 @@
 
         function getLatestInteraction() {
             var hrefUrl = "{{ route('latestInteraction',['uuid'=>$uuid]) }}";
+            
+            console.log('routeurl',hrefUrl);
+
             $.ajax({
                 type: 'get',
                 url: hrefUrl,
@@ -392,10 +430,10 @@
                         getLatestInteraction();
                 },
                 error: function (xhr) {
-                    console.log(xhr);
+                    // console.log(xhr);
 
                     var errors= xhr.responseJSON.errors;
-                    console.log(errors);
+                    // console.log(errors);
                     $('#loader').css('display', 'none');
                     for (const elementId in errors) {
                         var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
@@ -466,6 +504,39 @@
             });
         });
 
+        // Get Area according Campaign
+        $(document).on('change','#campaign_id', function(e) {
+            e.preventDefault();
+            var campaignId = $(this).val();
+            if (campaignId) {
+                var hrefUrl = "{{ route('campaignAreaList')}}";
+                $.ajax({
+                    type: 'GET',
+                    url: hrefUrl,
+                    data: {
+                        campaignId: campaignId
+                    },
+                    success: function(response) {
+                        var selectedOption = $('#area_id').val();
+                        $('#area_id').children('option:not(:first-child)').remove();
+                        if (response.status && response.data) {
+                            $.each(response.data, function(key, value) {
+                                $('#area_id').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        } else {
+                            // console.error('Error: Empty response or invalid data');
+                        }
+
+                        if (selectedOption) {
+                            $('#area_id').val(selectedOption);
+                        }
+                    }
+                });
+            } else {
+                $('#area_id').empty();
+            }
+        });
+
         // Start update
         $(document).on('submit', '#editLeadModal #EditForm', function (e) {
             e.preventDefault();
@@ -489,6 +560,7 @@
                         $('#EditForm')[0].reset();
                         $("#EditForm button[type=submit]").prop('disabled',false);
                         getLeadView();
+                        getLatestInteraction();
                     }else{
                         toasterAlert('error', @json(__('messages.error_message')));
                     }
@@ -497,7 +569,7 @@
                 error: function (xhr) {
                     // console.log(xhr);
                     var errors= xhr.responseJSON.errors;
-                    console.log(xhr.responseJSON);
+                    // console.log(xhr.responseJSON);
                     for (const elementId in errors) {
                         var errorHtml = '<div><span class="error text-danger">'+errors[elementId][0]+'</span></';
                         $(errorHtml).insertAfter($("#EditForm #"+elementId));
@@ -531,6 +603,17 @@
             });
         });
 
+
+        $(document).on('change','#identification_type',function() {
+            var $this = $(this);
+
+            var maxLength = $this.find('option:selected').attr('data-max-rule');
+
+            $('#identification').val('');
+            $('#identification').siblings('div').children('span.error').remove();
+            $('#identification').attr('maxlength', maxLength);
+            $('#identificationField').removeClass('d-none');
+        });
 
     });
 

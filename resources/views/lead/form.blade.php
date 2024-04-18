@@ -18,7 +18,7 @@
             <select class="form-control" name="identification_type" id="identification_type">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_identification_type')</option>
                 @foreach(config('constants.identification_type') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->identification_type == $key ? 'selected' : '' }}>{{ trans('cruds.identification_type.'.$value) }}</option>
+                <option data-max-rule="{{ config('constants.identification_length')[$key] }}" value="{{ $key }}" {{ isset($lead) && ($lead->identification_type == $key) ? 'selected' : '' }} >{{ trans('cruds.identification_type.'.$value) }}</option>
                 @endforeach
             </select>
         </div>
@@ -26,7 +26,7 @@
     <div class="col-12 col-lg-12 {{ isset($lead) && !is_null($lead->identification) ? '' : 'd-none' }}" id="identificationField">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="{{ isset($lead) ? config('constants.identification_length')[$lead->identification_type] : '' }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -41,7 +41,7 @@
             <select class="form-control" name="gender" id="gender">
                 <option value="" disabled {{ !isset($lead) ? 'selected' : '' }}>@lang('cruds.lead.fields.select_gender')</option>
                 @foreach(config('constants.genders') as $key => $value)
-                <option value="{{ $key }}" {{ isset($lead) && $lead->gender == $key ? 'selected' : '' }}>{{ ucfirst(trans('cruds.genders.'.$value)) }}</option>
+                <option value="{{ $key }}" {{ isset($lead) && ($lead->gender == $key) ? 'selected' : '' }}>{{ ucfirst(trans('cruds.genders.'.$value)) }}</option>
                 @endforeach
             </select>
         </div>
@@ -162,7 +162,7 @@
                 @if(isset($lead))
                     @foreach($lead->campaign->areas as $area)
 
-                    <option value="{{ isset($lead) ? $lead->area_id : "" }}" {{ $area->id == $lead->area_id ? 'selected' : '' }}>
+                    <option value="{{ $area->id }}" {{ ($area->id == $lead->area_id) ? 'selected' : '' }}>
                         {{ ucwords($area->area_name) }}
                     </option>
 
