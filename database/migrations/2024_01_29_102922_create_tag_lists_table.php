@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('campaign_id');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
 
-            $table->string('tag_name');
+            $table->longText('tag_name');
 
             $table->timestamps();
             $table->softDeletes();
