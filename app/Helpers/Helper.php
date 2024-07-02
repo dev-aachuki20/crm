@@ -11,6 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
+use App\Models\Lead;
+
 
 if (!function_exists('convertToFloat')) {
     function convertToFloat($value)
@@ -255,5 +258,20 @@ if (!function_exists('datatableButton')) {
             return view('layouts.includes.partials.datatable_action.delete_action', ['data' => $data, 'canDelete' => $permission])->render();
         }
         return '';
+    }
+}
+
+if (!function_exists('getKeyByValue')) {
+
+    function getKeyByValue($variable,$array, $value) {
+       
+        foreach ($array as $key => $val) {
+            $v = __('cruds.'.$variable.'.' . $val);
+
+            if ($v === $value) {
+                return  $key;
+            }
+        }
+        return null; // Return null or handle case when value is not found
     }
 }

@@ -202,11 +202,17 @@ return [
         'married'  => 'Casado',
         'divorced' => 'Divorciado',
         'widower'  => 'Viudo',
+        'free union' => 'Union libre',
     ],
 
     'employment_status'=>[
-        'employed' => 'Empleada',
-        'unemployed' => 'Desempleadas',
+        'employed'      => 'Empleado',
+        'unemployed'    => 'Desempleado',
+        'dependent'     => 'Dependiente',
+        'independent'   => 'Independiente',
+        'retired'       => 'Retirado',
+        'own business'  => 'Negocio propio',
+        'rentier'       => 'Rentista',
     ],
 
     'social_securities'=>[

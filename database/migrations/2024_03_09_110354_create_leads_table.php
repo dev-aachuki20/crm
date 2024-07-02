@@ -22,13 +22,13 @@ return new class extends Migration
             $table->string('identification')->nullable();
             $table->date('birthdate')->nullable();
             $table->tinyInteger('gender')->nullable()->comment(' 1 => male, 2 => female, 3 => other');
-            $table->tinyInteger('civil_status')->nullable()->comment(' 1 => single, 2 => married, 3 => divorced, 4 => widower');
+            $table->tinyInteger('civil_status')->nullable()->comment(' 1 => single, 2 => married, 3 => divorced, 4 => widower, 5=>free union');
             $table->string('province', 100)->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('sector', 100)->nullable();
             $table->string('reference', 100)->nullable();
-            $table->tinyInteger('employment_status')->nullable()->comment('1=>employee, 2=>unemployed');
+            $table->tinyInteger('employment_status')->nullable()->comment('1=>employee, 2=>unemployed, 3=>dependent, 4=>independent, 5=>retired, 6=>own business, 7=>rentier');
             $table->tinyInteger('social_security')->nullable()->comment('1=>si, 2=>no');
             $table->string('company_name')->nullable();
             $table->string('occupation')->nullable();

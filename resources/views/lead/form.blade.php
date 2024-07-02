@@ -26,7 +26,7 @@
     <div class="col-12 col-lg-12 {{ isset($lead) && !is_null($lead->identification) ? '' : 'd-none' }}" id="identificationField">
         <div class="form-group">
             <label>@lang('cruds.lead.fields.identification') : </label>
-            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="{{ isset($lead) ? config('constants.identification_length')[$lead->identification_type] : '' }}" />
+            <input type="text" class="form-control" name="identification" id="identification" value="{{ isset($lead) ? $lead->identification : old('identification') }}" autocomplete="off"  maxlength="{{ isset($lead) ? $lead->identification_type ? config('constants.identification_length')[$lead->identification_type] : '' : '' }}" />
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -160,13 +160,17 @@
                 <option value="">{{ trans('cruds.lead.fields.select_area') }}</option>
 
                 @if(isset($lead))
-                    @foreach($lead->campaign->areas as $area)
 
-                    <option value="{{ $area->id }}" {{ ($area->id == $lead->area_id) ? 'selected' : '' }}>
-                        {{ ucwords($area->area_name) }}
-                    </option>
+                    @if($lead->campaign)
+                        @foreach($lead->campaign->areas as $area)
 
-                    @endforeach
+                        <option value="{{ $area->id }}" {{ ($area->id == $lead->area_id) ? 'selected' : '' }}>
+                            {{ ucwords($area->area_name) }}
+                        </option>
+
+                        @endforeach
+                    @endif
+
                 @endif
 
             </select>

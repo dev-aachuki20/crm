@@ -54,17 +54,17 @@ class Lead extends Model
         parent::boot();
         static::creating(function(Lead $model) {
             $model->uuid = Str::uuid();
-            $model->created_by = auth()->user()->id;
+            $model->created_by = auth()->user() ? auth()->user()->id : null;
         });
 
         static::deleting(function (Lead $model) {
             $model->interactions()->delete();
-            $model->deleted_by = auth()->user()->id;
+            $model->deleted_by = auth()->user() ? auth()->user()->id : null;
             $model->save();
         });
 
         static::updating(function(Lead $model) {
-            $model->updated_by = auth()->user()->id;
+            $model->updated_by = auth()->user() ? auth()->user()->id : null;
         });
     }
 

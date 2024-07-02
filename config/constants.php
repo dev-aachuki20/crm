@@ -47,12 +47,18 @@ return [
         1 => 'single',
         2 => 'married',
         3 => 'divorced',
-        4 => 'widower'
+        4 => 'widower',
+        5 => 'free union',
     ],
 
     'employment_status'=>[
-        1=>'employed',
-        2=>'unemployed',
+        1 =>'employed',
+        2 =>'unemployed',
+        3 =>'dependent',
+        4 =>'independent',
+        5 =>'retired',
+        6 =>'own business',
+        7 =>'rentier',
     ],
 
     'social_securities'=>[

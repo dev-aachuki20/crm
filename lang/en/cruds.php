@@ -194,11 +194,17 @@ return [
         'married'  => 'Married',
         'divorced' => 'Divorced',
         'widower'  => 'Widower',
+        'free union' => 'Free Union',
     ],
 
     'employment_status'=>[
-        'employed' => 'Employed',
-        'unemployed' => 'Unemployed',
+        'employed'      => 'Employed',
+        'unemployed'    => 'Unemployed',
+        'dependent'     => 'Dependent',
+        'independent'   => 'Independent',
+        'retired'       => 'Retired',
+        'own business'  => 'Own Business',
+        'rentier'       => 'Rentier',
     ],
 
     'social_securities'=>[
