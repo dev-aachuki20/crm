@@ -44,8 +44,8 @@ class UpdateRequest extends FormRequest
 
 
         return [
-            'name'              => 'required|string|max:150|regex:/^[a-zA-Z]+$/',new NoMultipleSpacesRule,
-            'last_name'         => 'required|string|max:150|regex:/^[a-zA-Z]+$/',new NoMultipleSpacesRule,
+            'name'              => 'required|string|max:150|regex:/^[a-zA-Z\s]+$/',new NoMultipleSpacesRule,
+            'last_name'         => 'required|string|max:150|regex:/^[a-zA-Z\s]+$/',new NoMultipleSpacesRule,
             'identification_type' => 'required|numeric|in:' . implode(',', array_keys(config('constants.identification_type'))),
             'identification'    => ['required','string','size:'.$size ,'regex:'.$identificationRegex, Rule::unique('leads')->ignore($lead)->whereNull('deleted_at'),],
             'birthdate'         => 'required|date|before_or_equal:' . now()->format('Y-m-d'),

@@ -39,8 +39,8 @@ class StoreRequest extends FormRequest
         }
 
         return [
-            'name'                  => 'required|string|max:150|regex:/^[a-zA-Z]+$/', new NoMultipleSpacesRule,
-            'last_name'             => 'required|string|max:150|regex:/^[a-zA-Z]+$/', new NoMultipleSpacesRule,
+            'name'                  => 'required|string|max:150|regex:/^[a-zA-Z\s]+$/', new NoMultipleSpacesRule,
+            'last_name'             => 'required|string|max:150|regex:/^[a-zA-Z\s]+$/', new NoMultipleSpacesRule,
             'identification_type'   => 'required|numeric|in:' . implode(',', array_keys(config('constants.identification_type'))),
             // 'identification'        => 'required|string|min:16|digits:16|unique:leads,identification,NULL,id,deleted_at,NULL',
             'identification'        => 'required|string|size:'.$size.'|regex:'.$identificationRegex.'|unique:leads,identification,NULL,id,deleted_at,NULL',
