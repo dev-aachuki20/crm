@@ -84,7 +84,7 @@
                                                     <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
                                                     <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
                                                     <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
-                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy ? $lead->createdBy->name : '' }}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -126,7 +126,7 @@
                                                     <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
                                                     <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
                                                     <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
-                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy->name }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy ? $lead->createdBy->name : '' }}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
