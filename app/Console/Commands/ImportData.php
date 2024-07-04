@@ -34,12 +34,12 @@ class ImportData extends Command
             // Connect to the source database and retrieve data
             \App::setLocale('es');
 
-        /*  $offset = 0; 
+          $offset = 0; 
  
             for($i=0; $i<100; $i++){
 
                 // Connect to the source database and retrieve data
-                $sourceLeads = DB::connection('mysql2')->table('lead8')->skip($offset)->limit(1000)->get();
+                $sourceLeads = DB::connection('mysql2')->table('lead10')->skip($offset)->limit(1000)->get();
             
                 foreach ($sourceLeads as $lead) {
             
@@ -64,7 +64,7 @@ class ImportData extends Command
                         'identification' => $lead->identification ? $lead->identification : null,
                         'identification_type' => $lead->identification_type ? $lead->identification_type  : null,
                         'birthdate'           => $birthDate,
-                        'gender'              => $lead->gender ?? null,
+                        'gender'              => $lead->gender ? $lead->gender : null,
                         'civil_status'        => $civil_status,
                         'province'          => $lead->province ? $lead->province : null,
                         'city'              => $lead->city ? $lead->city :  null,
@@ -86,7 +86,7 @@ class ImportData extends Command
                 $offset +=1000;
             }
             
-        */
+        
 
             $this->info('Data imported successfully!');
 

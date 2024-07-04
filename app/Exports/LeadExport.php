@@ -113,13 +113,13 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
 
         return [
             convertDateTimeFormat($row->created_at,'fulldatetime'),
-            ucwords($row->name),
-            ucwords($row->last_name),
+            $row->name ? ucwords($row->name) : '',
+            $row->last_name ? ucwords($row->last_name) : '',
             $identificationType,
             $row->identification,
-            convertDateTimeFormat($row->birthdate,'date'),
-            ucfirst(trans('cruds.genders.'.config('constants.genders')[$row->gender])),
-            ucfirst(trans('cruds.civil_status.'.config('constants.civil_status')[$row->civil_status])),
+            $row->birthdate ? convertDateTimeFormat($row->birthdate,'date') : '',
+            $row->gender ? ucfirst(trans('cruds.genders.'.config('constants.genders')[$row->gender])) : '',
+            $row->civil_status ? ucfirst(trans('cruds.civil_status.'.config('constants.civil_status')[$row->civil_status])) : '',
             $row->phone,
             $row->cellphone,
             $row->email,
@@ -128,13 +128,13 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
             $row->address,
             $row->sector,
             $row->reference,
-            ucfirst(trans('cruds.employment_status.'.config('constants.employment_status')[$row->employment_status])),
-            ucfirst(trans('cruds.social_securities.'.config('constants.social_securities')[$row->social_security])),
+            $row->employment_status ? ucfirst(trans('cruds.employment_status.'.config('constants.employment_status')[$row->employment_status])) : '',
+            $row->social_security ? ucfirst(trans('cruds.social_securities.'.config('constants.social_securities')[$row->social_security])) : '',
             ucwords($row->company_name),
             ucwords($row->occupation),
-            ucwords($row->campaign->campaign_name),
-            ucwords($row->area->area_name),
-            ucwords($row->createdBy->name),
+            $row->campaign ? ucwords($row->campaign->campaign_name) : '',
+            $row->area ? ucwords($row->area->area_name) : '',
+            $row->createdBy ? ucwords($row->createdBy->name)  : '',
         ];
     }
 

@@ -40,7 +40,7 @@ return [
 
     'genders'=>[
         1=>'male',
-        2=>'female',
+        2=>'female'
     ],
 
     'civil_status'=>[
