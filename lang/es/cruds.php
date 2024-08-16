@@ -210,9 +210,15 @@ return [
         'unemployed'    => 'Desempleado',
         'dependent'     => 'Dependiente',
         'independent'   => 'Independiente',
-        'retired'       => 'Retirado',
+        'retired'       => 'Jubilada',
         'own business'  => 'Negocio propio',
         'rentier'       => 'Rentista',
+        'guardian'      => 'Guardian',
+        'worker'        => 'Obrero',
+        'businessman'   => 'Comerciante',
+        'driver'        => 'Chofer',
+        'architect'     => 'Arquitecto',
+
     ],
 
     'social_securities'=>[

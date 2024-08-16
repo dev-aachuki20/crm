@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('sector', 100)->nullable();
             $table->string('reference', 100)->nullable();
-            $table->tinyInteger('employment_status')->nullable()->comment('1=>employee, 2=>unemployed, 3=>dependent, 4=>independent, 5=>retired, 6=>own business, 7=>rentier');
+            $table->tinyInteger('employment_status')->nullable()->comment('1=>employee, 2=>unemployed, 3=>dependent, 4=>independent, 5=>retired, 6=>own business, 7=>rentier, 8 => guardian, 9 => worker, 10 => businessman, 11=> driver');
             $table->tinyInteger('social_security')->nullable()->comment('1=>si, 2=>no');
             $table->string('company_name')->nullable();
             $table->string('occupation')->nullable();

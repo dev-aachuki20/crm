@@ -59,6 +59,11 @@ return [
         5 =>'retired',
         6 =>'own business',
         7 =>'rentier',
+        8 => 'guardian',
+        9 => 'worker',
+        10 => 'businessman',
+        11 => 'driver',
+        12 => 'architect',
     ],
 
     'social_securities'=>[

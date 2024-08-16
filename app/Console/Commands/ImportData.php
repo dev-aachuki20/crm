@@ -34,6 +34,111 @@ class ImportData extends Command
             // Connect to the source database and retrieve data
             \App::setLocale('es');
 
+                // Connect to the source database and retrieve data
+                $sourceLeads = DB::connection('mysql2')->table('lead10')->where('sector','!=','')->where('campaign_id','=','')->where('reference','=','')->limit(1176)->get();
+            
+
+                foreach ($sourceLeads as $lead) {
+            
+
+                    $addressValue = null;
+
+                    if($lead->address){
+                        $addressValue = $lead->address;
+                    }
+
+                    if($lead->sector){
+                        $addressValue .= ','.$lead->sector;
+                    }
+
+                  /*  if($lead->reference){
+                        $addressValue .= ','.$lead->reference;
+
+                        $employmentStatusArr = config('constants.employment_status');
+
+                        if($lead->company_name){
+
+                            $employmentStatusValue =  $lead->company_name ? ucfirst(strtolower(trim($lead->company_name))) : '';
+                        }
+
+
+                        $employment_status = $employmentStatusValue ? getKeyByValue('employment_status', $employmentStatusArr, $employmentStatusValue) : null;
+    
+                        $updateData = [
+                            'address'           => trim($addressValue,'"'),
+                            'sector'            => null,
+                            'reference'         => null,
+                            'employment_status' => $employment_status,
+                            'social_security'   => null,
+                            'company_name'      => $lead->area_id ? $lead->area_id : null,
+                            'occupation'        => $lead->campaign_id ? $lead->campaign_id : null,
+                            'area_id'           => Null,
+                            'campaign_id'       => Null,
+                        ];
+
+                            
+                        // dd($lead,$updateData);
+
+                        Lead::where('identification',$lead->identification)->update($updateData);
+
+                        $updateRecords = [
+                            'address'           => trim($addressValue,'"'),
+                            'sector'            => null,
+                            'reference'         => null,
+                            'employment_status' => $lead->social_security,
+                            'social_security'   => null,
+                            'company_name'      => $lead->occupation ? $lead->occupation : null,
+                            'occupation'        => $lead->area_id ? $lead->area_id : null,
+                            'area_id'           => null,
+                            'campaign_id'       => null,
+                        ];
+
+                        DB::connection('mysql2')->table('lead9')->where('id',$lead->id)->update();
+                    }else{
+*/
+                        $employmentStatusArr = config('constants.employment_status');
+                        $employmentStatusValue =  $lead->social_security ? ucfirst(strtolower(trim($lead->social_security))) : '';
+                        $employment_status = $employmentStatusValue ? getKeyByValue('employment_status', $employmentStatusArr, $employmentStatusValue) : null;
+    
+                        $updateData = [
+                            'province'          => $lead->province ? $lead->province : null,
+                            'city'              => $lead->city ? trim($lead->city) :  null,
+                            'address'           => trim($addressValue,'"'),
+                            'sector'            => null,
+                            'reference'         => null,
+                            'employment_status' => $employment_status,
+                            'social_security'   => null,
+                            'company_name'      => $lead->occupation ? $lead->occupation : null,
+                            'occupation'        => $lead->area_id ? $lead->area_id : null,
+                            'area_id'           => Null,
+                            'campaign_id'       => Null,
+                        ];
+
+                            
+                        // dd($lead,$updateData);
+
+                        Lead::where('identification',$lead->identification)->update($updateData);
+
+                        $updateRecords = [
+                            'address'           => trim($addressValue,'"'),
+                            'sector'            => null,
+                            'reference'         => null,
+                            'employment_status' => $lead->social_security,
+                            'social_security'   => null,
+                            'company_name'      => $lead->occupation ? $lead->occupation : null,
+                            'occupation'        => $lead->area_id ? $lead->area_id : null,
+                            'area_id'           => null,
+                            'campaign_id'       => null,
+                        ];
+
+                        DB::connection('mysql2')->table('lead10')->where('sector','!=','')->where('id',$lead->id)->update($updateRecords);
+                    //}
+            
+            
+                }
+
+
+            /*
           $offset = 0; 
  
             for($i=0; $i<100; $i++){
@@ -86,7 +191,7 @@ class ImportData extends Command
                 $offset +=1000;
             }
             
-        
+        */
 
             $this->info('Data imported successfully!');
 

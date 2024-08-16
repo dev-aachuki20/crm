@@ -205,6 +205,11 @@ return [
         'retired'       => 'Retired',
         'own business'  => 'Own Business',
         'rentier'       => 'Rentier',
+        'guardian'      => 'Guardian',
+        'worker'        => 'Worker',
+        'businessman'   => 'Businessman',
+        'driver'        => 'Driver',
+        'architect'     => 'Architect',
     ],
 
     'social_securities'=>[
