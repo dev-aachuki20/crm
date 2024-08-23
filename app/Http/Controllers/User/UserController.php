@@ -33,7 +33,7 @@ class UserController extends Controller
                 $roleData = Role::whereNotIN('id',[1,2,3])->get();
 
             }
-            /*elseif(auth()->user()->is_vendedor){
+            /*elseif(auth()->user()->is_vendor){
 
                 //Not Super Admin , Adminstrator and supervior
                 $roleData = Role::whereNotIN('id',[1,2,3,4])->get();

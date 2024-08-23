@@ -90,7 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles()->where('id', 3)->exists();
     }
 
-    public function  getIsVendedorAttribute()
+    public function  getIsVendorAttribute()
     {
         return $this->roles()->where('id', 4)->exists();
     }

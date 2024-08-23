@@ -35,7 +35,6 @@ class InteractionController extends Controller
         abort_if(Gate::denies('interaction_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $lead = Lead::where('uuid',$request->lead_id)->first();
-
         if($lead){
 
             $exists_qualification = $lead ? json_decode($lead->campaign->tagLists->tag_name,true) :'';
@@ -66,6 +65,7 @@ class InteractionController extends Controller
             
             
             }catch (\Exception $e) {
+                // dd($e->getMessage());
                 return response()->json(['status' => false, 'message' => trans('messages.error_message')], 500);
             }
 

@@ -65,6 +65,11 @@ class LeadDataTable extends DataTable
      */
     public function query(Lead $model): QueryBuilder
     {
+        if(auth()->user()->is_vendor){
+            $campaignIds = auth()->user()->campaigns()->pluck('id')->toArray();
+            return $model->newQuery()->whereIn('campaign_id',$campaignIds);
+        }
+        
         return $model->newQuery();
     }
 
@@ -132,7 +137,7 @@ class LeadDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $columns = [
             // Column::make('id')->exportable(false)->printable(false)->searchable(false)->visible(false),
             Column::make('created_at')->title(__('cruds.lead.fields.registration_date')),
             Column::make('identification')->title(__('cruds.lead.fields.identification')),
@@ -140,12 +145,17 @@ class LeadDataTable extends DataTable
             Column::make('campaign.campaign_name')->title(__('cruds.lead.fields.campaign')),
             Column::make('area.area_name')->title(__('cruds.lead.fields.area')),
             Column::make('createdBy.name')->title(__('cruds.lead.fields.created_by')),
-            Column::computed('action')->title(__('global.action'))
+        ];
+        
+        if(!auth()->user()->is_vendor){
+            $columns[] = Column::computed('action')->title(__('global.action'))
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
-        ];
+                ->addClass('text-center'); 
+        }
+        
+        return $columns;
     }
 
     /**
