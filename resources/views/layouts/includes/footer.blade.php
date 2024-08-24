@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer {{ auth()->user()->is_vendor ? 'menu-space' : ''}}">
     <div class="container">
         <div class="footer-links">
             <div class="mobile_footer_header row d-md-none d-flex">

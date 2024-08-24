@@ -230,6 +230,10 @@
 	.footer .footer-links ul{
 		flex-direction: column;
 	}
+	.menu-space .footer-links ul{
+	    gap: 10px;
+	    -webkit-gap: 10px;
+	}
 	.footer .mobile_footer_header {
 		align-items: center;
 		margin-bottom: 10px;

@@ -368,6 +368,13 @@ footer .container {
     justify-content: space-between;
 }
 
+.menu-space .footer-links ul{
+    justify-content: center;
+    -webkit-justify-content: center;
+    gap: 80px;
+    -webkit-gap: 80px;
+}
+
 /*---------- HOME PAGE CSS END -----------*/
 
 /*---------- PROFILE PAGE CSS START -----------*/
