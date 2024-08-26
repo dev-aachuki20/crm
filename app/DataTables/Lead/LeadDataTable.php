@@ -43,7 +43,10 @@ class LeadDataTable extends DataTable
                 return convertDateTimeFormat($data->created_at,'fulldatetime');
             })
             ->editColumn('identification', function ($data) {
-                return $data->identification;
+                // return $data->identification;
+                $identification = '<a href="' . route('search', ['lang' => app()->getLocale(),'uuid' => $data->uuid]) . '">' . $data->identification . '</a>';
+
+                return $identification;
             })
             ->editColumn('phone', function ($data) {
                 return $data->phone;
@@ -57,7 +60,7 @@ class LeadDataTable extends DataTable
             ->editColumn('createdBy.name', function ($data) {
                 return $data->createdBy ? $data->createdBy->name : '';
             })
-        ->rawColumns(['action']);
+        ->rawColumns(['action','identification']);
     }
 
     /**
