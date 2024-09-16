@@ -3,8 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Lead;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -12,14 +14,15 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 
-class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, WithColumnWidths
+class LeadExport implements FromCollection, WithHeadings,WithMapping, WithStyles, WithColumnWidths
 {
     use Exportable;
 
-    protected $searchValue, $sortColumnName, $sortDirection;
+    protected $searchValue,$length, $sortColumnName, $sortDirection;
 
-    public function __construct($searchValue,$sortColumnName,$sortDirection)
+    public function __construct($length,$searchValue,$sortColumnName,$sortDirection)
     {
+        $this->length = $length;
         $this->searchValue = $searchValue;
         $this->sortColumnName = $sortColumnName;
         $this->sortDirection = $sortDirection;
@@ -83,12 +86,11 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
             trans('cruds.lead.fields.created_by'),
         ];
 
-    }
+    }   
 
-    public function query()
+    public function collection()
     {
         $searchValue = $this->searchValue;
-
         $allLeads = Lead::query()->where(function ($query) use ($searchValue) {
             $query->where('phone', 'like', '%' . $searchValue . '%')
                 ->orWhere('identification', 'like', '%' . $searchValue . '%')
@@ -99,8 +101,11 @@ class LeadExport implements FromQuery, WithHeadings,WithMapping, WithStyles, Wit
         });
 
         $allLeads = $allLeads->orderBy($this->sortColumnName, $this->sortDirection);
-
-        return $allLeads;
+        if ($this->length) {
+            $allLeads->limit($this->length);
+        }
+        
+        return $allLeads->get();
     }
 
     public function map($row): array

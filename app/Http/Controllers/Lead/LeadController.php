@@ -103,14 +103,13 @@ class LeadController extends Controller
 
         if($request->ajax()){
 
+            $length = $request->input('length');
             $searchValue = $request->input('search');
             $sortColumn = $request->input('sortColumn');
             $sortDirection = $request->input('sortDirection');
 
-            return Excel::download(new LeadExport($searchValue, $sortColumn, $sortDirection), 'leads-list.xlsx');
-
+            return Excel::download(new LeadExport($length,$searchValue, $sortColumn, $sortDirection), 'leads-list.xlsx');
         }
-
     }
 
 

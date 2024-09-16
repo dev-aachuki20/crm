@@ -65,7 +65,8 @@ $(document).ready(function(){
     var DataaTable = $('#dataaTable').DataTable();
 
 
-    $('#export-excel').on('click', function() {
+    $('#export-excel').on('click', function(e) {
+        e.preventDefault();
         // Get the search value
         var searchValue = DataaTable.search();
 
@@ -73,9 +74,8 @@ $(document).ready(function(){
         var sorting = DataaTable.order();
         var sortColumnName = DataaTable.column(sorting[0][0]).dataSrc();
         var sortDirection = sorting[0][1];
-
-
-        $('#loader').css('display', 'block');
+        // $('#loader').css('display', 'block');
+        var length = DataaTable.page.len();
 
         $.ajax({
             xhrFields: {
@@ -87,18 +87,16 @@ $(document).ready(function(){
             type: 'POST',
             url:  "{{ route('exportLeadExcel') }}",
             data: {
+                length: length,
                 search: searchValue,
                 sortColumn: sortColumnName,
                 sortDirection: sortDirection
             },
             success: function(result, status, xhr) {
-
                 $('#loader').css('display', 'none');
-
                 var disposition = xhr.getResponseHeader('content-disposition');
                 var matches = /"([^"]*)"/.exec(disposition);
                 var filename = (matches != null && matches[1] ? matches[1] : 'leads-list.xlsx');
-
                 // The actual download
                 var blob = new Blob([result], {
                     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -106,12 +104,9 @@ $(document).ready(function(){
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
                 link.download = filename;
-
                 document.body.appendChild(link);
-
                 link.click();
                 document.body.removeChild(link);
-
                console.log('Export successful');
             }
         });

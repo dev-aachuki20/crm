@@ -21,34 +21,35 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8">
-                <div class="registered-data">
-                    <div class="search-title-bar d-flex justify-content-between">
-                        <h4 class="text-capitalize">@lang('cruds.home.registration_data')</h4>
+                @if(auth()->user()->is_super_admin ||  auth()->user()->is_admin ||  auth()->user()->is_manager)
+                    <div class="registered-data">
+                        <div class="search-title-bar d-flex justify-content-between">
+                            <h4 class="text-capitalize">@lang('cruds.home.registration_data')</h4>
 
-                        <div class="d-flex justify-content-between">
-                        @can('leads_edit')
-                            <button title="{{trans('global.edit')}}" class="btn btn-sm edit-lead-btn" data-lead_id="{{$lead->id}}" data-href="{{route('editLead', ['lead' => $lead->id])}}"><x-svg-icon icon='edit'/></button>
-                        @endcan
+                            <div class="d-flex justify-content-between">
+                            @can('leads_edit')
+                                <button title="{{trans('global.edit')}}" class="btn btn-sm edit-lead-btn" data-lead_id="{{$lead->id}}" data-href="{{route('editLead', ['lead' => $lead->id])}}"><x-svg-icon icon='edit'/></button>
+                            @endcan
 
-                        @can('leads_delete')
-                            <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm align-self-center">
-                                @csrf
-                                <button title="{{trans('global.delete')}}" class="btn btn-sm lead_delete_btn"><x-svg-icon icon='delete'/></button>
-                            </form>
-                        @endcan
+                            @can('leads_delete')
+                                <form action="{{route('deleteLead', ['lead' => $lead->id])}}" method="POST" class="deleteForm align-self-center">
+                                    @csrf
+                                    <button title="{{trans('global.delete')}}" class="btn btn-sm lead_delete_btn"><x-svg-icon icon='delete'/></button>
+                                </form>
+                            @endcan
+                            </div>
+                        </div>                    
+                        <div class="datablock lead-view">
+                            @include('search.partials.lead-view')
                         </div>
                     </div>
-
-
-                    <div class="datablock lead-view">
-                        @include('search.partials.lead-view')
-                    </div>
-                </div>
+                @endif                    
 
                 {{-- Start Interaction Records --}}
                 <div class="observation-data">
                     <div class="row">
                         <div class="col-12">
+                            @if(auth()->user()->is_super_admin ||  auth()->user()->is_admin ||  auth()->user()->is_manager)                            
                             <div class="datablock-observation topdaterow latest-interaction">
                                 @if($lead->interactions()->count() > 0)
 
@@ -69,11 +70,9 @@
                                                     <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
                                                         {{ $lead->identification }} / {{ \Carbon\Carbon::parse($latestInteractions->registration_at)->format('h:i A') }}
                                                         <div class="buttongroup-block mb-md-0 mb-3">
-
                                                             @can('interaction_create')
                                                             <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
                                                             @endcan
-
                                                         </div>
                                                     </h6>
                                                 </div>
@@ -102,8 +101,7 @@
                                 @else
 
                                 <div class="row gx-2">
-                                        <div class="col-sm-auto mb-sm-0 mb-4">
-                                           
+                                        <div class="col-sm-auto mb-sm-0 mb-4">                                           
                                         </div>
                                         <div class="col">
                                             <div class="datecontentside">
@@ -111,17 +109,13 @@
                                                     <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
                                                         <p class="m-0"></p>
                                                         <div class="buttongroup-block mb-md-0 mb-3">
-
                                                             @can('interaction_create')
                                                             <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
                                                             @endcan
-
                                                         </div>
                                                     </h6>
                                                 </div>
-                                                <p class="content">
-                                                   
-                                                </p>
+                                                <p class="content"></p>
                                                 <ul class="mb-0 list-unstyled">
                                                     <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
                                                     <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
@@ -129,25 +123,79 @@
                                                     <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy ? $lead->createdBy->name : '' }}</span></li>
                                                 </ul>
                                             </div>
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
-
                                 @endif
                             </div>
+                            @else
+                            <div class="datablock-observation topdaterow latest-interaction">
+                                @if($lead->interactions()->count() > 0)
+
+                                    @php
+                                    $latestInteractions =  $lead->interactions()->orderBy('created_at','desc')->first();
+                                    @endphp
+                                    <div class="row gx-2">                                        
+                                        <div class="col">
+                                            <div class="datecontentside">
+                                                <div class="dateheader">
+                                                    <h2 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between fw-normal">
+                                                        {{ $lead->identification }} 
+                                                        <div class="buttongroup-block mb-md-0 mb-3">
+                                                            @can('interaction_create')
+                                                            <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                                            @endcan
+                                                        </div>
+                                                    </h2>
+                                                </div>
+                                                
+                                                <ul class="mb-0 list-unstyled">
+                                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy ? $lead->createdBy->name : '' }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                @else
+
+                                <div class="row gx-2">
+                                        <div class="col-sm-auto mb-sm-0 mb-4">                                           
+                                        </div>
+                                        <div class="col">
+                                            <div class="datecontentside">
+                                                <div class="dateheader">
+                                                    <h6 class="d-flex flex-md-row flex-column gap-2 justify-content-md-between">
+                                                        <p class="m-0"></p>
+                                                        <div class="buttongroup-block mb-md-0 mb-3">
+                                                            @can('interaction_create')
+                                                            <button type="button" class="btn btn-blue btnsmall addNewInterationBtn" data-href="{{ route('interactions-create', ['uuid' => $lead->uuid]) }}">+ {{__('global.add')}} {{__('cruds.interaction.title_singular')}}</button>
+                                                            @endcan
+                                                        </div>
+                                                    </h6>
+                                                </div>
+                                                <p class="content"></p>
+                                                <ul class="mb-0 list-unstyled">
+                                                    <li>@lang('cruds.interaction.title'): <span>{{ $lead->interactions()->count() }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.campaign'): <span>{{ isset($lead->campaign) ? $lead->campaign->campaign_name :'' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.area'): <span>{{ isset($lead->area) ? $lead->area->area_name : '' }}</span></li>
+                                                    <li>@lang('cruds.interaction.fields.created_by'): <span>{{ $lead->createdBy ? $lead->createdBy->name : '' }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                @endif
+                            </div>
+                            @endif                          
                         </div>
-
                         <div class="col-12">
-
                             <div class="datablock-observationinner interaction-list">
-
                             </div>
                             <div class="data-loader-area text-center">
                                 <img src="{{ asset('images/data-loader.gif') }}" alt="Loader" class="img-fluid">
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 {{-- End Interaction Records --}}
