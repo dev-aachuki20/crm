@@ -263,15 +263,57 @@ if (!function_exists('datatableButton')) {
 
 if (!function_exists('getKeyByValue')) {
 
-    function getKeyByValue($variable,$array, $value) {
-       
-        foreach ($array as $key => $val) {
-            $v = __('cruds.'.$variable.'.' . $val);
+    // function getKeyByValue($variable, $array, $value)
+    // {
+    //     foreach ($array as $key => $val) {
+    //         $v = __('cruds.' . $variable . '.' . $val);
 
-            if ($v === $value) {
-                return  $key;
+    //         if ($v === $value) {
+    //             return  $key;
+    //         }
+    //     }
+    //     return null; // Return null or handle case when value is not found
+    // }
+
+    function getKeyByValue($variable, $array, $array2, $value)
+    {
+        // foreach ($array as $key => $val) {
+        //     // Compare localized value with the target value
+        //     if ($val === $value) {
+        //         // return $key;
+        //         $constants = config('constants.civil_status');
+        //         return array_search($key, $constants);
+        //     }
+        // }
+
+
+        // First, search in the English array
+        foreach ($array as $key => $val) {
+            if ($val === $value) {
+                if ($variable == 'civil_status') {
+                    $constants = config('constants.civil_status');
+                } elseif ($variable == 'employment_status') {
+                    $constants = config('constants.employment_status');
+                } elseif ($variable == 'identification_type') {
+                    $constants = config('constants.identification_type');
+                }
+                return array_search($key, $constants);
             }
         }
-        return null; // Return null or handle case when value is not found
+
+        // If not found, search in the Spanish array
+        foreach ($array2 as $key => $val) {
+            if ($val === $value) {
+                if ($variable == 'civil_status') {
+                    $constants = config('constants.civil_status');
+                } elseif ($variable == 'employment_status') {
+                    $constants = config('constants.employment_status');
+                } elseif ($variable == 'identification_type') {
+                    $constants = config('constants.identification_type');
+                }
+                return array_search($key, $constants);
+            }
+        }
+        return null; // Return null if value is not found
     }
 }
