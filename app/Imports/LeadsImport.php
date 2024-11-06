@@ -42,7 +42,7 @@ class LeadsImport implements ToCollection, WithHeadingRow
             $identificationTypeValue =  isset($row['identification']) ? ucfirst(strtolower(trim($row['identification']))) : '';
             $identification_type = $identificationTypeValue ? getKeyByValue('identification_type', $identificationTypeArr, $identificationTypeArrEs, $identificationTypeValue) : null;
 
-            $gender = isset($row['gender']) ? ($row['gender'] === 'F' ? 1 : ($row['gender'] === 'M' ? 2 : null)) : null;
+            $gender = isset($row['gender']) ? ($row['gender'] === 'F' ? 2 : ($row['gender'] === 'M' ? 1 : null)) : null;
 
 
             $createData = [
