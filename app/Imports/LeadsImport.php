@@ -14,8 +14,15 @@ class LeadsImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         // return $rows;
+        $maxRecords = $rows->count();
+        $createdRecordsCount = 0;
 
         foreach ($rows as $row) {
+
+            if ($createdRecordsCount >= $maxRecords) {
+                break;
+            }
+
             $registrationDate = !empty($row['registration_date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', '1900-01-01')->addDays($row['registration_date'] - 2)->format('Y-m-d H:i:s') : null;
 
             $birthDate = !empty($row['birth_date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', '1900-01-01')->addDays($row['birth_date'] - 2)->format('Y-m-d') : null;
@@ -71,6 +78,7 @@ class LeadsImport implements ToCollection, WithHeadingRow
             ];
 
             Lead::create($createData);
+            $createdRecordsCount++;
         }
     }
 }
